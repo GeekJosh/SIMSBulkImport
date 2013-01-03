@@ -24,7 +24,9 @@ namespace Matt40k.SIMSBulkImport
     /// </summary>
     public partial class Match : Window
     {
-        SIMSAPI simsApi;
+        private SIMSAPI simsApi;
+        private ImportFromFile importFromFile;
+
         private DataTable dt;
         private int ImportType;
 
@@ -77,9 +79,10 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        public Match(SIMSAPI simsapi)
+        public Match(SIMSAPI simsapi, ImportFromFile importFile)
         {
             simsApi = simsapi;
+            importFromFile = importFile;
 
             InitializeComponent();
 
@@ -159,9 +162,9 @@ namespace Matt40k.SIMSBulkImport
                 this.comboEmailLocation.Items.Add("");
             }
 
-            if (simsApi.GetIsExcel)
+            if (importFromFile.GetIsExcel)
             {
-                foreach (string workBook in simsApi.GetSheets)
+                foreach (string workBook in importFromFile.GetSheets)
                 {
                     this.comboWorkbook.Items.Add(workBook);
                 }
@@ -187,17 +190,17 @@ namespace Matt40k.SIMSBulkImport
 
             if (this.comboWorkbook.IsEnabled)
             {
-                DataSet dt1 = simsApi.GetImportDataSet(this.comboWorkbook.SelectedIndex);
+                DataSet dt1 = importFromFile.GetImportDataSet(this.comboWorkbook.SelectedIndex);
                 if (dt1.Tables.Count > 0)
                 {
-                    dt = simsApi.GetImportDataSet(this.comboWorkbook.SelectedIndex).Tables[0];
+                    dt = importFromFile.GetImportDataSet(this.comboWorkbook.SelectedIndex).Tables[0];
                 }
             }
             else
             {
                 try
                 {
-                    dt = simsApi.GetImportDataSet().Tables[0];
+                    dt = importFromFile.GetImportDataSet().Tables[0];
                 }
                 catch (IndexOutOfRangeException importDSexception)
                 {
@@ -257,6 +260,8 @@ namespace Matt40k.SIMSBulkImport
             }
             else
             {
+                simsApi.SetImportDataset = importFromFile.GetImportDataSet();
+
                 simsApi.SetMatchFirstname = firstname;
                 simsApi.SetMatchSurname = surname;
                 simsApi.SetMatchEmail = email;

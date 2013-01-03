@@ -4,78 +4,28 @@
         <name>SIMSBulkImport</name>
     </assembly>
     <members>
-        <member name="T:Matt40k.SIMSBulkImport.SIMSAPI">
+        <member name="T:Matt40k.SIMSBulkImport.About">
             <summary>
-            Contacts (parents)
+            Interaction logic for About.xaml
             </summary>
             <summary>
-            Students\Pupils
-            </summary>
-            <summary>
-            Staff
+            About
             </summary>
         </member>
-        <member name="M:Matt40k.SIMSBulkImport.SIMSAPI.#ctor(System.String)">
+        <member name="M:Matt40k.SIMSBulkImport.About.InitializeComponent">
             <summary>
-            
-            </summary>
-            <param name="simsDir"></param>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.GetContactFilter">
-            <summary>
-            GetContactFilter
-            Place holder - SIMS doesn't have a filtering option of contacts :(
+            InitializeComponent
             </summary>
         </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.GetYearGroups">
+        <member name="T:Matt40k.SIMSBulkImport.Duplicate">
             <summary>
-            Returns a string[] of all the Student Year Groups from SIMS
+            Interaction logic for Duplicate.xaml
+            </summary>
+            <summary>
+            Duplicate
             </summary>
         </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.GetHouses">
-            <summary>
-            Returns a string[] of all the Student Houses from SIMS
-            </summary>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.GetRegGroups">
-            <summary>
-            Returns a string[] of all the Registration Group from SIMS
-            </summary>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.GetImportType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.SetImportType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.GetServerName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.GetDatabaseName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.SIMSAPI.GetEmailLocations">
-            <summary>
-            Gets the Email Locations from the SIMS database - normally Home, Work, Other
-            </summary>
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.Logon">
-            <summary>
-            Interaction logic for Logon.xaml
-            </summary>
-            <summary>
-            Logon
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.Logon.InitializeComponent">
+        <member name="M:Matt40k.SIMSBulkImport.Duplicate.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -105,48 +55,6 @@
             Gets the applications FileName.
             </summary>
         </member>
-        <member name="T:Matt40k.SIMSBulkImport.Duplicate">
-            <summary>
-            Interaction logic for Duplicate.xaml
-            </summary>
-            <summary>
-            Duplicate
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.Duplicate.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.Properties.Resources">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.Properties.Resources.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Matt40k.SIMSBulkImport.Properties.Resources.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.LicenseView">
-            <summary>
-            Interaction logic for License.xaml
-            </summary>
-            <summary>
-            LicenseView
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.LicenseView.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
         <member name="T:Matt40k.SIMSBulkImport.MainWindow">
             <summary>
             Interaction logic for MainWindow.xaml
@@ -159,6 +67,13 @@
             <summary>
             
             </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.MainWindow.bw_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <summary>
+            Run once the SIMS .net database has finished being queried 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="M:Matt40k.SIMSBulkImport.MainWindow.InitializeComponent">
             <summary>
@@ -174,89 +89,6 @@
             </summary>
         </member>
         <member name="M:Matt40k.SIMSBulkImport.NeedToUpdate.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.Open">
-            <summary>
-            Interaction logic for MainWindow.xaml
-            </summary>
-            <summary>
-            Open
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.Open.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.About">
-            <summary>
-            Interaction logic for About.xaml
-            </summary>
-            <summary>
-            About
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.About.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.IniFile.#ctor(System.String)">
-            <summary>
-            INIFile Constructor.
-            </summary>
-            <PARAM name="INIPath"></PARAM>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.IniFile.Read(System.String,System.String)">
-            <summary>
-            Read Data Value From the Ini File
-            </summary>
-            <PARAM name="Section"></PARAM>
-            <PARAM name="Key"></PARAM>
-            <PARAM name="Path"></PARAM>
-            <returns></returns>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.IniFile.Write(System.String,System.String,System.String)">
-            <summary>
-            Write Data to the INI File
-            </summary>
-            <PARAM name="Section"></PARAM>
-            Section name
-            <PARAM name="Key"></PARAM>
-            Key Name
-            <PARAM name="Value"></PARAM>
-            Value Name
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.App">
-            <summary>
-            Interaction logic for App.xaml
-            </summary>
-            <summary>
-            App
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.App.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.App.Main">
-            <summary>
-            Application Entry Point.
-            </summary>
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.Match">
-            <summary>
-            Interaction logic for Match.xaml
-            </summary>
-            <summary>
-            Match
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.Match.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -277,6 +109,79 @@
         <member name="M:Matt40k.SIMSBulkImport.Options.InitializeComponent">
             <summary>
             InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Matt40k.SIMSBulkImport.App">
+            <summary>
+            Interaction logic for App.xaml
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:Matt40k.SIMSBulkImport.Logon">
+            <summary>
+            Interaction logic for Logon.xaml
+            </summary>
+            <summary>
+            Logon
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.Logon.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Matt40k.SIMSBulkImport.Match">
+            <summary>
+            Interaction logic for Match.xaml
+            </summary>
+            <summary>
+            Match
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.Match.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Matt40k.SIMSBulkImport.Open">
+            <summary>
+            Interaction logic for MainWindow.xaml
+            </summary>
+            <summary>
+            Open
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.Open.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Matt40k.SIMSBulkImport.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Matt40k.SIMSBulkImport.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Matt40k.SIMSBulkImport.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
             </summary>
         </member>
     </members>

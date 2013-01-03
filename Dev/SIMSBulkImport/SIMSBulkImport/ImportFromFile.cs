@@ -167,5 +167,38 @@ namespace Matt40k.SIMSBulkImport
             result.ReadXml(path, XmlReadMode.Auto);
             return result;
         }
+
+        private string importFile = null;
+        private string[] sheets = new string[] { };
+
+        public string SetImportFile
+        {
+            set
+            {
+                SetFile = value;
+                sheets = GetSheets;
+                importFile = value;
+            }
+        }
+
+        public string GetImportFile
+        {
+            get { return importFile; }
+        }
+
+        private DataSet importDataset;
+
+        public DataSet GetImportDataSet()
+        {
+            importDataset = GetDataSetFromFile;
+            return importDataset;
+        }
+
+        public DataSet GetImportDataSet(int worksheet)
+        {
+            SetWorkBook = worksheet;
+            importDataset = GetDataSetFromFile;
+            return importDataset;
+        }
     }
 }

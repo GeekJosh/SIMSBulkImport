@@ -17,8 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-using SIMS.Processes;
-using SIMS.Entities;
+//using SIMS.Processes;
+//using SIMS.Entities;
 
 namespace Matt40k.SIMSBulkImport
 {

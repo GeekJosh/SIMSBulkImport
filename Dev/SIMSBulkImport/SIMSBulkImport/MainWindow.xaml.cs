@@ -47,6 +47,8 @@ namespace Matt40k.SIMSBulkImport
         private DateTime queryStart;
         private DateTime queryEnd;
 
+        private ImportFromFile importFromFile = new ImportFromFile();
+
         /// <summary>
         /// 
         /// </summary>
@@ -63,22 +65,38 @@ namespace Matt40k.SIMSBulkImport
             InitializeComponent();
             this.Title = GetExe.Title;
             this.labelTitle.Content = GetExe.Title;
+
+            logger.Log(NLog.LogLevel.Debug, "Loading Branding...");
             GetBranding();
 
-            SimsIni simsIni = new SimsIni();
-            simsApi = new SIMSAPI(simsIni.GetSimsDir);
+            logger.Log(NLog.LogLevel.Debug, "Loading SIMS API...");
 
+            try
+            {
+                SimsIni simsIni = new SimsIni();
+                simsApi = new SIMSAPI(simsIni.GetSimsDir);
+            }
+            catch (Exception SIMSAPI_Exception)
+            {
+                MessageBox.Show(SIMSAPI_Exception.ToString());
+            }
+
+
+            /* 
+             * TO REMOVE (LICENSING)
+             *             
             logger.Log(NLog.LogLevel.Info, simsApi.GetLicense);
-
+            
             if (simsApi.IsDemo)
             {
                 MessageBox.Show("You don't appear to have entered a license key\n\nYou can only import email addresses into the\nCapita Green Abbey Training database", "Demo", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+             */
         }
 
         public void Reset()
         {
-            this.Status.Content = "Not Connected";
+            //this.Status.Content = "Not Connected";
 
             if (bw.WorkerSupportsCancellation == true)
             {
@@ -93,6 +111,7 @@ namespace Matt40k.SIMSBulkImport
             this.dataGrid.DataContext = null;
             dataGridTable = null;
 
+            importFromFile.Reset();
             simsApi.Reset();
 
             this.dataGrid.Visibility = Visibility.Hidden;
@@ -191,13 +210,13 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Info, nameType + " selected");
             if (GetConnection)
             {
-                Open open = new Open(simsApi);
+                Open open = new Open(importFromFile);
                 open.ShowDialog();
 
-                if (!string.IsNullOrWhiteSpace(simsApi.GetImportFile))
+                if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                 {
                     simsApi.SetImportType = 3;
-                    Match match = new Match(simsApi);
+                    Match match = new Match(simsApi, importFromFile);
                     match.ShowDialog();
 
                     if (simsApi.GetMatched)
@@ -270,18 +289,18 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Info, nameType + " selected");
             if (GetConnection)
             {
-                Open open = new Open(simsApi);
+                Open open = new Open(importFromFile);
                 open.ShowDialog();
 
-                if (!string.IsNullOrWhiteSpace(simsApi.GetImportFile))
+                if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                 {
                     simsApi.SetImportType = 2;
-                    Match match = new Match(simsApi);
+                    Match match = new Match(simsApi, importFromFile);
                     match.ShowDialog();
 
                     if (simsApi.GetMatched)
                     {
-                        if (!string.IsNullOrWhiteSpace(simsApi.GetImportFile))
+                        if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                         {
                             this.dataGrid.Visibility = Visibility.Visible;
                             this.labelTitle.Visibility = Visibility.Hidden;
@@ -351,13 +370,13 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Info, nameType + " selected");
             if (GetConnection)
             {
-                Open open = new Open(simsApi);
+                Open open = new Open(importFromFile);
                 open.ShowDialog();
 
-                if (!string.IsNullOrWhiteSpace(simsApi.GetImportFile))
+                if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                 {
                     simsApi.SetImportType = 1;
-                    Match match = new Match(simsApi);
+                    Match match = new Match(simsApi, importFromFile);
                     match.ShowDialog();
 
                     if (simsApi.GetMatched)
@@ -434,30 +453,37 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            /* 
+             * TO REMOVE (LICENSING)
             if (simsApi.GetIsLicensed)
             {
-                logger.Log(NLog.LogLevel.Info, "Import Start");
-                importStart = DateTime.Now;
-                
-                switch (simsApi.GetImportType)
-                {
-                    case 1:
-                        StaffImport();
-                        break;
-                    case 2:
-                        PupilImport();
-                        break;
-                    case 3:
-                        ContactImport();
-                        break;
-                }
-            }
-            else
+             */
+            logger.Log(NLog.LogLevel.Info, "Import Start");
+            importStart = DateTime.Now;
+
+            switch (simsApi.GetImportType)
             {
-                logger.Log(NLog.LogLevel.Error, "Unlicensed");
-                MessageBox.Show("You are not licensed to use " + GetExe.Title, "Unlicensed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                case 1:
+                    StaffImport();
+                    break;
+                case 2:
+                    PupilImport();
+                    break;
+                case 3:
+                    ContactImport();
+                    break;
             }
+            /* 
+             * TO REMOVE (LICENSING)
+            }
+                else
+                {
+                    logger.Log(NLog.LogLevel.Error, "Unlicensed");
+                    MessageBox.Show("You are not licensed to use " + GetExe.Title, "Unlicensed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+             */
         }
+        
 
         private int GetAverage
         {
@@ -499,12 +525,12 @@ namespace Matt40k.SIMSBulkImport
                 this.button.IsEnabled = true;
                 queryEnd = DateTime.Now;
                 logger.Log(NLog.LogLevel.Info, "Import Complete: " + queryStart.ToShortTimeString() + " - " + DateTime.Compare(queryEnd, queryStart));
-                logger.Log(NLog.LogLevel.Debug, "Imported - Emails: " + emailCount + "\n" +
-                    "Imported - UDFs: " + udfCount + "\n" +
-                    "Ignored: " + ignoreCount + "\n" +
-                    "Start time: " + importStart.ToShortTimeString() + "\n" +
-                    "End time: " + importEnd.ToShortTimeString() + "\n" +
-                    "Time: " + DateTime.Compare(importEnd, importStart) + " seconds\n" +
+                logger.Log(NLog.LogLevel.Debug, "Imported - Emails: " + emailCount + "\n " +
+                    "Imported - UDFs: " + udfCount + "\n " +
+                    "Ignored: " + ignoreCount + "\n " +
+                    "Start time: " + importStart.ToShortTimeString() + "\n " +
+                    "End time: " + importEnd.ToShortTimeString() + "\n " +
+                    "Time: " + DateTime.Compare(importEnd, importStart) + " seconds\n " +
                     "Import per second: " + GetAverage);
                 this.Hide();
                 Results results = new Results(simsApi.GetResultTable, simsApi.GetImportType);
@@ -792,12 +818,15 @@ namespace Matt40k.SIMSBulkImport
             return false;
         }
 
+        /*
+         * TO REMOVE (LICENSING)
         private void MenuItem_Click_License(object sender, RoutedEventArgs e)
         {
             LicenseView licenceView1 = new LicenseView();
             licenceView1.Show();
             //MessageBox.Show(simsApi.GetLicense);
         }
+         */
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

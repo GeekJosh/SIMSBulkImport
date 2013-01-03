@@ -12,7 +12,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright © Matt Smith 2011")]
+[assembly: AssemblyCopyright("Copyright © Matt Smith 2011 - 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -28,6 +28,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.7.20")]
-[assembly: AssemblyFileVersion("1.7.20")]
+[assembly: AssemblyVersion("1.8.0")]
+[assembly: AssemblyFileVersion("1.8.0")]
 [assembly: NeutralResourcesLanguageAttribute("en-GB")]

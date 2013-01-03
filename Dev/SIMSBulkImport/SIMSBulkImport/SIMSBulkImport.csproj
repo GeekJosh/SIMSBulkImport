@@ -61,112 +61,19 @@
     <StartupObject>Matt40k.SIMSBulkImport.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ReferencePath>C:\Program Files (x86)\SIMS\SIMS .net\</ReferencePath>
-  </PropertyGroup>
-  <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AbstractProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <HintPath>AbstractProcesses.dll</HintPath>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="AgencyEntities, Version=7.142.28.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+    <Reference Include="SIMSAPI, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>AgencyEntities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="BaseInterfaces, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <HintPath>BaseInterfaces.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Cache, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <HintPath>Cache.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CacheProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <HintPath>CacheProcesses.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DocManagementEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DocManagementEntities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DocManagementProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DocManagementProcesses.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EmployeeEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <HintPath>EmployeeEntities.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="EmployeeProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>EmployeeProcesses.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GroupEntities, Version=7.142.22.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>GroupEntities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="LoginEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>LoginEntities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="LoginProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <HintPath>LoginProcesses.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="LookupEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>LookupEntities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="LookupProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>LookupProcesses.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL" />
-    <Reference Include="PersonEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>PersonEntities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PersonProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>PersonProcesses.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SchoolEntities">
-      <HintPath>SchoolEntities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="SchoolProcesses">
-      <HintPath>SchoolProcesses.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Student Entities, Version=7.142.22.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Student Entities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Student Processes">
-      <HintPath>Student Processes.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\packages\SIMSAPI\SIMSAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -179,16 +86,6 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.XML" />
-    <Reference Include="UDFEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>UDFEntities.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UDFProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>UDFProcesses.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -212,9 +109,6 @@
     <Compile Include="GetExe.cs" />
     <Compile Include="ImportFromFile.cs" />
     <Compile Include="License.cs" />
-    <Compile Include="LicenseView.xaml.cs">
-      <DependentUpon>LicenseView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -227,10 +121,6 @@
     </Compile>
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Results.cs" />
-    <Compile Include="SIMSAPI\Contacts.cs" />
-    <Compile Include="SIMSAPI\Main.cs" />
-    <Compile Include="SIMSAPI\Pupil.cs" />
-    <Compile Include="SIMSAPI\Staff.cs" />
     <Compile Include="SimsIni.cs" />
     <Compile Include="Update.cs" />
     <Compile Include="Validation.cs" />
@@ -239,10 +129,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Duplicate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LicenseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -270,7 +156,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IniFile.cs" />
     <Compile Include="Logon.xaml.cs">
       <DependentUpon>Logon.xaml</DependentUpon>
     </Compile>
@@ -300,6 +185,7 @@
       <SubType>Designer</SubType>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
