@@ -254,11 +254,8 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if (comboEmail.SelectedItem == null && comboUDF.SelectedItem == null)
-            {
-                MessageBox.Show("Please define the email or UDF");
-            }
-            else
+            
+            if (matchFillIn)
             {
                 simsApi.SetImportDataset = importFromFile.GetImportDataSet();
 
@@ -487,6 +484,24 @@ namespace Matt40k.SIMSBulkImport
             {
                 this.comboUDF.IsEnabled = true;
                 this.labelUDF.IsEnabled = true;
+            }
+        }
+
+        private bool matchFillIn
+        {
+            get
+            {
+                if (comboEmail.SelectedItem == null && comboUDF.SelectedItem == null)
+                {
+                    MessageBox.Show("Please define the email or UDF");
+                    return false;
+                }
+                if (comboEmail.SelectedItem != null && comboEmailLocation.SelectedItem == null)
+                {
+                    MessageBox.Show("Please define the email location");
+                    return false;
+                }
+                return true;
             }
         }
     }
