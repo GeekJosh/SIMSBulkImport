@@ -130,8 +130,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                string tmp = Path.GetTempFileName();
-                return Path.Combine(Path.GetDirectoryName(tmp), Path.GetFileNameWithoutExtension(tmp) + ".html");
+                return Path.ChangeExtension(TempFile.GetNewTempFile, ".html");
             }
         }
     }
