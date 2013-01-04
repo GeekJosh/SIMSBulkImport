@@ -9,7 +9,9 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="True" Grid.Row="1" HorizontalAlignment="Center" Name="dataGrid" VerticalAlignment="Center" Width="950" Height="500" ItemsSource="{Binding Path=.}" IsReadOnly="True" Visibility="Hidden" CanUserDeleteRows="True" />
+        <DataGrid AutoGenerateColumns="True" Grid.Row="1" HorizontalAlignment="Center" Name="dataGrid" 
+                  VerticalAlignment="Center" MinWidth="950" MinHeight="500" CanUserReorderColumns="True" CanUserSortColumns="True"
+                  ItemsSource="{Binding Path=.}" IsReadOnly="True" Visibility="Hidden" CanUserDeleteRows="True" />
         <Menu Name="menu" Grid.Row="0">
             <MenuItem Header="File" AllowDrop="True">
                 <MenuItem Header="New" AllowDrop="True">
