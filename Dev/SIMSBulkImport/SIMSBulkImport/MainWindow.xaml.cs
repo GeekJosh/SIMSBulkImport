@@ -60,8 +60,12 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Info, GetExe.Title + " - " + GetExe.Version);
             logger.Log(NLog.LogLevel.Info, "");
 
-            Update.Check();
+            // Clear previous temp files we created
+            Clear.ClearTmp();
 
+            // Check for updates
+            Update.Check();
+            
             InitializeComponent();
             this.Title = GetExe.Title;
             this.labelTitle.Content = GetExe.Title;
