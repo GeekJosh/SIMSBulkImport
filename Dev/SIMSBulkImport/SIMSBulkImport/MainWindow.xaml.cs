@@ -529,13 +529,15 @@ namespace Matt40k.SIMSBulkImport
                 this.button.IsEnabled = true;
                 queryEnd = DateTime.Now;
                 logger.Log(NLog.LogLevel.Info, "Import Complete: " + queryStart.ToShortTimeString() + " - " + DateTime.Compare(queryEnd, queryStart));
-                logger.Log(NLog.LogLevel.Debug, "Imported - Emails: " + emailCount + "\n " +
-                    "Imported - UDFs: " + udfCount + "\n " +
-                    "Ignored: " + ignoreCount + "\n " +
-                    "Start time: " + importStart.ToShortTimeString() + "\n " +
-                    "End time: " + importEnd.ToShortTimeString() + "\n " +
-                    "Time: " + DateTime.Compare(importEnd, importStart) + " seconds\n " +
-                    "Import per second: " + GetAverage);
+                string _importSummary = "Import summary: " + Environment.NewLine +
+                    "Imported - Emails: " + emailCount + Environment.NewLine +
+                    "Imported - UDFs: " + udfCount + Environment.NewLine +
+                    "Ignored: " + ignoreCount + Environment.NewLine +
+                    "Start time: " + importStart.ToShortTimeString() + Environment.NewLine +
+                    "End time: " + importEnd.ToShortTimeString() + Environment.NewLine +
+                    "Time: " + DateTime.Compare(importEnd, importStart) + " seconds" + Environment.NewLine +
+                    "Import per second: " + GetAverage;
+                logger.Log(NLog.LogLevel.Debug, _importSummary);
                 this.Hide();
                 Results results = new Results(simsApi.GetResultTable, simsApi.GetImportType);
                 this.Close();
