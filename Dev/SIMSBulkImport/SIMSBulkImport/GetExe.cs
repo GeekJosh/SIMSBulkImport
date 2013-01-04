@@ -103,5 +103,16 @@ namespace Matt40k.SIMSBulkImport
                 return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Substring(6);
             }
         }
+
+        /// <summary>
+        /// Gets the applications url.
+        /// </summary>
+        protected internal static string AppUrl
+        {
+            get
+            {
+                return "http://simsbulkimport.codeplex.com/";
+            }
+        }
     }
 }
