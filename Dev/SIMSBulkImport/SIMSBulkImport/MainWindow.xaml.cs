@@ -64,7 +64,7 @@ namespace Matt40k.SIMSBulkImport
             Clear.ClearTmp();
 
             // Check for updates
-            Update.Check();
+            //Update.Check();
             
             InitializeComponent();
             this.Title = GetExe.Title;
