@@ -876,7 +876,7 @@ namespace Matt40k.SIMSBulkImport
 
             if (showLogo)
             {
-                this.imageLogo.Visibility = Visibility.Visible;
+                //this.imageLogo.Visibility = Visibility.Visible;
                 this.labelTitle.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
             }
 

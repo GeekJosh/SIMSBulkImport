@@ -16,8 +16,8 @@ namespace Matt40k.SIMSBulkImport
         {
             string newFile = null;
             string finalFile = null;
-            newFile = Path.GetTempFileName();
-            finalFile = Path.GetTempFileName();
+            newFile = TempFile.GetNewTempFile;
+            finalFile = TempFile.GetNewTempFile;
 
             logger.Log(NLog.LogLevel.Debug, newFile);
             logger.Log(NLog.LogLevel.Debug, finalFile);
