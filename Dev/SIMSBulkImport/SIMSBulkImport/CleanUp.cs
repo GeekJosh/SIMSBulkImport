@@ -9,7 +9,7 @@ using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
-    class Clear
+    class ClearUp
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 

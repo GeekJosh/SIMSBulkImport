@@ -31,6 +31,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 finFile = new StreamWriter(finalFile);
                 tmpFile = new StreamReader(file);
+                               
                 int i = 0;
                 while ((line = tmpFile.ReadLine()) != null)
                 {

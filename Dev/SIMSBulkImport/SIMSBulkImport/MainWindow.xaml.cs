@@ -61,7 +61,7 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Info, "");
 
             // Clear previous temp files we created
-            Clear.ClearTmp();
+            ClearUp.ClearTmp();
 
             // Check for updates
             //Update.Check();
@@ -157,17 +157,6 @@ namespace Matt40k.SIMSBulkImport
 
                     IsConnected = true;
                     return true;
-                    /*
-                    Open open = new Open(simsApi);
-                    open.ShowDialog();
-                }
-
-                if (!string.IsNullOrWhiteSpace(simsApi.GetImportFile))
-                {
-                    return true;
-                }
-                Reset();
-                return false;*/
                 }
                 return false;
             }
@@ -296,41 +285,47 @@ namespace Matt40k.SIMSBulkImport
                 Open open = new Open(importFromFile);
                 open.ShowDialog();
 
-                if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
+                ImportFile _importFile = new ImportFile();
+                _importFile.SetImportFilePath = importFromFile.GetImportFile;
+                this.progressRing.IsActive = true;
+
+                DataSet ds = _importFile.GetImportDataSet;
+
+                this.progressRing.IsActive = false;
+
+                simsApi.SetImportType = 2;
+                Match match = new Match(simsApi, importFromFile);
+                match.ShowDialog();
+
+                if (simsApi.GetMatched)
                 {
-                    simsApi.SetImportType = 2;
-                    Match match = new Match(simsApi, importFromFile);
-                    match.ShowDialog();
-
-                    if (simsApi.GetMatched)
+                    if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                     {
-                        if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
+                        this.dataGrid.Visibility = Visibility.Visible;
+                        this.labelTitle.Visibility = Visibility.Hidden;
+                        //this.imageLogo.Visibility = Visibility.Hidden;
+
+                        this.dataGrid.Items.Refresh();
+
+                        recordcount = simsApi.GetImportFileRecordCount;
+
+                        queryStart = DateTime.Now;
+                        logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
+
+                        bw = new BackgroundWorker();
+                        bw.WorkerReportsProgress = true;
+                        bw.WorkerSupportsCancellation = true;
+                        bw.DoWork += new DoWorkEventHandler(bwPupil_DoWork);
+                        bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                        bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+
+                        if (bw.IsBusy != true)
                         {
-                            this.dataGrid.Visibility = Visibility.Visible;
-                            this.labelTitle.Visibility = Visibility.Hidden;
-                            //this.imageLogo.Visibility = Visibility.Hidden;
-
-                            this.dataGrid.Items.Refresh();
-
-                            recordcount = simsApi.GetImportFileRecordCount;
-
-                            queryStart = DateTime.Now;
-                            logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
-
-                            bw = new BackgroundWorker();
-                            bw.WorkerReportsProgress = true;
-                            bw.WorkerSupportsCancellation = true;
-                            bw.DoWork += new DoWorkEventHandler(bwPupil_DoWork);
-                            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-                            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-
-                            if (bw.IsBusy != true)
-                            {
-                                bw.RunWorkerAsync();
-                            }
-                            this.labelTitle.Visibility = Visibility.Hidden;
-                            //this.imageLogo.Visibility = Visibility.Hidden;
+                            bw.RunWorkerAsync();
                         }
+
+                        this.labelTitle.Visibility = Visibility.Hidden;
+                        //this.imageLogo.Visibility = Visibility.Hidden;
                     }
                 }
             }

@@ -34,7 +34,7 @@ namespace Matt40k.SIMSBulkImport
             get { return isExcel; }
         }
 
-        public string SetFile {
+        private string setFile {
             set {
                 pathName = Path.GetDirectoryName(value);
                 fileName = Path.GetFileName(value);
@@ -175,7 +175,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                SetFile = value;
+                setFile = value;
                 sheets = GetSheets;
                 importFile = value;
             }
