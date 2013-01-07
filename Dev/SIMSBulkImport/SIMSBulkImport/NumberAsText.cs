@@ -70,31 +70,21 @@ namespace Matt40k.SIMSBulkImport
 
         static string fix(string toFix)
         {
+            string[] parts = toFix.Split(',');
             string fixedText = null;
-            if (!string.IsNullOrEmpty(toFix))
+            foreach (string part in parts)
             {
-                string[] parts = toFix.Split(',');
-                try
+                if (isNo(part.Substring(0,1)))
                 {
-                    foreach (string part in parts)
-                    {
-                        if (isNo(part.Substring(0, 1)))
-                        {
-                            fixedText = fixedText + "\"" + part + "\"";
-                        }
-                        else
-                        {
-                            fixedText = fixedText + part;
-                        }
-                        fixedText = fixedText + ",";
-                    }
-                    fixedText = fixedText.Substring(0, (fixedText.Length - 1));
+                    fixedText = fixedText + "\"" + part + "\"";
                 }
-                catch (Exception fix_Exception)
+                else
                 {
-                    logger.Log(NLog.LogLevel.Error, fix_Exception);
-                } 
+                    fixedText = fixedText + part;
+                }
+                fixedText = fixedText + ",";
             }
+            fixedText = fixedText.Substring(0, (fixedText.Length - 1));
             return fixedText;
         }
 
