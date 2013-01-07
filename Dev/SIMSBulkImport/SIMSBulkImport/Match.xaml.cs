@@ -358,6 +358,7 @@ namespace Matt40k.SIMSBulkImport
                 {
                     labelEmailLocation.IsEnabled = false;
                     comboEmailLocation.IsEnabled = false;
+                    comboEmailLocation.SelectedValue = null;
                 }
                 else
                 {
