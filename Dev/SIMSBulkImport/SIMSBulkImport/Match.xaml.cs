@@ -490,6 +490,7 @@ namespace Matt40k.SIMSBulkImport
                 this.labelUDF.Content = "UDF";
                 this.labelUDF.IsEnabled = false;
                 this.comboUDF.IsEnabled = false;
+                this.comboUDF.SelectedValue = null;
             }
             else
             {
