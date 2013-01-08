@@ -208,7 +208,7 @@ namespace Matt40k.SIMSBulkImport
 
                 if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                 {
-                    simsApi.SetImportType = SIMSAPI.UserType.Contact;
+                    simsApi.SetUserType = SIMSAPI.UserType.Contact;
                     Match match = new Match(simsApi, importFromFile);
                     match.ShowDialog();
 
@@ -293,7 +293,7 @@ namespace Matt40k.SIMSBulkImport
 
                 this.progressRing.IsActive = false;
 
-                simsApi.SetImportType = SIMSAPI.UserType.Pupil;
+                simsApi.SetUserType = SIMSAPI.UserType.Pupil;
                 Match match = new Match(simsApi, importFromFile);
                 match.ShowDialog();
 
@@ -374,7 +374,7 @@ namespace Matt40k.SIMSBulkImport
 
                 if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                 {
-                    simsApi.SetImportType = SIMSAPI.UserType.Staff;
+                    simsApi.SetUserType = SIMSAPI.UserType.Staff;
                     Match match = new Match(simsApi, importFromFile);
                     match.ShowDialog();
 
@@ -452,35 +452,21 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            /* 
-             * TO REMOVE (LICENSING)
-            if (simsApi.GetIsLicensed)
-            {
-             */
             logger.Log(NLog.LogLevel.Info, "Import Start");
             importStart = DateTime.Now;
 
-            switch (simsApi.GetImportType)
+            switch (simsApi.GetUserType)
             {
-                case 1:
+                case SIMSAPI.UserType.Staff:
                     StaffImport();
                     break;
-                case 2:
+                case SIMSAPI.UserType.Pupil:
                     PupilImport();
                     break;
-                case 3:
+                case SIMSAPI.UserType.Contact:
                     ContactImport();
                     break;
             }
-            /* 
-             * TO REMOVE (LICENSING)
-            }
-                else
-                {
-                    logger.Log(NLog.LogLevel.Error, "Unlicensed");
-                    MessageBox.Show("You are not licensed to use " + GetExe.Title, "Unlicensed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                }
-             */
         }
         
 
@@ -534,7 +520,7 @@ namespace Matt40k.SIMSBulkImport
                     "Import per second: " + GetAverage;
                 logger.Log(NLog.LogLevel.Debug, _importSummary);
                 this.Hide();
-                Results results = new Results(simsApi.GetResultTable, simsApi.GetImportType);
+                Results results = new Results(simsApi.GetResultTable, simsApi.GetUserType);
                 this.Close();
             }
         }
@@ -884,7 +870,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_Print(object sender, RoutedEventArgs e)
         {
             DataTable currentDt = (DataTable)dataGrid.DataContext;
-            Results results = new Results(dataGridTable, simsApi.GetImportType);
+            Results results = new Results(dataGridTable, simsApi.GetUserType);
         }
     }
 }

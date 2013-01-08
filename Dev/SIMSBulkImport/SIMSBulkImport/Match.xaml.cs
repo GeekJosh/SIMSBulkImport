@@ -265,18 +265,15 @@ namespace Matt40k.SIMSBulkImport
                 simsApi.SetMatchEmail = email;
                 simsApi.SetMatchStaffcode = staffcode;
                 simsApi.SetMatchGender = gender;
-                switch (ImportType)
+                switch (simsApi.GetUserType)
                 {
-                        // Staff
-                    case 1:
+                    case SIMSAPI.UserType.Staff:
                         simsApi.SetMatchTitle = title;
                         break;
-                        // Pupil
-                    case 2:
+                    case SIMSAPI.UserType.Pupil:
                         simsApi.SetMatchYear = title;
                         break;
-                        //Contact
-                    case 3:
+                    case SIMSAPI.UserType.Contact:
                         simsApi.SetMatchTown = title;
                         simsApi.SetMatchPostcode = staffcode;
                         break;
@@ -310,19 +307,19 @@ namespace Matt40k.SIMSBulkImport
                 tmpTable.Columns.Add(new DataColumn("Firstname", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("Email", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("UDF", typeof(string)));
-                switch (ImportType)
+                switch (simsApi.GetUserType)
                 {
-                    case 1:
+                    case SIMSAPI.UserType.Staff:
                         tmpTable.Columns.Add(new DataColumn("Title", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("StaffCode", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("Gender", typeof(string)));
                         break;
-                    case 2:
+                    case SIMSAPI.UserType.Pupil:
                         tmpTable.Columns.Add(new DataColumn("Year", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("Reg", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("Admission", typeof(string)));
                         break;
-                    case 3:
+                    case SIMSAPI.UserType.Contact:
                         tmpTable.Columns.Add(new DataColumn("Postcode", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("Town", typeof(string)));
                         break;
@@ -421,9 +418,9 @@ namespace Matt40k.SIMSBulkImport
                     {
                         newrow["UDF"] = r[udf];
                     }
-                    switch (ImportType)
+                    switch (simsApi.GetUserType)
                     {
-                        case 1:
+                        case SIMSAPI.UserType.Staff:
                             if (!string.IsNullOrWhiteSpace(gender))
                             {
                                 newrow["Gender"] = r[gender];
@@ -437,7 +434,7 @@ namespace Matt40k.SIMSBulkImport
                                 newrow["Title"] = r[title];
                             }
                             break;
-                        case 2:
+                        case SIMSAPI.UserType.Pupil:
                             if (!string.IsNullOrWhiteSpace(title))
                             {
                                 newrow["Year"] = r[title];
@@ -451,7 +448,7 @@ namespace Matt40k.SIMSBulkImport
                                 newrow["Admission"] = r[staffcode];
                             }
                             break;
-                        case 3:
+                        case SIMSAPI.UserType.Contact:
                             if (!string.IsNullOrWhiteSpace(title))
                             {
                                 newrow["Town"] = r[title];

@@ -18,7 +18,7 @@ namespace Matt40k.SIMSBulkImport
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private string tmpHtml;
 
-        public Results(DataTable resultTable, int importType)
+        public Results(DataTable resultTable, SIMSAPI.UserType userType)
         {
             tmpHtml = getTmpHtmlFileName;
 
@@ -26,7 +26,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 DataSet ds = new DataSet(getCleanXmlTitle);
                 ds.Tables.Add(resultTable);
-                ds.Tables[0].TableName = getCleanXmlName(ds.Tables[0].TableName, importType);
+                ds.Tables[0].TableName = getCleanXmlName(ds.Tables[0].TableName, userType);
 
                 ds.Tables.Add(addPropertiesTable);
 
@@ -34,7 +34,7 @@ namespace Matt40k.SIMSBulkImport
                 XmlTextWriter writer = new XmlTextWriter(tmpHtml, Encoding.UTF8);
                 XslTransform xslTran = new XslTransform();
 
-                xslTran.Load(getXslFileName(importType));
+                xslTran.Load(getXslFileName(userType));
                 xslTran.Transform(xmlDoc, null, writer);
             }
             catch (Exception ResultsException)
@@ -65,20 +65,20 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private string getXslFileName(int importType)
+        private string getXslFileName(SIMSAPI.UserType userType)
         {
-            return "Report_" + importTypeToName(importType) + ".xsl";
+            return "Report_" + importTypeToName(userType) + ".xsl";
         }
 
-        private string importTypeToName(int importType)
+        private string importTypeToName(SIMSAPI.UserType userType)
         {
-            switch (importType)
+            switch (userType)
             {
-                case 1:
+                case SIMSAPI.UserType.Staff:
                     return "Staff";
-                case 2:
+                case SIMSAPI.UserType.Pupil:
                     return "Pupil";
-                case 3:
+                case SIMSAPI.UserType.Contact:
                     return "Contact";
                 default:
                     return "";
@@ -94,7 +94,7 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private string getCleanXmlName(string oldname, int importType)
+        private string getCleanXmlName(string oldname, SIMSAPI.UserType userType)
         {
             string newname;
 
@@ -104,7 +104,7 @@ namespace Matt40k.SIMSBulkImport
             }
             else
             {
-                //newname = importTypeToName(importType) + "_Import_Results";
+                //newname = importTypeToName(userType) + "_Import_Results";
                 newname = "Pupil_Import_Results";
             }
             logger.Log(NLog.LogLevel.Debug, newname);
