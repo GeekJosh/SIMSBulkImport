@@ -198,6 +198,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_New_Contact(object sender, RoutedEventArgs e)
         {
+            /*
             string nameType = "Contact";
 
             logger.Log(NLog.LogLevel.Info, nameType + " selected");
@@ -242,6 +243,7 @@ namespace Matt40k.SIMSBulkImport
                     }
                 }
             }
+             */
         }
 
         private void bwContact_DoWork(object sender, DoWorkEventArgs e)
@@ -289,12 +291,12 @@ namespace Matt40k.SIMSBulkImport
                 _importFile.SetImportFilePath = importFromFile.GetImportFile;
                 this.progressRing.IsActive = true;
 
-                DataSet ds = _importFile.GetImportDataSet;
+                _importFile.GetImportDataSet();
 
                 this.progressRing.IsActive = false;
 
                 simsApi.SetUserType = SIMSAPI.UserType.Pupil;
-                Match match = new Match(simsApi, importFromFile);
+                Match match = new Match(simsApi, _importFile);
                 match.ShowDialog();
 
                 if (simsApi.GetMatched)
@@ -364,6 +366,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
         {
+            /*
             string nameType = "Staff";
 
             logger.Log(NLog.LogLevel.Info, nameType + " selected");
@@ -407,6 +410,7 @@ namespace Matt40k.SIMSBulkImport
                     }
                 }
             }
+             */
         }
 
         private void bwStaff_DoWork(object sender, DoWorkEventArgs e)

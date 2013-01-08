@@ -43,39 +43,42 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        internal DataSet GetImportDataSet
+        internal DataSet GetDataSet
         {
             get
             {
-                logger.Log(LogLevel.Debug, "GetImportDataSet start");
-
-                _path = Path.GetDirectoryName(_importFilePath);
-                _fileName = Path.GetFileName(_importFilePath);
-                _importFileType = importFileType;
-
-                logger.Log(LogLevel.Debug, _path);
-                logger.Log(LogLevel.Debug, _fileName);
-
-
-                Thread oThread = new Thread(new ThreadStart(spawnSeparateThread));
-
-                // Start the thread
-                oThread.Start();
-
-                // Spin for a while waiting for the started thread to become
-                // alive:
-                while (!oThread.IsAlive) ;
-
-                while (!_importComplete)
-                {
-                    // Put the Main thread to sleep for 1 millisecond to allow oThread
-                    // to do some work:
-                    Thread.Sleep(1);
-                }
-                logger.Log(NLog.LogLevel.Error, "GetImportDataSet end");
-
                 return _importDataSet;
             }
+        }
+
+        internal void GetImportDataSet()
+        {
+            logger.Log(LogLevel.Debug, "GetImportDataSet start");
+
+            _path = Path.GetDirectoryName(_importFilePath);
+            _fileName = Path.GetFileName(_importFilePath);
+            _importFileType = importFileType;
+
+            logger.Log(LogLevel.Debug, _path);
+            logger.Log(LogLevel.Debug, _fileName);
+
+
+            Thread oThread = new Thread(new ThreadStart(spawnSeparateThread));
+
+            // Start the thread
+            oThread.Start();
+
+            // Spin for a while waiting for the started thread to become
+            // alive:
+            while (!oThread.IsAlive) ;
+
+            while (!_importComplete)
+            {
+                // Put the Main thread to sleep for 1 millisecond to allow oThread
+                // to do some work:
+                Thread.Sleep(1);
+            }
+            logger.Log(NLog.LogLevel.Error, "GetImportDataSet end");
         }
 
         private enum FileType
@@ -85,6 +88,23 @@ namespace Matt40k.SIMSBulkImport
             Xls,
             Unknown
         };
+
+        internal bool GetIsExcel
+        {
+            get
+            {
+                return (importFileType == FileType.Xls);
+            }
+        }
+
+        internal string[] GetSheets
+        {
+            get
+            {
+                // TODO
+                return null;
+            }
+        }
 
         private FileType importFileType
         {

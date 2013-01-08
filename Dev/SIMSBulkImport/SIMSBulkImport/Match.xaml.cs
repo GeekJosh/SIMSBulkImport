@@ -26,6 +26,7 @@ namespace Matt40k.SIMSBulkImport
     {
         private SIMSAPI simsApi;
         //private ImportFromFile importFromFile;
+        private ImportFile _importFile;
 
         private DataTable dt;
         //private int ImportType;
@@ -44,46 +45,10 @@ namespace Matt40k.SIMSBulkImport
         private string emaillocation;
         private string reg;
 
-        private void GetUserFilters()
-        {
-            switch (simsApi.GetUserType)
-            {
-                case SIMSAPI.UserType.Staff:
-                    this.comboFilter.Items.Add("Staff, all Current");
-                    this.comboFilter.Items.Add("Teaching staff, all Current");
-                    this.comboFilter.Items.Add("Support Staff, all Current");
-                    this.comboFilter.Items.Add("Staff, all Future");
-                    this.comboFilter.Items.Add("Teaching staff, all Leavers");
-                    this.comboFilter.Items.Add("Support Staff, all Leavers");
-                    this.comboFilter.Items.Add("Staff, all Leavers");
-                    this.comboFilter.Items.Add("All");
-
-                    this.comboFilter.SelectedIndex = simsApi.GetUserFilter;
-                    this.comboFilter.IsEnabled = true;
-                    break;
-                case SIMSAPI.UserType.Pupil:
-                    this.comboFilter.Items.Add("<Any>");
-                    this.comboFilter.Items.Add("Current");
-                    this.comboFilter.Items.Add("Ever On Roll");
-                    this.comboFilter.Items.Add("Guest");
-                    this.comboFilter.Items.Add("Leavers");
-                    this.comboFilter.Items.Add("On Roll");
-                    this.comboFilter.Items.Add("Future");
-                    this.comboFilter.SelectedIndex = simsApi.GetUserFilter;
-                    this.comboFilter.IsEnabled = true;
-                    break;
-                case SIMSAPI.UserType.Contact:
-                    // Contacts has no filters
-                    break;
-                case SIMSAPI.UserType.Unknown:
-                    logger.Log(NLog.LogLevel.Error, "GetUserFilters: Unknown selected");
-                    break;
-            }
-        }
-
-        public Match(SIMSAPI simsapi)
+        internal Match(SIMSAPI simsapi, ImportFile importFile)
         {
             simsApi = simsapi;
+            _importFile = importFile;
             //importFromFile = importFile;
 
             InitializeComponent();
@@ -163,9 +128,9 @@ namespace Matt40k.SIMSBulkImport
                 this.comboEmailLocation.Items.Add("");
             }
 
-            if (importFromFile.GetIsExcel)
+            if (_importFile.GetIsExcel)
             {
-                foreach (string workBook in importFromFile.GetSheets)
+                foreach (string workBook in _importFile.GetSheets)
                 {
                     this.comboWorkbook.Items.Add(workBook);
                 }
@@ -174,6 +139,43 @@ namespace Matt40k.SIMSBulkImport
             else
             {
                 GetDataTable();
+            }
+        }
+
+        private void GetUserFilters()
+        {
+            switch (simsApi.GetUserType)
+            {
+                case SIMSAPI.UserType.Staff:
+                    this.comboFilter.Items.Add("Staff, all Current");
+                    this.comboFilter.Items.Add("Teaching staff, all Current");
+                    this.comboFilter.Items.Add("Support Staff, all Current");
+                    this.comboFilter.Items.Add("Staff, all Future");
+                    this.comboFilter.Items.Add("Teaching staff, all Leavers");
+                    this.comboFilter.Items.Add("Support Staff, all Leavers");
+                    this.comboFilter.Items.Add("Staff, all Leavers");
+                    this.comboFilter.Items.Add("All");
+
+                    this.comboFilter.SelectedIndex = simsApi.GetUserFilter;
+                    this.comboFilter.IsEnabled = true;
+                    break;
+                case SIMSAPI.UserType.Pupil:
+                    this.comboFilter.Items.Add("<Any>");
+                    this.comboFilter.Items.Add("Current");
+                    this.comboFilter.Items.Add("Ever On Roll");
+                    this.comboFilter.Items.Add("Guest");
+                    this.comboFilter.Items.Add("Leavers");
+                    this.comboFilter.Items.Add("On Roll");
+                    this.comboFilter.Items.Add("Future");
+                    this.comboFilter.SelectedIndex = simsApi.GetUserFilter;
+                    this.comboFilter.IsEnabled = true;
+                    break;
+                case SIMSAPI.UserType.Contact:
+                    // Contacts has no filters
+                    break;
+                case SIMSAPI.UserType.Unknown:
+                    logger.Log(NLog.LogLevel.Error, "GetUserFilters: Unknown selected");
+                    break;
             }
         }
 
@@ -189,6 +191,9 @@ namespace Matt40k.SIMSBulkImport
             udf = null;
             //simsUdf = null;
 
+            DataSet dt1 = _importFile.GetDataSet;
+            // TODO
+            /*
             if (this.comboWorkbook.IsEnabled)
             {
                 DataSet dt1 = importFromFile.GetImportDataSet(this.comboWorkbook.SelectedIndex);
@@ -210,6 +215,7 @@ namespace Matt40k.SIMSBulkImport
                     // TODO ABORT
                 }
             }
+             */
 
             comboUDF.Items.Clear();
             comboEmail.Items.Clear();
@@ -258,7 +264,7 @@ namespace Matt40k.SIMSBulkImport
             
             if (matchFillIn)
             {
-                simsApi.SetImportDataset = importFromFile.GetImportDataSet();
+                //simsApi.SetImportDataset = importFromFile.GetImportDataSet();
 
                 simsApi.SetMatchFirstname = firstname;
                 simsApi.SetMatchSurname = surname;
