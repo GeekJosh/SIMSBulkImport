@@ -208,7 +208,7 @@ namespace Matt40k.SIMSBulkImport
 
                 if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                 {
-                    simsApi.SetImportType = 3;
+                    simsApi.SetImportType = SIMSAPI.UserType.Contact;
                     Match match = new Match(simsApi, importFromFile);
                     match.ShowDialog();
 
@@ -293,7 +293,7 @@ namespace Matt40k.SIMSBulkImport
 
                 this.progressRing.IsActive = false;
 
-                simsApi.SetImportType = 2;
+                simsApi.SetImportType = SIMSAPI.UserType.Pupil;
                 Match match = new Match(simsApi, importFromFile);
                 match.ShowDialog();
 
@@ -374,7 +374,7 @@ namespace Matt40k.SIMSBulkImport
 
                 if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
                 {
-                    simsApi.SetImportType = 1;
+                    simsApi.SetImportType = SIMSAPI.UserType.Staff;
                     Match match = new Match(simsApi, importFromFile);
                     match.ShowDialog();
 

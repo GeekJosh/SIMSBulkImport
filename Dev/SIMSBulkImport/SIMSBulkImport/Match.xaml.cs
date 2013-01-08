@@ -25,10 +25,10 @@ namespace Matt40k.SIMSBulkImport
     public partial class Match : Window
     {
         private SIMSAPI simsApi;
-        private ImportFromFile importFromFile;
+        //private ImportFromFile importFromFile;
 
         private DataTable dt;
-        private int ImportType;
+        //private int ImportType;
 
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -44,12 +44,11 @@ namespace Matt40k.SIMSBulkImport
         private string emaillocation;
         private string reg;
 
-        private void GetUserFilters(int importType)
+        private void GetUserFilters()
         {
-            ImportType = importType;
-            switch (ImportType)
+            switch (simsApi.GetUserType)
             {
-                case 1:
+                case SIMSAPI.UserType.Staff:
                     this.comboFilter.Items.Add("Staff, all Current");
                     this.comboFilter.Items.Add("Teaching staff, all Current");
                     this.comboFilter.Items.Add("Support Staff, all Current");
@@ -62,7 +61,7 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.SelectedIndex = simsApi.GetUserFilter;
                     this.comboFilter.IsEnabled = true;
                     break;
-                case 2:
+                case SIMSAPI.UserType.Pupil:
                     this.comboFilter.Items.Add("<Any>");
                     this.comboFilter.Items.Add("Current");
                     this.comboFilter.Items.Add("Ever On Roll");
@@ -73,27 +72,29 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.SelectedIndex = simsApi.GetUserFilter;
                     this.comboFilter.IsEnabled = true;
                     break;
-                case 3:
+                case SIMSAPI.UserType.Contact:
                     // Contacts has no filters
+                    break;
+                case SIMSAPI.UserType.Unknown:
+                    logger.Log(NLog.LogLevel.Error, "GetUserFilters: Unknown selected");
                     break;
             }
         }
 
-        public Match(SIMSAPI simsapi, ImportFromFile importFile)
+        public Match(SIMSAPI simsapi)
         {
             simsApi = simsapi;
-            importFromFile = importFile;
+            //importFromFile = importFile;
 
             InitializeComponent();
 
             this.Title = "Match - " + GetExe.Title;
             
-            GetUserFilters(simsapi.GetImportType);
+            GetUserFilters();
 
-            switch (simsapi.GetImportType)
+            switch (simsApi.GetUserType)
             {
-                case 1:
-                    // Staff
+                case SIMSAPI.UserType.Staff:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Staff");
                     string[] udfsStaff = simsApi.GetStaffUDFs;
                     if (udfsStaff.Length != 0)
@@ -108,8 +109,7 @@ namespace Matt40k.SIMSBulkImport
                     this.labelGender.IsEnabled = true;
                     this.comboGender.IsEnabled = true;
                     break;
-                case 2:
-                    // Student
+                case SIMSAPI.UserType.Pupil:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Students");
                     string[] udfsStudents = simsApi.GetStudentUDFs;
                     if (udfsStudents.Length != 0)
@@ -126,8 +126,7 @@ namespace Matt40k.SIMSBulkImport
                     this.labelCode.Content = "Admission number";
                     this.labelTitle.Content = "Year Group";
                     break;
-                case 3:
-                    //Contact
+                case SIMSAPI.UserType.Contact:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Contacts");
                     string[] udfsContacts = simsApi.GetContactUDFs;
                     if (udfsContacts.Length != 0)
@@ -147,7 +146,9 @@ namespace Matt40k.SIMSBulkImport
 
                     this.labelReg.Visibility = Visibility.Hidden;
                     this.comboReg.Visibility = Visibility.Hidden;
-
+                    break;
+                    case SIMSAPI.UserType.Unknown:
+                    logger.Log(NLog.LogLevel.Error, "Match: Unknown selected");
                     break;
             }
 
