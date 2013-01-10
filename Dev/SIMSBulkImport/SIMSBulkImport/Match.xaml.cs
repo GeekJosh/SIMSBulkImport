@@ -192,6 +192,7 @@ namespace Matt40k.SIMSBulkImport
             //simsUdf = null;
 
             DataSet dt1 = _importFile.GetDataSet;
+            dt = dt1.Tables[0];
             // TODO
             /*
             if (this.comboWorkbook.IsEnabled)
@@ -264,7 +265,7 @@ namespace Matt40k.SIMSBulkImport
             
             if (matchFillIn)
             {
-                //simsApi.SetImportDataset = importFromFile.GetImportDataSet();
+                simsApi.SetImportDataset = _importFile.GetDataSet;
 
                 simsApi.SetMatchFirstname = firstname;
                 simsApi.SetMatchSurname = surname;

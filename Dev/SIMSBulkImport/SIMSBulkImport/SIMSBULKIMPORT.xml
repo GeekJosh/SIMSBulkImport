@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>SIMSBulkImport</name>
+        <name>SIMS Bulk Import</name>
     </assembly>
     <members>
         <member name="T:Matt40k.SIMSBulkImport.About">
@@ -15,6 +15,11 @@
         <member name="M:Matt40k.SIMSBulkImport.About.InitializeComponent">
             <summary>
             InitializeComponent
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.ClearUp.ClearTmp">
+            <summary>
+            Checks for any temporary files the application has created previously and then removes them.
             </summary>
         </member>
         <member name="T:Matt40k.SIMSBulkImport.Duplicate">
@@ -53,6 +58,11 @@
         <member name="P:Matt40k.SIMSBulkImport.GetExe.FileName">
             <summary>
             Gets the applications FileName.
+            </summary>
+        </member>
+        <member name="P:Matt40k.SIMSBulkImport.GetExe.AppUrl">
+            <summary>
+            Gets the applications url.
             </summary>
         </member>
         <member name="T:Matt40k.SIMSBulkImport.MainWindow">
@@ -109,6 +119,16 @@
         <member name="M:Matt40k.SIMSBulkImport.Options.InitializeComponent">
             <summary>
             InitializeComponent
+            </summary>
+        </member>
+        <member name="P:Matt40k.SIMSBulkImport.Prefix.GetPrefix">
+            <summary>
+            Get the default prefix for all temp files created
+            </summary>
+        </member>
+        <member name="P:Matt40k.SIMSBulkImport.TempFile.GetNewTempFile">
+            <summary>
+            Creates a (hopefully) unique pretty* temporary file
             </summary>
         </member>
         <member name="T:Matt40k.SIMSBulkImport.App">

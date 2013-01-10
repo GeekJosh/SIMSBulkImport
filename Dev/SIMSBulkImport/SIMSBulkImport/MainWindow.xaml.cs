@@ -198,52 +198,27 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_New_Contact(object sender, RoutedEventArgs e)
         {
-            /*
-            string nameType = "Contact";
+            logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Contact + " selected");
+            simsApi.SetUserType = SIMSAPI.UserType.Contact;
+            bool loadOk = importLogic;
 
-            logger.Log(NLog.LogLevel.Info, nameType + " selected");
-            if (GetConnection)
+            if (loadOk)
             {
-                Open open = new Open(importFromFile);
-                open.ShowDialog();
+                bw = new BackgroundWorker();
+                bw.WorkerReportsProgress = true;
+                bw.WorkerSupportsCancellation = true;
+                bw.DoWork += new DoWorkEventHandler(bwContact_DoWork);
+                bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
-                if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
+                if (bw.IsBusy != true)
                 {
-                    simsApi.SetUserType = SIMSAPI.UserType.Contact;
-                    Match match = new Match(simsApi, importFromFile);
-                    match.ShowDialog();
-
-                    if (simsApi.GetMatched)
-                    {
-                        this.dataGrid.Visibility = Visibility.Visible;
-                        this.labelTitle.Visibility = Visibility.Hidden;
-                        //this.imageLogo.Visibility = Visibility.Hidden;
-
-                        this.dataGrid.Items.Refresh();
-
-                        recordcount = simsApi.GetImportFileRecordCount;
-                        logger.Log(NLog.LogLevel.Info, "Record count: " + recordcount);
-
-                        queryStart = DateTime.Now;
-                        logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
-
-                        bw = new BackgroundWorker();
-                        bw.WorkerReportsProgress = true;
-                        bw.WorkerSupportsCancellation = true;
-                        bw.DoWork += new DoWorkEventHandler(bwContact_DoWork);
-                        bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-                        bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-
-                        if (bw.IsBusy != true)
-                        {
-                            bw.RunWorkerAsync();
-                        }
-                        this.labelTitle.Visibility = Visibility.Hidden;
-                        //this.imageLogo.Visibility = Visibility.Hidden;
-                    }
+                    bw.RunWorkerAsync();
                 }
-            }
-             */
+
+                this.labelTitle.Visibility = Visibility.Hidden;
+                //this.imageLogo.Visibility = Visibility.Hidden;
+            }            
         }
 
         private void bwContact_DoWork(object sender, DoWorkEventArgs e)
@@ -277,60 +252,78 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private void MenuItem_Click_New_Pupil(object sender, RoutedEventArgs e)
+        private bool importLogic
         {
-            string nameType = "Pupil";
-
-            logger.Log(NLog.LogLevel.Info, nameType + " selected");
-            if (GetConnection)
+            get
             {
-                Open open = new Open(importFromFile);
-                open.ShowDialog();
-
-                ImportFile _importFile = new ImportFile();
-                _importFile.SetImportFilePath = importFromFile.GetImportFile;
-                this.progressRing.IsActive = true;
-
-                _importFile.GetImportDataSet();
-
-                this.progressRing.IsActive = false;
-
-                simsApi.SetUserType = SIMSAPI.UserType.Pupil;
-                Match match = new Match(simsApi, _importFile);
-                match.ShowDialog();
-
-                if (simsApi.GetMatched)
+                try
                 {
-                    if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
+                    if (GetConnection)
                     {
-                        this.dataGrid.Visibility = Visibility.Visible;
-                        this.labelTitle.Visibility = Visibility.Hidden;
-                        //this.imageLogo.Visibility = Visibility.Hidden;
+                        Open open = new Open(importFromFile);
+                        open.ShowDialog();
 
-                        this.dataGrid.Items.Refresh();
+                        ImportFile _importFile = new ImportFile();
+                        _importFile.SetImportFilePath = importFromFile.GetImportFile;
+                        this.progressRing.IsActive = true;
 
-                        recordcount = simsApi.GetImportFileRecordCount;
+                        _importFile.GetImportDataSet();
 
-                        queryStart = DateTime.Now;
-                        logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
+                        this.progressRing.IsActive = false;
 
-                        bw = new BackgroundWorker();
-                        bw.WorkerReportsProgress = true;
-                        bw.WorkerSupportsCancellation = true;
-                        bw.DoWork += new DoWorkEventHandler(bwPupil_DoWork);
-                        bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-                        bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+                        
+                        Match match = new Match(simsApi, _importFile);
+                        match.ShowDialog();
 
-                        if (bw.IsBusy != true)
+                        if (simsApi.GetMatched)
                         {
-                            bw.RunWorkerAsync();
-                        }
+                            if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
+                            {
+                                this.dataGrid.Visibility = Visibility.Visible;
+                                this.labelTitle.Visibility = Visibility.Hidden;
+                                //this.imageLogo.Visibility = Visibility.Hidden;
 
-                        this.labelTitle.Visibility = Visibility.Hidden;
-                        //this.imageLogo.Visibility = Visibility.Hidden;
+                                this.dataGrid.Items.Refresh();
+
+                                recordcount = simsApi.GetImportFileRecordCount;
+
+                                queryStart = DateTime.Now;
+                                logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
+                            }
+                        }
                     }
                 }
+                catch (Exception importLogic_Exception)
+                {
+                    return false;
+                }
+                return true;
             }
+        }
+
+        private void MenuItem_Click_New_Pupil(object sender, RoutedEventArgs e)
+        {
+            logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Pupil + " selected");
+            simsApi.SetUserType = SIMSAPI.UserType.Pupil;
+            bool loadOk = importLogic;
+
+            if (loadOk)
+            {
+                bw = new BackgroundWorker();
+                bw.WorkerReportsProgress = true;
+                bw.WorkerSupportsCancellation = true;
+                bw.DoWork += new DoWorkEventHandler(bwPupil_DoWork);
+                bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+
+                if (bw.IsBusy != true)
+                {
+                    bw.RunWorkerAsync();
+                }
+
+                this.labelTitle.Visibility = Visibility.Hidden;
+                //this.imageLogo.Visibility = Visibility.Hidden;
+            }            
         }
       
         private void bwPupil_DoWork(object sender, DoWorkEventArgs e)
@@ -366,51 +359,27 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
         {
-            /*
-            string nameType = "Staff";
+            logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Staff + " selected");
+            simsApi.SetUserType = SIMSAPI.UserType.Staff;
+            bool loadOk = importLogic;
 
-            logger.Log(NLog.LogLevel.Info, nameType + " selected");
-            if (GetConnection)
+            if (loadOk)
             {
-                Open open = new Open(importFromFile);
-                open.ShowDialog();
+                bw = new BackgroundWorker();
+                bw.WorkerReportsProgress = true;
+                bw.WorkerSupportsCancellation = true;
+                bw.DoWork += new DoWorkEventHandler(bwStaff_DoWork);
+                bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
-                if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
+                if (bw.IsBusy != true)
                 {
-                    simsApi.SetUserType = SIMSAPI.UserType.Staff;
-                    Match match = new Match(simsApi, importFromFile);
-                    match.ShowDialog();
-
-                    if (simsApi.GetMatched)
-                    {
-                        this.dataGrid.Visibility = Visibility.Visible;
-                        this.labelTitle.Visibility = Visibility.Hidden;
-                        //this.imageLogo.Visibility = Visibility.Hidden;
-
-                        this.dataGrid.Items.Refresh();
-
-                        recordcount = simsApi.GetImportFileRecordCount;
-
-                        queryStart = DateTime.Now;
-                        logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
-
-                        bw = new BackgroundWorker();
-                        bw.WorkerReportsProgress = true;
-                        bw.WorkerSupportsCancellation = true;
-                        bw.DoWork += new DoWorkEventHandler(bwStaff_DoWork);
-                        bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-                        bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-
-                        if (bw.IsBusy != true)
-                        {
-                            bw.RunWorkerAsync();
-                        }
-                        this.labelTitle.Visibility = Visibility.Hidden;
-                        //this.imageLogo.Visibility = Visibility.Hidden;
-                    }
+                    bw.RunWorkerAsync();
                 }
-            }
-             */
+
+                this.labelTitle.Visibility = Visibility.Hidden;
+                //this.imageLogo.Visibility = Visibility.Hidden;
+            }            
         }
 
         private void bwStaff_DoWork(object sender, DoWorkEventArgs e)
