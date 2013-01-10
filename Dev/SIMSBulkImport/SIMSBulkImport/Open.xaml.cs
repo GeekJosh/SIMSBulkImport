@@ -26,12 +26,12 @@ namespace Matt40k.SIMSBulkImport
     public partial class Open : Window
     {
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private ImportFromFile ImportFile;
+        private ImportFile _importFile;
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public Open(ImportFromFile importFile)
+        internal Open(ImportFile importFile)
         {
-            ImportFile = importFile;
+            _importFile = importFile;
             InitializeComponent();
 
             this.pathBox.Focus();
@@ -58,7 +58,7 @@ namespace Matt40k.SIMSBulkImport
                 if (!File.Exists(pathBox.Text)) { MessageBox.Show("Please select a valid file"); }
                 else {
                     logger.Log(NLog.LogLevel.Info, "User selected file for import: " + pathBox.Text);
-                    ImportFile.SetImportFile = pathBox.Text;
+                    _importFile.SetImportFilePath = pathBox.Text;
                     this.Close();
                 }
             }

@@ -41,13 +41,15 @@ namespace Matt40k.SIMSBulkImport
         private int recordcount;
         private int recordupto = 0;
 
+        private bool IsConnected = false;
+
         private DateTime importStart;
         private DateTime importEnd;
 
         private DateTime queryStart;
         private DateTime queryEnd;
 
-        private ImportFromFile importFromFile = new ImportFromFile();
+        private ImportFile _importFile = new ImportFile();
 
         /// <summary>
         /// 
@@ -115,7 +117,7 @@ namespace Matt40k.SIMSBulkImport
             this.dataGrid.DataContext = null;
             dataGridTable = null;
 
-            importFromFile.Reset();
+            _importFile.Reset();
             simsApi.Reset();
 
             this.dataGrid.Visibility = Visibility.Hidden;
@@ -124,7 +126,7 @@ namespace Matt40k.SIMSBulkImport
             this.button.Visibility = Visibility.Hidden;
         }
 
-        private bool IsConnected = false;
+
 
         private bool GetConnection
         {
@@ -260,11 +262,9 @@ namespace Matt40k.SIMSBulkImport
                 {
                     if (GetConnection)
                     {
-                        Open open = new Open(importFromFile);
+                        Open open = new Open(_importFile);
                         open.ShowDialog();
 
-                        ImportFile _importFile = new ImportFile();
-                        _importFile.SetImportFilePath = importFromFile.GetImportFile;
                         this.progressRing.IsActive = true;
 
                         _importFile.GetImportDataSet();
@@ -277,7 +277,7 @@ namespace Matt40k.SIMSBulkImport
 
                         if (simsApi.GetMatched)
                         {
-                            if (!string.IsNullOrWhiteSpace(importFromFile.GetImportFile))
+                            if (_importFile.IsImportFileSet)
                             {
                                 this.dataGrid.Visibility = Visibility.Visible;
                                 this.labelTitle.Visibility = Visibility.Hidden;
@@ -777,16 +777,6 @@ namespace Matt40k.SIMSBulkImport
         {
             return false;
         }
-
-        /*
-         * TO REMOVE (LICENSING)
-        private void MenuItem_Click_License(object sender, RoutedEventArgs e)
-        {
-            LicenseView licenceView1 = new LicenseView();
-            licenceView1.Show();
-            //MessageBox.Show(simsApi.GetLicense);
-        }
-         */
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
