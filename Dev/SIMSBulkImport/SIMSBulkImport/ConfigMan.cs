@@ -91,8 +91,8 @@ namespace Matt40k.SIMSBulkImport
             // Open App.Config of executable
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             // Add an Application Setting.
-            config.AppSettings.Settings.Remove("LicenseKey");
-            config.AppSettings.Settings.Add("LicenseKey", value);
+            config.AppSettings.Settings.Remove(field);
+            config.AppSettings.Settings.Add(field, value);
             try
             {
                 // Save the configuration file.

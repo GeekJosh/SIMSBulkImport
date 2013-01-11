@@ -147,7 +147,6 @@
     <Compile Include="GetExe.cs" />
     <Compile Include="Import\ImportExcel.cs" />
     <Compile Include="ImportFile.cs" />
-    <Compile Include="ImportFromFile.cs" />
     <Compile Include="Import\ImportXml.cs" />
     <Compile Include="License.cs" />
     <Compile Include="MainWindow.xaml.cs">
