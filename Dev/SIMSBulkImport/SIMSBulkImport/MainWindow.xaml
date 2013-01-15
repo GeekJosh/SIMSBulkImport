@@ -28,6 +28,7 @@
                 <MenuItem Header="Options" Click="MenuItem_Click_Options" ToolTip="Options" />
             </MenuItem>
             <MenuItem Header="Help">
+                <MenuItem Header="Manual" Click="MenuItem_Click_Manual" ToolTip="Open Manual (PDF)" />
                 <MenuItem Header="Logs" Click="MenuItem_Click_Logs" ToolTip="Open Log folder" />
                 <Separator />
                 <MenuItem Header="About" Click="MenuItem_Click_About" ToolTip="Display program information including version" />

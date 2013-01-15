@@ -807,6 +807,21 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        private void MenuItem_Click_Manual(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process prc = new System.Diagnostics.Process();
+                prc.StartInfo.FileName = "Guide.pdf";
+                prc.Start();
+            }
+            catch (System.Exception MenuItem_Click_Manual_Exception)
+            {
+                logger.Log(NLog.LogLevel.Error, MenuItem_Click_Manual_Exception);
+            }
+        }
+
+
         private void MenuItem_Click_Options(object sender, RoutedEventArgs e)
         {
             Options options = new Options();
