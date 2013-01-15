@@ -24,10 +24,13 @@ namespace Matt40k.SIMSBulkImport
             {
                 DataSet CsvDataSet = new DataSet();
 
-                _dtCsv = new DataTable(_fileName);
-                if (File.Exists(_fileName))
+                string _file = Path.Combine(_path, _fileName);
+
+                _dtCsv = new DataTable(_file);
+                if (File.Exists(_file))
                 {
-                    using (StreamReader sr = File.OpenText(_fileName))
+
+                    using (StreamReader sr = File.OpenText(_file))
                     {
                         string s = "";
                         int rowCount = 0;
@@ -40,6 +43,10 @@ namespace Matt40k.SIMSBulkImport
                             rowCount = rowCount + 1;
                         }
                     }
+                }
+                else
+                {
+                    logger.Log(LogLevel.Error, "GetDataSet: File does not exist: " + _file);
                 }
                 CsvDataSet.Tables.Add(_dtCsv);
                 return CsvDataSet;
