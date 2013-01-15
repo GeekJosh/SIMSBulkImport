@@ -13,38 +13,28 @@ namespace Matt40k.SIMSBulkImport
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private string _path;
-        private string _fileName;
+        private string _filePath;
 
         internal DataSet GetDataSet
         {
             get
             {
                 DataSet result = new DataSet();
-                string path = System.IO.Path.Combine(_path, _fileName);
-                if (!File.Exists(path))
+                if (!File.Exists(_filePath))
                 {
-                    logger.Log(NLog.LogLevel.Error, "ImportXml.GetDataSet - File not found: " + path);
+                    logger.Log(NLog.LogLevel.Error, "ImportXml.GetDataSet - File not found: " + _filePath);
                     return null;
                 }
-                result.ReadXml(path, XmlReadMode.Auto);
+                result.ReadXml(_filePath, XmlReadMode.Auto);
                 return result;
             }
         }
 
-        internal string SetPath
+        internal string SetFilePath
         {
             set
             {
-                _path = value;
-            }
-        }
-
-        internal string SetFileName
-        {
-            set
-            {
-                _fileName = value;
+                _filePath = value;
             }
         }
     }

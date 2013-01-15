@@ -18,11 +18,9 @@ namespace Matt40k.SIMSBulkImport
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private string _importFilePath;
+        private string _filePath;
         private DataSet _importDataSet;
 
-        private string _path;
-        private string _fileName;
         private FileType _importFileType;
         private bool _importComplete;
 
@@ -34,7 +32,7 @@ namespace Matt40k.SIMSBulkImport
                 if (File.Exists(value))
                 {
                     logger.Log(LogLevel.Debug, value);
-                    _importFilePath = value;
+                    _filePath = value;
                 }
                 else
                 {
@@ -54,30 +52,11 @@ namespace Matt40k.SIMSBulkImport
         internal void GetImportDataSet()
         {
             logger.Log(LogLevel.Debug, "GetImportDataSet start");
+            logger.Log(LogLevel.Debug, _filePath);
 
-            _path = Path.GetDirectoryName(_importFilePath);
-            _fileName = Path.GetFileName(_importFilePath);
             _importFileType = importFileType;
+            spawnSeparateThread();
 
-            logger.Log(LogLevel.Debug, _path);
-            logger.Log(LogLevel.Debug, _fileName);
-
-
-            Thread oThread = new Thread(new ThreadStart(spawnSeparateThread));
-
-            // Start the thread
-            oThread.Start();
-
-            // Spin for a while waiting for the started thread to become
-            // alive:
-            while (!oThread.IsAlive) ;
-
-            while (!_importComplete)
-            {
-                // Put the Main thread to sleep for 1 millisecond to allow oThread
-                // to do some work:
-                Thread.Sleep(1);
-            }
             logger.Log(NLog.LogLevel.Error, "GetImportDataSet end");
         }
 
@@ -110,7 +89,8 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                string ext = Path.GetExtension(_importFilePath);
+                string ext = Path.GetExtension(_filePath);
+                logger.Log(NLog.LogLevel.Debug, "importFileType: " + ext);
                 switch (ext)
                 {
                     case ".csv":
@@ -118,6 +98,8 @@ namespace Matt40k.SIMSBulkImport
                     case ".xml":
                         return FileType.Xml;
                     case ".xls":
+                        return FileType.Xls;
+                    case ".xlsx":
                         return FileType.Xls;
                     case ".txt":
                         return FileType.Csv;
@@ -132,23 +114,23 @@ namespace Matt40k.SIMSBulkImport
             switch (_importFileType)
             {
                 case FileType.Csv:
+                    logger.Log(NLog.LogLevel.Debug, "spawnSeparateThread: Csv");
                     ImportCsv _importCsv = new ImportCsv();
-                    _importCsv.SetFileName = _fileName;
-                    _importCsv.SetPath = _path;
+                    _importCsv.SetFilePath = _filePath;
                     _importDataSet = _importCsv.GetDataSet;
                     _importComplete = true;
                     break;
                 case FileType.Xml:
+                    logger.Log(NLog.LogLevel.Debug, "spawnSeparateThread: Xml");
                     ImportXml _importXml = new ImportXml();
-                    _importXml.SetFileName = _fileName;
-                    _importXml.SetPath = _path;
+                    _importXml.SetFilePath = _filePath;
                     _importDataSet = _importXml.GetDataSet;
                     _importComplete = true;
                     break;
                 case FileType.Xls:
+                    logger.Log(NLog.LogLevel.Debug, "spawnSeparateThread: Xls");
                     ImportExcel _importExcel = new ImportExcel();
-                    _importExcel.SetFileName = _fileName;
-                    _importExcel.SetPath = _path;
+                    _importExcel.SetFilePath = _filePath;
                     _importDataSet = _importExcel.GetDataSet;
                     _importComplete = true;
                     break;
@@ -166,7 +148,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                return !string.IsNullOrEmpty(_importFilePath);
+                return !string.IsNullOrEmpty(_filePath);
             }
         }
     }

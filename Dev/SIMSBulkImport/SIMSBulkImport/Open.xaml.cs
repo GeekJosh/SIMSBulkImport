@@ -38,7 +38,7 @@ namespace Matt40k.SIMSBulkImport
             this.Title = "Open - " + GetExe.Title;
 
             openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            openFileDialog.Filter = "CSV (Comma delimited)(*.csv)|*csv|XLS (Excel Workbook) (*.xls)|*xls|XML Document (*.xml)|*xml|All Files(*.*)|*";
+            openFileDialog.Filter = "CSV (Comma delimited)(*.csv)|*csv|XLS (Excel Workbook) (*.xls, *.xlsx)|*xls;*xlsx|XML Document (*.xml)|*xml|All Files(*.*)|*";
             openFileDialog.Title = "Import file";
         }
 

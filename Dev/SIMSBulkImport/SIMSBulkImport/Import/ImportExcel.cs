@@ -5,8 +5,8 @@
 
 using System;
 using System.Data;
-using System.Data.OleDb;
-//using System.IO;
+using System.IO;
+using Microsoft.Office.Interop.Excel;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport
@@ -14,76 +14,69 @@ namespace Matt40k.SIMSBulkImport
     internal class ImportExcel
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        
-        private string _path;
-        private string _fileName;
 
+        private string _filePath;
+
+        internal string SetFilePath
+        {
+            set
+            {
+                if (File.Exists(value))
+                    _filePath = value;
+            }
+        }
+
+        // Reference: http://www.dotneter.com/reading-excel-and-binding-to-datagridview-using-microsoft-office-interop-excel
         internal DataSet GetDataSet
         {
             get
             {
-                DataSet ExcelDataSet = new DataSet();
+                logger.Log(NLog.LogLevel.Debug, "GetExcel");
+                DataSet _dataSet = new DataSet();
                 try
                 {
-                    logger.Log(LogLevel.Debug, "ExcelDataSet");
+                    Workbook workbook;
+                    Application excelApp = new Application();
 
-                    string tmpSelect = "SELECT * FROM [" + _fileName + "]";
-                    string tmpConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + _path + ";Extended Properties=Text;";
+                    workbook = excelApp.Workbooks.Open(_filePath, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                    logger.Log(NLog.LogLevel.Debug, "Worksheets: " + workbook.Sheets.Count);
 
-                    OleDbConnection ExcelConnection = new OleDbConnection(tmpConn);
-                    OleDbCommand ExcelCommand = new OleDbCommand(tmpSelect, ExcelConnection);
-                    OleDbDataAdapter ExcelAdapter = new OleDbDataAdapter(ExcelCommand);
-                    ExcelConnection.Open();
-                    //ExcelAdapter.ContinueUpdateOnError = true;
-                    ExcelAdapter.Fill(ExcelDataSet);
-                    ExcelConnection.Close();
+                    foreach (Worksheet ws in workbook.Sheets)
+                    {
+                        System.Data.DataTable _dataTable = new System.Data.DataTable(ws.Name);
+                        Range range = ws.UsedRange;
+
+                        int column = 0;
+                        int row = 0;
+
+                        if (range.Columns.Count > 1 && range.Rows.Count > 1)
+                        {
+                            for (column = 1; column <= range.Columns.Count; column++)
+                            {
+                                string _columnName = (range.Cells[1, column] as Range).Value2.ToString();
+                                _dataTable.Columns.Add(_columnName);
+                            }
+
+                            for (row = 2; row <= range.Rows.Count; row++)
+                            {
+                                DataRow dr = _dataTable.NewRow();
+                                for (column = 1; column <= range.Columns.Count; column++)
+                                {
+                                    dr[column - 1] = (range.Cells[row, column] as Range).Value2.ToString();
+                                }
+                                _dataTable.Rows.Add(dr);
+                            }
+                        }
+                        _dataSet.Tables.Add(_dataTable);
+                    }
+                    workbook.Close(true, null, null);
+                    excelApp.Quit();
                 }
-                catch (Exception GetCSVFileException)
+                catch (Exception GetDataSet_Exception)
                 {
-                    logger.Log(NLog.LogLevel.Error, GetCSVFileException);
+                    logger.Log(NLog.LogLevel.Error, GetDataSet_Exception);
                 }
-                return ExcelDataSet;
-            }
-        }
-
-        internal string SetPath
-        {
-            set
-            {
-                _path = value;
-            }
-        }
-
-        internal string SetFileName
-        {
-            set
-            {
-                _fileName = value;
-            }
-        }
-
-        internal string[] GetExcelWorkSheetsList
-        {
-            get
-            {
-                DataTable ExcelSheets;
-                OleDbConnection ExcelConnection = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + _path + @"\" + _fileName + ";Extended Properties=Excel 8.0;");
-                OleDbCommand ExcelCommand = new OleDbCommand();
-                ExcelCommand.Connection = ExcelConnection;
-                OleDbDataAdapter ExcelAdapter = new OleDbDataAdapter(ExcelCommand);
-
-                ExcelConnection.Open();
-                ExcelSheets = ExcelConnection.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
-                ExcelConnection.Close();
-
-                string sheets = null;
-                foreach (DataRow sheet in ExcelSheets.Rows)
-                {
-                    sheets = sheets + sheet["TABLE_NAME"].ToString() + ",";
-                }
-                sheets = sheets.Substring(0, sheets.Length - 1);
-
-                return sheets.Split(',');
+                return _dataSet;
             }
         }
     }

@@ -14,8 +14,7 @@ namespace Matt40k.SIMSBulkImport
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private string _path;
-        private string _fileName;
+        private string _filePath;
         private DataTable _dtCsv;
 
         internal DataSet GetDataSet
@@ -24,13 +23,11 @@ namespace Matt40k.SIMSBulkImport
             {
                 DataSet CsvDataSet = new DataSet();
 
-                string _file = Path.Combine(_path, _fileName);
-
-                _dtCsv = new DataTable(_file);
-                if (File.Exists(_file))
+                _dtCsv = new DataTable(_filePath);
+                if (File.Exists(_filePath))
                 {
 
-                    using (StreamReader sr = File.OpenText(_file))
+                    using (StreamReader sr = File.OpenText(_filePath))
                     {
                         string s = "";
                         int rowCount = 0;
@@ -46,26 +43,18 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    logger.Log(LogLevel.Error, "GetDataSet: File does not exist: " + _file);
+                    logger.Log(LogLevel.Error, "GetDataSet: File does not exist: " + _filePath);
                 }
                 CsvDataSet.Tables.Add(_dtCsv);
                 return CsvDataSet;
             }
         }
 
-        internal string SetPath
+        internal string SetFilePath
         {
             set
             {
-                _path = value;
-            }
-        }
-
-        internal string SetFileName
-        {
-            set
-            {
-                _fileName = value;
+                _filePath = value;
             }
         }
 
