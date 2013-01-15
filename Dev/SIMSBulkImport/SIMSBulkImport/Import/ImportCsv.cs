@@ -5,7 +5,6 @@
 
 using System;
 using System.Data;
-using System.Data.OleDb;
 using System.IO;
 using NLog;
 
@@ -17,34 +16,32 @@ namespace Matt40k.SIMSBulkImport
 
         private string _path;
         private string _fileName;
+        private DataTable _dtCsv;
 
         internal DataSet GetDataSet
         {
             get
             {
                 DataSet CsvDataSet = new DataSet();
-                try
-                {
-                    string oldFile = Path.Combine(_path, _fileName);
-                    string newFile = NumberAsText.Fixed(oldFile);
-                    string pathName = Path.GetDirectoryName(newFile);
-                    string fileName = Path.GetFileName(newFile);
 
-                    string tmpSelect = "SELECT * FROM [" + fileName + "]";
-                    string tmpConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + pathName + ";Extended Properties=Text;";
-
-                    OleDbConnection ExcelConnection = new OleDbConnection(tmpConn);
-                    OleDbCommand ExcelCommand = new OleDbCommand(tmpSelect, ExcelConnection);
-                    OleDbDataAdapter ExcelAdapter = new OleDbDataAdapter(ExcelCommand);
-                    ExcelConnection.Open();
-                    //ExcelAdapter.ContinueUpdateOnError = true;
-                    ExcelAdapter.Fill(CsvDataSet);
-                    ExcelConnection.Close();
-                }
-                catch (Exception GetCSVFileException)
+                _dtCsv = new DataTable(_fileName);
+                if (File.Exists(_fileName))
                 {
-                    logger.Log(NLog.LogLevel.Error, GetCSVFileException);
+                    using (StreamReader sr = File.OpenText(_fileName))
+                    {
+                        string s = "";
+                        int rowCount = 0;
+                        while ((s = sr.ReadLine()) != null)
+                        {
+                            string[] parts = s.Split(',');
+                            if (rowCount == 0)
+                                createColumns(parts);
+                            addRow(parts);
+                            rowCount = rowCount + 1;
+                        }
+                    }
                 }
+                CsvDataSet.Tables.Add(_dtCsv);
                 return CsvDataSet;
             }
         }
@@ -63,6 +60,40 @@ namespace Matt40k.SIMSBulkImport
             {
                 _fileName = value;
             }
+        }
+
+        private void createColumns(string[] columns)
+        {
+            foreach (string column in columns)
+            {
+                _dtCsv.Columns.Add(new DataColumn(cleanInput(column), typeof(string)));
+            }
+        }
+
+        private void addRow(string[] parts)
+        {
+            DataRow newrow = _dtCsv.NewRow();
+            for (int i = 0; i < parts.Length; i++)
+            {
+                newrow[i] = cleanInput(parts[i]);
+            }
+            _dtCsv.Rows.Add(newrow);
+        }
+
+        private string cleanInput(string input)
+        {
+            string output = input;
+            if (output.Length > 1)
+            {
+                string firstChar = output.Substring(0, 1);
+                if (firstChar == "\"")
+                    output = output.Substring(1);
+                int lastCharPosition = (output.Length - 1);
+                string lastChar = output.Substring(lastCharPosition);
+                if (lastChar == "\"")
+                    output = output.Substring(0, lastCharPosition);
+            }
+            return output;
         }
     }
 }
