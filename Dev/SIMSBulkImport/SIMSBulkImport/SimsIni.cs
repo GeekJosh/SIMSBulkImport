@@ -8,16 +8,17 @@ using System.IO;
 
 namespace Matt40k.SIMSBulkImport
 {
-    public class SimsIni
+    public static class SimsIni
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        private string appsDir = null;
-        private string simsPath = null;
 
-        public string GetSimsDir
+        public static string GetSimsDir
         {
             get
             {
+                string appsDir = null;
+                string simsPath = null;
+
                 try
                 {
                     if (string.IsNullOrEmpty(appsDir))
@@ -67,9 +68,9 @@ namespace Matt40k.SIMSBulkImport
                 return appsDir;
             }
         }
-       
 
-        private string curdir
+
+        private static string curdir
         {
             get
             {
@@ -77,7 +78,7 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private string windir
+        private static string windir
         {
             get
             {

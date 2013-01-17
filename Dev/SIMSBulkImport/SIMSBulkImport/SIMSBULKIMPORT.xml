@@ -65,6 +65,19 @@
             Gets the applications url.
             </summary>
         </member>
+        <member name="T:Matt40k.SIMSBulkImport.Loading">
+            <summary>
+            Interaction logic for Loading.xaml
+            </summary>
+            <summary>
+            Loading
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.Loading.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:Matt40k.SIMSBulkImport.MainWindow">
             <summary>
             Interaction logic for MainWindow.xaml
@@ -73,7 +86,7 @@
             MainWindow
             </summary>
         </member>
-        <member name="M:Matt40k.SIMSBulkImport.MainWindow.#ctor">
+        <member name="M:Matt40k.SIMSBulkImport.MainWindow.#ctor(Matt40k.SIMSBulkImport.SIMSAPI)">
             <summary>
             
             </summary>
@@ -147,19 +160,6 @@
         <member name="M:Matt40k.SIMSBulkImport.App.Main">
             <summary>
             Application Entry Point.
-            </summary>
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.Logon">
-            <summary>
-            Interaction logic for Logon.xaml
-            </summary>
-            <summary>
-            Logon
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.Logon.InitializeComponent">
-            <summary>
-            InitializeComponent
             </summary>
         </member>
         <member name="T:Matt40k.SIMSBulkImport.Match">

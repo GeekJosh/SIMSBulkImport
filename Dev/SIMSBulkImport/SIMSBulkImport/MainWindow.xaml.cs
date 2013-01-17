@@ -28,7 +28,7 @@ namespace Matt40k.SIMSBulkImport
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private SIMSAPI simsApi;
+        private SIMSAPI _simsApi;
 
         private BackgroundWorker bw = new BackgroundWorker();
         private BackgroundWorker bwImport = new BackgroundWorker();
@@ -41,8 +41,6 @@ namespace Matt40k.SIMSBulkImport
         private int recordcount;
         private int recordupto = 0;
 
-        private bool IsConnected = false;
-
         private DateTime importStart;
         private DateTime importEnd;
 
@@ -54,50 +52,10 @@ namespace Matt40k.SIMSBulkImport
         /// <summary>
         /// 
         /// </summary>
-        public MainWindow()
+        public MainWindow(SIMSAPI simsApi)
         {
-            logger.Log(NLog.LogLevel.Info, "==============================================================================================");
-            logger.Log(NLog.LogLevel.Info, "==============================================================================================");
-            logger.Log(NLog.LogLevel.Info, "");
-            logger.Log(NLog.LogLevel.Info, GetExe.Title + " - " + GetExe.Version);
-            logger.Log(NLog.LogLevel.Info, "");
-
-            // Clear previous temp files we created
-            ClearUp.ClearTmp();
-
-            // Check for updates
-            //Update.Check();
-            
             InitializeComponent();
-            this.Title = GetExe.Title;
-            this.labelTitle.Content = GetExe.Title;
-
-            logger.Log(NLog.LogLevel.Debug, "Loading Branding...");
-            GetBranding();
-
-            logger.Log(NLog.LogLevel.Debug, "Loading SIMS API...");
-
-            try
-            {
-                SimsIni simsIni = new SimsIni();
-                simsApi = new SIMSAPI(simsIni.GetSimsDir);
-            }
-            catch (Exception SIMSAPI_Exception)
-            {
-                MessageBox.Show(SIMSAPI_Exception.ToString());
-            }
-
-
-            /* 
-             * TO REMOVE (LICENSING)
-             *             
-            logger.Log(NLog.LogLevel.Info, simsApi.GetLicense);
-            
-            if (simsApi.IsDemo)
-            {
-                MessageBox.Show("You don't appear to have entered a license key\n\nYou can only import email addresses into the\nCapita Green Abbey Training database", "Demo", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-             */
+            _simsApi = simsApi;
         }
 
         public void Reset()
@@ -118,50 +76,12 @@ namespace Matt40k.SIMSBulkImport
             dataGridTable = null;
 
             _importFile.Reset();
-            simsApi.Reset();
+            _simsApi.Reset();
 
             this.dataGrid.Visibility = Visibility.Hidden;
             this.labelTitle.Visibility = Visibility.Visible;
             //this.imageLogo.Visibility = Visibility.Visible;
             this.button.Visibility = Visibility.Hidden;
-        }
-
-
-
-        private bool GetConnection
-        {
-            get
-            {
-                if (IsConnected)
-                {
-                    return true;
-                }
-                try
-                {
-                    // Blank it ready for use
-                    Reset();
-
-                    Logon logon = new Logon(simsApi);
-                    logon.ShowDialog();
-                }
-                catch (Exception GetConnectionException)
-                {
-                    logger.Log(NLog.LogLevel.Error, GetConnectionException);
-                    MessageBox.Show(GetConnectionException.ToString());
-                    return false;
-                }
-
-                if (!string.IsNullOrWhiteSpace(simsApi.GetCurrentSchool))
-                {
-                    this.Status.Content = "Connected to: " + simsApi.GetCurrentSchool;
-                    logger.Log(NLog.LogLevel.Info, "Connected to: " + simsApi.GetCurrentSchool);
-                    logger.Log(NLog.LogLevel.Info, "Connected as: " + simsApi.GetCurrentUser);
-
-                    IsConnected = true;
-                    return true;
-                }
-                return false;
-            }
         }
 
         /// <summary>
@@ -201,7 +121,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_New_Contact(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Contact + " selected");
-            simsApi.SetUserType = SIMSAPI.UserType.Contact;
+            _simsApi.SetUserType = SIMSAPI.UserType.Contact;
             bool loadOk = importLogic;
 
             if (loadOk)
@@ -227,8 +147,8 @@ namespace Matt40k.SIMSBulkImport
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            simsApi.CreateContactResultTable();
-            dataGridTable = simsApi.CreateContactDataTable;
+            _simsApi.CreateContactResultTable();
+            dataGridTable = _simsApi.CreateContactDataTable;
 
             while (recordupto < recordcount)
             {
@@ -241,7 +161,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    dataGridTable = simsApi.AddContactToDataTable(dataGridTable, recordupto);
+                    dataGridTable = _simsApi.AddContactToDataTable(dataGridTable, recordupto);
                     recordupto++;
                     //logger.Log(NLog.LogLevel.Info, recordupto + recordcount);
 
@@ -260,36 +180,33 @@ namespace Matt40k.SIMSBulkImport
             {
                 try
                 {
-                    if (GetConnection)
+                    Open open = new Open(_importFile);
+                    open.ShowDialog();
+
+                    this.progressRing.IsActive = true;
+
+                    _importFile.GetImportDataSet();
+
+                    this.progressRing.IsActive = false;
+
+
+                    Match match = new Match(_simsApi, _importFile);
+                    match.ShowDialog();
+
+                    if (_simsApi.GetMatched)
                     {
-                        Open open = new Open(_importFile);
-                        open.ShowDialog();
-
-                        this.progressRing.IsActive = true;
-
-                        _importFile.GetImportDataSet();
-
-                        this.progressRing.IsActive = false;
-
-                        
-                        Match match = new Match(simsApi, _importFile);
-                        match.ShowDialog();
-
-                        if (simsApi.GetMatched)
+                        if (_importFile.IsImportFileSet)
                         {
-                            if (_importFile.IsImportFileSet)
-                            {
-                                this.dataGrid.Visibility = Visibility.Visible;
-                                this.labelTitle.Visibility = Visibility.Hidden;
-                                //this.imageLogo.Visibility = Visibility.Hidden;
+                            this.dataGrid.Visibility = Visibility.Visible;
+                            this.labelTitle.Visibility = Visibility.Hidden;
+                            //this.imageLogo.Visibility = Visibility.Hidden;
 
-                                this.dataGrid.Items.Refresh();
+                            this.dataGrid.Items.Refresh();
 
-                                recordcount = simsApi.GetImportFileRecordCount;
+                            recordcount = _simsApi.GetImportFileRecordCount;
 
-                                queryStart = DateTime.Now;
-                                logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
-                            }
+                            queryStart = DateTime.Now;
+                            logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
                         }
                     }
                 }
@@ -304,7 +221,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_New_Pupil(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Pupil + " selected");
-            simsApi.SetUserType = SIMSAPI.UserType.Pupil;
+            _simsApi.SetUserType = SIMSAPI.UserType.Pupil;
             bool loadOk = importLogic;
 
             if (loadOk)
@@ -330,8 +247,8 @@ namespace Matt40k.SIMSBulkImport
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            simsApi.CreatePupilResultTable();
-            dataGridTable = simsApi.CreatePupilDataTable;
+            _simsApi.CreatePupilResultTable();
+            dataGridTable = _simsApi.CreatePupilDataTable;
 
             while (recordupto < recordcount)
             {
@@ -344,7 +261,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    dataGridTable = simsApi.AddPupilToDataTable(dataGridTable, recordupto);
+                    dataGridTable = _simsApi.AddPupilToDataTable(dataGridTable, recordupto);
                     recordupto++;
                     //logger.Log(NLog.LogLevel.Info, recordupto + recordcount);
 
@@ -360,7 +277,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Staff + " selected");
-            simsApi.SetUserType = SIMSAPI.UserType.Staff;
+            _simsApi.SetUserType = SIMSAPI.UserType.Staff;
             bool loadOk = importLogic;
 
             if (loadOk)
@@ -386,8 +303,8 @@ namespace Matt40k.SIMSBulkImport
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            simsApi.CreateStaffResultTable();
-            dataGridTable = simsApi.CreateStaffDataTable;
+            _simsApi.CreateStaffResultTable();
+            dataGridTable = _simsApi.CreateStaffDataTable;
 
             while (recordupto < recordcount)
             {
@@ -400,7 +317,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    dataGridTable = simsApi.AddStaffToDataTable(dataGridTable, recordupto);
+                    dataGridTable = _simsApi.AddStaffToDataTable(dataGridTable, recordupto);
                     recordupto++;
 
                     long lonCount = recordupto;
@@ -428,7 +345,7 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Info, "Import Start");
             importStart = DateTime.Now;
 
-            switch (simsApi.GetUserType)
+            switch (_simsApi.GetUserType)
             {
                 case SIMSAPI.UserType.Staff:
                     StaffImport();
@@ -493,7 +410,7 @@ namespace Matt40k.SIMSBulkImport
                     "Import per second: " + GetAverage;
                 logger.Log(NLog.LogLevel.Debug, _importSummary);
                 this.Hide();
-                Results results = new Results(simsApi.GetResultTable, simsApi.GetUserType);
+                Results results = new Results(_simsApi.GetResultTable, _simsApi.GetUserType);
                 this.Close();
             }
         }
@@ -534,14 +451,14 @@ namespace Matt40k.SIMSBulkImport
                             emailCount = emailCount + 1;
                             string personEmail = (row["Import email"].ToString());
                             bool importResult = importContactEmail(pid, personEmail);
-                            simsApi.AddContactResultToTable(surname, forename, postcode, town, personId, "Email", personEmail, importResult, "");
+                            _simsApi.AddContactResultToTable(surname, forename, postcode, town, personId, "Email", personEmail, importResult, "");
                         }
                         if (status.Contains("UDF"))
                         {
                             udfCount = udfCount + 1;
                             string personUdf = (row["Import UDF"].ToString());
                             bool importResult = importContactUDF(pid, personUdf);
-                            simsApi.AddContactResultToTable(surname, forename, postcode, town, personId, "UDF", personUdf, importResult, "");
+                            _simsApi.AddContactResultToTable(surname, forename, postcode, town, personId, "UDF", personUdf, importResult, "");
                         }
                     }
                     else
@@ -601,14 +518,14 @@ namespace Matt40k.SIMSBulkImport
                             emailCount = emailCount + 1;
                             string personEmail = (row["Import email"].ToString());
                             bool importResult = importPupilEmail(pid, personEmail);
-                            simsApi.AddPupilResultToTable(surname, forename, gender, admis, dob, year, reg, house, personId, "Email", personEmail, importResult, "");
+                            _simsApi.AddPupilResultToTable(surname, forename, gender, admis, dob, year, reg, house, personId, "Email", personEmail, importResult, "");
                         }
                         if (status.Contains("UDF"))
                         {
                             udfCount = udfCount + 1;
                             string personUdf = (row["Import UDF"].ToString());
                             bool importResult = importPupilUDF(pid, personUdf);
-                            simsApi.AddPupilResultToTable(surname, forename, gender, admis, dob, year, reg, house, personId, "UDF", personUdf, importResult, "");
+                            _simsApi.AddPupilResultToTable(surname, forename, gender, admis, dob, year, reg, house, personId, "UDF", personUdf, importResult, "");
                         }
                     }
                     else
@@ -663,14 +580,14 @@ namespace Matt40k.SIMSBulkImport
                             emailCount = emailCount + 1;
                             string personEmail = (row["Import email"].ToString());
                             bool importResult = importStaffEmail(pid, personEmail);
-                            simsApi.AddStaffResultToTable(surname, forename, gender, staffcode, dob, personId, "Email", personEmail, importResult, "");
+                            _simsApi.AddStaffResultToTable(surname, forename, gender, staffcode, dob, personId, "Email", personEmail, importResult, "");
                         }
                         if (status.Contains("UDF"))
                         {
                             udfCount = udfCount + 1;
                             string personUdf = (row["Import UDF"].ToString());
                             bool importResult = importStaffUDF(pid, personUdf);
-                            simsApi.AddStaffResultToTable(surname, forename, gender, staffcode, dob, personId, "UDF", personUdf, importResult, "");
+                            _simsApi.AddStaffResultToTable(surname, forename, gender, staffcode, dob, personId, "UDF", personUdf, importResult, "");
                         }
                     }
                     else
@@ -742,35 +659,35 @@ namespace Matt40k.SIMSBulkImport
         {
             if (personid == 0) { return true; }
             if (string.IsNullOrWhiteSpace(address)) { return true; }
-            return simsApi.SetContactEmail(personid, address);
+            return _simsApi.SetContactEmail(personid, address);
         }
 
         private bool importStaffEmail(int personid, string address)
         {
             if (personid == 0) { return true; }
             if (string.IsNullOrWhiteSpace(address)) { return true; }
-            return simsApi.SetStaffEmail(personid, address);
+            return _simsApi.SetStaffEmail(personid, address);
         }
 
         private bool importPupilEmail(int personid, string address)
         {
             if (personid == 0) { return false; }
             if (string.IsNullOrWhiteSpace(address)) { return false; }
-            return simsApi.SetStudentEmail(personid, address);
+            return _simsApi.SetStudentEmail(personid, address);
         }
 
         private bool importStaffUDF(int personid, string UDF)
         {
             if (personid == 0) { return true; }
             if (string.IsNullOrWhiteSpace(UDF)) { return true; }
-            return simsApi.SetStaffUDF(personid, UDF);
+            return _simsApi.SetStaffUDF(personid, UDF);
         }
 
         private bool importPupilUDF(int personid, string UDF)
         {
             if (personid == 0) { return false; }
             if (string.IsNullOrWhiteSpace(UDF)) { return false; }
-            return simsApi.SetStudentUDF(personid, UDF);
+            return _simsApi.SetStudentUDF(personid, UDF);
         }
 
         private bool importContactUDF(int personid, string UDF)
@@ -848,7 +765,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_Print(object sender, RoutedEventArgs e)
         {
             DataTable currentDt = (DataTable)dataGrid.DataContext;
-            Results results = new Results(dataGridTable, simsApi.GetUserType);
+            Results results = new Results(dataGridTable, _simsApi.GetUserType);
         }
     }
 }
