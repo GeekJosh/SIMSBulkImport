@@ -1,73 +1,75 @@
 ﻿<Window x:Class="Matt40k.SIMSBulkImport.Match"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-            Title="" Height="460" Width="920" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="Branding\icon.ico">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="160" />
-                <ColumnDefinition Width="20" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="160" />
+      Title="SIMSBulkImport" Height="655" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip" MinHeight="655" MinWidth="1000" Icon="Branding\icon.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="160" />
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="160" />
             <ColumnDefinition Width="60" />
             <ColumnDefinition Width="80" />
             <ColumnDefinition Width="150" />
             <ColumnDefinition Width="10" />
             <ColumnDefinition Width="8*" />
         </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="20" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="10" />
             <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        </Grid.RowDefinitions>
+
 
         <Label Content="Surname" HorizontalAlignment="Left" Name="labelSurname" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" />
         <Label Content="Firstname" HorizontalAlignment="Left" Name="labelFirst" VerticalAlignment="Top" Grid.Column="4" Grid.Row="1" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboSurname" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="1" SelectionChanged="combo_SelectionChanged" TabIndex="1" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboFirst" VerticalAlignment="Top" Width="150" Grid.Column="5" Grid.Row="1" SelectionChanged="combo_SelectionChanged" TabIndex="2" />
-<!-- Gender -->
+        <!-- Gender -->
         <Label Content="Gender" Name="labelGender" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboGender" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="2" SelectionChanged="combo_SelectionChanged" TabIndex="3" IsEnabled="False" />
-<!-- Staff code \ Admission Number \ Postcode -->
+        <!-- Staff code \ Admission Number \ Postcode -->
         <Label Content="Staff Code" Height="28" HorizontalAlignment="Left" Name="labelCode" VerticalAlignment="Top" Grid.Column="4" Grid.Row="2" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboCode" VerticalAlignment="Top" Width="150" Grid.Column="5" Grid.Row="2" SelectionChanged="combo_SelectionChanged" TabIndex="5" />
-<!-- Reg -->
+        <!-- Reg -->
         <Label Content="Registration Group" Height="28" HorizontalAlignment="Left" Name="labelReg" VerticalAlignment="Top" Grid.Column="1" Grid.Row="4" IsEnabled="False" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboReg" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="4" SelectionChanged="combo_SelectionChanged" IsEnabled="False" TabIndex="5" />
-<!-- Title \ Year group \ Town -->
+        <!-- Title \ Year group \ Town -->
         <Label Content="Title" Name="labelTitle" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboTitle" VerticalAlignment="Top" Width="150" Grid.Column="2" Grid.Row="3" SelectionChanged="combo_SelectionChanged" TabIndex="4" />
-<!-- Email -->
+        <!-- Email -->
         <Label Content="Email" Height="28" HorizontalAlignment="Left" Name="labelEmail" VerticalAlignment="Top" Grid.Column="4" Grid.Row="3" />
-        <ComboBox Height="23" HorizontalAlignment="Left" Name="comboEmail" VerticalAlignment="Top" Width="150" Grid.Column="5" Grid.Row="3" SelectionChanged="combo_SelectionChanged" TabIndex="6" />         
+        <ComboBox Height="23" HorizontalAlignment="Left" Name="comboEmail" VerticalAlignment="Top" Width="150" Grid.Column="5" Grid.Row="3" SelectionChanged="combo_SelectionChanged" TabIndex="6" />
         <Label Name="labelEmailLocation" Content="Email Location" Grid.Column="4" Grid.Row="4" IsEnabled="False" />
         <ComboBox Name="comboEmailLocation" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="5" Grid.Row="4" IsEnabled="False" SelectionChanged="combo_SelectionChanged"/>
-            
+
         <Label Content="Filter" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
         <ComboBox IsEnabled="False"  Name="comboFilter" Height="23" Grid.Column="8" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" SelectedIndex="0" SelectionChanged="comboFilter_SelectionChanged" />
         <Label Content="Workbook" Grid.Row="2" Grid.Column="7" />
         <ComboBox Name="comboWorkbook" Grid.Row="2" Grid.Column="8" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" SelectedIndex="0" Height="23" IsEnabled="False" SelectionChanged="comboWorkbook_SelectionChanged"/>
 
-<!-- SIMS UDF -->
+        <!-- SIMS UDF -->
         <Label Content="SIMS UDF" Grid.Row="3" Grid.Column="7" ToolTip="SIMS User Defined Field" IsEnabled="True" />
         <ComboBox Name="comboSIMSUDF" Grid.Row="3" Grid.Column="8" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="23" IsEnabled="True" SelectionChanged="comboSIMSUDF_SelectionChanged" />
         <Label Name="labelUDF" Content="UDF" Grid.Column="7" Grid.Row="4" IsEnabled="False" />
         <ComboBox Name="comboUDF" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="8" Grid.Row="4" IsEnabled="False" SelectionChanged="combo_SelectionChanged" />
-            
-            
-        <Grid Height="220" Grid.ColumnSpan="8" Grid.Column="1" Grid.Row="7">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="180" />
-            <RowDefinition Height="40" />
-        </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="True" HorizontalAlignment="Center" Name="dataGrid" VerticalAlignment="Center" Height="180" Width="800" Grid.Row="0" ItemsSource="{Binding Path=.}" IsReadOnly="True"></DataGrid>
-        <Button Content="OK" Grid.Row="1" Height="30" HorizontalAlignment="Center" Name="button" VerticalAlignment="Center" Width="75" Click="button_Click" TabIndex="5"/>
-    </Grid>
+
+
+        <Grid Height="440" Grid.ColumnSpan="10" Grid.Column="1" Grid.Row="7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="400" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <DataGrid AutoGenerateColumns="True" HorizontalAlignment="Center" Name="dataGrid" VerticalAlignment="Center" Height="400" Width="960" Grid.Row="0" ItemsSource="{Binding Path=.}" IsReadOnly="True"></DataGrid>
+            <Button Content="OK" Grid.Row="1" Height="30" HorizontalAlignment="Center" Name="button" VerticalAlignment="Center" Width="75" Click="button_Click" TabIndex="5"/>
+        </Grid>
     </Grid>
 </Window>
     

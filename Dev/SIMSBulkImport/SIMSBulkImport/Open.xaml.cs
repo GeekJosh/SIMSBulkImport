@@ -57,6 +57,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 if (!File.Exists(pathBox.Text)) { MessageBox.Show("Please select a valid file"); }
                 else {
+                    showLoad(true);
                     logger.Log(NLog.LogLevel.Info, "User selected file for import: " + pathBox.Text);
                     _importFile.SetImportFilePath = pathBox.Text;
                     this.Close();
@@ -67,6 +68,20 @@ namespace Matt40k.SIMSBulkImport
         private void pathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (File.Exists(pathBox.Text)) { button.IsEnabled = true; } else { button.IsEnabled = false; }
+        }
+
+        private void showLoad(bool value)
+        {
+            if (value)
+            {
+                this.gridLoad.Visibility = Visibility.Visible;
+                this.gridOpen.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                this.gridLoad.Visibility = Visibility.Hidden;
+                this.gridOpen.Visibility = Visibility.Visible;
+            }
         }
     }
 }
