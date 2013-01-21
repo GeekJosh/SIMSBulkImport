@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Matt40k.SIMSBulkImport.Duplicate"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Duplicate" Height="300" Width="500" Icon="Branding\icon.ico">
+        Title="Duplicate" Height="300" Width="500" Icon="icon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />

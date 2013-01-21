@@ -336,7 +336,12 @@ namespace Matt40k.SIMSBulkImport
 
         private void combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataTable filtered  = previewTable;
+            UpdatePreview();
+        }
+
+        private void UpdatePreview()
+        {
+            DataTable filtered = previewTable;
             //if (comboPerson.SelectedItem != null)
             //{
             //    personid = comboPerson.SelectedItem.ToString();
@@ -395,82 +400,94 @@ namespace Matt40k.SIMSBulkImport
                 emaillocation = comboEmailLocation.SelectedItem.ToString();
             }
 
-            int count = 1;
 
-            foreach (DataRow r in dt.Rows)
+            bool ignoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
+
+            int rowCount = 5;
+            if (dt.Rows.Count < rowCount)
+                rowCount = dt.Rows.Count;
+
+            for (int i = 1; i <= rowCount; i++)
             {
-
-                if (count < 6)
+                if (ignoreFirstRow && i == 1)
                 {
-                    DataRow newrow = filtered.NewRow();
-                    //if (!string.IsNullOrWhiteSpace(personid))
-                    //{
-                    //    newrow["PersonID"] = r[personid];
-                    //}
-                    if (!string.IsNullOrWhiteSpace(firstname))
-                    {
-                        newrow["Firstname"] = r[firstname];
-                    }
-                    if (!string.IsNullOrWhiteSpace(surname))
-                    {
-                        newrow["Surname"] = r[surname];
-                    }
-                    if (!string.IsNullOrWhiteSpace(email))
-                    {
-                        newrow["Email"] = r[email];
-                    }
-                    if (!string.IsNullOrWhiteSpace(udf))
-                    {
-                        newrow["UDF"] = r[udf];
-                    }
-                    switch (simsApi.GetUserType)
-                    {
-                        case SIMSAPI.UserType.Staff:
-                            if (!string.IsNullOrWhiteSpace(gender))
-                            {
-                                newrow["Gender"] = r[gender];
-                            }
-                            if (!string.IsNullOrWhiteSpace(staffcode))
-                            {
-                                newrow["StaffCode"] = r[staffcode];
-                            }
-                            if (!string.IsNullOrWhiteSpace(title))
-                            {
-                                newrow["Title"] = r[title];
-                            }
-                            break;
-                        case SIMSAPI.UserType.Pupil:
-                            if (!string.IsNullOrWhiteSpace(title))
-                            {
-                                newrow["Year"] = r[title];
-                            }
-                            if (!string.IsNullOrWhiteSpace(reg))
-                            {
-                                newrow["Reg"] = r[reg];
-                            }
-                            if (!string.IsNullOrWhiteSpace(staffcode))
-                            {
-                                newrow["Admission"] = r[staffcode];
-                            }
-                            break;
-                        case SIMSAPI.UserType.Contact:
-                            if (!string.IsNullOrWhiteSpace(title))
-                            {
-                                newrow["Town"] = r[title];
-                            }
-                            if (!string.IsNullOrWhiteSpace(staffcode))
-                            {
-                                newrow["Postcode"] = r[staffcode];
-                            }
-                            break;
-                    }
-                    filtered.Rows.Add(newrow);
-                    count = count + 1;
+                    // Ignore it
+                }
+                else
+                {
+                    filtered.Rows.Add(previewRow(dt.Rows[i - 1], filtered));
                 }
             }
 
             this.dataGrid.DataContext = filtered;
             this.dataGrid.Items.Refresh();
+        }
+
+        private DataRow previewRow(DataRow r, DataTable dt)
+        {
+            DataRow newrow = dt.NewRow();
+            //if (!string.IsNullOrWhiteSpace(personid))
+            //{
+            //    newrow["PersonID"] = r[personid];
+            //}
+            if (!string.IsNullOrWhiteSpace(firstname))
+            {
+                newrow["Firstname"] = r[firstname];
+            }
+            if (!string.IsNullOrWhiteSpace(surname))
+            {
+                newrow["Surname"] = r[surname];
+            }
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                newrow["Email"] = r[email];
+            }
+            if (!string.IsNullOrWhiteSpace(udf))
+            {
+                newrow["UDF"] = r[udf];
+            }
+            switch (simsApi.GetUserType)
+            {
+                case SIMSAPI.UserType.Staff:
+                    if (!string.IsNullOrWhiteSpace(gender))
+                    {
+                        newrow["Gender"] = r[gender];
+                    }
+                    if (!string.IsNullOrWhiteSpace(staffcode))
+                    {
+                        newrow["StaffCode"] = r[staffcode];
+                    }
+                    if (!string.IsNullOrWhiteSpace(title))
+                    {
+                        newrow["Title"] = r[title];
+                    }
+                    break;
+                case SIMSAPI.UserType.Pupil:
+                    if (!string.IsNullOrWhiteSpace(title))
+                    {
+                        newrow["Year"] = r[title];
+                    }
+                    if (!string.IsNullOrWhiteSpace(reg))
+                    {
+                        newrow["Reg"] = r[reg];
+                    }
+                    if (!string.IsNullOrWhiteSpace(staffcode))
+                    {
+                        newrow["Admission"] = r[staffcode];
+                    }
+                    break;
+                case SIMSAPI.UserType.Contact:
+                    if (!string.IsNullOrWhiteSpace(title))
+                    {
+                        newrow["Town"] = r[title];
+                    }
+                    if (!string.IsNullOrWhiteSpace(staffcode))
+                    {
+                        newrow["Postcode"] = r[staffcode];
+                    }
+                    break;
+            }
+            return newrow;
         }
 
         private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -518,6 +535,11 @@ namespace Matt40k.SIMSBulkImport
                 }
                 return true;
             }
+        }
+
+        private void comboIgnoreFirst_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdatePreview();
         }
     }
 }

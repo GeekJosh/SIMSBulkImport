@@ -39,7 +39,7 @@
         </StatusBar>
 
         <Grid Grid.Row="1" HorizontalAlignment="Center" Name="gridTitle" VerticalAlignment="Center" Height="250">
-            <!--<Image Grid.Row="1" Height="200" HorizontalAlignment="Center" Name="imageLogo" Stretch="Fill" VerticalAlignment="Top" Width="200" Visibility="Hidden" Source="/SIMSBulkImport;component/Branding/image.png" />-->
+            <!--<Image Grid.Row="1" Height="200" HorizontalAlignment="Center" Name="imageLogo" Stretch="Fill" VerticalAlignment="Top" Width="200" Visibility="Hidden" Source="image.png" />-->
             <Label Grid.Row="1" HorizontalAlignment="Center" Name="labelTitle" VerticalAlignment="Center" FontSize="36" Visibility="Hidden" Target="{Binding}" />
         </Grid>
     </Grid>

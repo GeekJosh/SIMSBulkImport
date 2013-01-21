@@ -103,15 +103,15 @@ namespace Matt40k.SIMSBulkImport
         {
             if ((e.Cancelled == true))
             {
-                
+                _importFile.ImportCompleted = false;
             }
             else if (!(e.Error == null))
             {
-                
+                _importFile.ImportCompleted = false;
             }
             else
             {
-                
+                _importFile.ImportCompleted = true;
             }
             Close();
         }

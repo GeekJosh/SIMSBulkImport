@@ -183,23 +183,25 @@ namespace Matt40k.SIMSBulkImport
                     Open open = new Open(_simsApi, _importFile);
                     open.ShowDialog();
 
-                    Match match = new Match(_simsApi, _importFile);
-                    match.ShowDialog();
-
-                    if (_simsApi.GetMatched)
+                    if (_importFile.IsImportCompleted)
                     {
-                        if (_importFile.IsImportFileSet)
+                        Match match = new Match(_simsApi, _importFile);
+                        match.ShowDialog();
+
+                        if (_simsApi.GetMatched)
                         {
-                            this.dataGrid.Visibility = Visibility.Visible;
-                            this.labelTitle.Visibility = Visibility.Hidden;
-                            //this.imageLogo.Visibility = Visibility.Hidden;
+                            if (_importFile.IsImportFileSet)
+                            {
+                                this.dataGrid.Visibility = Visibility.Visible;
+                                this.labelTitle.Visibility = Visibility.Hidden;
 
-                            this.dataGrid.Items.Refresh();
+                                this.dataGrid.Items.Refresh();
 
-                            recordcount = _simsApi.GetImportFileRecordCount;
+                                recordcount = _simsApi.GetImportFileRecordCount;
 
-                            queryStart = DateTime.Now;
-                            logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
+                                queryStart = DateTime.Now;
+                                logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
+                            }
                         }
                     }
                 }
@@ -739,24 +741,6 @@ namespace Matt40k.SIMSBulkImport
             Options options = new Options();
             options.ShowDialog();
         }
-
-        /*
-        private void GetBranding()
-        {
-            bool showText = Branding.Brand.ShowText;
-            bool showLogo = Branding.Brand.ShowLogo;
-
-            if (showLogo)
-            {
-                //this.imageLogo.Visibility = Visibility.Visible;
-                this.labelTitle.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
-            }
-
-            if (showText)
-            {
-                this.labelTitle.Visibility = Visibility.Visible;
-            }
-        }*/
 
         private void MenuItem_Click_Print(object sender, RoutedEventArgs e)
         {

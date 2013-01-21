@@ -138,5 +138,23 @@ namespace Matt40k.SIMSBulkImport
                 return !string.IsNullOrEmpty(_filePath);
             }
         }
+
+        private bool _importCompleted;
+
+        public bool IsImportCompleted
+        {
+            get
+            {
+                return _importCompleted;
+            }
+        }
+
+        public bool ImportCompleted
+        {
+            set
+            {
+                _importCompleted = value;
+            }
+        }
     }
 }
