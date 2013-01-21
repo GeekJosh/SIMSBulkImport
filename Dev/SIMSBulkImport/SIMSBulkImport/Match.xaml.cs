@@ -47,7 +47,6 @@ namespace Matt40k.SIMSBulkImport
 
         internal Match(SIMSAPI simsapi, ImportFile importFile)
         {
-            MessageBox.Show("Match loading");
             simsApi = simsapi;
             _importFile = importFile;
             //importFromFile = importFile;
