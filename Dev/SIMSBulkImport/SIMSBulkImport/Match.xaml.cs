@@ -47,14 +47,13 @@ namespace Matt40k.SIMSBulkImport
 
         internal Match(SIMSAPI simsapi, ImportFile importFile)
         {
+            MessageBox.Show("Match loading");
             simsApi = simsapi;
             _importFile = importFile;
             //importFromFile = importFile;
 
             InitializeComponent();
 
-            this.Title = "Match - " + GetExe.Title;
-            
             GetUserFilters();
 
             switch (simsApi.GetUserType)
@@ -76,7 +75,7 @@ namespace Matt40k.SIMSBulkImport
                     break;
                 case SIMSAPI.UserType.Pupil:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Students");
-                    string[] udfsStudents = simsApi.GetStudentUDFs;
+                    string[] udfsStudents = simsApi.GetPupilUDFs;
                     if (udfsStudents.Length != 0)
                     {
                         foreach (string udf in udfsStudents)

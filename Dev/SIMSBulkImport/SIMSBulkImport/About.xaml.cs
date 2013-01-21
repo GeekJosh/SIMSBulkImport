@@ -30,18 +30,12 @@ namespace Matt40k.SIMSBulkImport
         public About()
         {
             InitializeComponent();
-            this.Title = "About - " + GetExe.Title;
             this.labelTitle.Content = GetExe.Title;
             this.labelDescription.Content = GetExe.Description;
             this.labelCopyright.Content = GetExe.Copyright;
             this.labelVersion.Content = "Version: " + GetExe.Version;
             this.buttonAppUrl.Content = GetExe.AppUrl;
   
-        }
-
-        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
         }
 
         private void buttonAppUrl_Click(object sender, RoutedEventArgs e)
@@ -56,6 +50,11 @@ namespace Matt40k.SIMSBulkImport
             {
                 logger.Log(NLog.LogLevel.Error, buttonAppUrl_Exception);
             }
+        }
+
+        private void buttonClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

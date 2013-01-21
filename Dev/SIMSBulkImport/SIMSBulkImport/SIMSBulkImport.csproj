@@ -135,7 +135,6 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Branding\AssemblyInfo.cs" />
     <Compile Include="Branding\Brand.cs" />
     <Compile Include="CleanUp.cs" />
     <Compile Include="ConfigMan.cs" />
@@ -253,12 +252,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Branding\image.png" />
+    <Resource Include="image.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Branding\icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="icon.ico" />
     <Content Include="Report_Staff.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -15,6 +15,10 @@ using System.Resources;
 [assembly: AssemblyCopyright("Copyright © Matt Smith 2011 - 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: AssemblyTitle("SIMS Bulk Import")]
+[assembly: AssemblyDescription("Bulk imports into SIMS .net using\nthe Capita Business Objects")]
+[assembly: AssemblyCompany("Matt Smith")]
+[assembly: AssemblyProduct("SIMS Bulk Import")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

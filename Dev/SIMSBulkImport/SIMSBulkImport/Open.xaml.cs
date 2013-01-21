@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.IO;
 using System.Text;
@@ -18,6 +19,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Threading;
+
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
@@ -27,15 +30,17 @@ namespace Matt40k.SIMSBulkImport
     {
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private ImportFile _importFile;
+        private BackgroundWorker bw = new BackgroundWorker();
+        private SIMSAPI _simsApi;
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        internal Open(ImportFile importFile)
+        internal Open(SIMSAPI simsApi, ImportFile importFile)
         {
             _importFile = importFile;
+            _simsApi = simsApi;
             InitializeComponent();
 
             this.pathBox.Focus();
-            this.Title = "Open - " + GetExe.Title;
 
             openFileDialog = new System.Windows.Forms.OpenFileDialog();
             openFileDialog.Filter = "CSV (Comma delimited)(*.csv)|*csv|XLS (Excel Workbook) (*.xls, *.xlsx)|*xls;*xlsx|XML Document (*.xml)|*xml|All Files(*.*)|*";
@@ -56,11 +61,21 @@ namespace Matt40k.SIMSBulkImport
             else
             {
                 if (!File.Exists(pathBox.Text)) { MessageBox.Show("Please select a valid file"); }
-                else {
+                else
+                {
                     showLoad(true);
                     logger.Log(NLog.LogLevel.Info, "User selected file for import: " + pathBox.Text);
                     _importFile.SetImportFilePath = pathBox.Text;
-                    this.Close();
+
+                    bw = new BackgroundWorker();
+                    bw.WorkerReportsProgress = true;
+                    bw.WorkerSupportsCancellation = true;
+                    bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+                    //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
+                    bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+
+                    if (bw.IsBusy != true)
+                        bw.RunWorkerAsync();
                 }
             }
         }
@@ -82,6 +97,44 @@ namespace Matt40k.SIMSBulkImport
                 this.gridLoad.Visibility = Visibility.Hidden;
                 this.gridOpen.Visibility = Visibility.Visible;
             }
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((e.Cancelled == true))
+            {
+                
+            }
+            else if (!(e.Error == null))
+            {
+                
+            }
+            else
+            {
+                
+            }
+            Close();
+        }
+
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            string prog = e.ProgressPercentage.ToString();
+            MessageBox.Show(prog);
+            if (prog == "50")
+                this.labelLoad.Content = "Loading UDFs...";
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            // Import the file into a dataset
+            _importFile.GetImportDataSet();
+
+            worker.ReportProgress(50);
+
+            // Load UDFs from SIMS
+            _simsApi.LoadUdfs();
         }
     }
 }

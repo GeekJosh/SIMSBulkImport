@@ -22,7 +22,6 @@ namespace Matt40k.SIMSBulkImport
         private DataSet _importDataSet;
 
         private FileType _importFileType;
-        private bool _importComplete;
 
         internal string SetImportFilePath
         {
@@ -51,13 +50,31 @@ namespace Matt40k.SIMSBulkImport
 
         internal void GetImportDataSet()
         {
-            logger.Log(LogLevel.Debug, "GetImportDataSet start");
-            logger.Log(LogLevel.Debug, _filePath);
+            logger.Log(LogLevel.Debug, "GetImportDataSet");
 
             _importFileType = importFileType;
-            spawnSeparateThread();
 
-            logger.Log(NLog.LogLevel.Error, "GetImportDataSet end");
+            switch (_importFileType)
+            {
+                case FileType.Csv:
+                    ImportCsv _importCsv = new ImportCsv();
+                    _importCsv.SetFilePath = _filePath;
+                    _importDataSet = _importCsv.GetDataSet;
+                    break;
+                case FileType.Xml:
+                    ImportXml _importXml = new ImportXml();
+                    _importXml.SetFilePath = _filePath;
+                    _importDataSet = _importXml.GetDataSet;
+                    break;
+                case FileType.Xls:
+                    ImportExcel _importExcel = new ImportExcel();
+                    _importExcel.SetFilePath = _filePath;
+                    _importDataSet = _importExcel.GetDataSet;
+                    break;
+                case FileType.Unknown:
+                    break;
+            }
+
         }
 
         private enum FileType
@@ -106,36 +123,6 @@ namespace Matt40k.SIMSBulkImport
                     default:
                         return FileType.Unknown;
                 }
-            }
-        }
-
-        private void spawnSeparateThread()
-        {
-            switch (_importFileType)
-            {
-                case FileType.Csv:
-                    logger.Log(NLog.LogLevel.Debug, "spawnSeparateThread: Csv");
-                    ImportCsv _importCsv = new ImportCsv();
-                    _importCsv.SetFilePath = _filePath;
-                    _importDataSet = _importCsv.GetDataSet;
-                    _importComplete = true;
-                    break;
-                case FileType.Xml:
-                    logger.Log(NLog.LogLevel.Debug, "spawnSeparateThread: Xml");
-                    ImportXml _importXml = new ImportXml();
-                    _importXml.SetFilePath = _filePath;
-                    _importDataSet = _importXml.GetDataSet;
-                    _importComplete = true;
-                    break;
-                case FileType.Xls:
-                    logger.Log(NLog.LogLevel.Debug, "spawnSeparateThread: Xls");
-                    ImportExcel _importExcel = new ImportExcel();
-                    _importExcel.SetFilePath = _filePath;
-                    _importDataSet = _importExcel.GetDataSet;
-                    _importComplete = true;
-                    break;
-                case FileType.Unknown:
-                    break;
             }
         }
 

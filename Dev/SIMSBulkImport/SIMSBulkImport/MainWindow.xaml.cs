@@ -180,15 +180,8 @@ namespace Matt40k.SIMSBulkImport
             {
                 try
                 {
-                    Open open = new Open(_importFile);
+                    Open open = new Open(_simsApi, _importFile);
                     open.ShowDialog();
-
-                    this.progressRing.IsActive = true;
-
-                    _importFile.GetImportDataSet();
-
-                    this.progressRing.IsActive = false;
-
 
                     Match match = new Match(_simsApi, _importFile);
                     match.ShowDialog();
@@ -212,6 +205,8 @@ namespace Matt40k.SIMSBulkImport
                 }
                 catch (Exception importLogic_Exception)
                 {
+                    logger.Log(NLog.LogLevel.Error, importLogic_Exception);
+                    MessageBox.Show(importLogic_Exception.ToString());
                     return false;
                 }
                 return true;
@@ -673,7 +668,7 @@ namespace Matt40k.SIMSBulkImport
         {
             if (personid == 0) { return false; }
             if (string.IsNullOrWhiteSpace(address)) { return false; }
-            return _simsApi.SetStudentEmail(personid, address);
+            return _simsApi.SetPupilEmail(personid, address);
         }
 
         private bool importStaffUDF(int personid, string UDF)
@@ -687,7 +682,7 @@ namespace Matt40k.SIMSBulkImport
         {
             if (personid == 0) { return false; }
             if (string.IsNullOrWhiteSpace(UDF)) { return false; }
-            return _simsApi.SetStudentUDF(personid, UDF);
+            return _simsApi.SetPupilUDF(personid, UDF);
         }
 
         private bool importContactUDF(int personid, string UDF)
@@ -745,6 +740,7 @@ namespace Matt40k.SIMSBulkImport
             options.ShowDialog();
         }
 
+        /*
         private void GetBranding()
         {
             bool showText = Branding.Brand.ShowText;
@@ -760,7 +756,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 this.labelTitle.Visibility = Visibility.Visible;
             }
-        }
+        }*/
 
         private void MenuItem_Click_Print(object sender, RoutedEventArgs e)
         {

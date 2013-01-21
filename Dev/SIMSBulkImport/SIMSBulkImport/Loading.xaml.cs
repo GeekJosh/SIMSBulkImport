@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Developer : Matt Smith (matt@matt40k.co.uk)
+ * All code (c) Matthew Smith all rights reserved
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -27,6 +32,7 @@ namespace Matt40k.SIMSBulkImport
         public Loading()
         {
             InitializeComponent();
+            this.textUser.Focus();
             BeginLoad();
         }
 
