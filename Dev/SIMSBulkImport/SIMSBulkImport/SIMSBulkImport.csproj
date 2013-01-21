@@ -65,7 +65,8 @@
     <DocumentationFile>SIMSBULKIMPORT.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Branding\icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -135,7 +136,6 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Branding\Brand.cs" />
     <Compile Include="CleanUp.cs" />
     <Compile Include="ConfigMan.cs" />
     <Compile Include="ConnectIni.cs" />
@@ -253,9 +253,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Branding\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
