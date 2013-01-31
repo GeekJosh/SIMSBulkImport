@@ -56,6 +56,14 @@ namespace Matt40k.SIMSBulkImport
         {
             InitializeComponent();
             _simsApi = simsApi;
+            ConnectedTo();
+        }
+
+        public void ConnectedTo()
+        {
+            string currentSchool = _simsApi.GetCurrentSchool;
+            if (!string.IsNullOrWhiteSpace(currentSchool))
+                this.Status.Content = "Connected to: " + currentSchool;
         }
 
         public void Reset()
