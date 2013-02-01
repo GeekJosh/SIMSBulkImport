@@ -141,7 +141,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    Switcher.Switch(new MainWindow());
+                    Switcher.Switch(new Menu());
                 }
             }
         }

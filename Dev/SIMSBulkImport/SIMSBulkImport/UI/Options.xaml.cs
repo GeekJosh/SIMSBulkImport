@@ -71,7 +71,7 @@ namespace Matt40k.SIMSBulkImport
         {
             //writeConfig_Updates = this.checkBoxUpdates.IsChecked.Value;
             ConfigMan.SetDebugMode = this.checkBoxDebug.IsChecked.Value;
-            //TODO this.Close();
+            Switcher.Switch(new Menu());
         }
     }
 }

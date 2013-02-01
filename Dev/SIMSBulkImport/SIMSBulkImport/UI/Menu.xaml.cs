@@ -17,12 +17,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Matt40k.SIMSBulkImport.UI
+namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
     /// Interaction logic for Menu.xaml
     /// </summary>
-    public partial class Menu : UserControl
+    public partial class Menu
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -73,6 +73,21 @@ namespace Matt40k.SIMSBulkImport.UI
             {
                 logger.Log(NLog.LogLevel.Error, MenuItem_Click_Manual_Exception);
             }
+        }
+
+        private void MenuItem_Click_New_Contact(object sender, RoutedEventArgs e)
+        {
+            logger.Log(NLog.LogLevel.Debug, "Menu: Contact selected");
+        }
+
+        private void MenuItem_Click_New_Pupil(object sender, RoutedEventArgs e)
+        {
+            logger.Log(NLog.LogLevel.Debug, "Menu: Pupil selected");
+        }
+
+        private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
+        {
+            logger.Log(NLog.LogLevel.Debug, "Menu: Staff selected");
         }
     }
 }

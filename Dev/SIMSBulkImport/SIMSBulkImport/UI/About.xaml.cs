@@ -54,7 +54,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void buttonClick(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new MainWindow());
+            Switcher.Switch(new Menu());
         }
     }
 }
