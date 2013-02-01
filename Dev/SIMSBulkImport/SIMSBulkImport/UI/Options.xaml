@@ -1,7 +1,6 @@
-﻿<Window x:Class="Matt40k.SIMSBulkImport.Options"
+﻿<UserControl x:Class="Matt40k.SIMSBulkImport.Options"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SIMSBulkImport" Height="655" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip" MinHeight="655" MinWidth="1000" Icon="icon.ico">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -20,4 +19,4 @@
         <CheckBox Content="Automatically check for updates" Grid.Column="1" Grid.Row="2" Height="16" HorizontalAlignment="Left" Name="checkBoxUpdates" VerticalAlignment="Center" />
         <Button Content="Save" Grid.Column="1" Grid.Row="4" Height="26" HorizontalAlignment="Center" Name="buttonSave" VerticalAlignment="Center" Width="100" Click="buttonSave_Click" />
     </Grid>
-</Window>
+</UserControl>

@@ -4,6 +4,19 @@
         <name>SIMS Bulk Import</name>
     </assembly>
     <members>
+        <member name="T:Matt40k.SIMSBulkImport.PageSwitcher">
+            <summary>
+            Interaction logic for PageSwitcher.xaml
+            </summary>
+            <summary>
+            PageSwitcher
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.PageSwitcher.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
         <member name="T:Matt40k.SIMSBulkImport.About">
             <summary>
             Interaction logic for About.xaml
@@ -86,7 +99,7 @@
             MainWindow
             </summary>
         </member>
-        <member name="M:Matt40k.SIMSBulkImport.MainWindow.#ctor(Matt40k.SIMSBulkImport.SIMSAPI)">
+        <member name="M:Matt40k.SIMSBulkImport.MainWindow.#ctor">
             <summary>
             
             </summary>

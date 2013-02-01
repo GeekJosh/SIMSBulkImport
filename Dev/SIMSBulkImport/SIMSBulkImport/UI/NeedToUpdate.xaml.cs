@@ -16,7 +16,7 @@ namespace Matt40k.SIMSBulkImport
     /// <summary>
     /// Interaction logic for NeedToUpdate.xaml
     /// </summary>
-    public partial class NeedToUpdate : Window
+    public partial class NeedToUpdate
     {
         public NeedToUpdate()
         {

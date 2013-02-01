@@ -22,12 +22,8 @@ namespace Matt40k.SIMSBulkImport
     /// <summary>
     /// Interaction logic for Match.xaml
     /// </summary>
-    public partial class Match : Window
+    public partial class Match
     {
-        private SIMSAPI simsApi;
-        //private ImportFromFile importFromFile;
-        private ImportFile _importFile;
-
         private DataTable dt;
         //private int ImportType;
 
@@ -45,21 +41,17 @@ namespace Matt40k.SIMSBulkImport
         private string emaillocation;
         private string reg;
 
-        internal Match(SIMSAPI simsapi, ImportFile importFile)
+        internal Match()
         {
-            simsApi = simsapi;
-            _importFile = importFile;
-            //importFromFile = importFile;
-
             InitializeComponent();
 
             GetUserFilters();
 
-            switch (simsApi.GetUserType)
+            switch (Switcher.SimsApiClass.GetUserType)
             {
                 case SIMSAPI.UserType.Staff:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Staff");
-                    string[] udfsStaff = simsApi.GetStaffUDFs;
+                    string[] udfsStaff = Switcher.SimsApiClass.GetStaffUDFs;
                     if (udfsStaff.Length != 0)
                     {
                         foreach (string udf in udfsStaff)
@@ -74,7 +66,7 @@ namespace Matt40k.SIMSBulkImport
                     break;
                 case SIMSAPI.UserType.Pupil:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Students");
-                    string[] udfsStudents = simsApi.GetPupilUDFs;
+                    string[] udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
                     if (udfsStudents.Length != 0)
                     {
                         foreach (string udf in udfsStudents)
@@ -91,7 +83,7 @@ namespace Matt40k.SIMSBulkImport
                     break;
                 case SIMSAPI.UserType.Contact:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Contacts");
-                    string[] udfsContacts = simsApi.GetContactUDFs;
+                    string[] udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
                     if (udfsContacts.Length != 0)
                     {
                         foreach (string udf in udfsContacts)
@@ -116,7 +108,7 @@ namespace Matt40k.SIMSBulkImport
             }
 
             // Get Email Locations
-            string[] emailLocations = simsApi.GetEmailLocations;
+            string[] emailLocations = Switcher.SimsApiClass.GetEmailLocations;
             if (emailLocations.Length != 0)
             {
                 foreach (string emailLocation in emailLocations)
@@ -126,9 +118,9 @@ namespace Matt40k.SIMSBulkImport
                 this.comboEmailLocation.Items.Add("");
             }
 
-            if (_importFile.GetIsExcel)
+            if (Switcher.ImportFileClass.GetIsExcel)
             {
-                foreach (string workBook in _importFile.GetSheets)
+                foreach (string workBook in Switcher.ImportFileClass.GetSheets)
                 {
                     this.comboWorkbook.Items.Add(workBook);
                 }
@@ -142,7 +134,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void GetUserFilters()
         {
-            switch (simsApi.GetUserType)
+            switch (Switcher.SimsApiClass.GetUserType)
             {
                 case SIMSAPI.UserType.Staff:
                     this.comboFilter.Items.Add("Staff, all Current");
@@ -154,7 +146,7 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.Items.Add("Staff, all Leavers");
                     this.comboFilter.Items.Add("All");
 
-                    this.comboFilter.SelectedIndex = simsApi.GetUserFilter;
+                    this.comboFilter.SelectedIndex = Switcher.SimsApiClass.GetUserFilter;
                     this.comboFilter.IsEnabled = true;
                     break;
                 case SIMSAPI.UserType.Pupil:
@@ -165,7 +157,7 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.Items.Add("Leavers");
                     this.comboFilter.Items.Add("On Roll");
                     this.comboFilter.Items.Add("Future");
-                    this.comboFilter.SelectedIndex = simsApi.GetUserFilter;
+                    this.comboFilter.SelectedIndex = Switcher.SimsApiClass.GetUserFilter;
                     this.comboFilter.IsEnabled = true;
                     break;
                 case SIMSAPI.UserType.Contact:
@@ -189,7 +181,7 @@ namespace Matt40k.SIMSBulkImport
             udf = null;
             //simsUdf = null;
 
-            DataSet dt1 = _importFile.GetDataSet;
+            DataSet dt1 = Switcher.ImportFileClass.GetDataSet;
             dt = dt1.Tables[0];
             // TODO
             /*
@@ -263,42 +255,42 @@ namespace Matt40k.SIMSBulkImport
             
             if (matchFillIn)
             {
-                simsApi.SetImportDataset = _importFile.GetDataSet;
+                Switcher.SimsApiClass.SetImportDataset = Switcher.ImportFileClass.GetDataSet;
 
-                simsApi.SetMatchFirstname = firstname;
-                simsApi.SetMatchSurname = surname;
-                simsApi.SetMatchEmail = email;
-                simsApi.SetMatchStaffcode = staffcode;
-                simsApi.SetMatchGender = gender;
-                switch (simsApi.GetUserType)
+                Switcher.SimsApiClass.SetMatchFirstname = firstname;
+                Switcher.SimsApiClass.SetMatchSurname = surname;
+                Switcher.SimsApiClass.SetMatchEmail = email;
+                Switcher.SimsApiClass.SetMatchStaffcode = staffcode;
+                Switcher.SimsApiClass.SetMatchGender = gender;
+                switch (Switcher.SimsApiClass.GetUserType)
                 {
                     case SIMSAPI.UserType.Staff:
-                        simsApi.SetMatchTitle = title;
+                        Switcher.SimsApiClass.SetMatchTitle = title;
                         break;
                     case SIMSAPI.UserType.Pupil:
-                        simsApi.SetMatchYear = title;
+                        Switcher.SimsApiClass.SetMatchYear = title;
                         break;
                     case SIMSAPI.UserType.Contact:
-                        simsApi.SetMatchTown = title;
-                        simsApi.SetMatchPostcode = staffcode;
+                        Switcher.SimsApiClass.SetMatchTown = title;
+                        Switcher.SimsApiClass.SetMatchPostcode = staffcode;
                         break;
                 }
 
                 if (!string.IsNullOrEmpty(udf))
                 {
-                    simsApi.SetMatchUDF = udf;
+                    Switcher.SimsApiClass.SetMatchUDF = udf;
                 }
                 if (!string.IsNullOrEmpty(simsUdf))
                 {
-                    simsApi.SetMatchSIMSUDF = simsUdf;
+                    Switcher.SimsApiClass.SetMatchSIMSUDF = simsUdf;
                 }
                 if (!string.IsNullOrEmpty(emaillocation))
                 {
-                    simsApi.SetMatchEmailLocation = emaillocation;
+                    Switcher.SimsApiClass.SetMatchEmailLocation = emaillocation;
                 }
-                
-                simsApi.SetMatchReg = reg;
-                this.Close();
+
+                Switcher.SimsApiClass.SetMatchReg = reg;
+                //TODO this.Close();
             }
         }
 
@@ -312,7 +304,7 @@ namespace Matt40k.SIMSBulkImport
                 tmpTable.Columns.Add(new DataColumn("Firstname", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("Email", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("UDF", typeof(string)));
-                switch (simsApi.GetUserType)
+                switch (Switcher.SimsApiClass.GetUserType)
                 {
                     case SIMSAPI.UserType.Staff:
                         tmpTable.Columns.Add(new DataColumn("Title", typeof(string)));
@@ -446,7 +438,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 newrow["UDF"] = r[udf];
             }
-            switch (simsApi.GetUserType)
+            switch (Switcher.SimsApiClass.GetUserType)
             {
                 case SIMSAPI.UserType.Staff:
                     if (!string.IsNullOrWhiteSpace(gender))
@@ -492,7 +484,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            simsApi.SetUserFilter = this.comboFilter.SelectedIndex;
+            Switcher.SimsApiClass.SetUserFilter = this.comboFilter.SelectedIndex;
         }
 
         private void comboWorkbook_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -14,7 +14,7 @@ using System.Data.OleDb;
 
 namespace Matt40k.SIMSBulkImport
 {
-    internal class ImportFile
+    public class ImportFile
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 

@@ -26,18 +26,14 @@ namespace Matt40k.SIMSBulkImport
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class Open : Window
+    public partial class Open
     {
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private ImportFile _importFile;
         private BackgroundWorker bwOpen = new BackgroundWorker();
-        private SIMSAPI _simsApi;
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        internal Open(SIMSAPI simsApi, ImportFile importFile)
+        internal Open()
         {
-            _importFile = importFile;
-            _simsApi = simsApi;
             InitializeComponent();
 
             this.pathBox.Focus();
@@ -57,15 +53,15 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(pathBox.Text)) { MessageBox.Show("Please select a file"); }
+            if (string.IsNullOrWhiteSpace(this.pathBox.Text)) { MessageBox.Show("Please select a file"); }
             else
             {
-                if (!File.Exists(pathBox.Text)) { MessageBox.Show("Please select a valid file"); }
+                if (!File.Exists(this.pathBox.Text)) { MessageBox.Show("Please select a valid file"); }
                 else
                 {
                     showLoad(true);
-                    logger.Log(NLog.LogLevel.Info, "User selected file for import: " + pathBox.Text);
-                    _importFile.SetImportFilePath = pathBox.Text;
+                    logger.Log(NLog.LogLevel.Info, "User selected file for import: " + this.pathBox.Text);
+                    Switcher.ImportFileClass.SetImportFilePath = this.pathBox.Text;
 
                     bwOpen = new BackgroundWorker();
                     bwOpen.WorkerReportsProgress = true;
@@ -103,17 +99,17 @@ namespace Matt40k.SIMSBulkImport
         {
             if ((e.Cancelled == true))
             {
-                _importFile.ImportCompleted = false;
+                Switcher.ImportFileClass.ImportCompleted = false;
             }
             else if (!(e.Error == null))
             {
-                _importFile.ImportCompleted = false;
+                Switcher.ImportFileClass.ImportCompleted = false;
             }
             else
             {
-                _importFile.ImportCompleted = true;
+                Switcher.ImportFileClass.ImportCompleted = true;
             }
-            Close();
+            Switcher.Switch(new MainWindow());
         }
 
         private void bwOpen_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -128,12 +124,12 @@ namespace Matt40k.SIMSBulkImport
             bwOpen = sender as BackgroundWorker;
 
             // Import the file into a dataset
-            _importFile.GetImportDataSet();
+            Switcher.ImportFileClass.GetImportDataSet();
 
             bwOpen.ReportProgress(50);
 
             // Load UDFs from SIMS
-            _simsApi.LoadUdfs();
+            Switcher.SimsApiClass.LoadUdfs();
         }
     }
 }

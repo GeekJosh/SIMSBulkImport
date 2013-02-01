@@ -23,7 +23,7 @@ namespace Matt40k.SIMSBulkImport
     /// <summary>
     /// Interaction logic for About.xaml
     /// </summary>
-    public partial class About : Window
+    public partial class About
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -54,7 +54,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void buttonClick(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Switcher.Switch(new MainWindow());
         }
     }
 }

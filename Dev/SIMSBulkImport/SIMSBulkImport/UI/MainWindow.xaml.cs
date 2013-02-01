@@ -24,11 +24,9 @@ namespace Matt40k.SIMSBulkImport
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
-        private SIMSAPI _simsApi;
 
         private BackgroundWorker bw = new BackgroundWorker();
         private BackgroundWorker bwImport = new BackgroundWorker();
@@ -52,16 +50,15 @@ namespace Matt40k.SIMSBulkImport
         /// <summary>
         /// 
         /// </summary>
-        public MainWindow(SIMSAPI simsApi)
+        public MainWindow()
         {
             InitializeComponent();
-            _simsApi = simsApi;
             ConnectedTo();
         }
 
         public void ConnectedTo()
         {
-            string currentSchool = _simsApi.GetCurrentSchool;
+            string currentSchool = Switcher.SimsApiClass.GetCurrentSchool;
             if (!string.IsNullOrWhiteSpace(currentSchool))
                 this.Status.Content = "Connected to: " + currentSchool;
         }
@@ -84,7 +81,7 @@ namespace Matt40k.SIMSBulkImport
             dataGridTable = null;
 
             _importFile.Reset();
-            _simsApi.Reset();
+            Switcher.SimsApiClass.Reset();
 
             this.dataGrid.Visibility = Visibility.Hidden;
             this.labelTitle.Visibility = Visibility.Visible;
@@ -129,7 +126,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_New_Contact(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Contact + " selected");
-            _simsApi.SetUserType = SIMSAPI.UserType.Contact;
+            Switcher.SimsApiClass.SetUserType = SIMSAPI.UserType.Contact;
             bool loadOk = importLogic;
 
             if (loadOk)
@@ -155,8 +152,8 @@ namespace Matt40k.SIMSBulkImport
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            _simsApi.CreateContactResultTable();
-            dataGridTable = _simsApi.CreateContactDataTable;
+            Switcher.SimsApiClass.CreateContactResultTable();
+            dataGridTable = Switcher.SimsApiClass.CreateContactDataTable;
 
             while (recordupto < recordcount)
             {
@@ -169,7 +166,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    dataGridTable = _simsApi.AddContactToDataTable(dataGridTable, recordupto);
+                    dataGridTable = Switcher.SimsApiClass.AddContactToDataTable(dataGridTable, recordupto);
                     recordupto++;
                     //logger.Log(NLog.LogLevel.Info, recordupto + recordcount);
 
@@ -188,15 +185,14 @@ namespace Matt40k.SIMSBulkImport
             {
                 try
                 {
-                    Open open = new Open(_simsApi, _importFile);
-                    open.ShowDialog();
+                    Switcher.ImportFileClass = new ImportFile();
+                    Switcher.Switch(new Open());
 
                     if (_importFile.IsImportCompleted)
                     {
-                        Match match = new Match(_simsApi, _importFile);
-                        match.ShowDialog();
+                        Switcher.Switch(new Match());
 
-                        if (_simsApi.GetMatched)
+                        if (Switcher.SimsApiClass.GetMatched)
                         {
                             if (_importFile.IsImportFileSet)
                             {
@@ -205,7 +201,7 @@ namespace Matt40k.SIMSBulkImport
 
                                 this.dataGrid.Items.Refresh();
 
-                                recordcount = _simsApi.GetImportFileRecordCount;
+                                recordcount = Switcher.SimsApiClass.GetImportFileRecordCount;
 
                                 queryStart = DateTime.Now;
                                 logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
@@ -226,7 +222,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_New_Pupil(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Pupil + " selected");
-            _simsApi.SetUserType = SIMSAPI.UserType.Pupil;
+            Switcher.SimsApiClass.SetUserType = SIMSAPI.UserType.Pupil;
             bool loadOk = importLogic;
 
             if (loadOk)
@@ -252,8 +248,8 @@ namespace Matt40k.SIMSBulkImport
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            _simsApi.CreatePupilResultTable();
-            dataGridTable = _simsApi.CreatePupilDataTable;
+            Switcher.SimsApiClass.CreatePupilResultTable();
+            dataGridTable = Switcher.SimsApiClass.CreatePupilDataTable;
 
             while (recordupto < recordcount)
             {
@@ -266,7 +262,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    dataGridTable = _simsApi.AddPupilToDataTable(dataGridTable, recordupto);
+                    dataGridTable = Switcher.SimsApiClass.AddPupilToDataTable(dataGridTable, recordupto);
                     recordupto++;
                     //logger.Log(NLog.LogLevel.Info, recordupto + recordcount);
 
@@ -282,7 +278,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Staff + " selected");
-            _simsApi.SetUserType = SIMSAPI.UserType.Staff;
+            Switcher.SimsApiClass.SetUserType = SIMSAPI.UserType.Staff;
             bool loadOk = importLogic;
 
             if (loadOk)
@@ -308,8 +304,8 @@ namespace Matt40k.SIMSBulkImport
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            _simsApi.CreateStaffResultTable();
-            dataGridTable = _simsApi.CreateStaffDataTable;
+            Switcher.SimsApiClass.CreateStaffResultTable();
+            dataGridTable = Switcher.SimsApiClass.CreateStaffDataTable;
 
             while (recordupto < recordcount)
             {
@@ -322,7 +318,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    dataGridTable = _simsApi.AddStaffToDataTable(dataGridTable, recordupto);
+                    dataGridTable = Switcher.SimsApiClass.AddStaffToDataTable(dataGridTable, recordupto);
                     recordupto++;
 
                     long lonCount = recordupto;
@@ -336,13 +332,13 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_Exit(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            //this.Close();
+            Application.Current.Shutdown();
         }
 
         private void MenuItem_Click_About(object sender, RoutedEventArgs e)
         {
-            About about = new About();
-            about.Show();
+            Switcher.Switch(new About());
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -350,7 +346,7 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Info, "Import Start");
             importStart = DateTime.Now;
 
-            switch (_simsApi.GetUserType)
+            switch (Switcher.SimsApiClass.GetUserType)
             {
                 case SIMSAPI.UserType.Staff:
                     StaffImport();
@@ -414,9 +410,9 @@ namespace Matt40k.SIMSBulkImport
                     "Time: " + DateTime.Compare(importEnd, importStart) + " seconds" + Environment.NewLine +
                     "Import per second: " + GetAverage;
                 logger.Log(NLog.LogLevel.Debug, _importSummary);
-                this.Hide();
-                Results results = new Results(_simsApi.GetResultTable, _simsApi.GetUserType);
-                this.Close();
+                //TODO this.Hide();
+                Results results = new Results(Switcher.SimsApiClass.GetResultTable, Switcher.SimsApiClass.GetUserType);
+                //TODO this.Close();
             }
         }
 
@@ -456,14 +452,14 @@ namespace Matt40k.SIMSBulkImport
                             emailCount = emailCount + 1;
                             string personEmail = (row["Import email"].ToString());
                             bool importResult = importContactEmail(pid, personEmail);
-                            _simsApi.AddContactResultToTable(surname, forename, postcode, town, personId, "Email", personEmail, importResult, "");
+                            Switcher.SimsApiClass.AddContactResultToTable(surname, forename, postcode, town, personId, "Email", personEmail, importResult, "");
                         }
                         if (status.Contains("UDF"))
                         {
                             udfCount = udfCount + 1;
                             string personUdf = (row["Import UDF"].ToString());
                             bool importResult = importContactUDF(pid, personUdf);
-                            _simsApi.AddContactResultToTable(surname, forename, postcode, town, personId, "UDF", personUdf, importResult, "");
+                            Switcher.SimsApiClass.AddContactResultToTable(surname, forename, postcode, town, personId, "UDF", personUdf, importResult, "");
                         }
                     }
                     else
@@ -523,14 +519,14 @@ namespace Matt40k.SIMSBulkImport
                             emailCount = emailCount + 1;
                             string personEmail = (row["Import email"].ToString());
                             bool importResult = importPupilEmail(pid, personEmail);
-                            _simsApi.AddPupilResultToTable(surname, forename, gender, admis, dob, year, reg, house, personId, "Email", personEmail, importResult, "");
+                            Switcher.SimsApiClass.AddPupilResultToTable(surname, forename, gender, admis, dob, year, reg, house, personId, "Email", personEmail, importResult, "");
                         }
                         if (status.Contains("UDF"))
                         {
                             udfCount = udfCount + 1;
                             string personUdf = (row["Import UDF"].ToString());
                             bool importResult = importPupilUDF(pid, personUdf);
-                            _simsApi.AddPupilResultToTable(surname, forename, gender, admis, dob, year, reg, house, personId, "UDF", personUdf, importResult, "");
+                            Switcher.SimsApiClass.AddPupilResultToTable(surname, forename, gender, admis, dob, year, reg, house, personId, "UDF", personUdf, importResult, "");
                         }
                     }
                     else
@@ -585,14 +581,14 @@ namespace Matt40k.SIMSBulkImport
                             emailCount = emailCount + 1;
                             string personEmail = (row["Import email"].ToString());
                             bool importResult = importStaffEmail(pid, personEmail);
-                            _simsApi.AddStaffResultToTable(surname, forename, gender, staffcode, dob, personId, "Email", personEmail, importResult, "");
+                            Switcher.SimsApiClass.AddStaffResultToTable(surname, forename, gender, staffcode, dob, personId, "Email", personEmail, importResult, "");
                         }
                         if (status.Contains("UDF"))
                         {
                             udfCount = udfCount + 1;
                             string personUdf = (row["Import UDF"].ToString());
                             bool importResult = importStaffUDF(pid, personUdf);
-                            _simsApi.AddStaffResultToTable(surname, forename, gender, staffcode, dob, personId, "UDF", personUdf, importResult, "");
+                            Switcher.SimsApiClass.AddStaffResultToTable(surname, forename, gender, staffcode, dob, personId, "UDF", personUdf, importResult, "");
                         }
                     }
                     else
@@ -664,35 +660,35 @@ namespace Matt40k.SIMSBulkImport
         {
             if (personid == 0) { return true; }
             if (string.IsNullOrWhiteSpace(address)) { return true; }
-            return _simsApi.SetContactEmail(personid, address);
+            return Switcher.SimsApiClass.SetContactEmail(personid, address);
         }
 
         private bool importStaffEmail(int personid, string address)
         {
             if (personid == 0) { return true; }
             if (string.IsNullOrWhiteSpace(address)) { return true; }
-            return _simsApi.SetStaffEmail(personid, address);
+            return Switcher.SimsApiClass.SetStaffEmail(personid, address);
         }
 
         private bool importPupilEmail(int personid, string address)
         {
             if (personid == 0) { return false; }
             if (string.IsNullOrWhiteSpace(address)) { return false; }
-            return _simsApi.SetPupilEmail(personid, address);
+            return Switcher.SimsApiClass.SetPupilEmail(personid, address);
         }
 
         private bool importStaffUDF(int personid, string UDF)
         {
             if (personid == 0) { return true; }
             if (string.IsNullOrWhiteSpace(UDF)) { return true; }
-            return _simsApi.SetStaffUDF(personid, UDF);
+            return Switcher.SimsApiClass.SetStaffUDF(personid, UDF);
         }
 
         private bool importPupilUDF(int personid, string UDF)
         {
             if (personid == 0) { return false; }
             if (string.IsNullOrWhiteSpace(UDF)) { return false; }
-            return _simsApi.SetPupilUDF(personid, UDF);
+            return Switcher.SimsApiClass.SetPupilUDF(personid, UDF);
         }
 
         private bool importContactUDF(int personid, string UDF)
@@ -746,14 +742,13 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_Options(object sender, RoutedEventArgs e)
         {
-            Options options = new Options();
-            options.ShowDialog();
+            Switcher.Switch(new Options());
         }
 
         private void MenuItem_Click_Print(object sender, RoutedEventArgs e)
         {
             DataTable currentDt = (DataTable)dataGrid.DataContext;
-            Results results = new Results(dataGridTable, _simsApi.GetUserType);
+            Results results = new Results(dataGridTable, Switcher.SimsApiClass.GetUserType);
         }
     }
 }

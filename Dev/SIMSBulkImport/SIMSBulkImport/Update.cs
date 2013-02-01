@@ -102,8 +102,7 @@ namespace Matt40k.SIMSBulkImport
                         break;
                     case -1:
                         logger.Log(NLog.LogLevel.Info, "Application is out-of-date, please update");
-                        NeedToUpdate needToUpdate = new NeedToUpdate();
-                        needToUpdate.Show();
+                        Switcher.Switch(new NeedToUpdate());
                         break;
                 }
             }

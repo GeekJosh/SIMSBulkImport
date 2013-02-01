@@ -22,7 +22,7 @@ namespace Matt40k.SIMSBulkImport
     /// <summary>
     /// Interaction logic for Options.xaml
     /// </summary>
-    public partial class Options : Window
+    public partial class Options
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -71,7 +71,7 @@ namespace Matt40k.SIMSBulkImport
         {
             //writeConfig_Updates = this.checkBoxUpdates.IsChecked.Value;
             ConfigMan.SetDebugMode = this.checkBoxDebug.IsChecked.Value;
-            this.Close();
+            //TODO this.Close();
         }
     }
 }

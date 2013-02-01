@@ -22,10 +22,9 @@ namespace Matt40k.SIMSBulkImport
     /// <summary>
     /// Interaction logic for Loading.xaml
     /// </summary>
-    public partial class Loading : Window
+    public partial class Loading
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        private SIMSAPI simsApi;
         private BackgroundWorker bw = new BackgroundWorker();
         private bool IsConnected;
 
@@ -64,7 +63,7 @@ namespace Matt40k.SIMSBulkImport
 
             // Loading SIMS API
             updateLoadMess("Loading SIMS API");
-            simsApi = new SIMSAPI(simsDir);
+            Switcher.SimsApiClass = new SIMSAPI(simsDir);
 
             ShowLogon(true);
             
@@ -106,8 +105,8 @@ namespace Matt40k.SIMSBulkImport
                 updateLoadMess("Connecting to SIMS...");
                 ShowLogon(false);
 
-                simsApi.SetSimsUser = this.textUser.Text;
-                simsApi.SetSimsPass = this.passwordBox.Password;
+                Switcher.SimsApiClass.SetSimsUser = this.textUser.Text;
+                Switcher.SimsApiClass.SetSimsPass = this.passwordBox.Password;
 
 
                 bw = new BackgroundWorker();
@@ -142,8 +141,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
-                    MainWindow main = new MainWindow(simsApi);
-                    main.ShowDialog();
+                    Switcher.Switch(new MainWindow());
                 }
             }
         }
@@ -157,7 +155,7 @@ namespace Matt40k.SIMSBulkImport
         {
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            IsConnected = simsApi.Connect;
+            IsConnected = Switcher.SimsApiClass.Connect;
         }
     }
 }

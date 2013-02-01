@@ -1,8 +1,7 @@
-﻿<Window x:Class="Matt40k.SIMSBulkImport.Open"
+﻿<UserControl x:Class="Matt40k.SIMSBulkImport.Open"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="SIMSBulkImport" Height="655" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip" MinHeight="655" MinWidth="1000" Icon="icon.ico">
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
         <Grid Name="gridOpen">
             <Grid.ColumnDefinitions>
@@ -28,6 +27,5 @@
             <Controls:ProgressRing IsActive="True" Foreground="DodgerBlue" Name="progressRing" Height="100" Grid.Row="0"/>
             <Label Name="labelLoad" Content="Loading file" Grid.Row="1" HorizontalAlignment="Center" FontStyle="Italic"/>
         </Grid>
-        
     </Grid>
-</Window>
+</UserControl>
