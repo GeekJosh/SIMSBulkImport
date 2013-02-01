@@ -3,6 +3,5 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SIMS Bulk Import" Height="655" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip" MinHeight="655" MinWidth="1000" Icon="icon.ico">
     <Grid>
-        
     </Grid>
 </Window>

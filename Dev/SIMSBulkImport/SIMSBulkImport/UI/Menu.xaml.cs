@@ -29,11 +29,11 @@ namespace Matt40k.SIMSBulkImport
         public Menu()
         {
             InitializeComponent();
+            ConnectedTo();
         }
 
         private void MenuItem_Click_Exit(object sender, RoutedEventArgs e)
         {
-            //this.Close();
             Application.Current.Shutdown();
         }
 
@@ -78,16 +78,38 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_New_Contact(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Debug, "Menu: Contact selected");
+            Switcher.SimsApiClass.SetUserType = SIMSAPI.UserType.Contact;
+            _open();
         }
 
         private void MenuItem_Click_New_Pupil(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Debug, "Menu: Pupil selected");
+            Switcher.SimsApiClass.SetUserType = SIMSAPI.UserType.Pupil;
+            _open();
         }
 
         private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Debug, "Menu: Staff selected");
+            Switcher.SimsApiClass.SetUserType = SIMSAPI.UserType.Staff;
+            _open();
+        }
+
+        private void _open()
+        {
+            Switcher.ImportFileClass = new ImportFile();
+            Switcher.Switch(new Open());
+        }
+
+        public void ConnectedTo()
+        {
+            string currentSchool = Switcher.SimsApiClass.GetCurrentSchool;
+            string currentUser = Switcher.SimsApiClass.GetCurrentUser;
+            if (!string.IsNullOrWhiteSpace(currentSchool))
+                this.LabelSchool.Content = currentSchool;
+            if (!string.IsNullOrWhiteSpace(currentUser))
+                this.LabelUser.Content = currentUser;
         }
     }
 }

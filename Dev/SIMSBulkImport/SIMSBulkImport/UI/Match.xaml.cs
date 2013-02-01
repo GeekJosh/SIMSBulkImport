@@ -52,7 +52,7 @@ namespace Matt40k.SIMSBulkImport
                 case SIMSAPI.UserType.Staff:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Staff");
                     string[] udfsStaff = Switcher.SimsApiClass.GetStaffUDFs;
-                    if (udfsStaff.Length != 0)
+                    if (udfsStaff != null)
                     {
                         foreach (string udf in udfsStaff)
                         {
@@ -67,7 +67,7 @@ namespace Matt40k.SIMSBulkImport
                 case SIMSAPI.UserType.Pupil:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Students");
                     string[] udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
-                    if (udfsStudents.Length != 0)
+                    if (udfsStudents != null)
                     {
                         foreach (string udf in udfsStudents)
                         {
@@ -84,7 +84,7 @@ namespace Matt40k.SIMSBulkImport
                 case SIMSAPI.UserType.Contact:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Contacts");
                     string[] udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
-                    if (udfsContacts.Length != 0)
+                    if (udfsContacts != null)
                     {
                         foreach (string udf in udfsContacts)
                         {
@@ -289,7 +289,7 @@ namespace Matt40k.SIMSBulkImport
                 }
 
                 Switcher.SimsApiClass.SetMatchReg = reg;
-
+                Switcher.Switch(new ImportWindow());
             }
         }
 

@@ -12,7 +12,7 @@
                   VerticalAlignment="Center" MinWidth="950" MinHeight="500" CanUserReorderColumns="True" CanUserSortColumns="True"
                   ItemsSource="{Binding Path=.}" IsReadOnly="True" Visibility="Hidden" CanUserDeleteRows="True" />
         
-        <Button Content="Import" Grid.Row="2" Height="30" HorizontalAlignment="Center" Name="button" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="button_Click" />
+        <Button Content="Import" Grid.Row="2" Height="30" HorizontalAlignment="Center" Name="button" VerticalAlignment="Bottom" Width="74" IsEnabled="False" Click="button_Click" Margin="438,0,438,10" />
         <StatusBar Grid.Row="4" Height="25" Name="statusBar" VerticalAlignment="Bottom">
             <StatusBarItem Name="Status" Content="Not Connected" />
         </StatusBar>

@@ -23,5 +23,21 @@
             <MenuItem Header="About" Click="MenuItem_Click_About" ToolTip="Display program information including version" />
         </MenuItem>
     </Menu>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Name="LabelSchool" Content="School" Grid.Column="1" Grid.Row="1" />
+            <Label Name="LabelUser" Content="Username" Grid.Column="1" Grid.Row="2" />
+        </Grid>
+        
     </Grid>
 </UserControl>

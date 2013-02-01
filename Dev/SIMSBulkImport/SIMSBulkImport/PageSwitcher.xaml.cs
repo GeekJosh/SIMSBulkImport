@@ -9,6 +9,8 @@ namespace Matt40k.SIMSBulkImport
     /// </summary>
     public partial class PageSwitcher : Window
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public PageSwitcher()
         {
             InitializeComponent();
