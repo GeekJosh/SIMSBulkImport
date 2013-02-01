@@ -132,7 +132,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="About.xaml.cs">
+    <Compile Include="UI\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
@@ -140,7 +140,7 @@
     <Compile Include="ConfigMan.cs" />
     <Compile Include="ConnectIni.cs" />
     <Compile Include="Import\ImportCsv.cs" />
-    <Compile Include="Duplicate.xaml.cs">
+    <Compile Include="UI\Duplicate.xaml.cs">
       <DependentUpon>Duplicate.xaml</DependentUpon>
     </Compile>
     <Compile Include="GetExe.cs" />
@@ -148,16 +148,16 @@
     <Compile Include="ImportFile.cs" />
     <Compile Include="Import\ImportXml.cs" />
     <Compile Include="License.cs" />
-    <Compile Include="Loading.xaml.cs">
+    <Compile Include="UI\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NeedToUpdate.xaml.cs">
+    <Compile Include="UI\NeedToUpdate.xaml.cs">
       <DependentUpon>NeedToUpdate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Options.xaml.cs">
+    <Compile Include="UI\Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
     </Compile>
     <Compile Include="Prefix.cs" />
@@ -167,31 +167,31 @@
     <Compile Include="TempFile.cs" />
     <Compile Include="Update.cs" />
     <Compile Include="Validation.cs" />
-    <Page Include="About.xaml">
+    <Page Include="UI\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Duplicate.xaml">
+    <Page Include="UI\Duplicate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Loading.xaml">
+    <Page Include="UI\Loading.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="UI\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Match.xaml">
+    <Page Include="UI\Match.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NeedToUpdate.xaml">
+    <Page Include="UI\NeedToUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Open.xaml">
+    <Page Include="UI\Open.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -199,14 +199,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Match.xaml.cs">
+    <Compile Include="UI\Match.xaml.cs">
       <DependentUpon>Match.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Open.xaml.cs">
+    <Compile Include="UI\Open.xaml.cs">
       <DependentUpon>Open.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Options.xaml">
+    <Page Include="UI\Options.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,6 +255,7 @@
     <Resource Include="image.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="UI\icon.ico" />
     <Resource Include="icon.ico" />
     <Content Include="Report_Staff.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
