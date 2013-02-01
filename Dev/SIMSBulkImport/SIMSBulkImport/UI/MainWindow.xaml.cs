@@ -188,6 +188,7 @@ namespace Matt40k.SIMSBulkImport
                     Switcher.ImportFileClass = new ImportFile();
                     Switcher.Switch(new Open());
 
+                    /*
                     if (_importFile.IsImportCompleted)
                     {
                         Switcher.Switch(new Match());
@@ -207,7 +208,7 @@ namespace Matt40k.SIMSBulkImport
                                 logger.Log(NLog.LogLevel.Info, "Querying started " + queryStart.ToShortTimeString());
                             }
                         }
-                    }
+                    }*/
                 }
                 catch (Exception importLogic_Exception)
                 {

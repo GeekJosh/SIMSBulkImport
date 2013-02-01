@@ -99,17 +99,16 @@ namespace Matt40k.SIMSBulkImport
         {
             if ((e.Cancelled == true))
             {
-                Switcher.ImportFileClass.ImportCompleted = false;
+                //Switcher.ImportFileClass.ImportCompleted = false;
             }
             else if (!(e.Error == null))
             {
-                Switcher.ImportFileClass.ImportCompleted = false;
+                //Switcher.ImportFileClass.ImportCompleted = false;
             }
             else
             {
-                Switcher.ImportFileClass.ImportCompleted = true;
-            }
-            Switcher.Switch(new MainWindow());
+                Switcher.Switch(new Match());
+            }  
         }
 
         private void bwOpen_ProgressChanged(object sender, ProgressChangedEventArgs e)
