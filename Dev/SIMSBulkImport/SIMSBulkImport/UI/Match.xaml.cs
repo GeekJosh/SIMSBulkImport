@@ -252,7 +252,6 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            
             if (matchFillIn)
             {
                 Switcher.SimsApiClass.SetImportDataset = Switcher.ImportFileClass.GetDataSet;
@@ -290,7 +289,7 @@ namespace Matt40k.SIMSBulkImport
                 }
 
                 Switcher.SimsApiClass.SetMatchReg = reg;
-                //TODO this.Close();
+
             }
         }
 

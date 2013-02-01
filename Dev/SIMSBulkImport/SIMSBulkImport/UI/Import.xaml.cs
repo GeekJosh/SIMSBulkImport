@@ -110,7 +110,7 @@ namespace Matt40k.SIMSBulkImport
                 this.Status.Content = "";
                 this.button.Visibility = Visibility.Visible;
                 this.button.IsEnabled = true;
-                this.MenuPrint.IsEnabled = true;
+                //this.MenuPrint.IsEnabled = true;
                 queryEnd = DateTime.Now;
                 logger.Log(NLog.LogLevel.Info, "Querying complete: " + queryStart.ToShortTimeString() + " - " + DateTime.Compare(queryEnd, queryStart));
             }
@@ -276,30 +276,7 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
-        {
-            logger.Log(NLog.LogLevel.Info, SIMSAPI.UserType.Staff + " selected");
-            Switcher.SimsApiClass.SetUserType = SIMSAPI.UserType.Staff;
-            bool loadOk = importLogic;
-
-            if (loadOk)
-            {
-                bw = new BackgroundWorker();
-                bw.WorkerReportsProgress = true;
-                bw.WorkerSupportsCancellation = true;
-                bw.DoWork += new DoWorkEventHandler(bwStaff_DoWork);
-                bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
-                bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
-
-                if (bw.IsBusy != true)
-                {
-                    bw.RunWorkerAsync();
-                }
-
-                this.labelTitle.Visibility = Visibility.Hidden;
-                //this.imageLogo.Visibility = Visibility.Hidden;
-            }            
-        }
+        
 
         private void bwStaff_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -710,40 +687,6 @@ namespace Matt40k.SIMSBulkImport
                     logger.Log(NLog.LogLevel.Error, WindowClosingException);
                 }
             }
-        }
-
-        private void MenuItem_Click_Logs(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process prc = new System.Diagnostics.Process();
-                prc.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\SIMSBulkImport\\Logs";
-                prc.Start();
-            }
-            catch (System.Exception MenuItem_Click_LogsException)
-            {
-                logger.Log(NLog.LogLevel.Error, MenuItem_Click_LogsException);
-            }
-        }
-
-        private void MenuItem_Click_Manual(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                System.Diagnostics.Process prc = new System.Diagnostics.Process();
-                prc.StartInfo.FileName = "Guide.pdf";
-                prc.Start();
-            }
-            catch (System.Exception MenuItem_Click_Manual_Exception)
-            {
-                logger.Log(NLog.LogLevel.Error, MenuItem_Click_Manual_Exception);
-            }
-        }
-
-
-        private void MenuItem_Click_Options(object sender, RoutedEventArgs e)
-        {
-            Switcher.Switch(new Options());
         }
 
         private void MenuItem_Click_Print(object sender, RoutedEventArgs e)

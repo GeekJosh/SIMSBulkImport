@@ -11,27 +11,7 @@
         <DataGrid AutoGenerateColumns="True" Grid.Row="1" HorizontalAlignment="Center" Name="dataGrid" 
                   VerticalAlignment="Center" MinWidth="950" MinHeight="500" CanUserReorderColumns="True" CanUserSortColumns="True"
                   ItemsSource="{Binding Path=.}" IsReadOnly="True" Visibility="Hidden" CanUserDeleteRows="True" />
-        <Menu Name="menu" Grid.Row="0">
-            <MenuItem Header="File" AllowDrop="True">
-                <MenuItem Header="New" AllowDrop="True">
-                    <MenuItem Header="Staff" Click="MenuItem_Click_New_Staff" ToolTip="Bulk import staff information" />
-                    <MenuItem Header="Pupils" Click="MenuItem_Click_New_Pupil" ToolTip="Bulk import student information" />
-                    <MenuItem Header="Contacts" Click="MenuItem_Click_New_Contact" ToolTip="Bulk import parents and other contacts information" />
-                </MenuItem>
-                <MenuItem Name="MenuPrint" Header="Print" Click="MenuItem_Click_Print" IsEnabled="False"/>
-                <Separator />
-                <MenuItem Header="Exit" Click="MenuItem_Click_Exit"/>
-            </MenuItem>
-            <MenuItem Header="Tools" AllowDrop="True">
-                <MenuItem Header="Options" Click="MenuItem_Click_Options" ToolTip="Options" />
-            </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="Manual" Click="MenuItem_Click_Manual" ToolTip="Open Manual (PDF)" />
-                <MenuItem Header="Logs" Click="MenuItem_Click_Logs" ToolTip="Open Log folder" />
-                <Separator />
-                <MenuItem Header="About" Click="MenuItem_Click_About" ToolTip="Display program information including version" />
-            </MenuItem>
-        </Menu>
+        
         <Button Content="Import" Grid.Row="2" Height="30" HorizontalAlignment="Center" Name="button" VerticalAlignment="Top" Width="75" IsEnabled="False" Click="button_Click" />
         <StatusBar Grid.Row="4" Height="25" Name="statusBar" VerticalAlignment="Bottom">
             <StatusBarItem Name="Status" Content="Not Connected" />
