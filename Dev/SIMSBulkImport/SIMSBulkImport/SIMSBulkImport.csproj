@@ -269,11 +269,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="UI\icon.ico" />
     <Resource Include="icon.ico" />
+    <Resource Include="image.png" />
     <Content Include="Report_Staff.xsl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
