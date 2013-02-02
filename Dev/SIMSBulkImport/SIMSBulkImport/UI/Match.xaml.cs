@@ -171,11 +171,16 @@ namespace Matt40k.SIMSBulkImport
 
         private void GetDataTable()
         {
-            if (!string.IsNullOrWhiteSpace(this.comboWorkbook.SelectedValue.ToString()))
+            bool dtSet = false;
+            if (this.comboWorkbook.SelectedValue != null)
             {
-                dt = ds.Tables[this.comboWorkbook.SelectedValue.ToString()];
+                if (!string.IsNullOrWhiteSpace(this.comboWorkbook.SelectedValue.ToString()))
+                {
+                    dtSet = true;
+                    dt = ds.Tables[this.comboWorkbook.SelectedValue.ToString()];
+                }
             }
-            else
+            if (!dtSet)
             {
                 dt = ds.Tables[0];
             }
