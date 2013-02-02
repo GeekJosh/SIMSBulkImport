@@ -11,12 +11,12 @@ namespace Matt40k.SIMSBulkImport
     public static class SimsIni
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static string appsDir;
 
         public static string GetSimsDir
         {
             get
             {
-                string appsDir = null;
                 string simsPath = null;
 
                 try
@@ -36,12 +36,9 @@ namespace Matt40k.SIMSBulkImport
                             string Apps = ini.Read("Setup", "SIMSDotNetDirectory");
                             if (!string.IsNullOrEmpty(Apps))
                             {
-
                                 if (Directory.Exists(Apps))
                                 {
                                     appsDir = Apps;
-                                    logger.Log(NLog.LogLevel.Debug, "SIMS Application Directory: " + appsDir);
-                                    return appsDir;
                                 }
                                 else
                                 {
@@ -58,6 +55,8 @@ namespace Matt40k.SIMSBulkImport
                             throw new Exception("Unable to find SIMS.ini");
                         }
                     }
+                    logger.Log(NLog.LogLevel.Debug, "SIMS Application Directory: " + appsDir);
+                    return appsDir;
                 }
                 catch (Exception GetSimsDirException)
                 {
@@ -83,6 +82,14 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 return Environment.GetEnvironmentVariable("windir");
+            }
+        }
+
+        public static string SetSimsDir
+        {
+            set
+            {
+                appsDir = value;
             }
         }
     }

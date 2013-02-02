@@ -27,7 +27,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 if (Directory.Exists(_simsDir))
                 {
-                    // Set SIMS Directory
+                    SimsIni.SetSimsDir = _simsDir;
                     Application application = new Application();
                     application.Run(new PageSwitcher());
                 }
