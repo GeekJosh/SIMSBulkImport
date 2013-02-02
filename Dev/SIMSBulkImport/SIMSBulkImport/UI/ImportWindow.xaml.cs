@@ -37,40 +37,34 @@ namespace Matt40k.SIMSBulkImport
         private DateTime queryEnd;
         private int ignoreCount;
         private int recordcount;
-        private int recordupto = 0;
+        private int recordupto;
 
         public ImportWindow()
         {
             InitializeComponent();
-            loadContact();
+            load();
+            this.dataGrid.Items.Refresh();
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            logger.Log(NLog.LogLevel.Info, "Import Start");
-            
-            importStart = DateTime.Now;
-
-            switch (Switcher.SimsApiClass.GetUserType)
-            {
-                case SIMSAPI.UserType.Staff:
-                    //StaffImport();
-                    break;
-                case SIMSAPI.UserType.Pupil:
-                    //PupilImport();
-                    break;
-                case SIMSAPI.UserType.Contact:
-                    //ContactImport();
-                    break;
-            }
-        }
-
-        private void loadContact()
+        private void load()
         {
             bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
-            bw.DoWork += new DoWorkEventHandler(bwContact_DoWork);
+
+            switch (Switcher.SimsApiClass.GetUserType)
+            {
+                case SIMSAPI.UserType.Staff:
+                    bw.DoWork += new DoWorkEventHandler(bwStaff_DoWork);
+                    break;
+                case SIMSAPI.UserType.Pupil:
+                    bw.DoWork += new DoWorkEventHandler(bwPupil_DoWork);
+                    break;
+                case SIMSAPI.UserType.Contact:
+                    bw.DoWork += new DoWorkEventHandler(bwContact_DoWork);
+                    break;
+            }
+
             bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
             bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
@@ -78,6 +72,11 @@ namespace Matt40k.SIMSBulkImport
             {
                 bw.RunWorkerAsync();
             }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            logger.Log(NLog.LogLevel.Info, "Import Start");
         }
 
         /// <summary>
@@ -99,11 +98,11 @@ namespace Matt40k.SIMSBulkImport
             else
             {
                 //this.Status.Content = "";
-                this.button.Visibility = Visibility.Visible;
                 this.button.IsEnabled = true;
                 //this.MenuPrint.IsEnabled = true;
                 queryEnd = DateTime.Now;
                 logger.Log(NLog.LogLevel.Info, "Querying complete: " + queryStart.ToShortTimeString() + " - " + DateTime.Compare(queryEnd, queryStart));
+                this.dataGrid.Items.Refresh();
             }
         }
 
@@ -117,13 +116,13 @@ namespace Matt40k.SIMSBulkImport
         private void bwContact_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            MessageBox.Show("Test");
             Switcher.SimsApiClass.CreateContactResultTable();
             dataGridTable = Switcher.SimsApiClass.CreateContactDataTable;
+            recordcount = Switcher.SimsApiClass.GetImportFileRecordCount;
+            recordupto = 0;
 
             while (recordupto < recordcount)
             {
-                MessageBox.Show("Test");
                 logger.Log(NLog.LogLevel.Debug, " -- " + recordupto);
                 if ((worker.CancellationPending == true))
                 {
@@ -136,6 +135,71 @@ namespace Matt40k.SIMSBulkImport
                     dataGridTable = Switcher.SimsApiClass.AddContactToDataTable(dataGridTable, recordupto);
                     recordupto++;
                     //logger.Log(NLog.LogLevel.Info, recordupto + recordcount);
+
+                    long lonCount = recordupto;
+                    long lonTotal = recordcount;
+                    int percent = Convert.ToInt32(lonCount * 100 / lonTotal);
+
+                    worker.ReportProgress(percent);
+                }
+            }
+        }
+
+        private void bwPupil_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            Switcher.SimsApiClass.CreatePupilResultTable();
+            dataGridTable = Switcher.SimsApiClass.CreatePupilDataTable;
+            recordcount = Switcher.SimsApiClass.GetImportFileRecordCount;
+            recordupto = 0;
+
+            while (recordupto < recordcount)
+            {
+                logger.Log(NLog.LogLevel.Debug, " -- " + recordupto);
+                if ((worker.CancellationPending == true))
+                {
+                    e.Cancel = true;
+                    logger.Log(NLog.LogLevel.Debug, "Kill process received - pupil");
+                    break;
+                }
+                else
+                {
+                    dataGridTable = Switcher.SimsApiClass.AddPupilToDataTable(dataGridTable, recordupto);
+                    recordupto++;
+                    //logger.Log(NLog.LogLevel.Info, recordupto + recordcount);
+
+                    long lonCount = recordupto;
+                    long lonTotal = recordcount;
+                    int percent = Convert.ToInt32(lonCount * 100 / lonTotal);
+
+                    worker.ReportProgress(percent);
+                }
+            }
+        }
+
+        private void bwStaff_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            Switcher.SimsApiClass.CreateStaffResultTable();
+            dataGridTable = Switcher.SimsApiClass.CreateStaffDataTable;
+            recordcount = Switcher.SimsApiClass.GetImportFileRecordCount;
+            recordupto = 0;
+
+            while (recordupto < recordcount)
+            {
+                logger.Log(NLog.LogLevel.Debug, " -- " + recordupto);
+                if ((worker.CancellationPending == true))
+                {
+                    e.Cancel = true;
+                    logger.Log(NLog.LogLevel.Debug, "Kill process received - staff");
+                    break;
+                }
+                else
+                {
+                    dataGridTable = Switcher.SimsApiClass.AddStaffToDataTable(dataGridTable, recordupto);
+                    recordupto++;
 
                     long lonCount = recordupto;
                     long lonTotal = recordcount;

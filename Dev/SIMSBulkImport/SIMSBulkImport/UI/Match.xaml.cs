@@ -254,6 +254,7 @@ namespace Matt40k.SIMSBulkImport
         {
             if (matchFillIn)
             {
+                Switcher.SimsApiClass.SetMatchIgnoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
                 Switcher.SimsApiClass.SetImportDataset = Switcher.ImportFileClass.GetDataSet;
 
                 Switcher.SimsApiClass.SetMatchFirstname = firstname;

@@ -130,13 +130,5 @@ namespace Matt40k.SIMSBulkImport
         {
             // TODO
         }
-
-        public bool IsImportFileSet
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(_filePath);
-            }
-        }
     }
 }
