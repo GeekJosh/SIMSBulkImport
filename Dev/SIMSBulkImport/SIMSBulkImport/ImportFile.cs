@@ -93,15 +93,6 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        internal string[] GetSheets
-        {
-            get
-            {
-                // TODO
-                return null;
-            }
-        }
-
         private FileType importFileType
         {
             get

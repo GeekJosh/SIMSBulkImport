@@ -310,7 +310,6 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_Exit(object sender, RoutedEventArgs e)
         {
-            //this.Close();
             Application.Current.Shutdown();
         }
 

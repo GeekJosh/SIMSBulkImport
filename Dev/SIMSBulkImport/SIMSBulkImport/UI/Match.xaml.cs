@@ -25,6 +25,7 @@ namespace Matt40k.SIMSBulkImport
     public partial class Match
     {
         private DataTable dt;
+        private DataSet ds;
         //private int ImportType;
 
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -118,18 +119,17 @@ namespace Matt40k.SIMSBulkImport
                 this.comboEmailLocation.Items.Add("");
             }
 
-            if (Switcher.ImportFileClass.GetIsExcel)
+            ds = Switcher.ImportFileClass.GetDataSet;
+            if (ds.Tables.Count > 1)
             {
-                foreach (string workBook in Switcher.ImportFileClass.GetSheets)
+                foreach (DataTable workBook in ds.Tables)
                 {
-                    this.comboWorkbook.Items.Add(workBook);
+                    this.comboWorkbook.Items.Add(workBook.TableName);
                 }
                 this.comboWorkbook.IsEnabled = true;
             }
-            else
-            {
-                GetDataTable();
-            }
+
+            GetDataTable();
         }
 
         private void GetUserFilters()
@@ -171,6 +171,15 @@ namespace Matt40k.SIMSBulkImport
 
         private void GetDataTable()
         {
+            if (!string.IsNullOrWhiteSpace(this.comboWorkbook.SelectedValue.ToString()))
+            {
+                dt = ds.Tables[this.comboWorkbook.SelectedValue.ToString()];
+            }
+            else
+            {
+                dt = ds.Tables[0];
+            }
+
             //personid = null;
             firstname = null;
             surname = null;
@@ -180,33 +189,6 @@ namespace Matt40k.SIMSBulkImport
             gender = null;
             udf = null;
             //simsUdf = null;
-
-            DataSet dt1 = Switcher.ImportFileClass.GetDataSet;
-            dt = dt1.Tables[0];
-            // TODO
-            /*
-            if (this.comboWorkbook.IsEnabled)
-            {
-                DataSet dt1 = importFromFile.GetImportDataSet(this.comboWorkbook.SelectedIndex);
-                if (dt1.Tables.Count > 0)
-                {
-                    dt = importFromFile.GetImportDataSet(this.comboWorkbook.SelectedIndex).Tables[0];
-                }
-            }
-            else
-            {
-                try
-                {
-                    dt = importFromFile.GetImportDataSet().Tables[0];
-                }
-                catch (IndexOutOfRangeException importDSexception)
-                {
-                    logger.Log(NLog.LogLevel.Error, importDSexception);
-                    //System.Windows.Forms.MessageBox.Show("File is open by another process or corrupt");
-                    // TODO ABORT
-                }
-            }
-             */
 
             comboUDF.Items.Clear();
             comboEmail.Items.Clear();
