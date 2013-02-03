@@ -10,5 +10,30 @@ namespace Matt40k.SIMSBulkImport
 {
     public class ResultsImport
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+        private DataTable resultTable;
+        private Contact.ResultsImport _contactResults;
+        private Pupil.ResultsImport _pupilResults;
+        private Staff.ResultsImport _staffResults;
+
+        public void CreateResultsDataTable()
+        {
+            switch (Switcher.SimsApiClass.GetUserType)
+            {
+                case SIMSAPI.UserType.Contact:
+                    _contactResults = new Contact.ResultsImport();
+                    resultTable = _contactResults.CreateResultTable;
+                    break;
+                case SIMSAPI.UserType.Pupil:
+                    _pupilResults = new Pupil.ResultsImport();
+                    resultTable = _pupilResults.CreateResultTable;
+                    break;
+                case SIMSAPI.UserType.Staff:
+                    _staffResults = new Staff.ResultsImport();
+                    resultTable = _staffResults.CreateResultTable;
+                    break;
+            }
+        }
     }
 }

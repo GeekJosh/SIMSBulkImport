@@ -113,8 +113,8 @@ namespace Matt40k.SIMSBulkImport
         private void bwContact_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-            Switcher.SimsApiClass.CreateContactResultTable();
-            dataGridTable = Switcher.SimsApiClass.CreateContactDataTable;
+            Switcher.ResultsImportClass.CreateResultsDataTable();
+            dataGridTable = Switcher.PreImportClass.CreateDataTable;
             recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
 
@@ -145,9 +145,8 @@ namespace Matt40k.SIMSBulkImport
         private void bwPupil_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-
-            Switcher.SimsApiClass.CreatePupilResultTable();
-            dataGridTable = Switcher.SimsApiClass.CreatePupilDataTable;
+            Switcher.ResultsImportClass.CreateResultsDataTable();
+            dataGridTable = Switcher.PreImportClass.CreateDataTable;
             recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
 
@@ -178,9 +177,8 @@ namespace Matt40k.SIMSBulkImport
         private void bwStaff_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-
-            Switcher.SimsApiClass.CreateStaffResultTable();
-            dataGridTable = Switcher.SimsApiClass.CreateStaffDataTable;
+            Switcher.ResultsImportClass.CreateResultsDataTable();
+            dataGridTable = Switcher.PreImportClass.CreateDataTable;
             recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
 

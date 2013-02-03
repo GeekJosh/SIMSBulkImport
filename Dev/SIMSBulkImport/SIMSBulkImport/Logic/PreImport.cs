@@ -15,6 +15,10 @@ namespace Matt40k.SIMSBulkImport
         private bool ignoreFirstRow;
         private DataTable importDataTable;
 
+        private Contact.PreImport _contactPre;
+        private Pupil.PreImport _pupilPre;
+        private Staff.PreImport _staffPre;
+
         public int GetImportFileRecordCount
         {
             get
@@ -54,6 +58,27 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 return importDataTable;
+            }
+        }
+
+        public DataTable CreateDataTable
+        {
+            get
+            {
+                switch (Switcher.SimsApiClass.GetUserType)
+                {
+                    case SIMSAPI.UserType.Contact:
+                        _contactPre = new Contact.PreImport();
+                        return _contactPre.CreateDataTable;
+                    case SIMSAPI.UserType.Pupil:
+                        _pupilPre = new Pupil.PreImport();
+                        return _pupilPre.CreateDataTable;
+                    case SIMSAPI.UserType.Staff:
+                        _staffPre = new Staff.PreImport();
+                        return _staffPre.CreateDataTable;
+                    default:
+                        return null;
+                }
             }
         }
     }
