@@ -115,7 +115,7 @@ namespace Matt40k.SIMSBulkImport
             BackgroundWorker worker = sender as BackgroundWorker;
             Switcher.SimsApiClass.CreateContactResultTable();
             dataGridTable = Switcher.SimsApiClass.CreateContactDataTable;
-            recordcount = Switcher.SimsApiClass.GetImportFileRecordCount;
+            recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
 
             while (recordupto < recordcount)
@@ -148,7 +148,7 @@ namespace Matt40k.SIMSBulkImport
 
             Switcher.SimsApiClass.CreatePupilResultTable();
             dataGridTable = Switcher.SimsApiClass.CreatePupilDataTable;
-            recordcount = Switcher.SimsApiClass.GetImportFileRecordCount;
+            recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
 
             while (recordupto < recordcount)
@@ -181,7 +181,7 @@ namespace Matt40k.SIMSBulkImport
 
             Switcher.SimsApiClass.CreateStaffResultTable();
             dataGridTable = Switcher.SimsApiClass.CreateStaffDataTable;
-            recordcount = Switcher.SimsApiClass.GetImportFileRecordCount;
+            recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
 
             while (recordupto < recordcount)

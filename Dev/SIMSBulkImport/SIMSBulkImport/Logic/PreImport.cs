@@ -38,8 +38,13 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                // Remove First row (header) if set
                 if (ignoreFirstRow)
                     value.Rows[0].Delete();
+
+                // Remove duplicate entries
+                value = Validation.DeDuplicatation(value);
+
                 importDataTable = value;
             }
         }
@@ -48,13 +53,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                DataTable result;
-
-                // Remove duplicate entries
-                result = Validation.DeDuplicatation(importDataTable);
-
-
-                return result;
+                return importDataTable;
             }
         }
     }

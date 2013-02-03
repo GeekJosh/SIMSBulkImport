@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Matt40k.SIMSBulkImport.Pupil
 {
-    public class Results
+    public class ResultsImport
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
