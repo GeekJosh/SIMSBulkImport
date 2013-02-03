@@ -24,6 +24,7 @@ namespace Matt40k.SIMSBulkImport
 
         public static SIMSAPI SimsApiClass;
         public static ImportFile ImportFileClass;
+        public static PreImport PreImportClass; 
         //public static 
   	}
 }

@@ -241,8 +241,7 @@ namespace Matt40k.SIMSBulkImport
         {
             if (matchFillIn)
             {
-                Switcher.SimsApiClass.SetMatchIgnoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
-                Switcher.SimsApiClass.SetImportDataset = Switcher.ImportFileClass.GetDataSet;
+                setPreImport();
 
                 Switcher.SimsApiClass.SetMatchFirstname = firstname;
                 Switcher.SimsApiClass.SetMatchSurname = surname;
@@ -279,6 +278,14 @@ namespace Matt40k.SIMSBulkImport
                 Switcher.SimsApiClass.SetMatchReg = reg;
                 Switcher.Switch(new ImportWindow());
             }
+        }
+
+        private void setPreImport()
+        {
+            Switcher.PreImportClass = null;
+            Switcher.PreImportClass = new PreImport();
+            Switcher.PreImportClass.SetMatchIgnoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
+            Switcher.PreImportClass.SetImportDataset = dt;
         }
 
         private DataTable previewTable

@@ -25,26 +25,29 @@ namespace Matt40k.SIMSBulkImport
             return _isValid;
         }
 
+        // Reference: http://dengkefu.com/blog/programming/c-sharp-and-dot-net/remove-duplicate-records-in-a-datatable-the-easy-way.html
         internal static DataTable DeDuplicatation(DataTable dt)
         {
-            DataTable deduplicatedDt = new DataTable();
-            logger.Log(NLog.LogLevel.Debug, "DeDuplicatation");
-            HashSet<DataRow> previousLines = new HashSet<DataRow>();
+            DataView dv = new DataView(dt);
+            string[] strColumns = getColumnNames(dt);
+            dt = dv.ToTable(true, strColumns);
+            return dt;
+        }
 
-            foreach (DataRow row in dt.Rows)
+        // Reference: http://www.techno-soft.com/index.php?/how-to-get-column-names-of-a-datatable-in-c
+        private static string[] getColumnNames(DataTable table)
+        {
+            if (table != null)
             {
-                // Add returns true if it was actually added,
-                // false if it was already there
-                if (previousLines.Add(row))
+                List<string> column = new List<string>();
+
+                foreach (DataColumn col in table.Columns)
                 {
-                    deduplicatedDt.Rows.Add(row);
+                    column.Add(col.ColumnName);
                 }
-                else
-                {
-                    logger.Log(NLog.LogLevel.Debug, "Duplicate: " + row);
-                }
+                return column.ToArray();
             }
-            return deduplicatedDt;
+            return null;
         }
     }
 }

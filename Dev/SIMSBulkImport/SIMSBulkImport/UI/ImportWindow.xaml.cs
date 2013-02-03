@@ -42,12 +42,14 @@ namespace Matt40k.SIMSBulkImport
         public ImportWindow()
         {
             InitializeComponent();
-            load();
+            //load();
+            this.dataGrid.DataContext = Switcher.PreImportClass.GetImportDataTable;
             this.dataGrid.Items.Refresh();
         }
 
         private void load()
         {
+            this.Status.Content = "Querying SIMS database - 0%";
             bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
@@ -72,11 +74,6 @@ namespace Matt40k.SIMSBulkImport
             {
                 bw.RunWorkerAsync();
             }
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            logger.Log(NLog.LogLevel.Info, "Import Start");
         }
 
         /// <summary>
@@ -208,6 +205,11 @@ namespace Matt40k.SIMSBulkImport
                     worker.ReportProgress(percent);
                 }
             }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            logger.Log(NLog.LogLevel.Info, "Import Start");
         }
     }
 }

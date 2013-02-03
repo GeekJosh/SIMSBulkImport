@@ -20,7 +20,6 @@ namespace Matt40k.SIMSBulkImport
 
         private string _filePath;
         private DataSet _importDataSet;
-
         private FileType _importFileType;
 
         internal string SetImportFilePath

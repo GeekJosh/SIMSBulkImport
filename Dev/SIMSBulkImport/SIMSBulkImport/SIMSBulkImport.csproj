@@ -129,7 +129,10 @@
   <ItemGroup>
     <Compile Include="Args.cs" />
     <Compile Include="ISwitchable.cs" />
-    <Compile Include="Logic\LogicMain.cs" />
+    <Compile Include="Logic\Contact\PreImport.cs" />
+    <Compile Include="Logic\PreImport.cs" />
+    <Compile Include="Logic\Pupil\PreImport.cs" />
+    <Compile Include="Logic\Staff\PreImport.cs" />
     <Compile Include="PageSwitcher.xaml.cs">
       <DependentUpon>PageSwitcher.xaml</DependentUpon>
     </Compile>
