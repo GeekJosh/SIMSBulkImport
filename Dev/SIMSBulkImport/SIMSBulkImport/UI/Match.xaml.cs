@@ -243,22 +243,22 @@ namespace Matt40k.SIMSBulkImport
             {
                 setPreImport();
 
-                Switcher.SimsApiClass.SetMatchFirstname = firstname;
-                Switcher.SimsApiClass.SetMatchSurname = surname;
-                Switcher.SimsApiClass.SetMatchEmail = email;
-                Switcher.SimsApiClass.SetMatchStaffcode = staffcode;
-                Switcher.SimsApiClass.SetMatchGender = gender;
+                Switcher.PreImportClass.SetMatchFirstname = firstname;
+                Switcher.PreImportClass.SetMatchSurname = surname;
+                Switcher.PreImportClass.SetMatchEmail = email;
+                Switcher.PreImportClass.SetMatchStaffcode = staffcode;
+                Switcher.PreImportClass.SetMatchGender = gender;
                 switch (Switcher.SimsApiClass.GetUserType)
                 {
                     case SIMSAPI.UserType.Staff:
-                        Switcher.SimsApiClass.SetMatchTitle = title;
+                        Switcher.PreImportClass.SetMatchTitle = title;
                         break;
                     case SIMSAPI.UserType.Pupil:
-                        Switcher.SimsApiClass.SetMatchYear = title;
+                        Switcher.PreImportClass.SetMatchYear = title;
                         break;
                     case SIMSAPI.UserType.Contact:
-                        Switcher.SimsApiClass.SetMatchTown = title;
-                        Switcher.SimsApiClass.SetMatchPostcode = staffcode;
+                        Switcher.PreImportClass.SetMatchTown = title;
+                        Switcher.PreImportClass.SetMatchPostcode = staffcode;
                         break;
                 }
 

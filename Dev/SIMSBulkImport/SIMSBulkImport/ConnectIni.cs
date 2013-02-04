@@ -130,6 +130,7 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /* REMOVE
         public string SetServerName
         {
             set
@@ -148,7 +149,7 @@ namespace Matt40k.SIMSBulkImport
                 IniFile iniFile = new IniFile(connect);
                 iniFile.Write("SIMSConnection", "DatabaseName", value);
             }
-        }
+        }*/
 
         private string SetConnectPath
         {

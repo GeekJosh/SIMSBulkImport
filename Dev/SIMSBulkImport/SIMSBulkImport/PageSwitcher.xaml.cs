@@ -15,7 +15,7 @@ namespace Matt40k.SIMSBulkImport
         {
             InitializeComponent();
             Switcher.pageSwitcher = this;
-            Switcher.Switch(new Loading());
+            Switcher.Switch(new Login());
         }
 
         public void Navigate(UserControl nextPage)

@@ -20,15 +20,15 @@ using System.Windows.Shapes;
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
-    /// Interaction logic for Loading.xaml
+    /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Loading
+    public partial class Login
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private BackgroundWorker bw = new BackgroundWorker();
         private bool IsConnected;
 
-        public Loading()
+        public Login()
         {
             InitializeComponent();
             this.textUser.Focus();
@@ -108,7 +108,6 @@ namespace Matt40k.SIMSBulkImport
                 Switcher.SimsApiClass.SetSimsUser = this.textUser.Text;
                 Switcher.SimsApiClass.SetSimsPass = this.passwordBox.Password;
 
-
                 bw = new BackgroundWorker();
                 bw.WorkerReportsProgress = true;
                 bw.WorkerSupportsCancellation = true;
@@ -127,10 +126,12 @@ namespace Matt40k.SIMSBulkImport
         {
             if ((e.Cancelled == true))
             {
+                logger.Log(NLog.LogLevel.Info, "Cancelled");
                 ShowLogon(true);
             }
             else if (!(e.Error == null))
             {
+                logger.Log(NLog.LogLevel.Error, e.Error);
                 ShowLogon(true);
             }
             else
