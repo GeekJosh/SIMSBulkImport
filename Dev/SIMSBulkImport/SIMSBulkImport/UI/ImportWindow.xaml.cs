@@ -43,8 +43,46 @@ namespace Matt40k.SIMSBulkImport
         {
             InitializeComponent();
             //load();
-            this.dataGrid.DataContext = Switcher.PreImportClass.GetImportDataTable;
+            //this.dataGrid.DataContext = Switcher.PreImportClass.GetImportDataTable;
+            test();
             this.dataGrid.Items.Refresh();
+        }
+
+        private void test()
+        {
+            DataTable staffTable = new DataTable();
+            staffTable.Columns.Add(new DataColumn("Status", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Surname", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Forename", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Title", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Gender", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Staff Code", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Date of Birth", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Import email", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
+
+
+            DataRow newrow = staffTable.NewRow();
+            newrow["Surname"] = "smith";
+            newrow["Forename"] = "matthew";
+            newrow["Title"] = "mr";
+            newrow["Gender"] = "male";
+            newrow["Staff Code"] = null;
+            newrow["Date of Birth"] = null;
+            newrow["Import email"] = null;
+            newrow["Import UDF"] = null;
+            newrow["Status"] = null;
+            newrow["SIMS email addresses"] = null;
+            newrow["SIMS UDF"] = null;
+            newrow["PersonID"] = null;
+            staffTable.Rows.Add(newrow);
+
+            this.dataGrid.DataContext = staffTable;
+
+            // http://blogs.msdn.com/b/jaimer/archive/2009/01/20/styling-microsoft-s-wpf-datagrid.aspx
         }
 
         private void load()
