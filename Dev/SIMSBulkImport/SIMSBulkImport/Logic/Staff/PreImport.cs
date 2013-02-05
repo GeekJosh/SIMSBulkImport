@@ -115,7 +115,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     if (string.IsNullOrWhiteSpace(strStaff)) { strStaff = Switcher.SimsApiClass.GetPersonCode(pid); }
                     if (string.IsNullOrWhiteSpace(strDob)) { strDob = Switcher.SimsApiClass.GetPersonDob(pid); }
 
-                    status = Switcher.SimsApiClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
+                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
                 }
 
                 // REMOVED - Add to failures table.

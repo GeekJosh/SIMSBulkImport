@@ -75,17 +75,6 @@ namespace Matt40k.SIMSBulkImport
                         _staffPre.SetImportDataTable = value;
                         break;
                 }
-                // TOBE REMOVED
-                importDataTable = value;
-            }
-        }
-
-        // TOBE REMOVED
-        public DataTable GetImportDataTable
-        {
-            get
-            {
-                return importDataTable;
             }
         }
 
@@ -240,6 +229,92 @@ namespace Matt40k.SIMSBulkImport
         public string GetMatchPostcode
         {
             get { return postcode; }
+        }
+
+        public string GetStatus(string personid,
+                                string email, string simsEmail,
+                                string udf, string simsUdf)
+        {
+
+            if (personid == "0") { return "Missing"; }
+            if (!IsNotDuplicate(personid)) { return "Duplicate"; }
+
+            bool emailImport = false;
+            bool udfImport = false;
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                emailImport = IsEmailImport(email, simsEmail);
+            }
+            if (!string.IsNullOrEmpty(udf))
+            {
+                udfImport = IsUdfImport(udf, simsUdf);
+            }
+
+            string status = null;
+            if (emailImport) { status = "Import email"; }
+            if (udfImport)
+            {
+                if (string.IsNullOrEmpty(status))
+                {
+                    status = "Import UDF";
+                }
+                else
+                {
+                    status = status + ", UDF";
+                }
+            }
+            if (string.IsNullOrEmpty(status)) { return "Ignore"; }
+            return status;
+        }
+
+        private bool IsNotDuplicate(string personid)
+        {
+            string[] pids = personid.Split(',');
+            int noPids = pids.Length;
+            if (noPids == 1) { return true; }
+            return false;
+        }
+
+        private bool IsEmailImport(string import, string current)
+        {
+            if (!IsNotSame(import, current)) { return false; }
+            return true;
+        }
+
+        private bool IsUdfImport(string import, string current)
+        {
+            if (!IsNotSame(import, current)) { return false; }
+            return true;
+        }
+
+        private bool IsNotSame(string import, string current)
+        {
+            if (!string.IsNullOrWhiteSpace(current))
+            {
+                string[] emails = current.Split(',');
+                switch (emails.Length)
+                {
+                    case 0:
+                        return true;
+                    case 1:
+                        if (current == import)
+                        {
+                            return false;
+                        }
+                        return true;
+                    default:
+                        foreach (string email in emails)
+                        {
+                            if (email == import)
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
+                }
+            }
+            return true;
         }
     }
 }

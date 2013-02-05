@@ -127,7 +127,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     if (string.IsNullOrWhiteSpace(strReg)) { strReg = Switcher.SimsApiClass.GetPupilReg(pid); }
                     if (string.IsNullOrWhiteSpace(strHouse)) { strHouse = Switcher.SimsApiClass.GetPupilHouse(pid); }
 
-                    status = Switcher.SimsApiClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
+                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
                 }
 
                 // REMOVED - Add to failures table.
