@@ -146,7 +146,7 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.Items.Add("Staff, all Leavers");
                     this.comboFilter.Items.Add("All");
 
-                    this.comboFilter.SelectedIndex = Switcher.SimsApiClass.GetUserFilter;
+                    this.comboFilter.SelectedIndex = Switcher.PreImportClass.GetUserFilter;
                     this.comboFilter.IsEnabled = true;
                     break;
                 case SIMSAPI.UserType.Pupil:
@@ -157,7 +157,7 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.Items.Add("Leavers");
                     this.comboFilter.Items.Add("On Roll");
                     this.comboFilter.Items.Add("Future");
-                    this.comboFilter.SelectedIndex = Switcher.SimsApiClass.GetUserFilter;
+                    this.comboFilter.SelectedIndex = Switcher.PreImportClass.GetUserFilter;
                     this.comboFilter.IsEnabled = true;
                     break;
                 case SIMSAPI.UserType.Contact:
@@ -478,7 +478,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Switcher.SimsApiClass.SetUserFilter = this.comboFilter.SelectedIndex;
+            Switcher.PreImportClass.SetUserFilter = this.comboFilter.SelectedIndex;
         }
 
         private void comboWorkbook_SelectionChanged(object sender, SelectionChangedEventArgs e)

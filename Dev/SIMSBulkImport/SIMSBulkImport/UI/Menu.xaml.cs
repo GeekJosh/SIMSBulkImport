@@ -92,7 +92,8 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Debug, "Menu: Staff selected");
-            Switcher.PreImportClass.SetUserType = SIMSAPI.UserType.Staff;
+            Switcher.PreImportClass.SetUserType = Switcher.SimsApiClass.user
+                //SIMSAPI.UserType.Staff;
             _open();
         }
 

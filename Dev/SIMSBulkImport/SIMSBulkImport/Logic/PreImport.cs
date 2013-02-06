@@ -32,6 +32,7 @@ namespace Matt40k.SIMSBulkImport
         private Pupil.PreImport _pupilPre;
         private Staff.PreImport _staffPre;
         private SIMSAPI.UserType userType;
+        private int userFilter;
 
         public int GetImportFileRecordCount
         {
@@ -72,7 +73,7 @@ namespace Matt40k.SIMSBulkImport
                     case SIMSAPI.UserType.Pupil:
                         _pupilPre = new Pupil.PreImport();
                         _pupilPre.SetImportDataTable = value;
-                       break;
+                        break;
                     case SIMSAPI.UserType.Staff:
                         _staffPre = new Staff.PreImport();
                         _staffPre.SetImportDataTable = value;
@@ -87,11 +88,11 @@ namespace Matt40k.SIMSBulkImport
             {
                 switch (Switcher.PreImportClass.GetUserType)
                 {
-                    case SIMSAPI.UserType.Contact:
+                    case UserType.Contact:
                         return _contactPre.CreateDataTable;
-                    case SIMSAPI.UserType.Pupil:
+                    case Switcher.SimsApiClass.UserType.Pupil:
                         return _pupilPre.CreateDataTable;
-                    case SIMSAPI.UserType.Staff:
+                    case Switcher.SimsApiClass.UserType.Staff:
                         return _staffPre.CreateDataTable;
                     default:
                         return null;
@@ -328,7 +329,7 @@ namespace Matt40k.SIMSBulkImport
                 }
             }
             return true;
-        }
+        }        
 
         public SIMSAPI.UserType SetUserType
         {
@@ -344,6 +345,22 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 return userType;
+            }
+        }
+
+        public int SetUserFilter
+        {
+            set
+            {
+                userFilter = value;
+            }
+        }
+
+        public int GetUserFilter
+        {
+            get
+            {
+                return userFilter;
             }
         }
     }

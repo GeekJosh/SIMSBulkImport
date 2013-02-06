@@ -75,7 +75,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                 try { strTown = r[Switcher.PreImportClass.GetMatchTown].ToString(); }
                 catch (ArgumentNullException) { }
 
-                strPersonid = Switcher.SimsApiClass.GetContactPersonId(strSurname, strForename, "%", "%");
+                strPersonid = Switcher.SimsApiClass.GetContactPersonID(strSurname, strForename, "%", "%");
 
                 if (!string.IsNullOrEmpty(strEmail))
                 {
@@ -98,7 +98,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                 if (pid > 0)
                 {
                     // Person has been found - so we pull in missing data fields :) 
-                    emailsInSims = Switcher.SimsApiClass.GetPersonEmail(pid);
+                    emailsInSims = Switcher.SimsApiClass.GetContactEmail(pid);
                     status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
                 }
 
