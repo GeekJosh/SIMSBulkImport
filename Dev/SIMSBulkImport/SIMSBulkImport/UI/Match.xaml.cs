@@ -48,7 +48,7 @@ namespace Matt40k.SIMSBulkImport
 
             GetUserFilters();
 
-            switch (Switcher.SimsApiClass.GetUserType)
+            switch (Switcher.PreImportClass.GetUserType)
             {
                 case SIMSAPI.UserType.Staff:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Staff");
@@ -134,7 +134,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void GetUserFilters()
         {
-            switch (Switcher.SimsApiClass.GetUserType)
+            switch (Switcher.PreImportClass.GetUserType)
             {
                 case SIMSAPI.UserType.Staff:
                     this.comboFilter.Items.Add("Staff, all Current");
@@ -248,7 +248,7 @@ namespace Matt40k.SIMSBulkImport
                 Switcher.PreImportClass.SetMatchEmail = email;
                 Switcher.PreImportClass.SetMatchStaffcode = staffcode;
                 Switcher.PreImportClass.SetMatchGender = gender;
-                switch (Switcher.SimsApiClass.GetUserType)
+                switch (Switcher.PreImportClass.GetUserType)
                 {
                     case SIMSAPI.UserType.Staff:
                         Switcher.PreImportClass.SetMatchTitle = title;
@@ -264,18 +264,18 @@ namespace Matt40k.SIMSBulkImport
 
                 if (!string.IsNullOrEmpty(udf))
                 {
-                    Switcher.SimsApiClass.SetMatchUDF = udf;
+                    Switcher.PreImportClass.SetMatchUDF = udf;
                 }
                 if (!string.IsNullOrEmpty(simsUdf))
                 {
-                    Switcher.SimsApiClass.SetMatchSIMSUDF = simsUdf;
+                    Switcher.PreImportClass.SetMatchSIMSUDF = simsUdf;
                 }
                 if (!string.IsNullOrEmpty(emaillocation))
                 {
-                    Switcher.SimsApiClass.SetMatchEmailLocation = emaillocation;
+                    Switcher.PreImportClass.SetMatchEmailLocation = emaillocation;
                 }
 
-                Switcher.SimsApiClass.SetMatchReg = reg;
+                Switcher.PreImportClass.SetMatchReg = reg;
                 Switcher.Switch(new ImportWindow());
             }
         }
@@ -298,7 +298,7 @@ namespace Matt40k.SIMSBulkImport
                 tmpTable.Columns.Add(new DataColumn("Firstname", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("Email", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("UDF", typeof(string)));
-                switch (Switcher.SimsApiClass.GetUserType)
+                switch (Switcher.PreImportClass.GetUserType)
                 {
                     case SIMSAPI.UserType.Staff:
                         tmpTable.Columns.Add(new DataColumn("Title", typeof(string)));
@@ -432,7 +432,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 newrow["UDF"] = r[udf];
             }
-            switch (Switcher.SimsApiClass.GetUserType)
+            switch (Switcher.PreImportClass.GetUserType)
             {
                 case SIMSAPI.UserType.Staff:
                     if (!string.IsNullOrWhiteSpace(gender))

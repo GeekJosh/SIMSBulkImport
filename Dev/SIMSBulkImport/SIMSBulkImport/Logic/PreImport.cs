@@ -26,9 +26,12 @@ namespace Matt40k.SIMSBulkImport
         private string house;
         private string town;
         private string postcode;
+        private string simsudf;
+        private string emailLocation;
         private Contact.PreImport _contactPre;
         private Pupil.PreImport _pupilPre;
         private Staff.PreImport _staffPre;
+        private SIMSAPI.UserType userType;
 
         public int GetImportFileRecordCount
         {
@@ -60,7 +63,7 @@ namespace Matt40k.SIMSBulkImport
                 // Remove duplicate entries
                 value = Validation.DeDuplicatation(value);
 
-                switch (Switcher.SimsApiClass.GetUserType)
+                switch (Switcher.PreImportClass.GetUserType)
                 {
                     case SIMSAPI.UserType.Contact:
                         _contactPre = new Contact.PreImport();
@@ -82,7 +85,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                switch (Switcher.SimsApiClass.GetUserType)
+                switch (Switcher.PreImportClass.GetUserType)
                 {
                     case SIMSAPI.UserType.Contact:
                         return _contactPre.CreateDataTable;
@@ -98,7 +101,7 @@ namespace Matt40k.SIMSBulkImport
 
         public DataTable AddToDataTable(int recordupto)
         {
-            switch (Switcher.SimsApiClass.GetUserType)
+            switch (Switcher.PreImportClass.GetUserType)
             {
                 case SIMSAPI.UserType.Contact:
                     return _contactPre.AddToDataTable(recordupto);
@@ -169,6 +172,16 @@ namespace Matt40k.SIMSBulkImport
         public string SetMatchPostcode
         {
             set { postcode = value; }
+        }
+
+        public string SetMatchSIMSUDF
+        {
+            set { simsudf = value; }
+        }
+
+        public string SetMatchEmailLocation
+        {
+            set { emailLocation = value; }
         }
 
         public string GetMatchFirstname
@@ -315,6 +328,23 @@ namespace Matt40k.SIMSBulkImport
                 }
             }
             return true;
+        }
+
+        public SIMSAPI.UserType SetUserType
+        {
+            set
+            {
+                userType = value;
+                Switcher.SimsApiClass.SetUserType = value;
+            }
+        }
+
+        public SIMSAPI.UserType GetUserType
+        {
+            get
+            {
+                return userType;
+            }
         }
     }
 }

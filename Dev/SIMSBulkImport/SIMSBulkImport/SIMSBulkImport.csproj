@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Args.cs" />
+    <Compile Include="IniFile.cs" />
     <Compile Include="ISwitchable.cs" />
     <Compile Include="Logic\Contact\PreImport.cs" />
     <Compile Include="Logic\Contact\ResultsImport.cs" />
@@ -148,7 +149,6 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="CleanUp.cs" />
     <Compile Include="ConfigMan.cs" />
-    <Compile Include="ConnectIni.cs" />
     <Compile Include="Import\ImportCsv.cs" />
     <Compile Include="UI\Duplicate.xaml.cs">
       <DependentUpon>Duplicate.xaml</DependentUpon>

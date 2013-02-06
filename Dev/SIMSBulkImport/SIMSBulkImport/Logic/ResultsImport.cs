@@ -19,7 +19,7 @@ namespace Matt40k.SIMSBulkImport
 
         public void CreateResultsDataTable()
         {
-            switch (Switcher.SimsApiClass.GetUserType)
+            switch (Switcher.PreImportClass.GetUserType)
             {
                 case SIMSAPI.UserType.Contact:
                     _contactResults = new Contact.ResultsImport();

@@ -108,12 +108,12 @@ namespace Matt40k.SIMSBulkImport.Staff
                     emailsInSims = Switcher.SimsApiClass.GetPersonEmail(pid);
                     udfInSims = Switcher.SimsApiClass.GetStaffUdf(pid);
 
-                    if (string.IsNullOrWhiteSpace(strSurname)) { strSurname = Switcher.SimsApiClass.GetPersonSurname(pid); }
-                    if (string.IsNullOrWhiteSpace(strForename)) { strForename = Switcher.SimsApiClass.GetPersonForename(pid); }
-                    if (string.IsNullOrWhiteSpace(strTitle)) { strTitle = Switcher.SimsApiClass.GetPersonTitle(pid); }
-                    if (string.IsNullOrWhiteSpace(strGender)) { strGender = Switcher.SimsApiClass.GetPersonGender(pid); }
-                    if (string.IsNullOrWhiteSpace(strStaff)) { strStaff = Switcher.SimsApiClass.GetPersonCode(pid); }
-                    if (string.IsNullOrWhiteSpace(strDob)) { strDob = Switcher.SimsApiClass.GetPersonDob(pid); }
+                    if (string.IsNullOrWhiteSpace(strSurname)) { strSurname = Switcher.SimsApiClass.GetStaffPersonSurname(pid); }
+                    if (string.IsNullOrWhiteSpace(strForename)) { strForename = Switcher.SimsApiClass.GetStaffPersonForename(pid); }
+                    if (string.IsNullOrWhiteSpace(strTitle)) { strTitle = Switcher.SimsApiClass.GetStaffPersonTitle(pid); }
+                    if (string.IsNullOrWhiteSpace(strGender)) { strGender = Switcher.SimsApiClass.GetStaffPersonGender(pid); }
+                    if (string.IsNullOrWhiteSpace(strStaff)) { strStaff = Switcher.SimsApiClass.GetStaffPersonCode(pid); }
+                    if (string.IsNullOrWhiteSpace(strDob)) { strDob = Switcher.SimsApiClass.GetStaffPersonDOB(pid); }
 
                     status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
                 }

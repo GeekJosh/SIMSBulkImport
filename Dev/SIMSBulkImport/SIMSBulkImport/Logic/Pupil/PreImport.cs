@@ -91,7 +91,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 try { strHouse = r[Switcher.PreImportClass.GetMatchHouse].ToString(); }
                 catch (ArgumentNullException) { }
 
-                strPersonid = Switcher.SimsApiClass.GetStudentPersonId(strForename, strSurname, strReg, strYear, strHouse, strAdmis).ToString();
+                strPersonid = Switcher.SimsApiClass.GetPupilPersonId(strForename, strSurname, strReg, strYear, strHouse, strAdmis);
                 
                 if (!string.IsNullOrEmpty(strEmail))
                 {
@@ -121,10 +121,10 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     udfInSims = Switcher.SimsApiClass.GetPupilUdf(pid);
 
                     if (string.IsNullOrWhiteSpace(strDob)) { strDob = Switcher.SimsApiClass.GetPupilDOB(pid); }
-                    if (string.IsNullOrWhiteSpace(strAdmis)) { strAdmis = Switcher.SimsApiClass.GetPupilAdmis(pid); }
+                    if (string.IsNullOrWhiteSpace(strAdmis)) { strAdmis = Switcher.SimsApiClass.GetPupilAdmissionNumber(pid); }
                     if (string.IsNullOrWhiteSpace(strGender)) { strGender = Switcher.SimsApiClass.GetPupilGender(pid); }
                     if (string.IsNullOrWhiteSpace(strYear)) { strYear = Switcher.SimsApiClass.GetPupilYear(pid); }
-                    if (string.IsNullOrWhiteSpace(strReg)) { strReg = Switcher.SimsApiClass.GetPupilReg(pid); }
+                    if (string.IsNullOrWhiteSpace(strReg)) { strReg = Switcher.SimsApiClass.GetPupilRegistration(pid); }
                     if (string.IsNullOrWhiteSpace(strHouse)) { strHouse = Switcher.SimsApiClass.GetPupilHouse(pid); }
 
                     status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
