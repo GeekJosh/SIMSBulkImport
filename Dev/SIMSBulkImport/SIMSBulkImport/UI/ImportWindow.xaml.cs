@@ -63,7 +63,6 @@ namespace Matt40k.SIMSBulkImport
             staffTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
             staffTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
 
-
             DataRow newrow = staffTable.NewRow();
             newrow["Surname"] = "smith";
             newrow["Forename"] = "matthew";
@@ -90,7 +89,6 @@ namespace Matt40k.SIMSBulkImport
             this.dataGrid.DataContext = dataGridTable;
             this.dataGrid.Items.Refresh();
             this.Status.Content = "Querying SIMS database - 0%";
-
             bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
@@ -141,10 +139,8 @@ namespace Matt40k.SIMSBulkImport
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-           
             recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
-
             while (recordupto < recordcount)
             {
                 logger.Log(NLog.LogLevel.Debug, " -- " + recordupto);
@@ -156,6 +152,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 else
                 {
+                    logger.Log(NLog.LogLevel.Debug, "ImportAddToDataTable: " + recordupto);
                     dataGridTable = Switcher.PreImportClass.AddToDataTable(recordupto);
                     recordupto++;
 

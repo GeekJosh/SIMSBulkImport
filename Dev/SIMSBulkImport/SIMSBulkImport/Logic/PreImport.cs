@@ -33,13 +33,12 @@ namespace Matt40k.SIMSBulkImport
         private Staff.PreImport _staffPre;
         private Interfaces.UserType userType;
         private int userFilter;
+        private int importFileRecordCount;
 
         public int GetImportFileRecordCount
         {
             get
             {
-                int importFileRecordCount = importDataTable.Rows.Count;
-                logger.Log(NLog.LogLevel.Debug, "RecordCount: " + importFileRecordCount);
                 return importFileRecordCount;
             }
         }
@@ -64,13 +63,17 @@ namespace Matt40k.SIMSBulkImport
                 // Remove duplicate entries
                 value = Validation.DeDuplicatation(value);
 
+                // Set the (filtered) record (row) count
+                importFileRecordCount = value.Rows.Count;
+
                 switch (Switcher.PreImportClass.GetUserType)
                 {
+                        
                     case Interfaces.UserType.Contact:
                         _contactPre = new Contact.PreImport();
                         _contactPre.SetImportDataTable = value;
                         break;
-                    case Interfaces.UserType.Pupil:
+                    case Interfaces.UserType.Pupil:  
                         _pupilPre = new Pupil.PreImport();
                         _pupilPre.SetImportDataTable = value;
                         break;
