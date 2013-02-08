@@ -73,5 +73,10 @@ namespace Matt40k.SIMSBulkImport
             ConfigMan.SetDebugMode = this.checkBoxDebug.IsChecked.Value;
             Switcher.Switch(new Menu());
         }
+
+        private void buttonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Menu());
+        }
     }
 }
