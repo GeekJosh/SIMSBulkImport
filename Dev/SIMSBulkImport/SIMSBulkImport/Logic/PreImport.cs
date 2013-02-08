@@ -31,7 +31,7 @@ namespace Matt40k.SIMSBulkImport
         private Contact.PreImport _contactPre;
         private Pupil.PreImport _pupilPre;
         private Staff.PreImport _staffPre;
-        private SIMSAPI.UserType userType;
+        private Interfaces.UserType userType;
         private int userFilter;
 
         public int GetImportFileRecordCount
@@ -66,15 +66,15 @@ namespace Matt40k.SIMSBulkImport
 
                 switch (Switcher.PreImportClass.GetUserType)
                 {
-                    case SIMSAPI.UserType.Contact:
+                    case Interfaces.UserType.Contact:
                         _contactPre = new Contact.PreImport();
                         _contactPre.SetImportDataTable = value;
                         break;
-                    case SIMSAPI.UserType.Pupil:
+                    case Interfaces.UserType.Pupil:
                         _pupilPre = new Pupil.PreImport();
                         _pupilPre.SetImportDataTable = value;
                         break;
-                    case SIMSAPI.UserType.Staff:
+                    case Interfaces.UserType.Staff:
                         _staffPre = new Staff.PreImport();
                         _staffPre.SetImportDataTable = value;
                         break;
@@ -86,13 +86,13 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                switch (Switcher.PreImportClass.GetUserType)
-                {
-                    case UserType.Contact:
+               switch (Switcher.PreImportClass.GetUserType)
+               {
+                    case Interfaces.UserType.Contact:
                         return _contactPre.CreateDataTable;
-                    case Switcher.SimsApiClass.UserType.Pupil:
+                    case Interfaces.UserType.Pupil:
                         return _pupilPre.CreateDataTable;
-                    case Switcher.SimsApiClass.UserType.Staff:
+                    case Interfaces.UserType.Staff:
                         return _staffPre.CreateDataTable;
                     default:
                         return null;
@@ -104,11 +104,11 @@ namespace Matt40k.SIMSBulkImport
         {
             switch (Switcher.PreImportClass.GetUserType)
             {
-                case SIMSAPI.UserType.Contact:
+                case Interfaces.UserType.Contact:
                     return _contactPre.AddToDataTable(recordupto);
-                case SIMSAPI.UserType.Pupil:
+                case Interfaces.UserType.Pupil:
                     return _pupilPre.AddToDataTable(recordupto);
-                case SIMSAPI.UserType.Staff:
+                case Interfaces.UserType.Staff:
                     return _staffPre.AddToDataTable(recordupto);
                 default:
                     return null;
@@ -329,9 +329,9 @@ namespace Matt40k.SIMSBulkImport
                 }
             }
             return true;
-        }        
+        }
 
-        public SIMSAPI.UserType SetUserType
+        public Interfaces.UserType SetUserType
         {
             set
             {
@@ -340,7 +340,7 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        public SIMSAPI.UserType GetUserType
+        public Interfaces.UserType GetUserType
         {
             get
             {

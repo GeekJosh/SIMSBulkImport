@@ -18,7 +18,7 @@ namespace Matt40k.SIMSBulkImport
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private string tmpHtml;
 
-        public Results(DataTable resultTable, SIMSAPI.UserType userType)
+        public Results(DataTable resultTable, Interfaces.UserType userType)
         {
             tmpHtml = getTmpHtmlFileName;
 
@@ -65,20 +65,20 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private string getXslFileName(SIMSAPI.UserType userType)
+        private string getXslFileName(Interfaces.UserType userType)
         {
             return "Report_" + importTypeToName(userType) + ".xsl";
         }
 
-        private string importTypeToName(SIMSAPI.UserType userType)
+        private string importTypeToName(Interfaces.UserType userType)
         {
             switch (userType)
             {
-                case SIMSAPI.UserType.Staff:
+                case Interfaces.UserType.Staff:
                     return "Staff";
-                case SIMSAPI.UserType.Pupil:
+                case Interfaces.UserType.Pupil:
                     return "Pupil";
-                case SIMSAPI.UserType.Contact:
+                case Interfaces.UserType.Contact:
                     return "Contact";
                 default:
                     return "";
@@ -94,7 +94,7 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private string getCleanXmlName(string oldname, SIMSAPI.UserType userType)
+        private string getCleanXmlName(string oldname, Interfaces.UserType userType)
         {
             string newname;
 

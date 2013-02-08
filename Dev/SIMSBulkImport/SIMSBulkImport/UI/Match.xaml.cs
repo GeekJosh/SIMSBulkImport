@@ -50,7 +50,7 @@ namespace Matt40k.SIMSBulkImport
 
             switch (Switcher.PreImportClass.GetUserType)
             {
-                case SIMSAPI.UserType.Staff:
+                case Interfaces.UserType.Staff:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Staff");
                     string[] udfsStaff = Switcher.SimsApiClass.GetStaffUDFs;
                     if (udfsStaff != null)
@@ -65,7 +65,7 @@ namespace Matt40k.SIMSBulkImport
                     this.labelGender.IsEnabled = true;
                     this.comboGender.IsEnabled = true;
                     break;
-                case SIMSAPI.UserType.Pupil:
+                case Interfaces.UserType.Pupil:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Students");
                     string[] udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
                     if (udfsStudents != null)
@@ -82,7 +82,7 @@ namespace Matt40k.SIMSBulkImport
                     this.labelCode.Content = "Admission number";
                     this.labelTitle.Content = "Year Group";
                     break;
-                case SIMSAPI.UserType.Contact:
+                case Interfaces.UserType.Contact:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Contacts");
                     string[] udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
                     if (udfsContacts != null)
@@ -103,7 +103,7 @@ namespace Matt40k.SIMSBulkImport
                     this.labelReg.Visibility = Visibility.Hidden;
                     this.comboReg.Visibility = Visibility.Hidden;
                     break;
-                    case SIMSAPI.UserType.Unknown:
+                case Interfaces.UserType.Unknown:
                     logger.Log(NLog.LogLevel.Error, "Match: Unknown selected");
                     break;
             }
@@ -136,7 +136,7 @@ namespace Matt40k.SIMSBulkImport
         {
             switch (Switcher.PreImportClass.GetUserType)
             {
-                case SIMSAPI.UserType.Staff:
+                case Interfaces.UserType.Staff:
                     this.comboFilter.Items.Add("Staff, all Current");
                     this.comboFilter.Items.Add("Teaching staff, all Current");
                     this.comboFilter.Items.Add("Support Staff, all Current");
@@ -149,7 +149,7 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.SelectedIndex = Switcher.PreImportClass.GetUserFilter;
                     this.comboFilter.IsEnabled = true;
                     break;
-                case SIMSAPI.UserType.Pupil:
+                case Interfaces.UserType.Pupil:
                     this.comboFilter.Items.Add("<Any>");
                     this.comboFilter.Items.Add("Current");
                     this.comboFilter.Items.Add("Ever On Roll");
@@ -160,10 +160,10 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.SelectedIndex = Switcher.PreImportClass.GetUserFilter;
                     this.comboFilter.IsEnabled = true;
                     break;
-                case SIMSAPI.UserType.Contact:
+                case Interfaces.UserType.Contact:
                     // Contacts has no filters
                     break;
-                case SIMSAPI.UserType.Unknown:
+                case Interfaces.UserType.Unknown:
                     logger.Log(NLog.LogLevel.Error, "GetUserFilters: Unknown selected");
                     break;
             }
@@ -250,13 +250,13 @@ namespace Matt40k.SIMSBulkImport
                 Switcher.PreImportClass.SetMatchGender = gender;
                 switch (Switcher.PreImportClass.GetUserType)
                 {
-                    case SIMSAPI.UserType.Staff:
+                    case Interfaces.UserType.Staff:
                         Switcher.PreImportClass.SetMatchTitle = title;
                         break;
-                    case SIMSAPI.UserType.Pupil:
+                    case Interfaces.UserType.Pupil:
                         Switcher.PreImportClass.SetMatchYear = title;
                         break;
-                    case SIMSAPI.UserType.Contact:
+                    case Interfaces.UserType.Contact:
                         Switcher.PreImportClass.SetMatchTown = title;
                         Switcher.PreImportClass.SetMatchPostcode = staffcode;
                         break;
@@ -282,8 +282,6 @@ namespace Matt40k.SIMSBulkImport
 
         private void setPreImport()
         {
-            Switcher.PreImportClass = null;
-            Switcher.PreImportClass = new PreImport();
             Switcher.PreImportClass.SetMatchIgnoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
             Switcher.PreImportClass.SetImportDataset = dt;
         }
@@ -300,17 +298,17 @@ namespace Matt40k.SIMSBulkImport
                 tmpTable.Columns.Add(new DataColumn("UDF", typeof(string)));
                 switch (Switcher.PreImportClass.GetUserType)
                 {
-                    case SIMSAPI.UserType.Staff:
+                    case Interfaces.UserType.Staff:
                         tmpTable.Columns.Add(new DataColumn("Title", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("StaffCode", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("Gender", typeof(string)));
                         break;
-                    case SIMSAPI.UserType.Pupil:
+                    case Interfaces.UserType.Pupil:
                         tmpTable.Columns.Add(new DataColumn("Year", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("Reg", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("Admission", typeof(string)));
                         break;
-                    case SIMSAPI.UserType.Contact:
+                    case Interfaces.UserType.Contact:
                         tmpTable.Columns.Add(new DataColumn("Postcode", typeof(string)));
                         tmpTable.Columns.Add(new DataColumn("Town", typeof(string)));
                         break;
@@ -434,7 +432,7 @@ namespace Matt40k.SIMSBulkImport
             }
             switch (Switcher.PreImportClass.GetUserType)
             {
-                case SIMSAPI.UserType.Staff:
+                case Interfaces.UserType.Staff:
                     if (!string.IsNullOrWhiteSpace(gender))
                     {
                         newrow["Gender"] = r[gender];
@@ -448,7 +446,7 @@ namespace Matt40k.SIMSBulkImport
                         newrow["Title"] = r[title];
                     }
                     break;
-                case SIMSAPI.UserType.Pupil:
+                case Interfaces.UserType.Pupil:
                     if (!string.IsNullOrWhiteSpace(title))
                     {
                         newrow["Year"] = r[title];
@@ -462,7 +460,7 @@ namespace Matt40k.SIMSBulkImport
                         newrow["Admission"] = r[staffcode];
                     }
                     break;
-                case SIMSAPI.UserType.Contact:
+                case Interfaces.UserType.Contact:
                     if (!string.IsNullOrWhiteSpace(title))
                     {
                         newrow["Town"] = r[title];

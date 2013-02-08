@@ -21,15 +21,15 @@ namespace Matt40k.SIMSBulkImport
         {
             switch (Switcher.PreImportClass.GetUserType)
             {
-                case SIMSAPI.UserType.Contact:
+                case Interfaces.UserType.Contact:
                     _contactResults = new Contact.ResultsImport();
                     resultTable = _contactResults.CreateResultTable;
                     break;
-                case SIMSAPI.UserType.Pupil:
+                case Interfaces.UserType.Pupil:
                     _pupilResults = new Pupil.ResultsImport();
                     resultTable = _pupilResults.CreateResultTable;
                     break;
-                case SIMSAPI.UserType.Staff:
+                case Interfaces.UserType.Staff:
                     _staffResults = new Staff.ResultsImport();
                     resultTable = _staffResults.CreateResultTable;
                     break;

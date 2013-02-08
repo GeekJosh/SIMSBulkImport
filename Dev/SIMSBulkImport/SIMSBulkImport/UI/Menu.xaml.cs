@@ -77,23 +77,25 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_New_Contact(object sender, RoutedEventArgs e)
         {
-            logger.Log(NLog.LogLevel.Debug, "Menu: Contact selected");
-            Switcher.PreImportClass.SetUserType = SIMSAPI.UserType.Contact;
-            _open();
+            MenuClick(Interfaces.UserType.Contact);
         }
 
         private void MenuItem_Click_New_Pupil(object sender, RoutedEventArgs e)
         {
-            logger.Log(NLog.LogLevel.Debug, "Menu: Pupil selected");
-            Switcher.PreImportClass.SetUserType = SIMSAPI.UserType.Pupil;
-            _open();
+            MenuClick(Interfaces.UserType.Pupil);
         }
 
         private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
         {
-            logger.Log(NLog.LogLevel.Debug, "Menu: Staff selected");
-            Switcher.PreImportClass.SetUserType = Switcher.SimsApiClass.user
-                //SIMSAPI.UserType.Staff;
+            MenuClick(Interfaces.UserType.Staff);
+        }
+
+        private void MenuClick(Interfaces.UserType userType)
+        {
+            logger.Log(NLog.LogLevel.Debug, "Menu: " + userType);
+            Switcher.PreImportClass = null;
+            Switcher.PreImportClass = new PreImport();
+            Switcher.PreImportClass.SetUserType = userType;
             _open();
         }
 
