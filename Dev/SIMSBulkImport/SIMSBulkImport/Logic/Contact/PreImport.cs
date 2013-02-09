@@ -35,8 +35,10 @@ namespace Matt40k.SIMSBulkImport.Contact
                 contactTable.Columns.Add(new DataColumn("Postcode", typeof(string)));
                 contactTable.Columns.Add(new DataColumn("Town", typeof(string)));
                 contactTable.Columns.Add(new DataColumn("Import email", typeof(string)));
+                contactTable.Columns.Add(new DataColumn("Import telephone", typeof(string)));
                 contactTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
                 contactTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
+                contactTable.Columns.Add(new DataColumn("SIMS telephone", typeof(string)));
                 contactTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
                 contactTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
                 return contactTable;
@@ -51,41 +53,105 @@ namespace Matt40k.SIMSBulkImport.Contact
             string strPostcode = null;
             string strTown = null;
             string strEmail = null;
+            string strTelephone = null;
             string strUdf = null;
             string emailsInSims = null;
+            string telephonesInSims = null;
             string udfInSims = null;
             string status = "NOT FOUND";
-            bool importEmail = false;
-            bool importUdf = false;
             int pid = 0;
 
             try
             {
+                string matchFirstname = Switcher.PreImportClass.GetMatchFirstname;
+                string matchSurname = Switcher.PreImportClass.GetMatchSurname;
+                string matchEmail = Switcher.PreImportClass.GetMatchEmail;
+                string matchTelephone = Switcher.PreImportClass.GetMatchTelephone;
+                string matchUDF = Switcher.PreImportClass.GetMatchUDF;
+                string matchPostcode = Switcher.PreImportClass.GetMatchPostcode;
+                string matchTown = Switcher.PreImportClass.GetMatchTown;
+
                 DataRow r = importDataTable.Rows[recordid];
-                try { strForename = r[Switcher.PreImportClass.GetMatchFirstname].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strSurname = r[Switcher.PreImportClass.GetMatchSurname].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strEmail = r[Switcher.PreImportClass.GetMatchEmail].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strUdf = r[Switcher.PreImportClass.GetMatchUDF].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strPostcode = r[Switcher.PreImportClass.GetMatchPostcode].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strTown = r[Switcher.PreImportClass.GetMatchTown].ToString(); }
-                catch (ArgumentNullException) { }
+                if (!string.IsNullOrEmpty(matchFirstname))
+                {
+                    try
+                    {
+                        strForename = r[matchFirstname].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchFirstname_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchSurname))
+                {
+                    try
+                    {
+                        strSurname = r[matchSurname].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchSurname_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchEmail))
+                {
+                    try
+                    {
+                        strEmail = r[matchEmail].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchEmail_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchTelephone))
+                {
+                    try
+                    {
+                        strTelephone = r[matchTelephone].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchUDF))
+                {
+                    try
+                    {
+                        strUdf = r[matchUDF].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchUDF_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchPostcode))
+                {
+                    try
+                    {
+                        strPostcode = r[matchPostcode].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchPostcode_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchPostcode_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchTown))
+                {
+                    try
+                    {
+                        strTown = r[matchTown].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchTown_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTown_ArgumentNullException);
+                    }
+                }
 
                 strPersonid = Switcher.SimsApiClass.GetContactPersonID(strSurname, strForename, "%", "%");
 
-                if (!string.IsNullOrEmpty(strEmail))
-                {
-                    importEmail = true;
-                    strEmail = strEmail.ToLower();
-                }
-                if (!string.IsNullOrEmpty(strUdf))
-                {
-                    importUdf = true;
-                }
                 try
                 {
                     pid = Convert.ToInt32(strPersonid);
@@ -100,6 +166,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     // Person has been found - so we pull in missing data fields :) 
                     emailsInSims = Switcher.SimsApiClass.GetContactEmail(pid);
                     status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
+                    telephonesInSims = Switcher.SimsApiClass.GetContactTelephone(pid);
                 }
 
                 // REMOVED - Add to failures table.
@@ -111,9 +178,11 @@ namespace Matt40k.SIMSBulkImport.Contact
                 newrow["Postcode"] = strPostcode;
                 newrow["Town"] = strTown;
                 newrow["Import email"] = strEmail;
+                newrow["Import telephone"] = strTelephone;
                 newrow["Import UDF"] = strUdf;
                 newrow["Status"] = status;
                 newrow["SIMS email addresses"] = emailsInSims;
+                newrow["SIMS telephone"] = telephonesInSims;
                 newrow["SIMS UDF"] = udfInSims;
                 newrow["PersonID"] = strPersonid;
                 contactTable.Rows.Add(newrow);

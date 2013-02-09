@@ -39,8 +39,10 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 pupilTable.Columns.Add(new DataColumn("Registration", typeof(string)));
                 pupilTable.Columns.Add(new DataColumn("House", typeof(string)));
                 pupilTable.Columns.Add(new DataColumn("Import email", typeof(string)));
+                pupilTable.Columns.Add(new DataColumn("Import telephone", typeof(string)));
                 pupilTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
                 pupilTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
+                pupilTable.Columns.Add(new DataColumn("SIMS telephone", typeof(string)));
                 pupilTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
                 pupilTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
                 return pupilTable;
@@ -53,6 +55,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
             string strForename = null;
             string strSurname = null;
             string strEmail = null;
+            string strTelephone = null;
             string strUdf = null;
             string strAdmis = null;
             string strGender = null;
@@ -61,47 +64,141 @@ namespace Matt40k.SIMSBulkImport.Pupil
             string strReg = null;
             string strHouse = null;
             string emailsInSims = null;
+            string telephonesInSims = null;
             string udfInSims = null;
             string status = "NOT FOUND";
-            bool importEmail = false;
-            bool importUdf = false;
             int pid = 0;
 
             try
             {
+                string matchFirstname = Switcher.PreImportClass.GetMatchFirstname;
+                string matchSurname = Switcher.PreImportClass.GetMatchSurname;
+                string matchEmail = Switcher.PreImportClass.GetMatchEmail;
+                string matchTelephone = Switcher.PreImportClass.GetMatchTelephone;
+                string matchStaffcode = Switcher.PreImportClass.GetMatchStaffcode;
+                string matchUDF = Switcher.PreImportClass.GetMatchUDF;
+                string matchGender = Switcher.PreImportClass.GetMatchGender;
+                string matchYear = Switcher.PreImportClass.GetMatchYear;
+                string matchReg = Switcher.PreImportClass.GetMatchReg;
+                string matchHouse = Switcher.PreImportClass.GetMatchHouse;
+
                 DataRow r = importDataTable.Rows[recordid];
 
-                try { strForename = r[Switcher.PreImportClass.GetMatchFirstname].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strSurname = r[Switcher.PreImportClass.GetMatchSurname].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strEmail = r[Switcher.PreImportClass.GetMatchEmail].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strAdmis = r[Switcher.PreImportClass.GetMatchStaffcode].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strGender = r[Switcher.PreImportClass.GetMatchGender].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strUdf = r[Switcher.PreImportClass.GetMatchUDF].ToString(); }
-                catch (ArgumentNullException) { }
+                if (!string.IsNullOrEmpty(matchFirstname))
+                {
+                    try
+                    {
+                        strForename = r[matchFirstname].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchFirstname_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchSurname))
+                {
+                    try
+                    {
+                        strSurname = r[matchSurname].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchSurname_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchEmail))
+                {
+                    try
+                    {
+                        strEmail = r[matchEmail].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchEmail_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchTelephone))
+                {
+                    try
+                    {
+                        strTelephone = r[matchTelephone].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchUDF))
+                {
+                    try
+                    {
+                        strUdf = r[matchUDF].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchUDF_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchGender))
+                {
+                    try
+                    {
+                        strGender = r[matchGender].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchGender_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchGender_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchStaffcode))
+                {
+                    try
+                    {
+                        strAdmis = r[matchStaffcode].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchStaffcode_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchStaffcode_ArgumentNullException);
+                    }
+                }
 
-                try { strYear = r[Switcher.PreImportClass.GetMatchYear].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strReg = r[Switcher.PreImportClass.GetMatchReg].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strHouse = r[Switcher.PreImportClass.GetMatchHouse].ToString(); }
-                catch (ArgumentNullException) { }
+                if (!string.IsNullOrEmpty(matchYear))
+                {
+
+                    try
+                    {
+                        strYear = r[matchYear].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchYear_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchYear_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchReg))
+                {
+                    try
+                    {
+                        strReg = r[matchReg].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchReg_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchReg_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchHouse))
+                {
+                    try
+                    {
+                        strHouse = r[matchHouse].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchHouse_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchHouse_ArgumentNullException);
+                    }
+                }
 
                 strPersonid = Switcher.SimsApiClass.GetPupilPersonID(strForename, strSurname, strReg, strYear, strHouse, strAdmis);
                 
-                if (!string.IsNullOrEmpty(strEmail))
-                {
-                    importEmail = true;
-                    strEmail = strEmail.ToLower();
-                }
-                if (!string.IsNullOrEmpty(strUdf))
-                {
-                    importUdf = true;
-                }
                 try
                 {
                     pid = Convert.ToInt32(strPersonid);
@@ -119,6 +216,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
 
                     emailsInSims = Switcher.SimsApiClass.GetPupilEmail(pid);
                     udfInSims = Switcher.SimsApiClass.GetPupilUDF(pid);
+                    telephonesInSims = Switcher.SimsApiClass.GetPupilTelephone(pid);
 
                     if (string.IsNullOrWhiteSpace(strDob)) { strDob = Switcher.SimsApiClass.GetPupilDOB(pid); }
                     if (string.IsNullOrWhiteSpace(strAdmis)) { strAdmis = Switcher.SimsApiClass.GetPupilAdmissionNumber(pid); }
@@ -143,9 +241,11 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 newrow["House"] = strHouse;
                 newrow["Date of Birth"] = strDob;
                 newrow["Import email"] = strEmail;
+                newrow["Import telephone"] = strTelephone;
                 newrow["Import UDF"] = strUdf;
                 newrow["Status"] = status;
                 newrow["SIMS email addresses"] = emailsInSims;
+                newrow["SIMS telephone"] = telephonesInSims;
                 newrow["SIMS UDF"] = udfInSims;
                 newrow["PersonID"] = strPersonid;
                 pupilTable.Rows.Add(newrow);

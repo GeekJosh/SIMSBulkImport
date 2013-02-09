@@ -37,8 +37,10 @@ namespace Matt40k.SIMSBulkImport.Staff
                 staffTable.Columns.Add(new DataColumn("Staff Code", typeof(string)));
                 staffTable.Columns.Add(new DataColumn("Date of Birth", typeof(string)));
                 staffTable.Columns.Add(new DataColumn("Import email", typeof(string)));
+                staffTable.Columns.Add(new DataColumn("Import telephone", typeof(string)));
                 staffTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
                 staffTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
+                staffTable.Columns.Add(new DataColumn("SIMS telephone", typeof(string)));
                 staffTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
                 staffTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
                 return staffTable;
@@ -51,48 +53,121 @@ namespace Matt40k.SIMSBulkImport.Staff
             string strForename = null;
             string strSurname = null;
             string strEmail = null;
+            string strTelephone = null;
             string strUdf = null;
             string strStaff = null;
             string strTitle = null;
             string strGender = null;
             string strDob = null;
             string emailsInSims = null;
+            string telephonesInSims = null;
             string udfInSims = null;
             string status = "NOT FOUND";
-            bool importEmail = false;
-            bool importUdf = false;
             int pid = 0;
 
             try
             {
-                DataRow r = importDataTable.Rows[recordid];
+                string matchFirstname = Switcher.PreImportClass.GetMatchFirstname;
+                string matchSurname = Switcher.PreImportClass.GetMatchSurname;
+                string matchEmail = Switcher.PreImportClass.GetMatchEmail;
+                string matchTelephone = Switcher.PreImportClass.GetMatchTelephone;
+                string matchUDF = Switcher.PreImportClass.GetMatchUDF;
+                string matchGender = Switcher.PreImportClass.GetMatchGender;
+                string matchStaffcode = Switcher.PreImportClass.GetMatchStaffcode;
+                string matchTitle = Switcher.PreImportClass.GetMatchTitle;
 
-                try { strForename = r[Switcher.PreImportClass.GetMatchFirstname].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strSurname = r[Switcher.PreImportClass.GetMatchSurname].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strEmail = r[Switcher.PreImportClass.GetMatchEmail].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strStaff = r[Switcher.PreImportClass.GetMatchStaffcode].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strTitle = r[Switcher.PreImportClass.GetMatchTitle].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strGender = r[Switcher.PreImportClass.GetMatchGender].ToString(); }
-                catch (ArgumentNullException) { }
-                try { strUdf = r[Switcher.PreImportClass.GetMatchUDF].ToString(); }
-                catch (ArgumentNullException) { }
+                DataRow r = importDataTable.Rows[recordid];
+                if (!string.IsNullOrEmpty(matchFirstname))
+                {
+                    try
+                    {
+                        strForename = r[matchFirstname].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchFirstname_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchSurname))
+                {
+                    try
+                    {
+                        strSurname = r[matchSurname].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchSurname_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchEmail))
+                {
+                    try
+                    { 
+                        strEmail = r[matchEmail].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchEmail_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchTelephone))
+                {
+                    try
+                    {
+                        strTelephone = r[matchTelephone].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException) 
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchUDF))
+                {
+                    try
+                    {
+                        strUdf = r[matchUDF].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchUDF_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchGender))
+                {
+                    try
+                    {
+                        strGender = r[matchGender].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchGender_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchGender_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchStaffcode))
+                {
+                    try
+                    { 
+                        strStaff = r[matchStaffcode].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchStaffcode_ArgumentNullException)
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchStaffcode_ArgumentNullException);
+                    }
+                }
+                if (!string.IsNullOrEmpty(matchTitle))
+                {
+                    try
+                    {
+                        strTitle = r[matchTitle].ToString(); 
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchTitle_ArgumentNullException) 
+                    {
+                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTitle_ArgumentNullException);
+                    }
+                }
 
                 strPersonid = Switcher.SimsApiClass.GetStaffPersonID(strSurname, strForename, strTitle, strGender, strStaff);
 
-                if (!string.IsNullOrEmpty(strEmail))
-                {
-                    importEmail = true;
-                    strEmail = strEmail.ToLower();
-                }
-                if (!string.IsNullOrEmpty(strUdf))
-                {
-                    importUdf = true;
-                }
                 try
                 {
                     pid = Convert.ToInt32(strPersonid);
@@ -107,6 +182,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     // Person has been found - so we pull in missing data fields :) 
                     emailsInSims = Switcher.SimsApiClass.GetStaffEmail(pid);
                     udfInSims = Switcher.SimsApiClass.GetStaffUDF(pid);
+                    telephonesInSims = Switcher.SimsApiClass.GetStaffTelephone(pid);
 
                     if (string.IsNullOrWhiteSpace(strSurname)) { strSurname = Switcher.SimsApiClass.GetStaffSurname(pid); }
                     if (string.IsNullOrWhiteSpace(strForename)) { strForename = Switcher.SimsApiClass.GetStaffForename(pid); }
@@ -129,9 +205,11 @@ namespace Matt40k.SIMSBulkImport.Staff
                 newrow["Staff Code"] = strStaff;
                 newrow["Date of Birth"] = strDob;
                 newrow["Import email"] = strEmail;
+                newrow["Import telephone"] = strTelephone;
                 newrow["Import UDF"] = strUdf;
                 newrow["Status"] = status;
                 newrow["SIMS email addresses"] = emailsInSims;
+                newrow["SIMS telephone"] = telephonesInSims;
                 newrow["SIMS UDF"] = udfInSims;
                 newrow["PersonID"] = strPersonid;
                 staffTable.Rows.Add(newrow);

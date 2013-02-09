@@ -41,9 +41,15 @@ namespace Matt40k.SIMSBulkImport
         public ImportWindow()
         {
             InitializeComponent();
-            load();
+           
+            //TEST:: load import data straight into datagrid
             //this.dataGrid.DataContext = Switcher.PreImportClass.GetImportDataTable;
+            
+            //TEST:: load test data
             //test();
+
+            load();
+            
             this.dataGrid.Items.Refresh();
         }
 
@@ -58,8 +64,10 @@ namespace Matt40k.SIMSBulkImport
             staffTable.Columns.Add(new DataColumn("Staff Code", typeof(string)));
             staffTable.Columns.Add(new DataColumn("Date of Birth", typeof(string)));
             staffTable.Columns.Add(new DataColumn("Import email", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Import telephone", typeof(string)));
             staffTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
             staffTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("SIMS telephone", typeof(string)));
             staffTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
             staffTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
 
@@ -71,9 +79,11 @@ namespace Matt40k.SIMSBulkImport
             newrow["Staff Code"] = null;
             newrow["Date of Birth"] = null;
             newrow["Import email"] = null;
+            newrow["Import telephone"] = null;
             newrow["Import UDF"] = null;
             newrow["Status"] = null;
             newrow["SIMS email addresses"] = null;
+            newrow["SIMS telephone"] = null;
             newrow["SIMS UDF"] = null;
             newrow["PersonID"] = null;
             staffTable.Rows.Add(newrow);
