@@ -17,6 +17,7 @@ namespace Matt40k.SIMSBulkImport
         private string firstname;
         private string surname;
         private string email;
+        private string telephone;
         private string staffcode;
         private string gender;
         private string title;
@@ -28,6 +29,7 @@ namespace Matt40k.SIMSBulkImport
         private string postcode;
         private string simsudf;
         private string emailLocation;
+        private string telephoneLocation;
         private Contact.PreImport _contactPre;
         private Pupil.PreImport _pupilPre;
         private Staff.PreImport _staffPre;
@@ -133,6 +135,11 @@ namespace Matt40k.SIMSBulkImport
             set { email = value; }
         }
 
+        public string SetMatchTelephone
+        {
+            set { telephone = value; }
+        }
+
         public string SetMatchStaffcode
         {
             set { staffcode = value; }
@@ -188,6 +195,11 @@ namespace Matt40k.SIMSBulkImport
             set { emailLocation = value; }
         }
 
+        public string SetMatchTelephoneLocation
+        {
+            set { telephoneLocation = value; }
+        }
+
         public string GetMatchFirstname
         {
             get { return firstname; }
@@ -201,6 +213,11 @@ namespace Matt40k.SIMSBulkImport
         public string GetMatchEmail
         {
             get { return email; }
+        }
+
+        public string GetMatchTelephone
+        {
+            get { return telephone; }
         }
 
         public string GetMatchStaffcode
@@ -246,6 +263,16 @@ namespace Matt40k.SIMSBulkImport
         public string GetMatchPostcode
         {
             get { return postcode; }
+        }
+
+        public string GetMatchEmailLocation
+        {
+            get { return emailLocation; }
+        }
+
+        public string GetMatchTelephoneLocation
+        {
+            get { return telephoneLocation; }
         }
 
         public string GetStatus(string personid,

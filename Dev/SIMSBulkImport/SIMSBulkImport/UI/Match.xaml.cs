@@ -41,6 +41,8 @@ namespace Matt40k.SIMSBulkImport
         private string simsUdf;
         private string emaillocation;
         private string reg;
+        private string telephone;
+        private string telephonelocation;
 
         internal Match()
         {
@@ -119,6 +121,17 @@ namespace Matt40k.SIMSBulkImport
                 this.comboEmailLocation.Items.Add("");
             }
 
+            // Get Telephone Locations
+            string[] telephoneLocations = Switcher.SimsApiClass.GetEmailLocations;
+            if (telephoneLocations.Length != 0)
+            {
+                foreach (string telephoneLocation in telephoneLocations)
+                {
+                    this.comboTelephoneLocation.Items.Add(telephoneLocation);
+                }
+                this.comboTelephoneLocation.Items.Add("");
+            }
+
             ds = Switcher.ImportFileClass.GetDataSet;
             if (ds.Tables.Count > 1)
             {
@@ -194,6 +207,7 @@ namespace Matt40k.SIMSBulkImport
             gender = null;
             udf = null;
             //simsUdf = null;
+            telephone = null;
 
             comboUDF.Items.Clear();
             comboEmail.Items.Clear();
@@ -204,6 +218,7 @@ namespace Matt40k.SIMSBulkImport
             comboTitle.Items.Clear();
             //comboSIMSUDF.Items.Clear();
             comboReg.Items.Clear();
+            comboTelephone.Items.Clear();
 
             try
             {
@@ -218,6 +233,7 @@ namespace Matt40k.SIMSBulkImport
                     comboTitle.Items.Add(column.ColumnName);
                     comboUDF.Items.Add(column.ColumnName);
                     comboReg.Items.Add(column.ColumnName);
+                    comboTelephone.Items.Add(column.ColumnName);
                 }
             }
             catch (NullReferenceException)
@@ -234,6 +250,7 @@ namespace Matt40k.SIMSBulkImport
             comboGender.Items.Add(blank);
             comboUDF.Items.Add(blank);
             comboReg.Items.Add(blank);
+            comboTelephone.Items.Add(blank);
             //comboSIMSUDF.Items.Add(blank);
         }
 
@@ -246,6 +263,7 @@ namespace Matt40k.SIMSBulkImport
                 Switcher.PreImportClass.SetMatchFirstname = firstname;
                 Switcher.PreImportClass.SetMatchSurname = surname;
                 Switcher.PreImportClass.SetMatchEmail = email;
+                Switcher.PreImportClass.SetMatchTelephone = telephone;
                 Switcher.PreImportClass.SetMatchStaffcode = staffcode;
                 Switcher.PreImportClass.SetMatchGender = gender;
                 switch (Switcher.PreImportClass.GetUserType)
@@ -274,6 +292,10 @@ namespace Matt40k.SIMSBulkImport
                 {
                     Switcher.PreImportClass.SetMatchEmailLocation = emaillocation;
                 }
+                if (!string.IsNullOrEmpty(telephonelocation))
+                {
+                    Switcher.PreImportClass.SetMatchTelephoneLocation = telephonelocation;
+                }
 
                 Switcher.PreImportClass.SetMatchReg = reg;
                 Switcher.Switch(new ImportWindow());
@@ -295,6 +317,7 @@ namespace Matt40k.SIMSBulkImport
                 tmpTable.Columns.Add(new DataColumn("Surname", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("Firstname", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("Email", typeof(string)));
+                tmpTable.Columns.Add(new DataColumn("Telephone", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("UDF", typeof(string)));
                 switch (Switcher.PreImportClass.GetUserType)
                 {
@@ -358,7 +381,22 @@ namespace Matt40k.SIMSBulkImport
                     comboEmailLocation.IsEnabled = true;
                 }
             }
-
+            if (comboTelephone.SelectedItem != null)
+            {
+                telephone = comboTelephone.SelectedItem.ToString();
+                string temptelephone = comboTelephone.SelectedValue.ToString();
+                if (string.IsNullOrEmpty(temptelephone))
+                {
+                    labelTelephoneLocation.IsEnabled = false;
+                    comboTelephoneLocation.IsEnabled = false;
+                    comboTelephoneLocation.SelectedValue = null;
+                }
+                else
+                {
+                    labelTelephoneLocation.IsEnabled = true;
+                    comboTelephoneLocation.IsEnabled = true;
+                }
+            }
             if (comboGender.SelectedItem != null)
             {
                 gender = comboGender.SelectedItem.ToString();
@@ -382,6 +420,14 @@ namespace Matt40k.SIMSBulkImport
             if (comboEmailLocation.SelectedItem != null)
             {
                 emaillocation = comboEmailLocation.SelectedItem.ToString();
+            }
+            if (comboTelephone.SelectedItem != null)
+            {
+                telephone = comboTelephone.SelectedItem.ToString();
+            }
+            if (comboTelephoneLocation.SelectedItem != null)
+            {
+                telephonelocation = comboTelephoneLocation.SelectedItem.ToString();
             }
 
 
@@ -425,6 +471,10 @@ namespace Matt40k.SIMSBulkImport
             if (!string.IsNullOrWhiteSpace(email))
             {
                 newrow["Email"] = r[email];
+            }
+            if (!string.IsNullOrWhiteSpace(telephone))
+            {
+                newrow["Telephone"] = r[telephone];
             }
             if (!string.IsNullOrWhiteSpace(udf))
             {
@@ -507,16 +557,12 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                if (comboEmail.SelectedItem == null && comboUDF.SelectedItem == null)
+                if (!comboEmailLocation.IsEnabled && !comboUDF.IsEnabled && !comboTelephoneLocation.IsEnabled)
                 {
-                    MessageBox.Show("Please define the email or UDF");
+                    MessageBox.Show("Please define the email, telephone or UDF");
                     return false;
                 }
-                if (comboEmail.SelectedItem != null && comboEmailLocation.SelectedItem == null)
-                {
-                    MessageBox.Show("Please define the email location");
-                    return false;
-                }
+                
                 return true;
             }
         }
