@@ -136,6 +136,8 @@ namespace Matt40k.SIMSBulkImport
                 queryEnd = DateTime.Now;
                 logger.Log(NLog.LogLevel.Info, "Querying complete: " + queryStart.ToShortTimeString() + " - " + DateTime.Compare(queryEnd, queryStart));
                 this.dataGrid.Items.Refresh();
+                //this.dataGrid.IsReadOnly = false;
+                //this.dataGrid.CanUserDeleteRows = true;
             }
         }
 
@@ -178,6 +180,25 @@ namespace Matt40k.SIMSBulkImport
         private void button_Click(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Info, "Import Start");
+        }
+
+        private void Grid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                deleteRow();
+                e.Handled = true;
+            }
+        }
+
+        private void button_ClickDelete(object sender, RoutedEventArgs e)
+        {
+            deleteRow();
+        }
+
+        private void deleteRow()
+        {
+            MessageBox.Show("delete pressed");
         }
     }
 }

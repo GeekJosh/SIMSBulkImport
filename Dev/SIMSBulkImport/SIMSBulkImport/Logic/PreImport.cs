@@ -34,7 +34,7 @@ namespace Matt40k.SIMSBulkImport
         private Pupil.PreImport _pupilPre;
         private Staff.PreImport _staffPre;
         private Interfaces.UserType userType;
-        private int userFilter;
+        private string userFilter;
         private int importFileRecordCount;
 
         public int GetImportFileRecordCount
@@ -378,20 +378,22 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        public int SetUserFilter
+        public string SetUserFilter
         {
             set
             {
                 userFilter = value;
+                Switcher.SimsApiClass.SetUserFilter = value;
             }
         }
 
+        /*
         public int GetUserFilter
         {
             get
             {
                 return userFilter;
             }
-        }
+        }*/
     }
 }

@@ -158,19 +158,19 @@ namespace Matt40k.SIMSBulkImport
                     this.comboFilter.Items.Add("Support Staff, all Leavers");
                     this.comboFilter.Items.Add("Staff, all Leavers");
                     this.comboFilter.Items.Add("All");
-
-                    this.comboFilter.SelectedIndex = Switcher.PreImportClass.GetUserFilter;
+                    this.comboFilter.SelectedIndex = 0;
                     this.comboFilter.IsEnabled = true;
                     break;
                 case Interfaces.UserType.Pupil:
-                    this.comboFilter.Items.Add("<Any>");
+                    
                     this.comboFilter.Items.Add("Current");
                     this.comboFilter.Items.Add("Ever On Roll");
                     this.comboFilter.Items.Add("Guest");
                     this.comboFilter.Items.Add("Leavers");
                     this.comboFilter.Items.Add("On Roll");
                     this.comboFilter.Items.Add("Future");
-                    this.comboFilter.SelectedIndex = Switcher.PreImportClass.GetUserFilter;
+                    this.comboFilter.Items.Add("<Any>");
+                    this.comboFilter.SelectedIndex = 0;
                     this.comboFilter.IsEnabled = true;
                     break;
                 case Interfaces.UserType.Contact:
@@ -296,7 +296,7 @@ namespace Matt40k.SIMSBulkImport
                 {
                     Switcher.PreImportClass.SetMatchTelephoneLocation = telephonelocation;
                 }
-
+                Switcher.PreImportClass.SetUserFilter = (string)this.comboFilter.SelectedValue;
                 Switcher.PreImportClass.SetMatchReg = reg;
                 Switcher.Switch(new ImportWindow());
             }
@@ -526,7 +526,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Switcher.PreImportClass.SetUserFilter = this.comboFilter.SelectedIndex;
+            // Switcher.PreImportClass.SetUserFilter = this.comboFilter.SelectedIndex;
         }
 
         private void comboWorkbook_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -27,6 +27,7 @@ namespace Matt40k.SIMSBulkImport
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private BackgroundWorker bw = new BackgroundWorker();
         private bool IsConnected;
+        private string tmpUsr;
 
         public Login()
         {
@@ -99,14 +100,21 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            bool userFilled = false;
             if (!string.IsNullOrWhiteSpace(this.textUser.Text) && !string.IsNullOrWhiteSpace(this.passwordBox.Password))
+            {
+                Switcher.SimsApiClass.SetSimsUser = this.textUser.Text;
+                Switcher.SimsApiClass.SetSimsPass = this.passwordBox.Password;
+                userFilled = true;
+            }
+
+            if ((bool)this.checkWin.IsChecked || userFilled)
             {
                 // Try to connect to SIMS...
                 updateLoadMess("Connecting to SIMS...");
                 ShowLogon(false);
-
-                Switcher.SimsApiClass.SetSimsUser = this.textUser.Text;
-                Switcher.SimsApiClass.SetSimsPass = this.passwordBox.Password;
+                
+                Switcher.SimsApiClass.SetIsTrusted = (bool)this.checkWin.IsChecked;
 
                 bw = new BackgroundWorker();
                 bw.WorkerReportsProgress = true;
@@ -120,6 +128,8 @@ namespace Matt40k.SIMSBulkImport
                     bw.RunWorkerAsync();
                 }
             }
+
+
         }
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -139,6 +149,7 @@ namespace Matt40k.SIMSBulkImport
                 if (!IsConnected)
                 {
                     ShowLogon(true);
+                    showError(Switcher.SimsApiClass.GetConnectError);
                 }
                 else
                 {
@@ -157,6 +168,33 @@ namespace Matt40k.SIMSBulkImport
             BackgroundWorker worker = sender as BackgroundWorker;
 
             IsConnected = Switcher.SimsApiClass.Connect;
+        }
+
+        private void showError(string errMess)
+        {
+            errorBorder.BorderThickness = new Thickness(2,2,2,2);
+            this.errorMessage.Text = errMess;
+        }
+
+        private void connectType_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((bool)this.checkSql.IsChecked)
+            {
+                if (this.textUser.Text == null)
+                {
+                    this.textUser.Text = tmpUsr;
+                }
+                this.textUser.IsEnabled = true;
+                this.passwordBox.IsEnabled = true;
+            }
+            else
+            {
+                tmpUsr = this.textUser.Text;
+                this.textUser.Text = null;
+                this.passwordBox.Password = null;
+                this.textUser.IsEnabled = false;
+                this.passwordBox.IsEnabled = false;
+            }
         }
     }
 }
