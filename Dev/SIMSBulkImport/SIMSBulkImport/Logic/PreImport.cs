@@ -277,7 +277,8 @@ namespace Matt40k.SIMSBulkImport
 
         public string GetStatus(string personid,
                                 string email, string simsEmail,
-                                string udf, string simsUdf)
+                                string udf, string simsUdf,
+                                string telephone, string simsTelephone)
         {
 
             if (personid == "0") { return "Missing"; }
@@ -285,14 +286,19 @@ namespace Matt40k.SIMSBulkImport
 
             bool emailImport = false;
             bool udfImport = false;
+            bool telephoneImport = false;
 
             if (!string.IsNullOrEmpty(email))
             {
-                emailImport = IsEmailImport(email, simsEmail);
+                emailImport = IsImport(email, simsEmail);
             }
             if (!string.IsNullOrEmpty(udf))
             {
-                udfImport = IsUdfImport(udf, simsUdf);
+                udfImport = IsImport(udf, simsUdf);
+            }
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                telephoneImport = IsImport(telephone, simsTelephone);
             }
 
             string status = null;
@@ -308,6 +314,18 @@ namespace Matt40k.SIMSBulkImport
                     status = status + ", UDF";
                 }
             }
+            if (telephoneImport)
+            {
+                if (string.IsNullOrEmpty(status))
+                {
+                    status = "Import Telephone";
+                }
+                else
+                {
+                    status = status + ", Telephone";
+                }
+            }
+
             if (string.IsNullOrEmpty(status)) { return "Ignore"; }
             return status;
         }
@@ -320,13 +338,7 @@ namespace Matt40k.SIMSBulkImport
             return false;
         }
 
-        private bool IsEmailImport(string import, string current)
-        {
-            if (!IsNotSame(import, current)) { return false; }
-            return true;
-        }
-
-        private bool IsUdfImport(string import, string current)
+        private bool IsImport(string import, string current)
         {
             if (!IsNotSame(import, current)) { return false; }
             return true;
@@ -336,8 +348,8 @@ namespace Matt40k.SIMSBulkImport
         {
             if (!string.IsNullOrWhiteSpace(current))
             {
-                string[] emails = current.Split(',');
-                switch (emails.Length)
+                string[] parts = current.Split(',');
+                switch (parts.Length)
                 {
                     case 0:
                         return true;
@@ -348,9 +360,9 @@ namespace Matt40k.SIMSBulkImport
                         }
                         return true;
                     default:
-                        foreach (string email in emails)
+                        foreach (string part in parts)
                         {
-                            if (email == import)
+                            if (part == import)
                             {
                                 return false;
                             }

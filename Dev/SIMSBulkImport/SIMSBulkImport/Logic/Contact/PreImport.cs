@@ -165,7 +165,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                 {
                     // Person has been found - so we pull in missing data fields :) 
                     emailsInSims = Switcher.SimsApiClass.GetContactEmail(pid);
-                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims);
+                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims, strTelephone, telephonesInSims);
                     telephonesInSims = Switcher.SimsApiClass.GetContactTelephone(pid);
                 }
 

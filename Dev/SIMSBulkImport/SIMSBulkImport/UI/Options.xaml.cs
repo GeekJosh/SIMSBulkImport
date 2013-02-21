@@ -39,8 +39,6 @@ namespace Matt40k.SIMSBulkImport
         {
             this.checkBoxDebug.IsChecked = ConfigMan.IsDebugMode;
             this.checkBoxUpdates.IsChecked = ConfigMan.CheckForUpdates;
-            //this.checkBoxDebug.IsEnabled = false;
-            this.checkBoxUpdates.IsEnabled = false;
         }
 
         private bool writeConfig_Updates

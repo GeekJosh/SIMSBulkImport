@@ -15,8 +15,8 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <CheckBox Content="Debug mode" Grid.Column="1" Grid.Row="1" Height="16" HorizontalAlignment="Left" Name="checkBoxDebug" VerticalAlignment="Center" />
-        <CheckBox Content="Automatically check for updates" Grid.Column="1" Grid.Row="2" Height="16" HorizontalAlignment="Left" Name="checkBoxUpdates" VerticalAlignment="Center" />
+        <CheckBox Content="Debug mode" Grid.Column="1" Grid.Row="1" Height="16" HorizontalAlignment="Left" Name="checkBoxDebug" VerticalAlignment="Center" IsEnabled="False"/>
+        <CheckBox Content="Automatically check for updates" Grid.Column="1" Grid.Row="2" Height="16" HorizontalAlignment="Left" Name="checkBoxUpdates" VerticalAlignment="Center" IsEnabled="False" />
         <Button Content="Cancel" Grid.Column="1" Grid.Row="4" Height="26" HorizontalAlignment="Left" Name="buttonCancel" VerticalAlignment="Center" Width="100" Click="buttonCancel_Click" />
         <Button Content="Save" Grid.Column="1" Grid.Row="4" Height="26" HorizontalAlignment="Right" Name="buttonSave" VerticalAlignment="Center" Width="100" Click="buttonSave_Click" />
     </Grid>

@@ -198,7 +198,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void deleteRow()
         {
-            MessageBox.Show("delete pressed");
+
         }
     }
 }

@@ -31,7 +31,7 @@
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
                 <RadioButton Name="checkSql" Height="23" Content="SQLServer" HorizontalAlignment="Left"  Grid.Row="1" Grid.Column="1" IsChecked="True" Checked="connectType_Checked"/>
-                <RadioButton Name="checkWin" Height="23" Content="Trusted" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="3" IsChecked="False" Checked="connectType_Checked"/>
+                <RadioButton Name="checkWin" Height="23" Content="Trusted" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="3" IsChecked="False" Checked="connectType_Checked" IsEnabled="False"/>
             </Grid>
         </Grid>
         <Border Name="errorBorder" BorderBrush="Black" BorderThickness="0" Margin="0,15,0,15" Padding="0,15,0,15" >
