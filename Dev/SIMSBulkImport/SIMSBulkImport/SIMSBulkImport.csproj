@@ -132,6 +132,7 @@
     <Compile Include="ISwitchable.cs" />
     <Compile Include="Logic\Contact\PreImport.cs" />
     <Compile Include="Logic\Contact\ResultsImport.cs" />
+    <Compile Include="Logic\ImportList.cs" />
     <Compile Include="Logic\PreImport.cs" />
     <Compile Include="Logic\Pupil\PreImport.cs" />
     <Compile Include="Logic\Pupil\ResultsImport.cs" />
@@ -158,6 +159,9 @@
     <Compile Include="ImportFile.cs" />
     <Compile Include="Import\ImportXml.cs" />
     <Compile Include="License.cs" />
+    <Compile Include="UI\Importing.xaml.cs">
+      <DependentUpon>Importing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ImportWindow.xaml.cs">
       <DependentUpon>ImportWindow.xaml</DependentUpon>
     </Compile>
@@ -189,6 +193,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Duplicate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Importing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

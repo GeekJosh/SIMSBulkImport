@@ -30,8 +30,6 @@ namespace Matt40k.SIMSBulkImport
 
         private BackgroundWorker bw = new BackgroundWorker();
         private DataTable dataGridTable;
-        private DateTime importStart;
-        private DateTime importEnd;
         private DateTime queryStart;
         private DateTime queryEnd;
         private int ignoreCount;
@@ -45,56 +43,14 @@ namespace Matt40k.SIMSBulkImport
             //TEST:: load import data straight into datagrid
             //this.dataGrid.DataContext = Switcher.PreImportClass.GetImportDataTable;
             
-            //TEST:: load test data
-            //test();
-
             load();
             
             this.dataGrid.Items.Refresh();
         }
 
-        private void test()
-        {
-            DataTable staffTable = new DataTable();
-            staffTable.Columns.Add(new DataColumn("Status", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Surname", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Forename", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Title", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Gender", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Staff Code", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Date of Birth", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Import email", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Import telephone", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("SIMS telephone", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
-
-            DataRow newrow = staffTable.NewRow();
-            newrow["Surname"] = "smith";
-            newrow["Forename"] = "matthew";
-            newrow["Title"] = "mr";
-            newrow["Gender"] = "male";
-            newrow["Staff Code"] = null;
-            newrow["Date of Birth"] = null;
-            newrow["Import email"] = null;
-            newrow["Import telephone"] = null;
-            newrow["Import UDF"] = null;
-            newrow["Status"] = null;
-            newrow["SIMS email addresses"] = null;
-            newrow["SIMS telephone"] = null;
-            newrow["SIMS UDF"] = null;
-            newrow["PersonID"] = null;
-            staffTable.Rows.Add(newrow);
-
-            this.dataGrid.DataContext = staffTable;
-
-            // http://blogs.msdn.com/b/jaimer/archive/2009/01/20/styling-microsoft-s-wpf-datagrid.aspx
-        }
-
         private void load()
         {
+            queryStart= DateTime.Now;
             dataGridTable = Switcher.PreImportClass.CreateDataTable;
             this.dataGrid.DataContext = dataGridTable;
             this.dataGrid.Items.Refresh();
@@ -179,7 +135,12 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(NLog.LogLevel.Info, "Import Start");
+            Switcher.ImportListClass = new ImportList();
+            foreach (DataRow row in dataGridTable.Rows)
+            {
+                Switcher.ImportListClass.AddToList(row);
+            }
+            Switcher.Switch(new Importing());
         }
 
         private void Grid_KeyDown(object sender, KeyEventArgs e)
@@ -198,7 +159,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void deleteRow()
         {
-
+            // TODO
         }
     }
 }
