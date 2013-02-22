@@ -27,5 +27,6 @@ namespace Matt40k.SIMSBulkImport
         public static PreImport PreImportClass;
         public static ResultsImport ResultsImportClass;
         public static ImportList ImportListClass;
+        public static Import ImportClass;
     }
 }

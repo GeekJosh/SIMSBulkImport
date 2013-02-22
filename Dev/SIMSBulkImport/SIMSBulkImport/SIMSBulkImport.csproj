@@ -130,13 +130,17 @@
     <Compile Include="Args.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="ISwitchable.cs" />
+    <Compile Include="Logic\Contact\Import.cs" />
     <Compile Include="Logic\Contact\PreImport.cs" />
     <Compile Include="Logic\Contact\ResultsImport.cs" />
+    <Compile Include="Logic\Import.cs" />
     <Compile Include="Logic\ImportList.cs" />
     <Compile Include="Logic\PreImport.cs" />
+    <Compile Include="Logic\Pupil\Import.cs" />
     <Compile Include="Logic\Pupil\PreImport.cs" />
     <Compile Include="Logic\Pupil\ResultsImport.cs" />
     <Compile Include="Logic\ResultsImport.cs" />
+    <Compile Include="Logic\Staff\Import.cs" />
     <Compile Include="Logic\Staff\PreImport.cs" />
     <Compile Include="Logic\Staff\ResultsImport.cs" />
     <Compile Include="PageSwitcher.xaml.cs">
