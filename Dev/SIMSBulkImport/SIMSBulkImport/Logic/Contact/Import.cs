@@ -11,19 +11,19 @@ namespace Matt40k.SIMSBulkImport.Contact
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public bool SetEmail(Int32 personID, string value)
+        public bool SetContactEmail(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetContactEmail(personID, value);
         }
 
-        public bool SetTelephone(Int32 personID, string value)
+        public bool SetContactTelephone(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetContactTelephone(personID, value);
         }
 
-        public bool SetUDF(Int32 personID, string value)
+        public bool SetContactUDF(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetContactUDF(personID, value);
         }
     }
 }

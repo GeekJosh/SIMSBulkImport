@@ -11,19 +11,19 @@ namespace Matt40k.SIMSBulkImport.Staff
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public bool SetEmail(Int32 personID, string value)
+        public bool SetStaffEmail(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetStaffEmail(personID, value);
         }
 
-        public bool SetTelephone(Int32 personID, string value)
+        public bool SetStaffTelephone(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetStaffTelephone(personID, value);
         }
 
-        public bool SetUDF(Int32 personID, string value)
+        public bool SetStaffUDF(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetStaffUDF(personID, value);
         }
     }
 }

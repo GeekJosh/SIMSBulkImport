@@ -35,11 +35,11 @@ namespace Matt40k.SIMSBulkImport
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
-                    return _importContact.SetEmail(personID, value);
+                    return _importContact.SetContactEmail(personID, value);
                 case Interfaces.UserType.Pupil:
-                    return _importPupil.SetEmail(personID, value);
+                    return _importPupil.SetPupilEmail(personID, value);
                 case Interfaces.UserType.Staff:
-                    return _importStaff.SetEmail(personID, value);
+                    return _importStaff.SetStaffEmail(personID, value);
                 default:
                     logger.Log(NLog.LogLevel.Error, "Import.SetEmail - UserType not set");
                     return false;
@@ -51,13 +51,13 @@ namespace Matt40k.SIMSBulkImport
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
-                    return _importContact.SetTelephone(personID, value);
+                    return _importContact.SetContactTelephone(personID, value);
                 case Interfaces.UserType.Pupil:
-                    return _importPupil.SetTelephone(personID, value);
+                    return _importPupil.SetPupilTelephone(personID, value);
                 case Interfaces.UserType.Staff:
-                    return _importStaff.SetTelephone(personID, value);
+                    return _importStaff.SetStaffTelephone(personID, value);
                 default:
-                    logger.Log(NLog.LogLevel.Error, "Import.SetEmail - UserType not set");
+                    logger.Log(NLog.LogLevel.Error, "Import.SetTelephone - UserType not set");
                     return false;
             }
         }
@@ -67,13 +67,13 @@ namespace Matt40k.SIMSBulkImport
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
-                    return _importContact.SetUDF(personID, value);
+                    return _importContact.SetContactUDF(personID, value);
                 case Interfaces.UserType.Pupil:
-                    return _importPupil.SetUDF(personID, value);
+                    return _importPupil.SetPupilUDF(personID, value);
                 case Interfaces.UserType.Staff:
-                    return _importStaff.SetUDF(personID, value);
+                    return _importStaff.SetStaffUDF(personID, value);
                 default:
-                    logger.Log(NLog.LogLevel.Error, "Import.SetEmail - UserType not set");
+                    logger.Log(NLog.LogLevel.Error, "Import.SetUDF - UserType not set");
                     return false;
             }
         }

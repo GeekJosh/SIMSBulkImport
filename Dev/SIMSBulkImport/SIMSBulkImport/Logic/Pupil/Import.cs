@@ -11,19 +11,19 @@ namespace Matt40k.SIMSBulkImport.Pupil
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public bool SetEmail(Int32 personID, string value)
+        public bool SetPupilEmail(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetPupilEmail(personID, value);
         }
 
-        public bool SetTelephone(Int32 personID, string value)
+        public bool SetPupilTelephone(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetPupilTelephone(personID, value);
         }
 
-        public bool SetUDF(Int32 personID, string value)
+        public bool SetPupilUDF(Int32 personID, string value)
         {
-            return false;
+            return Switcher.SimsApiClass.SetPupilUDF(personID, value);
         }
     }
 }
