@@ -17,6 +17,11 @@ namespace Matt40k.SIMSBulkImport
         private Pupil.ResultsImport _pupilResults;
         private Staff.ResultsImport _staffResults;
 
+        public ResultsImport()
+        {
+            CreateResultsDataTable();
+        }
+
         public void CreateResultsDataTable()
         {
             switch (Switcher.PreImportClass.GetUserType)
@@ -34,6 +39,11 @@ namespace Matt40k.SIMSBulkImport
                     resultTable = _staffResults.CreateResultTable;
                     break;
             }
+        }
+
+        public void OpenResultsReport()
+        {
+            Results results = new Results(resultTable, Switcher.PreImportClass.GetUserType);
         }
     }
 }

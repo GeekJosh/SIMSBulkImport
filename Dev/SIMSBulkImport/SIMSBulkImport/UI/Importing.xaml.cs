@@ -28,6 +28,9 @@ namespace Matt40k.SIMSBulkImport
         private int countImport;
         private int countImported;
 
+        private DateTime startTime;
+        private DateTime endTime;
+
         public Importing()
         {
             InitializeComponent();
@@ -41,6 +44,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void process()
         {
+            startTime = DateTime.Now;
             while (countImported < countImport)
             {
                 DataRow row = Switcher.ImportListClass.GetListRow(countImported);
@@ -68,11 +72,12 @@ namespace Matt40k.SIMSBulkImport
                         logger.Log(NLog.LogLevel.Error, "process: type not defined - " + type);
                         break;
                 }
-
                 // Add to result table
 
                 countImported++;
             }
+            endTime = DateTime.Now;
+            Switcher.ResultsImportClass.OpenResultsReport();
         }
     }
 }

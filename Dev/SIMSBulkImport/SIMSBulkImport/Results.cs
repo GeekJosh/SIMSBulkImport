@@ -37,9 +37,9 @@ namespace Matt40k.SIMSBulkImport
                 xslTran.Load(getXslFileName(userType));
                 xslTran.Transform(xmlDoc, null, writer);
             }
-            catch (Exception ResultsException)
+            catch (Exception Results_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, ResultsException);
+                logger.Log(NLog.LogLevel.Error, Results_Exception);
             }
 
             openReportHtml();
@@ -120,9 +120,9 @@ namespace Matt40k.SIMSBulkImport
                 process.StartInfo.FileName = tmpHtml;
                 process.Start();
             }
-            catch (Exception openReportHtmlException)
+            catch (Exception openReportHtml_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, openReportHtmlException);
+                logger.Log(NLog.LogLevel.Error, openReportHtml_Exception);
             }
         }
 
