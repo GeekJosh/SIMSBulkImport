@@ -12,7 +12,6 @@ namespace Matt40k.SIMSBulkImport
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private DataTable resultTable;
         private Contact.ResultsImport _contactResults;
         private Pupil.ResultsImport _pupilResults;
         private Staff.ResultsImport _staffResults;
@@ -22,28 +21,72 @@ namespace Matt40k.SIMSBulkImport
             CreateResultsDataTable();
         }
 
-        public void CreateResultsDataTable()
+        private void CreateResultsDataTable()
         {
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
                     _contactResults = new Contact.ResultsImport();
-                    resultTable = _contactResults.CreateResultTable;
                     break;
                 case Interfaces.UserType.Pupil:
                     _pupilResults = new Pupil.ResultsImport();
-                    resultTable = _pupilResults.CreateResultTable;
                     break;
                 case Interfaces.UserType.Staff:
                     _staffResults = new Staff.ResultsImport();
-                    resultTable = _staffResults.CreateResultTable;
                     break;
             }
         }
 
+        public bool AddToResultsTable(string surname, string forename, string personID, string result, string item, string value, string notes)
+        {
+            try
+            {
+                switch (Switcher.PreImportClass.GetUserType)
+                {
+                    case Interfaces.UserType.Contact:
+                        _contactResults.AddToResultsTable(surname, forename, personID, result, item, value, notes);
+                        break;
+                    case Interfaces.UserType.Pupil:
+                        _pupilResults.AddToResultsTable(surname, forename, personID, result, item, value, notes);
+                        break;
+                    case Interfaces.UserType.Staff:
+                        _staffResults.AddToResultsTable(surname, forename, personID, result, item, value, notes);
+                        break;
+                }
+            }
+            catch (Exception AddToResultsTable_Exception)
+            {
+                logger.Log(NLog.LogLevel.Error, AddToResultsTable_Exception);
+                return false;
+            }
+            return true;
+        }
+
         public void OpenResultsReport()
         {
-            Results results = new Results(resultTable, Switcher.PreImportClass.GetUserType);
+            Results results = new Results(resultsTable, Switcher.PreImportClass.GetUserType);
+        }
+
+        private DataTable resultsTable
+        {
+            get
+            {
+                switch (Switcher.PreImportClass.GetUserType)
+                {
+                    case Interfaces.UserType.Contact:
+                        return _contactResults.GetContactResultsTable;
+                        break;
+                    case Interfaces.UserType.Pupil:
+                        return _pupilResults.GetPupilResultsTable;
+                        break;
+                    case Interfaces.UserType.Staff:
+                        return _staffResults.GetStaffResultsTable;
+                        break;
+                    default:
+                        logger.Log(NLog.LogLevel.Error, "ResultsImport.GetResultsTable - UserType not defined");
+                        return null;
+                }
+            }
         }
     }
 }
