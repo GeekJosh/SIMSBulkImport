@@ -34,6 +34,7 @@ namespace Matt40k.SIMSBulkImport
 
             countImported = 0;
             countImport = Switcher.ImportListClass.GetImportCount;
+            Switcher.ImportClass = new Import();
 
             process();
         }
@@ -46,19 +47,29 @@ namespace Matt40k.SIMSBulkImport
                 string type = (string)row["Type"];
                 Int32 personID = (Int32)row["PersonID"];
                 string value = (string)row["Value"];
+                bool result = false;
 
                 switch (type)
                 {
                     case "Email":
+                        result = Switcher.ImportClass.SetEmail(personID, value);
+                        logger.Log(NLog.LogLevel.Debug, "Set Email: " + result + " - " + personID + " - " + value);
                         break;
                     case "Telephone":
+                        result = Switcher.ImportClass.SetTelephone(personID, value);
+                        logger.Log(NLog.LogLevel.Debug, "Set Telephone: " + result + " - " + personID + " - " + value);
                         break;
                     case "UDF":
+                        result = Switcher.ImportClass.SetUDF(personID, value);
+                        logger.Log(NLog.LogLevel.Debug, "Set UDF: " + result + " - " + personID + " - " + value);
                         break;
                     default:
+                        result = false;
                         logger.Log(NLog.LogLevel.Error, "process: type not defined - " + type);
                         break;
                 }
+
+                // Add to result table
 
                 countImported++;
             }

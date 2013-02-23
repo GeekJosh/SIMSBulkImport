@@ -51,10 +51,16 @@ namespace Matt40k.SIMSBulkImport
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
+                    // REDUCE TO TRACE
+                    logger.Log(NLog.LogLevel.Debug, "SetTelephone_Contact");
                     return _importContact.SetContactTelephone(personID, value);
                 case Interfaces.UserType.Pupil:
+                    // REDUCE TO TRACE
+                    logger.Log(NLog.LogLevel.Debug, "SetTelephone_Pupil");
                     return _importPupil.SetPupilTelephone(personID, value);
                 case Interfaces.UserType.Staff:
+                    // REDUCE TO TRACE
+                    logger.Log(NLog.LogLevel.Debug, "SetTelephone_Staff");
                     return _importStaff.SetStaffTelephone(personID, value);
                 default:
                     logger.Log(NLog.LogLevel.Error, "Import.SetTelephone - UserType not set");
