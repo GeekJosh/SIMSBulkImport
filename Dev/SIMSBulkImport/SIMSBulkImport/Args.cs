@@ -18,6 +18,7 @@ namespace Matt40k.SIMSBulkImport
 
         public Args(string[] args)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Args()");
             for (int i = 0; i < args.Length; i++)
             {
                 string str = args[i].ToLower();

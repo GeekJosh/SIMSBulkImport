@@ -16,6 +16,7 @@ namespace Matt40k.SIMSBulkImport
 
         public Import()
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -32,6 +33,7 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetEmail(Int32 personID, string value)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(" + personID + ", " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -48,19 +50,17 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetTelephone(Int32 personID, string value)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(" + personID + ", " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
-                    // REDUCE TO TRACE
-                    logger.Log(NLog.LogLevel.Debug, "SetTelephone_Contact");
+                    logger.Log(NLog.LogLevel.Trace, "SetTelephone_Contact");
                     return _importContact.SetContactTelephone(personID, value);
                 case Interfaces.UserType.Pupil:
-                    // REDUCE TO TRACE
-                    logger.Log(NLog.LogLevel.Debug, "SetTelephone_Pupil");
+                    logger.Log(NLog.LogLevel.Trace, "SetTelephone_Pupil");
                     return _importPupil.SetPupilTelephone(personID, value);
                 case Interfaces.UserType.Staff:
-                    // REDUCE TO TRACE
-                    logger.Log(NLog.LogLevel.Debug, "SetTelephone_Staff");
+                    logger.Log(NLog.LogLevel.Trace, "SetTelephone_Staff");
                     return _importStaff.SetStaffTelephone(personID, value);
                 default:
                     logger.Log(NLog.LogLevel.Error, "Import.SetTelephone - UserType not set");
@@ -70,6 +70,7 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetUDF(Int32 personID, string value)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetUDF(" + personID + ", " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:

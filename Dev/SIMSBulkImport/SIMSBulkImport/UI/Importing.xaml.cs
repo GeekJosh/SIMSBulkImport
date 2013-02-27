@@ -33,6 +33,7 @@ namespace Matt40k.SIMSBulkImport
 
         public Importing()
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Importing()");
             InitializeComponent();
 
             countImported = 0;
@@ -45,6 +46,7 @@ namespace Matt40k.SIMSBulkImport
         private void process()
         {
             startTime = DateTime.Now;
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Importing.countImport=" + countImport);
             while (countImported < countImport)
             {
                 DataRow row = Switcher.ImportListClass.GetListRow(countImported);
@@ -58,14 +60,17 @@ namespace Matt40k.SIMSBulkImport
                     case "Email":
                         result = Switcher.ImportClass.SetEmail(personID, value);
                         logger.Log(NLog.LogLevel.Debug, "Set Email: " + result + " - " + personID + " - " + value);
+                        Switcher.ResultsImportClass.AddToResultsTable(null, null, personID.ToString(), result.ToString(), "Email", value, null);
                         break;
                     case "Telephone":
                         result = Switcher.ImportClass.SetTelephone(personID, value);
                         logger.Log(NLog.LogLevel.Debug, "Set Telephone: " + result + " - " + personID + " - " + value);
+                        Switcher.ResultsImportClass.AddToResultsTable(null, null, personID.ToString(), result.ToString(), "Telephone", value, null);
                         break;
                     case "UDF":
                         result = Switcher.ImportClass.SetUDF(personID, value);
                         logger.Log(NLog.LogLevel.Debug, "Set UDF: " + result + " - " + personID + " - " + value);
+                        Switcher.ResultsImportClass.AddToResultsTable(null, null, personID.ToString(), result.ToString(), "UDF", value, null);
                         break;
                     default:
                         result = false;

@@ -302,7 +302,7 @@ namespace Matt40k.SIMSBulkImport
             }
 
             string status = null;
-            if (emailImport) { status = "Import email"; }
+            if (emailImport) { status = "Import Email"; }
             if (udfImport)
             {
                 if (string.IsNullOrEmpty(status))

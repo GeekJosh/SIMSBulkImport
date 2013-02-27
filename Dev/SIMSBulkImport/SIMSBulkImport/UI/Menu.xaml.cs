@@ -28,27 +28,32 @@ namespace Matt40k.SIMSBulkImport
 
         public Menu()
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu()");
             InitializeComponent();
             ConnectedTo();
         }
 
         private void MenuItem_Click_Exit(object sender, RoutedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_Exit");
             Application.Current.Shutdown();
         }
 
         private void MenuItem_Click_About(object sender, RoutedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_About");
             Switcher.Switch(new About());
         }
 
         private void MenuItem_Click_Options(object sender, RoutedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_Options");
             Switcher.Switch(new Options());
         }
 
         private void MenuItem_Click_Logs(object sender, RoutedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_Logs");
             try
             {
                 System.Diagnostics.Process prc = new System.Diagnostics.Process();
@@ -63,6 +68,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_Manual(object sender, RoutedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_Manual");
             try
             {
                 System.Diagnostics.Process prc = new System.Diagnostics.Process();
@@ -77,16 +83,19 @@ namespace Matt40k.SIMSBulkImport
 
         private void MenuItem_Click_New_Contact(object sender, RoutedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_New_Contact");
             MenuClick(Interfaces.UserType.Contact);
         }
 
         private void MenuItem_Click_New_Pupil(object sender, RoutedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_New_Pupil");
             MenuClick(Interfaces.UserType.Pupil);
         }
 
         private void MenuItem_Click_New_Staff(object sender, RoutedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_New_Staff");
             MenuClick(Interfaces.UserType.Staff);
         }
 
