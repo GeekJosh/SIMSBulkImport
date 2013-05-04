@@ -39,19 +39,19 @@ namespace Matt40k.SIMSBulkImport.Pupil
             pupilTable.Columns.Add(new DataColumn("Notes", typeof(string)));
         }
 
-        public bool AddToResultsTable(string surname, string forename, string personID, string result, string item, string value, string notes)
+        public bool AddToResultsTable(string surname, string forename, string gender, string admissionnumber, string dob, string year, string registration, string house, string personID, string result, string item, string value, string notes)
         {
             try
             {
                 DataRow newrow = pupilTable.NewRow();
                 newrow["Surname"] = surname;
                 newrow["Forename"] = forename;
-                newrow["Gender"] = "";
-                newrow["Admission_Number"] = "";
-                newrow["DOB"] = "";
-                newrow["Year"] = "";
-                newrow["Registration"] = "";
-                newrow["House"] = "";
+                newrow["Gender"] = gender;
+                newrow["Admission_Number"] = admissionnumber;
+                newrow["DOB"] = dob;
+                newrow["Year"] = year;
+                newrow["Registration"] = registration;
+                newrow["House"] = house;
                 newrow["PersonID"] = personID;
                 newrow["Result"] = result;
                 newrow["Item"] = item;

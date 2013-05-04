@@ -36,15 +36,15 @@ namespace Matt40k.SIMSBulkImport.Contact
             contactTable.Columns.Add(new DataColumn("Notes", typeof(string)));
         }
 
-        public bool AddToResultsTable(string surname, string forename, string personID, string result, string item, string value, string notes)
+        public bool AddToResultsTable(string surname, string forename, string postcode, string town, string personID, string result, string item, string value, string notes)
         {
             try
             {
                 DataRow newrow = contactTable.NewRow();
                 newrow["Surname"] = surname;
                 newrow["Forename"] = forename;
-                newrow["Postcode"] = "";
-                newrow["Town"] = "";
+                newrow["Postcode"] = postcode;
+                newrow["Town"] = town;
                 newrow["PersonID"] = personID;
                 newrow["Result"] = result;
                 newrow["Item"] = item;

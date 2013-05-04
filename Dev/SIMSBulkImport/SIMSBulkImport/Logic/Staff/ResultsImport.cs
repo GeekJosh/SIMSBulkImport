@@ -36,16 +36,16 @@ namespace Matt40k.SIMSBulkImport.Staff
             staffTable.Columns.Add(new DataColumn("Notes", typeof(string)));
         }
 
-        public bool AddToResultsTable(string surname, string forename, string personID, string result, string item, string value, string notes)
+        public bool AddToResultsTable(string surname, string forename, string gender, string staffcode, string dob, string personID, string result, string item, string value, string notes)
         {
             try
             {
                 DataRow newrow = staffTable.NewRow();
                 newrow["Surname"] = surname;
                 newrow["Forename"] = forename;
-                newrow["Gender"] = "";
-                newrow["Staff_Code"] = "";
-                newrow["DOB"] = "";
+                newrow["Gender"] = gender;
+                newrow["Staff_Code"] = staffcode;
+                newrow["DOB"] = dob;
                 newrow["PersonID"] = personID;
                 newrow["Result"] = result;
                 newrow["Item"] = item;

@@ -38,6 +38,6 @@
             <TextBlock Name="errorMessage" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap"  VerticalAlignment="Top"/>
         </Border>
         <Label Content="SIMS Logon" Name="labelTitle" FontSize="14" FontWeight="Normal" HorizontalAlignment="Center" Grid.Row="1"  Grid.Column="1" Visibility="Hidden"/>
-        <Button Content="Logon" Height="30" x:Name="button" Width="75" VerticalAlignment="Center" Click="button_Click" Grid.Row="3" Visibility="Hidden" />
+        <Button Content="Logon" Height="30" x:Name="button" Width="75" VerticalAlignment="Center" Click="button_Click" Grid.Row="3" Visibility="Hidden" TabIndex="2" />
     </Grid>
 </UserControl>

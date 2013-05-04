@@ -60,17 +60,17 @@ namespace Matt40k.SIMSBulkImport
                     case "Email":
                         result = Switcher.ImportClass.SetEmail(personID, value);
                         logger.Log(NLog.LogLevel.Debug, "Set Email: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(null, null, personID.ToString(), result.ToString(), "Email", value, null);
+                        Switcher.ResultsImportClass.AddToResultsTable(row, personID.ToString(), result.ToString(), "Email", value, null);
                         break;
                     case "Telephone":
                         result = Switcher.ImportClass.SetTelephone(personID, value);
                         logger.Log(NLog.LogLevel.Debug, "Set Telephone: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(null, null, personID.ToString(), result.ToString(), "Telephone", value, null);
+                        Switcher.ResultsImportClass.AddToResultsTable(row, personID.ToString(), result.ToString(), "Telephone", value, null);
                         break;
                     case "UDF":
                         result = Switcher.ImportClass.SetUDF(personID, value);
                         logger.Log(NLog.LogLevel.Debug, "Set UDF: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(null, null, personID.ToString(), result.ToString(), "UDF", value, null);
+                        Switcher.ResultsImportClass.AddToResultsTable(row, personID.ToString(), result.ToString(), "UDF", value, null);
                         break;
                     default:
                         result = false;
@@ -82,6 +82,12 @@ namespace Matt40k.SIMSBulkImport
                 countImported++;
             }
             endTime = DateTime.Now;
+            this.progressRing.IsActive = false;
+
+            // Import complete return to menu
+            Switcher.Switch(new Menu());
+
+            // Open report
             Switcher.ResultsImportClass.OpenResultsReport();
         }
     }
