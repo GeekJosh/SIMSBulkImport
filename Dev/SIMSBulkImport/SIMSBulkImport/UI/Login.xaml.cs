@@ -56,8 +56,12 @@ namespace Matt40k.SIMSBulkImport
             ClearUp.ClearTmp();
 
             // Check for updates
-            updateLoadMess("Checking for updates");
-            //Update.Check();
+            if (ConfigMan.CheckForUpdates)
+            {
+                updateLoadMess("Checking for updates");
+                Updater.Update.Check();
+            }
+
 
             // Read SIMS.ini
             updateLoadMess("Reading SIMS.ini");

@@ -186,7 +186,9 @@
     <Compile Include="Results.cs" />
     <Compile Include="SimsIni.cs" />
     <Compile Include="TempFile.cs" />
-    <Compile Include="Update.cs" />
+    <Compile Include="Updater\Proxy.cs" />
+    <Compile Include="Updater\Requestor.cs" />
+    <Compile Include="Updater\Update.cs" />
     <Compile Include="Validation.cs" />
     <Page Include="PageSwitcher.xaml">
       <SubType>Designer</SubType>

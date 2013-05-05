@@ -49,11 +49,10 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 string result = readConfig("UpdateURL");
-                /*
                 if (string.IsNullOrEmpty(result))
                 {
-                    return "http://matt40k.co.uk/apps/simsbulkimport/";
-                }*/
+                    return "http://matt40k.co.uk/";
+                }
                 return result;
             }
         }
