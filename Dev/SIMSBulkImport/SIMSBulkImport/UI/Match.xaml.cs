@@ -379,6 +379,7 @@ namespace Matt40k.SIMSBulkImport
                 {
                     labelEmailLocation.IsEnabled = true;
                     comboEmailLocation.IsEnabled = true;
+                    comboEmailLocation.SelectedItem = "Work";
                 }
             }
             if (comboTelephone.SelectedItem != null)
