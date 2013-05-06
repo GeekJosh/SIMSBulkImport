@@ -51,7 +51,7 @@ namespace Matt40k.SIMSBulkImport
                 string result = readConfig("UpdateURL");
                 if (string.IsNullOrEmpty(result))
                 {
-                    return "http://matt40k.co.uk/";
+                    return "http://www.matt40k.co.uk/";
                 }
                 return result;
             }
