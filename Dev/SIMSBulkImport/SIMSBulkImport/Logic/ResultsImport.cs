@@ -65,37 +65,23 @@ namespace Matt40k.SIMSBulkImport
         }
          */
 
-        public bool AddToResultsTable(DataRow row, string personID, string result, string item, string value, string notes)
+        public bool AddToResultsTable(string personID, string result, string item, string value, string notes,
+            string forename, string surname, string town, string postCode, string gender, string staffCode, string dob, string year,
+            string registration, string house, string admissionNumber
+            )
         {
             try
             {
-                string forename = (string)row["Forename"];
-                string surname = (string)row["Surname"];
-                string gender = null;
-                string dob = null;
-
                 switch (Switcher.PreImportClass.GetUserType)
                 {
                     case Interfaces.UserType.Contact:
-
-                        string postcode = (string)row["PostCode"];
-                        string town = (string)row["Town"];
-                        _contactResults.AddToResultsTable(surname, forename, postcode, town, personID, result, item, value, notes);
+                        _contactResults.AddToResultsTable(surname, forename, postCode, town, personID, result, item, value, notes);
                         break;
                     case Interfaces.UserType.Pupil:
-                        gender = (string)row["Gender"];
-                        string admissionnumber = (string)row["PostCode"];
-                        dob = (string)row["DOB"];
-                        string year = (string)row["PostCode"];
-                        string registration = (string)row["PostCode"];
-                        string house = (string)row["PostCode"];
-                        _pupilResults.AddToResultsTable(surname, forename, gender, admissionnumber, dob, year, registration, house, personID, result, item, value, notes);
+                        _pupilResults.AddToResultsTable(surname, forename, gender, admissionNumber, dob, year, registration, house, personID, result, item, value, notes);
                         break;
                     case Interfaces.UserType.Staff:
-                        gender = (string)row["Gender"];
-                        string staffcode = (string)row["Staff_Code"]; 
-                        dob = (string)row["DOB"];
-                        _staffResults.AddToResultsTable(surname, forename, gender, staffcode, dob, personID, result, item, value, notes);
+                        _staffResults.AddToResultsTable(surname, forename, gender, staffCode, dob, personID, result, item, value, notes);
                         break;
                 }
             }

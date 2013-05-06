@@ -54,23 +54,35 @@ namespace Matt40k.SIMSBulkImport
                 Int32 personID = (Int32)row["PersonID"];
                 string value = (string)row["Value"];
                 bool result = false;
+                string surname = (string)row["Surname"];
+                string forename = (string)row["Forename"];
+
+                string town = null;
+                string postCode = null;
+                string gender = null;
+                string staffCode = null;
+                string dob = null;
+                string year = null;
+                string registration = null;
+                string house = null;
+                string admissionNumber = null;
 
                 switch (type)
                 {
                     case "Email":
                         result = Switcher.ImportClass.SetEmail(personID, value);
-                        logger.Log(NLog.LogLevel.Debug, "Set Email: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(row, personID.ToString(), result.ToString(), "Email", value, null);
+                        logger.Log(NLog.LogLevel.Trace, "Set Email: " + result + " - " + personID + " - " + value);
+                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "Email", value, null, forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
                         break;
                     case "Telephone":
                         result = Switcher.ImportClass.SetTelephone(personID, value);
-                        logger.Log(NLog.LogLevel.Debug, "Set Telephone: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(row, personID.ToString(), result.ToString(), "Telephone", value, null);
+                        logger.Log(NLog.LogLevel.Trace, "Set Telephone: " + result + " - " + personID + " - " + value);
+                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "Telephone", value, null, forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
                         break;
                     case "UDF":
                         result = Switcher.ImportClass.SetUDF(personID, value);
-                        logger.Log(NLog.LogLevel.Debug, "Set UDF: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(row, personID.ToString(), result.ToString(), "UDF", value, null);
+                        logger.Log(NLog.LogLevel.Trace, "Set UDF: " + result + " - " + personID + " - " + value);
+                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "UDF", value, null, forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
                         break;
                     default:
                         result = false;

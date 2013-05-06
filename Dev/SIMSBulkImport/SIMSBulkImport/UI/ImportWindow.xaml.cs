@@ -44,7 +44,6 @@ namespace Matt40k.SIMSBulkImport
             //this.dataGrid.DataContext = Switcher.PreImportClass.GetImportDataTable;
             
             load();
-            
             this.dataGrid.Items.Refresh();
         }
 

@@ -64,6 +64,15 @@ namespace Matt40k.SIMSBulkImport
                 string surname = (string)row["Surname"];
                 string forename = (string)row["Forename"];
 
+                string town = null;
+                string postCode = null;
+                string gender = null;
+                string staffCode = null;
+                string dob = null;
+                string year = null;
+                string registration = null;
+                string house = null;
+                string admissionNumber = null;
 
                 logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList.status=" + status);
                 if (status.StartsWith("Import"))
@@ -87,7 +96,7 @@ namespace Matt40k.SIMSBulkImport
                 else
                 {
                     // TODO - Add to Results table as failure
-                    Switcher.ResultsImportClass.AddToResultsTable(row, personID.ToString(), null, null, null, "Failed");
+                    Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), null, null, null, "Failed", forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
                 }
             }
             catch (Exception AddToList_Exception)
