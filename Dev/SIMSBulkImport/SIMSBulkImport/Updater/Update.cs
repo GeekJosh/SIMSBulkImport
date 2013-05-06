@@ -7,6 +7,7 @@ using System;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 
@@ -28,7 +29,6 @@ namespace Matt40k.SIMSBulkImport.Updater
             logger.Log(NLog.LogLevel.Trace, "localVersion :: " + localVersion);
 
             logger.Log(NLog.LogLevel.Trace, "checkUrl :: " + ConfigMan.UpdateUrl);
-
 
             BackgroundWorker bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
@@ -69,6 +69,21 @@ namespace Matt40k.SIMSBulkImport.Updater
             }
         }
 
+        private static void runUpdate()
+        {
+            string outOfDate = ConfigMan.UpdateUrl + "simsbulkimport.html";
+            try
+            {
+                Process process = new Process();
+                process.StartInfo.FileName = outOfDate;
+                process.Start();
+            }
+            catch (Exception buttonAppUrl_Exception)
+            {
+                logger.Log(NLog.LogLevel.Error, buttonAppUrl_Exception);
+            }
+        }
+
         private static void GetServerVersion_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             string localVersion = GetExe.Version;
@@ -88,7 +103,7 @@ namespace Matt40k.SIMSBulkImport.Updater
                         break;
                     case -1:
                         logger.Log(NLog.LogLevel.Info, "Application is out-of-date, please update");
-                        //Switcher.Switch(new NeedToUpdate());
+                        runUpdate();
                         break;
                 }
             }

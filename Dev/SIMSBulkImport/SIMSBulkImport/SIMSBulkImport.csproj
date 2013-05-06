@@ -162,7 +162,6 @@
     <Compile Include="Import\ImportExcel.cs" />
     <Compile Include="ImportFile.cs" />
     <Compile Include="Import\ImportXml.cs" />
-    <Compile Include="License.cs" />
     <Compile Include="UI\Importing.xaml.cs">
       <DependentUpon>Importing.xaml</DependentUpon>
     </Compile>
@@ -174,9 +173,6 @@
     </Compile>
     <Compile Include="UI\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\NeedToUpdate.xaml.cs">
-      <DependentUpon>NeedToUpdate.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
@@ -219,10 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Menu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\NeedToUpdate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
