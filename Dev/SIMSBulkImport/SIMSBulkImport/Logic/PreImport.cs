@@ -28,7 +28,6 @@ namespace Matt40k.SIMSBulkImport
         private string town;
         private string postcode;
         private string simsudf;
-        private string emailLocation;
         private string telephoneLocation;
         private Contact.PreImport _contactPre;
         private Pupil.PreImport _pupilPre;
@@ -192,7 +191,10 @@ namespace Matt40k.SIMSBulkImport
 
         public string SetMatchEmailLocation
         {
-            set { emailLocation = value; }
+            set
+            {
+                Switcher.SimsApiClass.SetEmailLocation = value;
+            }
         }
 
         public string SetMatchTelephoneLocation
@@ -263,11 +265,6 @@ namespace Matt40k.SIMSBulkImport
         public string GetMatchPostcode
         {
             get { return postcode; }
-        }
-
-        public string GetMatchEmailLocation
-        {
-            get { return emailLocation; }
         }
 
         public string GetMatchTelephoneLocation
@@ -398,14 +395,5 @@ namespace Matt40k.SIMSBulkImport
                 Switcher.SimsApiClass.SetUserFilter = value;
             }
         }
-
-        /*
-        public int GetUserFilter
-        {
-            get
-            {
-                return userFilter;
-            }
-        }*/
     }
 }

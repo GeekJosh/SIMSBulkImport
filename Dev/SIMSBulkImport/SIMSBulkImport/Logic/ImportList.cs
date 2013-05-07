@@ -23,19 +23,16 @@ namespace Matt40k.SIMSBulkImport
             _importTable.Columns.Add(new DataColumn("Value", typeof(string)));
             _importTable.Columns.Add(new DataColumn("Surname", typeof(string)));
             _importTable.Columns.Add(new DataColumn("Forename", typeof(string)));
-
             _importTable.Columns.Add(new DataColumn("Postcode", typeof(string)));
             _importTable.Columns.Add(new DataColumn("Town", typeof(string)));
-
-            _importTable.Columns.Add(new DataColumn("Gender", typeof(string)));
-            _importTable.Columns.Add(new DataColumn("DOB", typeof(string)));
-
-            _importTable.Columns.Add(new DataColumn("Admission_Number", typeof(string)));
+            _importTable.Columns.Add(new DataColumn("Admission Number", typeof(string)));
             _importTable.Columns.Add(new DataColumn("Year", typeof(string)));
             _importTable.Columns.Add(new DataColumn("Registration", typeof(string)));
             _importTable.Columns.Add(new DataColumn("House", typeof(string)));
-
-            _importTable.Columns.Add(new DataColumn("Staff_Code", typeof(string)));
+            _importTable.Columns.Add(new DataColumn("Title", typeof(string)));
+            _importTable.Columns.Add(new DataColumn("Gender", typeof(string)));
+            _importTable.Columns.Add(new DataColumn("Staff Code", typeof(string)));
+            _importTable.Columns.Add(new DataColumn("Date of Birth", typeof(string)));
         }
 
         /// <summary>
@@ -59,20 +56,45 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList()");
             try
             {
-                string status = (string)row["Status"];
+                string status = (string)row["Status"].ToString();
                 Int32 personID =  Convert.ToInt32((string)row["PersonID"]);
-                string surname = (string)row["Surname"];
-                string forename = (string)row["Forename"];
-
-                string town = null;
-                string postCode = null;
+                string surname = (string)row["Surname"].ToString();
+                string forename = (string)row["Forename"].ToString();
+                string title = null;
                 string gender = null;
                 string staffCode = null;
                 string dob = null;
+                string email = null;
+                string telephone = null;
+                string udf = null;
+                string admissionNumber = null;
                 string year = null;
                 string registration = null;
                 string house = null;
-                string admissionNumber = null;
+                string postCode = null;
+                string town = null;
+
+                switch (Switcher.PreImportClass.GetUserType)
+                {
+                    case Interfaces.UserType.Contact:
+                        town = (string)row["Town"].ToString();
+                        postCode = (string)row["PostCode"].ToString();
+                        break;
+                    case Interfaces.UserType.Pupil:
+                        admissionNumber = (string)row["Admission Number"].ToString();
+                        year = (string)row["Year"].ToString();
+                        registration = (string)row["Registration"].ToString();
+                        house = (string)row["House"].ToString();
+                        gender = (string)row["Gender"].ToString();
+                        dob = (string)row["Date of Birth"].ToString();
+                        break;
+                    case Interfaces.UserType.Staff:
+                        title = (string)row["Title"].ToString();
+                        gender = (string)row["Gender"].ToString();
+                        staffCode = (string)row["Staff Code"].ToString();
+                        dob = (string)row["Date of Birth"].ToString();
+                        break;
+                }
 
                 logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList.status=" + status);
                 if (status.StartsWith("Import"))
@@ -80,23 +102,28 @@ namespace Matt40k.SIMSBulkImport
                     if (status.Contains("Email"))
                     {
                         logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Email");
-                        AddToImportTable("Email", personID, (string)row["Import email"], surname, forename);
+
+                        email = (string)row["Import email"];
+                        AddToImportTable("Email", personID, email, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
                     }
                     if (status.Contains("Telephone"))
                     {
                         logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Telephone");
-                        AddToImportTable("Telephone", personID, (string)row["Import telephone"], surname, forename);
+
+                        telephone = (string)row["Import telephone"];
+                        AddToImportTable("Telephone", personID, telephone, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
                     }
                     if (status.Contains("UDF"))
                     {
                         logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-UDF");
-                        AddToImportTable("UDF", personID, (string)row["Import UDF"], surname, forename);
+
+                        udf = (string)row["Import UDF"];
+                        AddToImportTable("UDF", personID, udf, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
                     }
                 }
                 else
                 {
-                    // TODO - Add to Results table as failure
-                    Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), null, null, null, "Failed", forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
+                    Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), "Not Imported", null, null, status, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
                 }
             }
             catch (Exception AddToList_Exception)
@@ -105,16 +132,28 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private bool AddToImportTable(string Type, Int32 PersonID, string Value, string Surname, string Forename)
+        private bool AddToImportTable(string type, Int32 personID, string value, string surname, string forename, 
+            string title, string gender, string staffCode, string dob, string admissionNumber, string year, string registration,
+            string house, string postCode, string town)
         {
             try
             {
                 DataRow newrow = _importTable.NewRow();
-                newrow["Type"] = Type;
-                newrow["PersonID"] = PersonID;
-                newrow["Value"] = Value;
-                newrow["Surname"] = Surname;
-                newrow["Forename"] = Forename;
+                newrow["Type"] = type;
+                newrow["PersonID"] = personID;
+                newrow["Value"] = value;
+                newrow["Surname"] = surname;
+                newrow["Forename"] = forename;
+                newrow["Title"] = title;
+                newrow["Gender"] = gender;
+                newrow["Staff Code"] = staffCode;
+                newrow["Date of Birth"] = dob;
+                newrow["Admission Number"] = admissionNumber;
+                newrow["Year"] = year;
+                newrow["Registration"] = registration;
+                newrow["House"] = house;
+                newrow["Postcode"] = postCode;
+                newrow["Town"] = town;
                 _importTable.Rows.Add(newrow);
             }
             catch (Exception AddToImportTable_Exception)

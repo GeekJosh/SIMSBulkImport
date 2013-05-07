@@ -54,35 +54,39 @@ namespace Matt40k.SIMSBulkImport
                 Int32 personID = (Int32)row["PersonID"];
                 string value = (string)row["Value"];
                 bool result = false;
-                string surname = (string)row["Surname"];
-                string forename = (string)row["Forename"];
+                string surname = (string)row["Surname"].ToString();
+                string forename = (string)row["Forename"].ToString();
 
-                string town = null;
-                string postCode = null;
-                string gender = null;
-                string staffCode = null;
-                string dob = null;
-                string year = null;
-                string registration = null;
-                string house = null;
-                string admissionNumber = null;
+                string town = (string)row["Town"].ToString();
+                string postCode = (string)row["Postcode"].ToString();
+                string gender = (string)row["Gender"].ToString();
+                string staffCode = (string)row["Staff Code"].ToString();
+                string dob = (string)row["Date of Birth"].ToString();
+                string year = (string)row["Year"].ToString();
+                string registration = (string)row["Registration"].ToString();
+                string house = (string)row["House"].ToString();
+                string admissionNumber = (string)row["Admission Number"].ToString();
+                string title = (string)row["Title"].ToString();
 
                 switch (type)
                 {
                     case "Email":
                         result = Switcher.ImportClass.SetEmail(personID, value);
                         logger.Log(NLog.LogLevel.Trace, "Set Email: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "Email", value, null, forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
+                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "Email", value, null, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
+                            
+                            
+                            //null, forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
                         break;
                     case "Telephone":
                         result = Switcher.ImportClass.SetTelephone(personID, value);
                         logger.Log(NLog.LogLevel.Trace, "Set Telephone: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "Telephone", value, null, forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
+                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "Telephone", value, null, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
                         break;
                     case "UDF":
                         result = Switcher.ImportClass.SetUDF(personID, value);
                         logger.Log(NLog.LogLevel.Trace, "Set UDF: " + result + " - " + personID + " - " + value);
-                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "UDF", value, null, forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
+                        Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "UDF", value, null, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
                         break;
                     default:
                         result = false;

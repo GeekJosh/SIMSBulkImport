@@ -27,8 +27,8 @@ namespace Matt40k.SIMSBulkImport.Pupil
             pupilTable.Columns.Add(new DataColumn("Surname", typeof(string)));
             pupilTable.Columns.Add(new DataColumn("Forename", typeof(string)));
             pupilTable.Columns.Add(new DataColumn("Gender", typeof(string)));
-            pupilTable.Columns.Add(new DataColumn("Admission_Number", typeof(string)));
-            pupilTable.Columns.Add(new DataColumn("DOB", typeof(string)));
+            pupilTable.Columns.Add(new DataColumn("Admission-Number", typeof(string)));
+            pupilTable.Columns.Add(new DataColumn("Date-of-Birth", typeof(string)));
             pupilTable.Columns.Add(new DataColumn("Year", typeof(string)));
             pupilTable.Columns.Add(new DataColumn("Registration", typeof(string)));
             pupilTable.Columns.Add(new DataColumn("House", typeof(string)));
@@ -47,8 +47,8 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 newrow["Surname"] = surname;
                 newrow["Forename"] = forename;
                 newrow["Gender"] = gender;
-                newrow["Admission_Number"] = admissionnumber;
-                newrow["DOB"] = dob;
+                newrow["Admission-Number"] = admissionnumber;
+                newrow["Date-of-Birth"] = dob;
                 newrow["Year"] = year;
                 newrow["Registration"] = registration;
                 newrow["House"] = house;

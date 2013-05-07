@@ -38,50 +38,39 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        /*
-        public bool AddToResultsTable(string personID, string result, string item, string value, string notes, string surname, string forename)
-        {
-            try
-            {
-                switch (Switcher.PreImportClass.GetUserType)
-                {
-                    case Interfaces.UserType.Contact:
-                        _contactResults.AddToResultsTable(surname, forename, personID, result, item, value, notes);
-                        break;
-                    case Interfaces.UserType.Pupil:
-                        _pupilResults.AddToResultsTable(surname, forename, personID, result, item, value, notes);
-                        break;
-                    case Interfaces.UserType.Staff:
-                        _staffResults.AddToResultsTable(surname, forename, personID, result, item, value, notes);
-                        break;
-                }
-            }
-            catch (Exception AddToResultsTable_Exception)
-            {
-                logger.Log(NLog.LogLevel.Error, AddToResultsTable_Exception);
-                return false;
-            }
-            return true;
-        }
-         */
-
-        public bool AddToResultsTable(string personID, string result, string item, string value, string notes,
-            string forename, string surname, string town, string postCode, string gender, string staffCode, string dob, string year,
-            string registration, string house, string admissionNumber
+        public bool AddToResultsTable(
+            string personID, string result, string item, string value, string notes,
+            string surname, string forename,  string title, string gender, string staffCode, 
+            string dob, string admissionNumber, string year, string registration,
+            string house, string postCode, string town
             )
         {
+            string friendlyResult;
+            switch (result)
+            {
+                case "False":
+                    friendlyResult = "Not imported";
+                    break;
+                case "True":
+                    friendlyResult = "Imported";
+                    break;
+                default:
+                    friendlyResult = result;
+                    break;
+            }
+
             try
             {
                 switch (Switcher.PreImportClass.GetUserType)
                 {
                     case Interfaces.UserType.Contact:
-                        _contactResults.AddToResultsTable(surname, forename, postCode, town, personID, result, item, value, notes);
+                        _contactResults.AddToResultsTable(surname, forename, postCode, town, personID, friendlyResult, item, value, notes);
                         break;
                     case Interfaces.UserType.Pupil:
-                        _pupilResults.AddToResultsTable(surname, forename, gender, admissionNumber, dob, year, registration, house, personID, result, item, value, notes);
+                        _pupilResults.AddToResultsTable(surname, forename, gender, admissionNumber, dob, year, registration, house, personID, friendlyResult, item, value, notes);
                         break;
                     case Interfaces.UserType.Staff:
-                        _staffResults.AddToResultsTable(surname, forename, gender, staffCode, dob, personID, result, item, value, notes);
+                        _staffResults.AddToResultsTable(surname, forename, gender, staffCode, dob, personID, friendlyResult, item, value, notes, title);
                         break;
                 }
             }
