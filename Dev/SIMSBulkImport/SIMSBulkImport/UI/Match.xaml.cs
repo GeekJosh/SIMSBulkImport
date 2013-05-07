@@ -40,6 +40,8 @@ namespace Matt40k.SIMSBulkImport
         private string udf;
         private string simsUdf;
         private string emaillocation;
+        private string emailPrimary;
+        private string emailMain;
         private string reg;
         private string telephone;
         private string telephonelocation;
@@ -292,6 +294,14 @@ namespace Matt40k.SIMSBulkImport
                 {
                     Switcher.PreImportClass.SetMatchEmailLocation = emaillocation;
                 }
+                if (!string.IsNullOrEmpty(emailPrimary))
+                {
+                    Switcher.PreImportClass.SetMatchEmailPrimaryId = emailPrimary;
+                }
+                if (!string.IsNullOrEmpty(emailMain))
+                {
+                    Switcher.PreImportClass.SetMatchEmailMainId = emailMain;
+                }
                 if (!string.IsNullOrEmpty(telephonelocation))
                 {
                     Switcher.PreImportClass.SetMatchTelephoneLocation = telephonelocation;
@@ -460,6 +470,14 @@ namespace Matt40k.SIMSBulkImport
             if (comboEmailLocation.SelectedItem != null)
             {
                 emaillocation = comboEmailLocation.SelectedItem.ToString();
+            }
+            if (comboEmailPrimary.SelectedItem != null)
+            {
+                emailPrimary = comboEmailPrimary.SelectedValue.ToString();
+            }
+            if (comboEmailMain.SelectedItem != null)
+            {
+                emailMain = comboEmailMain.SelectedValue.ToString();
             }
             if (comboTelephone.SelectedItem != null)
             {

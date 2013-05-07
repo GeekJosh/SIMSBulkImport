@@ -202,6 +202,53 @@ namespace Matt40k.SIMSBulkImport
             set { telephoneLocation = value; }
         }
 
+        public string SetMatchEmailMainId
+        {
+            set
+            {
+                int mainId = 0;
+                string cleanValue = value.Substring(38);
+                switch (cleanValue)
+                {
+                    case "Yes":
+                        mainId = 0;
+                        break;
+                    case "Yes (overwrite)":
+                        mainId = 1;
+                        break;
+                    case "No":
+                        mainId = 2;
+                        break;
+                }
+                logger.Log(NLog.LogLevel.Trace, "Trace:: SimsApiClass.SetEmailMainId:: " + mainId);
+                Switcher.SimsApiClass.SetEmailMainId = mainId;
+            }
+        }
+
+        public string SetMatchEmailPrimaryId
+        {
+            set
+            {
+                int primaryId = 0;
+                string cleanValue = value.Substring(38);
+                //logger.Log(NLog.LogLevel.Trace, "Trace::" + cleanValue);
+                switch (cleanValue)
+                {
+                    case "Yes":
+                        primaryId = 0;
+                        break;
+                    case "Yes (overwrite)":
+                        primaryId = 1;
+                        break;
+                    case "No":
+                        primaryId = 2;
+                        break;
+                }
+                logger.Log(NLog.LogLevel.Trace, "Trace:: SimsApiClass.SetEmailPrimaryId:: " + primaryId);
+                Switcher.SimsApiClass.SetEmailPrimaryId = primaryId;
+            }
+        }
+
         public string GetMatchFirstname
         {
             get { return firstname; }
