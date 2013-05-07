@@ -22,7 +22,8 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
-            <RowDefinition Height="10" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -43,7 +44,7 @@
         <!-- Reg -->
         <Label Content="Registration Group" Height="28" HorizontalAlignment="Left" Name="labelReg" VerticalAlignment="Top" Grid.Column="4" Grid.Row="3" IsEnabled="False" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboReg" VerticalAlignment="Top" Width="150" Grid.Column="5" Grid.Row="3" SelectionChanged="combo_SelectionChanged" IsEnabled="False" TabIndex="5" />
-        
+
         <Label Content="Filter" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
         <ComboBox IsEnabled="False"  Name="comboFilter" Height="23" Grid.Column="8" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" SelectedIndex="0" SelectionChanged="comboFilter_SelectionChanged" />
         <Label Content="Workbook" Grid.Row="2" Grid.Column="7" />
@@ -51,25 +52,52 @@
         <CheckBox Name="comboIgnoreFirst" Content="First line is title" Grid.Column="8" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" Unchecked="comboIgnoreFirst_Checked" Checked="comboIgnoreFirst_Checked" />
 
         <!-- SIMS UDF -->
-        <Label Content="SIMS UDF" Grid.Row="4" Grid.Column="1" ToolTip="SIMS User Defined Field" IsEnabled="True" />
-        <ComboBox Name="comboSIMSUDF" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="23" IsEnabled="True" SelectionChanged="comboSIMSUDF_SelectionChanged" />
-        <Label Name="labelUDF" Content="UDF" Grid.Column="1" Grid.Row="5" IsEnabled="False" />
-        <ComboBox Name="comboUDF" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="5" IsEnabled="False" SelectionChanged="combo_SelectionChanged" />
-   
+        <Label Content="SIMS Type" Grid.Row="4" Grid.Column="1" IsEnabled="True" />
+        <ComboBox Name="comboSIMSUDFType" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="4" IsEnabled="True" SelectedIndex="0">
+            <ComboBoxItem Content="Text (single-line)" />
+        </ComboBox>
+        <Label Content="SIMS UDF" Grid.Row="5" Grid.Column="1" ToolTip="SIMS User Defined Field" IsEnabled="True" />
+        <ComboBox Name="comboSIMSUDF" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="23" IsEnabled="True" SelectionChanged="comboSIMSUDF_SelectionChanged" />
+        <Label Name="labelUDF" Content="UDF" Grid.Column="1" Grid.Row="6" IsEnabled="False" />
+        <ComboBox Name="comboUDF" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="6" IsEnabled="False" SelectionChanged="combo_SelectionChanged" />
+
         <!-- Email -->
         <Label Content="Email" Height="28" HorizontalAlignment="Left" Name="labelEmail" VerticalAlignment="Top" Grid.Column="4" Grid.Row="4" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboEmail" VerticalAlignment="Top" Width="150" Grid.Column="5" Grid.Row="4" SelectionChanged="combo_SelectionChanged" TabIndex="6" />
         <Label Name="labelEmailLocation" Content="Email Location" Grid.Column="4" Grid.Row="5" IsEnabled="False" />
         <ComboBox Name="comboEmailLocation" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="5" Grid.Row="5" IsEnabled="False" SelectionChanged="combo_SelectionChanged"/>
+        <Label Name="labelEmailMain" Content="Email Main" Grid.Column="4" Grid.Row="6" IsEnabled="False" />
+        <ComboBox Name="comboEmailMain" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="5" Grid.Row="6" IsEnabled="False" SelectionChanged="combo_SelectionChanged">
+            <ComboBoxItem Content="Yes (overwrite)"/>
+            <ComboBoxItem Content="Yes"/>
+            <ComboBoxItem Content="No"/>
+        </ComboBox>
+        <Label Name="labelEmailPrimary" Content="Email Primary" Grid.Column="4" Grid.Row="7" IsEnabled="False" />
+        <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="5" Grid.Row="7" IsEnabled="False" SelectionChanged="combo_SelectionChanged">
+            <ComboBoxItem Content="Yes (overwrite)"/>
+            <ComboBoxItem Content="Yes"/>
+            <ComboBoxItem Content="No"/>
+        </ComboBox>
 
         <!-- Telephone -->
         <Label Content="Telephone" Height="28" HorizontalAlignment="Left" Name="labelTelephone" VerticalAlignment="Top" Grid.Column="7" Grid.Row="4" />
         <ComboBox Height="23" HorizontalAlignment="Left" Name="comboTelephone" VerticalAlignment="Top" Width="150" Grid.Column="8" Grid.Row="4" SelectionChanged="combo_SelectionChanged" TabIndex="6" />
         <Label Name="labelTelephoneLocation" Content="Telephone Location" Grid.Column="7" Grid.Row="5" IsEnabled="False" />
         <ComboBox Name="comboTelephoneLocation" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="8" Grid.Row="5" IsEnabled="False" SelectionChanged="combo_SelectionChanged"/>
+        <Label Name="labelTelephoneMain" Content="Telephone Main" Grid.Column="7" Grid.Row="6" IsEnabled="False" />
+        <ComboBox Name="comboTelephoneMain" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="8" Grid.Row="6" IsEnabled="False" SelectionChanged="combo_SelectionChanged">
+            <ComboBoxItem Content="Yes (overwrite)"/>
+            <ComboBoxItem Content="Yes"/>
+            <ComboBoxItem Content="No"/>
+        </ComboBox>
+        <Label Name="labelTelephonePrimary" Content="Telephone Primary" Grid.Column="7" Grid.Row="7" IsEnabled="False" />
+        <ComboBox Name="comboTelephonePrimary" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="8" Grid.Row="7" IsEnabled="False" SelectionChanged="combo_SelectionChanged">
+            <ComboBoxItem Content="Yes (overwrite)"/>
+            <ComboBoxItem Content="Yes"/>
+            <ComboBoxItem Content="No"/>
+        </ComboBox>
 
-
-        <Grid Height="440" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="8">
+        <Grid Height="440" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="9">
             <Grid.RowDefinitions>
                 <RowDefinition Height="220" />
                 <RowDefinition Height="50" />
@@ -77,7 +105,7 @@
             <DataGrid AutoGenerateColumns="True" HorizontalAlignment="Center" Name="dataGrid" VerticalAlignment="Center" Height="200" Width="870" Grid.Row="0" ItemsSource="{Binding Path=.}" IsReadOnly="True"></DataGrid>
             <Button Content="OK" Grid.Row="1" HorizontalAlignment="Center" Name="button" VerticalAlignment="Center" Margin="0,10,0,10" Height="30" Width="75" Click="button_Click" TabIndex="5"/>
         </Grid>
-        
+
     </Grid>
 </UserControl>
     

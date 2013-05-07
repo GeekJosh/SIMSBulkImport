@@ -374,13 +374,31 @@ namespace Matt40k.SIMSBulkImport
                     labelEmailLocation.IsEnabled = false;
                     comboEmailLocation.IsEnabled = false;
                     comboEmailLocation.SelectedValue = null;
+
+                    labelEmailMain.IsEnabled = false;
+                    comboEmailMain.IsEnabled = false;
+                    comboEmailMain.SelectedValue = null;
+
+                    labelEmailPrimary.IsEnabled = false;
+                    comboEmailPrimary.IsEnabled = false;
+                    comboEmailPrimary.SelectedValue = null;
                 }
                 else
                 {
                     labelEmailLocation.IsEnabled = true;
                     comboEmailLocation.IsEnabled = true;
                     if (comboEmailLocation.SelectedIndex == -1)
-                        comboEmailLocation.SelectedIndex = 0;
+                        comboEmailLocation.SelectedIndex = 1;
+
+                    labelEmailMain.IsEnabled = true;
+                    comboEmailMain.IsEnabled = true;
+                    if (comboEmailMain.SelectedIndex == -1)
+                        comboEmailMain.SelectedIndex = 1;
+
+                    labelEmailPrimary.IsEnabled = true;
+                    comboEmailPrimary.IsEnabled = true;
+                    if (comboEmailPrimary.SelectedIndex == -1)
+                        comboEmailPrimary.SelectedIndex = 1;
                 }
             }
             if (comboTelephone.SelectedItem != null)
@@ -392,11 +410,31 @@ namespace Matt40k.SIMSBulkImport
                     labelTelephoneLocation.IsEnabled = false;
                     comboTelephoneLocation.IsEnabled = false;
                     comboTelephoneLocation.SelectedValue = null;
+
+                    labelTelephoneMain.IsEnabled = false;
+                    comboTelephoneMain.IsEnabled = false;
+                    comboTelephoneMain.SelectedValue = null;
+
+                    labelTelephonePrimary.IsEnabled = false;
+                    comboTelephonePrimary.IsEnabled = false;
+                    comboTelephonePrimary.SelectedValue = null;
                 }
                 else
                 {
                     labelTelephoneLocation.IsEnabled = true;
                     comboTelephoneLocation.IsEnabled = true;
+                    if (comboTelephoneLocation.SelectedIndex == -1)
+                        comboTelephoneLocation.SelectedIndex = 1;
+
+                    labelTelephoneMain.IsEnabled = true;
+                    comboTelephoneMain.IsEnabled = true;
+                    if (comboTelephoneMain.SelectedIndex == -1)
+                        comboTelephoneMain.SelectedIndex = 1;
+
+                    labelTelephonePrimary.IsEnabled = true;
+                    comboTelephonePrimary.IsEnabled = true;
+                    if (comboTelephonePrimary.SelectedIndex == -1)
+                        comboTelephonePrimary.SelectedIndex = 1;
                 }
             }
             if (comboGender.SelectedItem != null)
