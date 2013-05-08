@@ -104,14 +104,28 @@ namespace Matt40k.SIMSBulkImport
                         logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Email");
 
                         email = (string)row["Import email"];
-                        AddToImportTable("Email", personID, email, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
+                        bool isValidEmail = Validation.IsValidEmail(email);
+                        if (isValidEmail)
+                            AddToImportTable("Email", personID, email, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
+                        else
+                        {
+                            logger.Log(NLog.LogLevel.Info, "Invalid email: " + email);
+                            Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), "Not Imported", "Email", email, "Invalid email address", surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
+                        }
                     }
                     if (status.Contains("Telephone"))
                     {
                         logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Telephone");
 
                         telephone = (string)row["Import telephone"];
-                        AddToImportTable("Telephone", personID, telephone, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
+                        bool isValidTelephone = Validation.IsValidTelephone(telephone);
+                        if (isValidTelephone)
+                            AddToImportTable("Telephone", personID, telephone, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
+                        else
+                        {
+                            logger.Log(NLog.LogLevel.Info, "Invalid email: " + email);
+                            Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), "Not Imported", "Telephone", telephone, "Invalid telephone number", surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration, house, postCode, town);
+                        }
                     }
                     if (status.Contains("UDF"))
                     {
