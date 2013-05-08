@@ -42,4 +42,20 @@ public class RegexUtilities
         }
         return match.Groups[1].Value + domainName;
     }
+
+    // Reference: http://regexlib.com/REDetails.aspx?regexp_id=1203
+    public bool IsValidTelephone(string subjectString)
+    {
+        Regex regexObj = new Regex(@"^[0-9\s\(\)\+\-]+$");
+        if (regexObj.IsMatch(subjectString))
+        {
+            string formattedPhoneNumber =
+                regexObj.Replace(subjectString, "($1) $2-$3");
+        }
+        else
+        {
+            return false;
+        }
+        return true;
+    }
 }

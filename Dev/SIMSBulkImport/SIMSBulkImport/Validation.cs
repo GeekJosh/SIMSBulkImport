@@ -21,6 +21,7 @@ namespace Matt40k.SIMSBulkImport
         {
             RegexUtilities util = new RegexUtilities();
             bool _isValid = util.IsValidEmail(email);
+            util = null;
             logger.Log(NLog.LogLevel.Debug, email + " - " + _isValid);
             return _isValid;
         }
@@ -48,6 +49,15 @@ namespace Matt40k.SIMSBulkImport
                 return column.ToArray();
             }
             return null;
+        }
+
+        protected internal static bool IsValidTelephone(string telephone)
+        {
+            RegexUtilities util = new RegexUtilities();
+            bool _isValid = util.IsValidTelephone(telephone);
+            util = null;
+            logger.Log(NLog.LogLevel.Debug, telephone + " - " + _isValid);
+            return _isValid;
         }
     }
 }
