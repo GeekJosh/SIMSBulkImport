@@ -28,7 +28,6 @@ namespace Matt40k.SIMSBulkImport
         private string town;
         private string postcode;
         private string simsudf;
-        private string telephoneLocation;
         private Contact.PreImport _contactPre;
         private Pupil.PreImport _pupilPre;
         private Staff.PreImport _staffPre;
@@ -197,11 +196,6 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        public string SetMatchTelephoneLocation
-        {
-            set { telephoneLocation = value; }
-        }
-
         public string SetMatchEmailMainId
         {
             set
@@ -246,6 +240,61 @@ namespace Matt40k.SIMSBulkImport
                 }
                 logger.Log(NLog.LogLevel.Trace, "Trace:: SimsApiClass.SetEmailPrimaryId:: " + primaryId);
                 Switcher.SimsApiClass.SetEmailPrimaryId = primaryId;
+            }
+        }
+
+        public string SetMatchTelephoneLocation
+        {
+            set
+            {
+                Switcher.SimsApiClass.SetTelephoneLocation = value;
+            }
+        }
+
+        public string SetMatchTelephoneMainId
+        {
+            set
+            {
+                int mainId = 0;
+                string cleanValue = value.Substring(38);
+                switch (cleanValue)
+                {
+                    case "Yes":
+                        mainId = 0;
+                        break;
+                    case "Yes (overwrite)":
+                        mainId = 1;
+                        break;
+                    case "No":
+                        mainId = 2;
+                        break;
+                }
+                logger.Log(NLog.LogLevel.Trace, "Trace:: SimsApiClass.SetMatchTelephoneMainId:: " + mainId);
+                Switcher.SimsApiClass.SetTelephoneMainId = mainId;
+            }
+        }
+
+        public string SetMatchTelephonePrimaryId
+        {
+            set
+            {
+                int primaryId = 0;
+                string cleanValue = value.Substring(38);
+                //logger.Log(NLog.LogLevel.Trace, "Trace::" + cleanValue);
+                switch (cleanValue)
+                {
+                    case "Yes":
+                        primaryId = 0;
+                        break;
+                    case "Yes (overwrite)":
+                        primaryId = 1;
+                        break;
+                    case "No":
+                        primaryId = 2;
+                        break;
+                }
+                logger.Log(NLog.LogLevel.Trace, "Trace:: SimsApiClass.SetMatchTelephonePrimaryId:: " + primaryId);
+                Switcher.SimsApiClass.SetTelephonePrimaryId = primaryId;
             }
         }
 
@@ -312,11 +361,6 @@ namespace Matt40k.SIMSBulkImport
         public string GetMatchPostcode
         {
             get { return postcode; }
-        }
-
-        public string GetMatchTelephoneLocation
-        {
-            get { return telephoneLocation; }
         }
 
         public string GetStatus(string personid,

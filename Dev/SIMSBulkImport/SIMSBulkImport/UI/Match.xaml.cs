@@ -39,12 +39,14 @@ namespace Matt40k.SIMSBulkImport
         private string title;
         private string udf;
         private string simsUdf;
-        private string emaillocation;
+        private string emailLocation;
         private string emailPrimary;
         private string emailMain;
         private string reg;
         private string telephone;
-        private string telephonelocation;
+        private string telephoneLocation;
+        private string telephonePrimary;
+        private string telephoneMain;
 
         internal Match()
         {
@@ -290,9 +292,9 @@ namespace Matt40k.SIMSBulkImport
                 {
                     Switcher.PreImportClass.SetMatchSIMSUDF = simsUdf;
                 }
-                if (!string.IsNullOrEmpty(emaillocation))
+                if (!string.IsNullOrEmpty(emailLocation))
                 {
-                    Switcher.PreImportClass.SetMatchEmailLocation = emaillocation;
+                    Switcher.PreImportClass.SetMatchEmailLocation = emailLocation;
                 }
                 if (!string.IsNullOrEmpty(emailPrimary))
                 {
@@ -302,9 +304,17 @@ namespace Matt40k.SIMSBulkImport
                 {
                     Switcher.PreImportClass.SetMatchEmailMainId = emailMain;
                 }
-                if (!string.IsNullOrEmpty(telephonelocation))
+                if (!string.IsNullOrEmpty(telephoneLocation))
                 {
-                    Switcher.PreImportClass.SetMatchTelephoneLocation = telephonelocation;
+                    Switcher.PreImportClass.SetMatchTelephoneLocation = telephoneLocation;
+                }
+                if (!string.IsNullOrEmpty(telephonePrimary))
+                {
+                    Switcher.PreImportClass.SetMatchTelephonePrimaryId = telephonePrimary;
+                }
+                if (!string.IsNullOrEmpty(telephoneMain))
+                {
+                    Switcher.PreImportClass.SetMatchTelephoneMainId = telephoneMain;
                 }
                 Switcher.PreImportClass.SetUserFilter = (string)this.comboFilter.SelectedValue;
                 Switcher.PreImportClass.SetMatchReg = reg;
@@ -469,7 +479,7 @@ namespace Matt40k.SIMSBulkImport
             }
             if (comboEmailLocation.SelectedItem != null)
             {
-                emaillocation = comboEmailLocation.SelectedItem.ToString();
+                emailLocation = comboEmailLocation.SelectedItem.ToString();
             }
             if (comboEmailPrimary.SelectedItem != null)
             {
@@ -485,7 +495,15 @@ namespace Matt40k.SIMSBulkImport
             }
             if (comboTelephoneLocation.SelectedItem != null)
             {
-                telephonelocation = comboTelephoneLocation.SelectedItem.ToString();
+                telephoneLocation = comboTelephoneLocation.SelectedItem.ToString();
+            }
+            if (comboTelephonePrimary.SelectedItem != null)
+            {
+                telephonePrimary = comboTelephonePrimary.SelectedValue.ToString();
+            }
+            if (comboTelephoneMain.SelectedItem != null)
+            {
+                telephoneMain = comboTelephoneMain.SelectedValue.ToString();
             }
 
 
