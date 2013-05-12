@@ -58,12 +58,14 @@ namespace Matt40k.SIMSBulkImport
             {
                 case Interfaces.UserType.Staff:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Staff");
-                    string[] udfsStaff = Switcher.SimsApiClass.GetStaffUDFs;
+                    DataTable udfsStaff = Switcher.SimsApiClass.GetStaffUDFs;
                     if (udfsStaff != null)
                     {
-                        foreach (string udf in udfsStaff)
+                        foreach (DataRow udf in udfsStaff.Rows)
                         {
-                            this.comboSIMSUDF.Items.Add(udf);
+                            logger.Log(NLog.LogLevel.Trace, "UDFs:: " + udf["Name"].ToString());
+
+                            this.comboSIMSUDF.Items.Add((string)udf["Name"]);
                         }
                         this.comboSIMSUDF.Items.Add("");
                         this.comboSIMSUDF.IsEnabled = true;
@@ -73,12 +75,12 @@ namespace Matt40k.SIMSBulkImport
                     break;
                 case Interfaces.UserType.Pupil:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Students");
-                    string[] udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
+                    DataTable udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
                     if (udfsStudents != null)
                     {
-                        foreach (string udf in udfsStudents)
+                        foreach (DataRow udf in udfsStudents.Rows)
                         {
-                            this.comboSIMSUDF.Items.Add(udf);
+                            this.comboSIMSUDF.Items.Add((string)udf["Name"]);
                         }
                         this.comboSIMSUDF.Items.Add("");
                         this.comboSIMSUDF.IsEnabled = true;
@@ -90,12 +92,12 @@ namespace Matt40k.SIMSBulkImport
                     break;
                 case Interfaces.UserType.Contact:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Contacts");
-                    string[] udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
+                    DataTable udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
                     if (udfsContacts != null)
                     {
-                        foreach (string udf in udfsContacts)
+                        foreach (DataRow udf in udfsContacts.Rows)
                         {
-                            this.comboSIMSUDF.Items.Add(udf);
+                            this.comboSIMSUDF.Items.Add((string)udf["Name"]);
                         }
                         this.comboSIMSUDF.Items.Add("");
                         this.comboSIMSUDF.IsEnabled = true;

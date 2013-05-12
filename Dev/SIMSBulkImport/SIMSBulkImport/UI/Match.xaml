@@ -55,6 +55,12 @@
         <Label Content="SIMS Type" Grid.Row="4" Grid.Column="1" IsEnabled="True" />
         <ComboBox Name="comboSIMSUDFType" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="4" IsEnabled="True" SelectedIndex="0">
             <ComboBoxItem Content="Text (single-line)" />
+            <ComboBoxItem Content="Text (multi-line)" />
+            <ComboBoxItem Content="Date" />
+            <ComboBoxItem Content="Number" />
+            <ComboBoxItem Content="Decimal" />
+            <ComboBoxItem Content="Currency" />
+            <ComboBoxItem Content="True/False" />
         </ComboBox>
         <Label Content="SIMS UDF" Grid.Row="5" Grid.Column="1" ToolTip="SIMS User Defined Field" IsEnabled="True" />
         <ComboBox Name="comboSIMSUDF" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="23" IsEnabled="True" SelectionChanged="comboSIMSUDF_SelectionChanged" />

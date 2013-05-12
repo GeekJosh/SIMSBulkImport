@@ -22,7 +22,6 @@ namespace Matt40k.SIMSBulkImport
             RegexUtilities util = new RegexUtilities();
             bool _isValid = util.IsValidEmail(email);
             util = null;
-            logger.Log(NLog.LogLevel.Debug, email + " - " + _isValid);
             return _isValid;
         }
 
@@ -56,8 +55,51 @@ namespace Matt40k.SIMSBulkImport
             RegexUtilities util = new RegexUtilities();
             bool _isValid = util.IsValidTelephone(telephone);
             util = null;
-            logger.Log(NLog.LogLevel.Debug, telephone + " - " + _isValid);
             return _isValid;
+        }
+
+        protected internal static bool IsBool(string input)
+        {
+            bool result = false;
+            try
+            {
+                bool.TryParse(input, out result); 
+            }
+            catch (Exception IsBool_Exception)
+            {
+                logger.Log(NLog.LogLevel.Debug, "IsBool:: " + IsBool_Exception);
+            }
+            return result;
+        }
+
+        protected internal static bool IsDouble(string input)
+        {
+            bool result = false;
+            try
+            {
+                double t1;
+                result = double.TryParse(input, out t1);
+            }
+            catch (Exception IsDouble_Exception)
+            {
+                logger.Log(NLog.LogLevel.Debug, "IsDouble:: " + IsDouble_Exception);
+            }
+            return result;
+        }
+
+        protected internal static bool IsInt(string input)
+        {
+            bool result = false;
+            try
+            {
+                int t1;
+                result = int.TryParse(input, out t1);
+            }
+            catch (Exception IsInt_Exception)
+            {
+                logger.Log(NLog.LogLevel.Debug, "IsInt:: " + IsInt_Exception);
+            }
+            return result;
         }
     }
 }
