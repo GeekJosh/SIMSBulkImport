@@ -4,6 +4,34 @@
         <name>SIMS Bulk Import</name>
     </assembly>
     <members>
+        <member name="M:Matt40k.SIMSBulkImport.Args.GetParameterValue(System.String[],System.String)">
+            <summary>
+            Gets the setting from the command line.
+            </summary>
+            <param name="commandParameters"></param>
+            <param name="parameterName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.IniFile.#ctor(System.String)">
+            <summary>
+            INIFile Constructor.
+            </summary>
+            <PARAM name="INIPath"></PARAM>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.IniFile.Read(System.String,System.String)">
+            <summary>
+            Read Data Value From the Ini File
+            </summary>
+            <PARAM name="Section"></PARAM>
+            <PARAM name="Key"></PARAM>
+            <PARAM name="Path"></PARAM>
+            <returns></returns>
+        </member>
+        <member name="P:Matt40k.SIMSBulkImport.ImportList.GetImportCount">
+            <summary>
+            Returns the row count of the ImportList table
+            </summary>
+        </member>
         <member name="T:Matt40k.SIMSBulkImport.PageSwitcher">
             <summary>
             Interaction logic for PageSwitcher.xaml
@@ -78,53 +106,61 @@
             Gets the applications url.
             </summary>
         </member>
-        <member name="T:Matt40k.SIMSBulkImport.Loading">
+        <member name="T:Matt40k.SIMSBulkImport.Importing">
             <summary>
-            Interaction logic for Loading.xaml
+            Interaction logic for Importing.xaml
             </summary>
             <summary>
-            Loading
+            Importing
             </summary>
         </member>
-        <member name="M:Matt40k.SIMSBulkImport.Loading.InitializeComponent">
+        <member name="M:Matt40k.SIMSBulkImport.Importing.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:Matt40k.SIMSBulkImport.MainWindow">
+        <member name="T:Matt40k.SIMSBulkImport.ImportWindow">
             <summary>
-            Interaction logic for MainWindow.xaml
+            Interaction logic for ImportWindow.xaml
             </summary>
             <summary>
-            MainWindow
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.MainWindow.#ctor">
-            <summary>
-            
+            ImportWindow
             </summary>
         </member>
-        <member name="M:Matt40k.SIMSBulkImport.MainWindow.bw_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+        <member name="M:Matt40k.SIMSBulkImport.ImportWindow.bw_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
             <summary>
             Run once the SIMS .net database has finished being queried 
             </summary>
             <param name="sender"></param>
             <param name="e"></param>
         </member>
-        <member name="M:Matt40k.SIMSBulkImport.MainWindow.InitializeComponent">
+        <member name="M:Matt40k.SIMSBulkImport.ImportWindow.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
         </member>
-        <member name="T:Matt40k.SIMSBulkImport.NeedToUpdate">
+        <member name="T:Matt40k.SIMSBulkImport.Login">
             <summary>
-            Interaction logic for NeedToUpdate.xaml
+            Interaction logic for Login.xaml
             </summary>
             <summary>
-            NeedToUpdate
+            Login
             </summary>
         </member>
-        <member name="M:Matt40k.SIMSBulkImport.NeedToUpdate.InitializeComponent">
+        <member name="M:Matt40k.SIMSBulkImport.Login.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:Matt40k.SIMSBulkImport.Menu">
+            <summary>
+            Interaction logic for Menu.xaml
+            </summary>
+            <summary>
+            Menu
+            </summary>
+        </member>
+        <member name="M:Matt40k.SIMSBulkImport.Menu.InitializeComponent">
             <summary>
             InitializeComponent
             </summary>
@@ -155,24 +191,6 @@
         <member name="P:Matt40k.SIMSBulkImport.TempFile.GetNewTempFile">
             <summary>
             Creates a (hopefully) unique pretty* temporary file
-            </summary>
-        </member>
-        <member name="T:Matt40k.SIMSBulkImport.App">
-            <summary>
-            Interaction logic for App.xaml
-            </summary>
-            <summary>
-            App
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.App.InitializeComponent">
-            <summary>
-            InitializeComponent
-            </summary>
-        </member>
-        <member name="M:Matt40k.SIMSBulkImport.App.Main">
-            <summary>
-            Application Entry Point.
             </summary>
         </member>
         <member name="T:Matt40k.SIMSBulkImport.Match">

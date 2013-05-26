@@ -53,7 +53,7 @@
 
         <!-- SIMS UDF -->
         <Label Content="SIMS Type" Grid.Row="4" Grid.Column="1" IsEnabled="True" />
-        <ComboBox Name="comboSIMSUDFType" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="4" IsEnabled="True" SelectedIndex="0">
+        <ComboBox Name="comboSIMSUDFType" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="4" IsEnabled="False" SelectedIndex="0">
             <ComboBoxItem Content="Text (single-line)" />
             <ComboBoxItem Content="Text (multi-line)" />
             <ComboBoxItem Content="Date" />

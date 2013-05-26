@@ -58,33 +58,31 @@ namespace Matt40k.SIMSBulkImport
             {
                 case Interfaces.UserType.Staff:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Staff");
-                    DataTable udfsStaff = Switcher.SimsApiClass.GetStaffUDFs;
-                    if (udfsStaff != null)
+                    foreach (DataRow udf in Switcher.SimsApiClass.GetStaffUDFs.Rows)
                     {
-                        foreach (DataRow udf in udfsStaff.Rows)
-                        {
-                            logger.Log(NLog.LogLevel.Trace, "UDFs:: " + udf["Name"].ToString());
-
-                            this.comboSIMSUDF.Items.Add((string)udf["Name"]);
-                        }
-                        this.comboSIMSUDF.Items.Add("");
-                        this.comboSIMSUDF.IsEnabled = true;
+                        string udfType = udf["Type"].ToString();
+                        string udfValue = udf["Name"].ToString();
+                        logger.Log(NLog.LogLevel.Trace, "UDFs:: " + udfType + " - " + udfValue);
+                        if (udfType == "STRING1")
+                            this.comboSIMSUDF.Items.Add(udfValue);
                     }
+                    this.comboSIMSUDF.Items.Add("");
+                    this.comboSIMSUDF.IsEnabled = true;
                     this.labelGender.IsEnabled = true;
                     this.comboGender.IsEnabled = true;
                     break;
                 case Interfaces.UserType.Pupil:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Students");
                     DataTable udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
-                    if (udfsStudents != null)
+                    foreach (DataRow udf in udfsStudents.Rows)
                     {
-                        foreach (DataRow udf in udfsStudents.Rows)
-                        {
-                            this.comboSIMSUDF.Items.Add((string)udf["Name"]);
-                        }
-                        this.comboSIMSUDF.Items.Add("");
-                        this.comboSIMSUDF.IsEnabled = true;
+                        string udfType = udf["type"].ToString();
+                        string udfValue = udf["Name"].ToString();
+                        logger.Log(NLog.LogLevel.Trace, "UDFs:: " + udfValue);
+                        this.comboSIMSUDF.Items.Add(udfValue);
                     }
+                    this.comboSIMSUDF.Items.Add("");
+                    this.comboSIMSUDF.IsEnabled = true;
                     this.labelReg.IsEnabled = true;
                     this.comboReg.IsEnabled = true;
                     this.labelCode.Content = "Admission number";
@@ -93,15 +91,16 @@ namespace Matt40k.SIMSBulkImport
                 case Interfaces.UserType.Contact:
                     logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Contacts");
                     DataTable udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
-                    if (udfsContacts != null)
+                    foreach (DataRow udf in udfsContacts.Rows)
                     {
-                        foreach (DataRow udf in udfsContacts.Rows)
-                        {
-                            this.comboSIMSUDF.Items.Add((string)udf["Name"]);
-                        }
-                        this.comboSIMSUDF.Items.Add("");
-                        this.comboSIMSUDF.IsEnabled = true;
+                        string udfType = udf["type"].ToString();
+                        string udfValue = udf["Name"].ToString();
+                        logger.Log(NLog.LogLevel.Trace, "UDFs:: " + udfValue);
+
+                        this.comboSIMSUDF.Items.Add(udfValue);
                     }
+                    this.comboSIMSUDF.Items.Add("");
+                    this.comboSIMSUDF.IsEnabled = true;
                     this.labelCode.Content = "Postcode";
                     this.labelTitle.Content = "Town";
 

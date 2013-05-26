@@ -26,20 +26,6 @@ namespace UpdateConfig
                 Environment.Exit(2);
             }
 
-            if (args.Length == 1)
-            {
-                string licenseKey = args[0];
-                if (!string.IsNullOrEmpty(licenseKey))
-                {
-                    if (licenseKey.ToUpper() != "DEMO")
-                    {
-                        WriteLicense(licenseKey);
-                    }
-                    Environment.Exit(0);
-                }
-                Environment.Exit(6);
-            }
-
             if (string.IsNullOrWhiteSpace(args[1]))
             {
                 Console.WriteLine("Argument 2 is null");
@@ -101,12 +87,6 @@ namespace UpdateConfig
         private static void writeAutoUpdate(string value)
         {
             writeConfig(value, "AutoUpdate");
-        }
-
-        private static void WriteLicense(string value)
-        {
-            writeConfig(value, "LicenseKey");
-            //Environment.Exit(5);
         }
 
         private static string FilePath
