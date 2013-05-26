@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Name="SIMS Bulk Import Tool" Id="18F33D44-E302-4B5D-AB6D-695D467A526D" UpgradeCode="C9352C32-C0FF-498E-A28C-BD8CFF39D4E4" Language="1033" Codepage="1252" Version="2.0.0" Manufacturer="Matt Smith">
+        <Package Id="*" Keywords="Installer" Description="SIMS .net Bulk Import Tool" Comments="Comment" Manufacturer="Matt Smith" InstallerVersion="100" Languages="1033" Compressed="yes" SummaryCodepage="1252" />
+        <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+        <Upgrade Id="C9352C32-C0FF-498E-A28C-BD8CFF39D4E4">
+            <UpgradeVersion OnlyDetect="no" Property="PREVIOUSVERSIONSINSTALLED" Minimum="0.0.1" IncludeMinimum="yes" Maximum="1.9.9" IncludeMaximum="yes" />
+        </Upgrade>
+        <Media Id="1" Cabinet="simsbulkimport.cab" EmbedCab="yes" />
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="ManufacturerFolder" Name="Matt Smith">
+                    <Directory Id="INSTALLDIR" Name="SIMS Bulk Import Tool">
+                        <Component Id="files" Guid="">
+                            <File Id="GUIDE.PDF" Name="Guide.pdf" Source="D:\Projects\SIMSBulkImport\Guide.pdf" />
+                            <File Id="MAHAPPS.METRO.DLL" Name="MahApps.Metro.dll" Source="D:\Projects\SIMSBulkImport\MahApps.Metro.dll" />
+                            <File Id="NLOG.DLL" Name="NLog.dll" Source="D:\Projects\SIMSBulkImport\NLog.dll" />
+                            <File Id="NLOG.XML" Name="NLog.xml" Source="D:\Projects\SIMSBulkImport\NLog.xml" />
+                            <File Id="REPORT_CONTACT.XSL" Name="Report_Contact.xsl" Source="D:\Projects\SIMSBulkImport\Report_Contact.xsl" />
+                            <File Id="REPORT_PUPIL.XSL" Name="Report_Pupil.xsl" Source="D:\Projects\SIMSBulkImport\Report_Pupil.xsl" />
+                            <File Id="REPORT_STAFF.XSL" Name="Report_Staff.xsl" Source="D:\Projects\SIMSBulkImport\Report_Staff.xsl" />
+                            <File Id="SIMS_BULK_IMPORT.EXE" Name="SIMS Bulk Import.exe" Source="D:\Projects\SIMSBulkImport\SIMS Bulk Import.exe" />
+                            <File Id="SIMS_BULK_IMPORT.EXE.CONFIG" Name="SIMS Bulk Import.exe.config" Source="D:\Projects\SIMSBulkImport\SIMS Bulk Import.exe.config" />
+                            <File Id="SIMS_BULK_IMPORT.EXE.MANIFEST" Name="SIMS Bulk Import.exe.manifest" Source="D:\Projects\SIMSBulkImport\SIMS Bulk Import.exe.manifest" />
+                            <File Id="SIMS_BULK_IMPORT.PDB" Name="SIMS Bulk Import.pdb" Source="D:\Projects\SIMSBulkImport\SIMS Bulk Import.pdb" />
+                            <File Id="SIMSAPI.DLL" Name="SIMSAPI.dll" Source="D:\Projects\SIMSBulkImport\SIMSAPI.dll" />
+                            <File Id="SIMSAPI.DLL.CONFIG" Name="SIMSAPI.dll.config" Source="D:\Projects\SIMSBulkImport\SIMSAPI.dll.config" />
+                            <File Id="SIMSAPI.PDB" Name="SIMSAPI.pdb" Source="D:\Projects\SIMSBulkImport\SIMSAPI.pdb" />
+                            <File Id="SYSTEM.WINDOWS.INTERACTIVITY.DLL" Name="System.Windows.Interactivity.dll" Source="D:\Projects\SIMSBulkImport\System.Windows.Interactivity.dll" />
+                            <File Id="UPDATECONFIG.EXE" Name="UpdateConfig.exe" Source="D:\Projects\SIMSBulkImport\UpdateConfig.exe" />
+                            <File Id="UPDATECONFIG.EXE.CONFIG" Name="UpdateConfig.exe.config" Source="D:\Projects\SIMSBulkImport\UpdateConfig.exe.config" />
+                            <File Id="LICENSE.RTF" Name="License.rtf" Source="D:\Projects\SIMSBulkImport\License.rtf" />
+                            <RemoveFolder On="uninstall" Id="folder" />
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+            <Component Id="ProgramMenuDir" Guid="2986B6B8-783B-45A2-AB09-BDF61B8C49F7">
+                <Shortcut Id="StartMenuDir" Name="SIMS Bulk Import" Target="SIMS_BULK_IMPORT.EXE" Description="Bulk import Email, telephone and UDFs into SIMS .net" />
+                <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+                <RegistryValue Root="HKLM" Key="Software\Matt Smith\SIMS Bulk Import" Type="string" Value="" KeyPath="yes" />
+            </Component>
+        </Directory>
+        <Feature Id="Complete" Level="1">
+            <ComponentRef Id="files" />
+            <ComponentRef Id="ProgramMenuDir" />
+        </Feature>
+        <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+        <WixVariable Id="WixUIBannerBmp" Value="Banner.bmp" />
+        <WixVariable Id="WixUIDialogBmp" Value="Dialog.bmp" />
+        <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+        <Property Id="ARPPRODUCTICON">appicon.ico</Property>
+        <Icon Id="appicon.ico" SourceFile="icon.ico" />
+        <Property Id="ARPNOREPAIR">1</Property>
+        <Property Id="ARPCOMMENTS">SIMS Bulk Import Tool</Property>
+        <Property Id="ARPCONTACT">Matt Smith</Property>
+        <Property Id="ARPHELPLINK">http://simsbulkimport.codeplex.com/</Property>
+        <Property Id="ARPURLINFOABOUT">http://simsbulkimport.codeplex.com/</Property>
+        <Property Id="ARPURLUPDATEABOUT">http://simsbulkimport.codeplex.com/</Property>
+        <Property Id="ARPHELPTELEPHONE">NA</Property>
+        <Property Id="ARPREADME">README</Property>
+        <Property Id="NETFRAMEWORK40FULL" Secure="yes" />
+        <UI>
+            <UIRef Id="WixUI_InstallDir" />
+        </UI>
+        <InstallExecuteSequence>
+            <RemoveExistingProducts After="InstallInitialize" />
+        </InstallExecuteSequence>
+        <Condition Message="You need to be an administrator to install this product.">AdminUser</Condition>
+    </Product>
+</Wix>
