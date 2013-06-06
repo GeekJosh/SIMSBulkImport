@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Name="SIMS Bulk Import Tool" Id="18F33D44-E302-4B5D-AB6D-695D467A526D" UpgradeCode="C9352C32-C0FF-498E-A28C-BD8CFF39D4E4" Language="1033" Codepage="1252" Version="2.0.0" Manufacturer="Matt Smith">
-        <Package Id="*" Keywords="Installer" Description="SIMS .net Bulk Import Tool" Comments="Comment" Manufacturer="Matt Smith" InstallerVersion="100" Languages="1033" Compressed="yes" SummaryCodepage="1252" />
-        <Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
-        <Upgrade Id="C9352C32-C0FF-498E-A28C-BD8CFF39D4E4">
-            <UpgradeVersion OnlyDetect="no" Property="PREVIOUSVERSIONSINSTALLED" Minimum="0.0.1" IncludeMinimum="yes" Maximum="1.9.9" IncludeMaximum="yes" />
-        </Upgrade>
+    <Product Name="SIMS Bulk Import Tool" Id="18F33D44-E302-4B5D-AB6D-695D467A526D" UpgradeCode="{C9352C32-C0FF-498E-A28C-BD8CFF39D4E4}" Language="1033" Codepage="1252" Version="2.0.0" Manufacturer="Matt Smith">
+        <Package Id="*" Keywords="Installer" Description="SIMS .net Bulk Import Tool" Comments="Comment" Manufacturer="Matt Smith" InstallerVersion="100" Languages="1033" Compressed="yes" SummaryCodepage="1252" InstallPrivileges="elevated" InstallScope="perMachine" />
         <Media Id="1" Cabinet="simsbulkimport.cab" EmbedCab="yes" />
+        <MajorUpgrade
+  Schedule="afterInstallInitialize"
+  DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder" Name="PFiles">
                 <Directory Id="ManufacturerFolder" Name="Matt Smith">
@@ -41,7 +40,7 @@
                 <RegistryValue Root="HKLM" Key="Software\Matt Smith\SIMS Bulk Import" Type="string" Value="" KeyPath="yes" />
             </Component>
         </Directory>
-        <Feature Id="Complete" Level="1">
+        <Feature Id="MainFeature" Level="1">
             <ComponentRef Id="files" />
             <ComponentRef Id="ProgramMenuDir" />
         </Feature>
@@ -63,9 +62,5 @@
         <UI>
             <UIRef Id="WixUI_InstallDir" />
         </UI>
-        <InstallExecuteSequence>
-            <RemoveExistingProducts After="InstallInitialize" />
-        </InstallExecuteSequence>
-        <Condition Message="You need to be an administrator to install this product.">AdminUser</Condition>
     </Product>
 </Wix>
