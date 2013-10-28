@@ -1,0 +1,31 @@
+﻿<Window x:Class="Matt40k.SIMSBulkImport.LicenseView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="License" Height="300" Width="450" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" MouseDoubleClick="Window_MouseDoubleClick" Icon="Branding\icon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition  Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Label Name="labelTitle" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="26" Grid.ColumnSpan="3" Height="50" />
+        <Label Name="labelName" Grid.Row="2" Grid.Column="3" FontSize="14" VerticalAlignment="Top" />
+        <Label Name="labelDfe" Grid.Row="3" Grid.Column="3" FontSize="14" VerticalAlignment="Top" />
+        <Label Name="labelType" Grid.Row="3" Grid.Column="3" FontSize="14" VerticalAlignment="Center" />
+        <Label Name="labelKey" Grid.Row="4" Grid.Column="3" FontSize="10" VerticalAlignment="Top" Content="License key:" />
+        <TextBox Grid.Column="3" Grid.Row="4" Height="23" HorizontalAlignment="Left" Name="textboxKey" VerticalAlignment="Bottom" Width="300" TextChanged="textboxKey_TextChanged" />
+        <Button Content="Save" Grid.Column="3" Grid.Row="5" Height="23" HorizontalAlignment="Left" Name="buttonSave" VerticalAlignment="Bottom" Width="75" IsEnabled="False" Click="buttonSave_Click" />
+    </Grid>
+
+</Window>
