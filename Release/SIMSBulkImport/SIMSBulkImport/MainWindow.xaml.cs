@@ -58,7 +58,13 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Info, GetExe.Title + " - " + GetExe.Version);
             logger.Log(NLog.LogLevel.Info, "");
 
-            Update.Check();
+            //Update.Check();
+
+            // Check for updates
+            if (ConfigMan.CheckForUpdates)
+            {
+                Updater.Update.Check();
+            }
 
             InitializeComponent();
             this.Title = GetExe.Title;
@@ -68,7 +74,7 @@ namespace Matt40k.SIMSBulkImport
             SimsIni simsIni = new SimsIni();
             simsApi = new SIMSAPI(simsIni.GetSimsDir);
 
-            logger.Log(NLog.LogLevel.Info, simsApi.GetLicense);
+            //logger.Log(NLog.LogLevel.Info, simsApi.GetLicense);
 
             /*
             if (simsApi.IsDemo)
@@ -436,8 +442,10 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            /*
             if (simsApi.GetIsLicensed)
             {
+             */
                 logger.Log(NLog.LogLevel.Info, "Import Start");
                 importStart = DateTime.Now;
                 
@@ -453,12 +461,13 @@ namespace Matt40k.SIMSBulkImport
                         ContactImport();
                         break;
                 }
+                /*
             }
             else
             {
                 logger.Log(NLog.LogLevel.Error, "Unlicensed");
                 MessageBox.Show("You are not licensed to use " + GetExe.Title, "Unlicensed", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            }
+            }*/
         }
 
         private int GetAverage
@@ -794,12 +803,14 @@ namespace Matt40k.SIMSBulkImport
             return false;
         }
 
+        /*
         private void MenuItem_Click_License(object sender, RoutedEventArgs e)
         {
             LicenseView licenceView1 = new LicenseView();
             licenceView1.Show();
             //MessageBox.Show(simsApi.GetLicense);
         }
+         */
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

@@ -85,7 +85,9 @@ namespace Matt40k.SIMSBulkImport
             licensee_la = "823";
             licensee_sch = "4321";
             licenseeName = "Green Abbey School";
+            license_type = 1;
 
+            /*
             if (!string.IsNullOrEmpty(GetKey))
             {
                 logger.Log(NLog.LogLevel.Debug, "License key: " + GetKey);
@@ -102,7 +104,7 @@ namespace Matt40k.SIMSBulkImport
             else
             {
                 logger.Log(NLog.LogLevel.Info, "No license key set");
-            }
+            }*/
         }
 
         private bool validLicense(string licenseKey)

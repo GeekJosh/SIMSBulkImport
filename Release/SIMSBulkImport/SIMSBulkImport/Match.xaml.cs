@@ -278,10 +278,15 @@ namespace Matt40k.SIMSBulkImport
                         simsApi.SetMatchPostcode = staffcode;
                         break;
                 }
-                
-                simsApi.SetMatchUDF = udf;
-                simsApi.SetMatchSIMSUDF = simsUdf;
-                simsApi.SetMatchEmailLocation = emaillocation;
+                if (comboUDF.SelectedItem != null)
+                {
+                    simsApi.SetMatchUDF = udf;
+                    simsApi.SetMatchSIMSUDF = simsUdf;
+                }
+                if (comboEmail.SelectedItem != null)
+                {
+                    simsApi.SetMatchEmailLocation = emaillocation;
+                }
                 simsApi.SetMatchReg = reg;
                 this.Close();
             }
