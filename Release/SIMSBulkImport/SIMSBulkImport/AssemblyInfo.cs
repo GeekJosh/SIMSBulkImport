@@ -28,6 +28,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.7.22")]
-[assembly: AssemblyFileVersion("1.7.22")]
+[assembly: AssemblyVersion("1.7.23")]
+[assembly: AssemblyFileVersion("1.7.23")]
 [assembly: NeutralResourcesLanguageAttribute("en-GB")]

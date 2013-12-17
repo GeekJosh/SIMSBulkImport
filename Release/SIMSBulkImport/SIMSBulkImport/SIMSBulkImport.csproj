@@ -51,11 +51,12 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Installer\BUILD\</OutputPath>
+    <OutputPath>D:\BUILD\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>SIMSBULKIMPORT.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Branding\icon.ico</ApplicationIcon>
@@ -178,9 +179,6 @@
     <Compile Include="ImportFromFile.cs" />
     <Compile Include="IniFile.cs" />
     <Compile Include="License.cs" />
-    <Compile Include="LicenseView.xaml.cs">
-      <DependentUpon>LicenseView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -206,7 +204,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SimsIni.cs" />
-    <Compile Include="Update.cs" />
     <Compile Include="Updater\Proxy.cs" />
     <Compile Include="Updater\Requestor.cs" />
     <Compile Include="Updater\Update.cs" />
@@ -216,10 +213,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Duplicate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LicenseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
