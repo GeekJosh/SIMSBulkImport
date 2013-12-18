@@ -54,6 +54,8 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_Logs(object sender, RoutedEventArgs e)
         {
             logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_Logs");
+            Switcher.Switch(new Logs());
+            /*
             try
             {
                 System.Diagnostics.Process prc = new System.Diagnostics.Process();
@@ -63,7 +65,7 @@ namespace Matt40k.SIMSBulkImport
             catch (System.Exception MenuItem_Click_LogsException)
             {
                 logger.Log(NLog.LogLevel.Error, MenuItem_Click_LogsException);
-            }
+            }*/
         }
 
         private void MenuItem_Click_Manual(object sender, RoutedEventArgs e)

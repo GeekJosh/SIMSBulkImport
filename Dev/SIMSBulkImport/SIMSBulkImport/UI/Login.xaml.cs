@@ -62,7 +62,6 @@ namespace Matt40k.SIMSBulkImport
                 Updater.Update.Check();
             }
 
-
             // Read SIMS.ini
             updateLoadMess("Reading SIMS.ini");
             string simsDir = SimsIni.GetSimsDir;
@@ -106,6 +105,7 @@ namespace Matt40k.SIMSBulkImport
         private void button_Click(object sender, RoutedEventArgs e)
         {
             bool userFilled = false;
+            hideError();
             if (!string.IsNullOrWhiteSpace(this.textUser.Text) && !string.IsNullOrWhiteSpace(this.passwordBox.Password))
             {
                 Switcher.SimsApiClass.SetSimsUser = this.textUser.Text;
@@ -179,6 +179,12 @@ namespace Matt40k.SIMSBulkImport
         {
             errorBorder.BorderThickness = new Thickness(2,2,2,2);
             this.errorMessage.Text = errMess;
+        }
+
+        private void hideError()
+        {
+            errorBorder.BorderThickness = new Thickness(0, 0, 0, 0);
+            this.errorMessage.Text = "";
         }
 
         private void connectType_Checked(object sender, RoutedEventArgs e)

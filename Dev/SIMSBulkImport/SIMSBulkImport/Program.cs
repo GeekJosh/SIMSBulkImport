@@ -46,7 +46,6 @@ namespace Matt40k.SIMSBulkImport
             else
             {
                 Args _args = new Args(args);
-
             }
         }
     }

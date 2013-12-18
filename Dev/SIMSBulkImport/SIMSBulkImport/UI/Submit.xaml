@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Matt40k.SIMSBulkImport.Submit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+    <Grid>
+
+        <Grid HorizontalAlignment="Center" Height="50" Margin="50,50,50,50" VerticalAlignment="Top" Width="500">
+            <Label Content="Unique ID" HorizontalAlignment="Left" Height="30" />
+            <TextBox HorizontalAlignment="Right" Name="StatID" Height="30" Width="400" TextAlignment="Center" IsReadOnly="True" ToolTip="Unique ID used for statistics"/>
+        </Grid>
+
+        <Grid HorizontalAlignment="Center" Height="50" Margin="50,100,50,50" VerticalAlignment="Top" Width="500">
+            <Label Content="Email Address" HorizontalAlignment="Left" Height="30"  />
+            <TextBox HorizontalAlignment="Right" Name="Email" Height="30" Width="400" TextAlignment="Center" ToolTip="Optional: Enter your email address if you want a reply" />
+        </Grid>
+
+        <Button Content="Back" HorizontalAlignment="Center" Margin="50,200,250,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="backClick"/>
+        <Button Content="Submit" HorizontalAlignment="Center" Margin="50,200,0,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="submitClick"/>
+        
+    </Grid>
+</UserControl>

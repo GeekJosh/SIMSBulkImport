@@ -95,13 +95,10 @@ namespace Matt40k.SIMSBulkImport
                 {
                     case Interfaces.UserType.Contact:
                         return _contactResults.GetContactResultsTable;
-                        break;
                     case Interfaces.UserType.Pupil:
                         return _pupilResults.GetPupilResultsTable;
-                        break;
                     case Interfaces.UserType.Staff:
                         return _staffResults.GetStaffResultsTable;
-                        break;
                     default:
                         logger.Log(NLog.LogLevel.Error, "ResultsImport.GetResultsTable - UserType not defined");
                         return null;
