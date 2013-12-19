@@ -4,9 +4,15 @@
  */
 
 using System;
+using System.Data;
 using System.IO;
-using System.Windows.Documents;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Forms;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport
@@ -17,24 +23,15 @@ namespace Matt40k.SIMSBulkImport
     public partial class Logs
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        
+        private ICollectionView cvLog;
+        private Support support;
 
         public Logs()
         {
             InitializeComponent();
-            readLog();
-        }
-
-        private void readLog()
-        {
-            TextRange range;
-            FileStream fStream;
-            if (File.Exists(_logFile))
-            {
-                range = new TextRange(logTextBox.Document.ContentStart, logTextBox.Document.ContentEnd);
-                fStream = new FileStream(_logFile, FileMode.Open);
-                range.Load(fStream, DataFormats.Text);
-                fStream.Close();
-            }
+            support = new Support();
+            logDataGrid.DataContext = support.ReadLog;
         }
 
         private void backClick(object sender, System.Windows.RoutedEventArgs e)
@@ -47,14 +44,67 @@ namespace Matt40k.SIMSBulkImport
             Switcher.Switch(new Submit());
         }
 
-        public string _logFile
+        private void UserControlLoaded(object sender, RoutedEventArgs e)
+        {
+            IEnumerable source = logDataGrid.ItemsSource;
+            cvLog = (CollectionView)CollectionViewSource.GetDefaultView(source);
+            if (cvLog != null)
+            {
+                cvLog.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
+            }
+        }
+
+        private DataTable filterTable
         {
             get
             {
-                NLog.Targets.FileTarget t = (NLog.Targets.FileTarget)LogManager.Configuration.FindTargetByName("system");
-                var logEventInfo = new LogEventInfo { TimeStamp = DateTime.Now };
-                return t.FileName.Render(logEventInfo);
+                DataTable unFiltered = support.ReadLog;
+                DataTable filtered = unFiltered.Clone();
+
+                ComboBoxItem filterLevelItem = (ComboBoxItem)filterLevel.SelectedItem;
+
+                string levelFilter = filterLevelItem.Content.ToString();
+                string messageFilter = filterMessage.Text;
+                string cFilter = null;
+
+                if (!string.IsNullOrWhiteSpace(levelFilter))
+                {
+                    cFilter = "(Level='" + levelFilter + "')";
+                }
+                if (!string.IsNullOrWhiteSpace(messageFilter))
+                {
+                    if (!string.IsNullOrWhiteSpace(cFilter))
+                    {
+                        cFilter = "(Message LIKE '%" + messageFilter + "%')";
+                    }
+                    else
+                    {
+                        cFilter = cFilter + " AND (Message LIKE '%" + messageFilter + "%')";
+                    }
+                }
+
+                logger.Log(NLog.LogLevel.Debug, cFilter);
+
+                if (!string.IsNullOrWhiteSpace(cFilter))
+                {
+                    filtered.Clear();
+
+                    DataRow[] rows = unFiltered.Select(cFilter);
+
+                    foreach (DataRow row in rows)
+                    {
+                        filtered.Rows.Add(row.ItemArray);
+                    }
+                }
+
+                return filtered;
             }
-        } 
+        }
+
+        private void filterLevel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            logDataGrid.DataContext = filterTable;
+            CollectionViewSource.GetDefaultView(logDataGrid.ItemsSource).Refresh();
+        }
     }
 }

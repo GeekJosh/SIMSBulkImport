@@ -1,10 +1,36 @@
 ﻿<UserControl x:Class="Matt40k.SIMSBulkImport.Logs"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="tasks" Source="{Binding Path=logDataGrid}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Date"/>
+                <scm:SortDescription PropertyName="Level"/>
+                <scm:SortDescription PropertyName="Message"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
     <Grid>
-        <RichTextBox Name="logTextBox" Margin="15,15,15,15" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" />
-        <Button Content="Back" HorizontalAlignment="Right" Margin="50,50,50,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="backClick"/>
-        <Button Content="Submit" HorizontalAlignment="Right" Margin="50,50,170,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="submitClick"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ComboBox Name="filterLevel" HorizontalAlignment="Left" Margin="50,10,0,10" VerticalAlignment="Top" Width="120" Grid.Row="0" SelectionChanged="filterLevel_SelectionChanged" >
+            <ComboBoxItem Content="ERROR"/>
+            <ComboBoxItem Content="WARN"/>
+            <ComboBoxItem Content="INFO"/>
+            <ComboBoxItem Content="DEBUG"/>
+            <ComboBoxItem Content="TRACE"/>
+            <ComboBoxItem Content=""/>
+        </ComboBox>
+
+        <TextBox Name="filterMessage" HorizontalAlignment="Left" Margin="200,10,0,10" VerticalAlignment="Top" Width="120" Grid.Row="0" />
+
+        <DataGrid Grid.Row="1" Name="logDataGrid" Margin="15,15,15,15" ScrollViewer.VerticalScrollBarVisibility="Visible" IsReadOnly="True" ItemsSource="{Binding Path=.}" AutoGenerateColumns="True" />
+        <Button Grid.Row="1" Content="Back" HorizontalAlignment="Right" Margin="50,50,50,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="backClick"/>
+        <Button Grid.Row="1" Content="Submit" HorizontalAlignment="Right" Margin="50,50,170,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="submitClick"/>
     </Grid>
 </UserControl>
