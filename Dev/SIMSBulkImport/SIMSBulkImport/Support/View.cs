@@ -8,12 +8,12 @@ using System.Data;
 using System.IO;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace Matt40k.SIMSBulkImport.Support
 {
     /// <summary>
     /// Allows user to submit the log file to our web server
     /// </summary>
-    internal class Support
+    internal class View
     {
         private string _logFile
         {

@@ -4,6 +4,9 @@
  */
 
 using System;
+using System.Data;
+using System.IO;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
@@ -37,7 +40,35 @@ namespace Matt40k.SIMSBulkImport
 
         private void submitClick(object sender, System.Windows.RoutedEventArgs e)
         {
+            DataTable submittionResults = Support.Submit.Logs(Email.Text, readLogFile);
             Switcher.Switch(new Menu());
         }
+
+        private string _logFile
+        {
+            get
+            {
+                NLog.Targets.FileTarget t = (NLog.Targets.FileTarget)LogManager.Configuration.FindTargetByName("system");
+                var logEventInfo = new LogEventInfo { TimeStamp = DateTime.Now };
+                return t.FileName.Render(logEventInfo);
+            }
+        }
+
+        private string readLogFile
+        {
+            get
+            {
+                string _log = null;
+                string logFile = _logFile;
+                if (File.Exists(logFile))
+                {
+                    StreamReader log = new StreamReader(logFile);
+                    _log = log.ReadToEnd();
+                    log.Close();
+                }
+                return _log;
+            }
+        }
+
     }
 }

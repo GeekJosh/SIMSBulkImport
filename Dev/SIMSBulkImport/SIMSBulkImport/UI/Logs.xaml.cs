@@ -25,12 +25,12 @@ namespace Matt40k.SIMSBulkImport
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         
         private ICollectionView cvLog;
-        private Support support;
+        private Support.View support;
 
         public Logs()
         {
             InitializeComponent();
-            support = new Support();
+            support = new Support.View();
             logDataGrid.DataContext = support.ReadLog;
         }
 
@@ -73,7 +73,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 if (!string.IsNullOrWhiteSpace(messageFilter))
                 {
-                    if (!string.IsNullOrWhiteSpace(cFilter))
+                    if (!string.IsNullOrEmpty(cFilter))
                     {
                         cFilter = "(Message LIKE '%" + messageFilter + "%')";
                     }

@@ -6,7 +6,7 @@
 using System;
 using System.Net;
 
-namespace Matt40k.SIMSBulkImport.Updater
+namespace Matt40k.SIMSBulkImport
 {
     public class Proxy
     {
