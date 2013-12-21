@@ -7,7 +7,6 @@ using System;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 
@@ -19,17 +18,22 @@ namespace Matt40k.SIMSBulkImport.Support
 
         private static Requestor _requestor;
         private static Proxy _proxy;
-        private static string _email;
-        private static string _log;
-        private static string _result = null;
-        private static string _logId = null;
-        private static DataTable address;
+        private static DataTable logSubResults;
+
 
         public static DataTable Logs(string email, string log)
         {
+            _requestor = new Requestor();
+            _proxy = new Proxy();
+            _proxy.SetUrl = ConfigMan.UpdateUrl;
+            _requestor.SetApiUrl = ConfigMan.UpdateUrl;
+
+            return logSubResults = _requestor.SubmitLog(email, log);
+            /*
             _email = email;
             _log = log;
-            address = null;
+            logSubResults = null;
+            _jobCompleted = false;
 
             logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Support.Submit.Logs");
 
@@ -50,12 +54,19 @@ namespace Matt40k.SIMSBulkImport.Support
                 logger.Log(NLog.LogLevel.Info, "Not checking for updates");
             }
 
-            return address;
+            while (!_jobCompleted)
+            {
+                logger.Log(NLog.LogLevel.Info, "Lets nap - " + _jobCompleted);
+                Thread.Sleep(100);
+            }
+
+            return logSubResults;*/
         }
 
+        /*
         private static void postLogs()
         {
-            address = _requestor.SubmitLog(_email, _log);
+            logSubResults = _requestor.SubmitLog(_email, _log);
         }
 
         private static void PostLogs_DoWork(object sender, DoWorkEventArgs e)
@@ -74,24 +85,10 @@ namespace Matt40k.SIMSBulkImport.Support
             }
         }
 
-        private static void runUpdate()
-        {
-            string outOfDate = ConfigMan.UpdateUrl + "simsbulkimport.html";
-            try
-            {
-                Process process = new Process();
-                process.StartInfo.FileName = outOfDate;
-                process.Start();
-            }
-            catch (Exception buttonAppUrl_Exception)
-            {
-                logger.Log(NLog.LogLevel.Error, buttonAppUrl_Exception);
-            }
-        }
-
         private static void PostLogs_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            _jobCompleted = true;
         }
+         * */
     }
 }

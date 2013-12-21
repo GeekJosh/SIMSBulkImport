@@ -4,18 +4,25 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
     <Grid>
 
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="130">
+            <Controls:ProgressRing IsActive="False" VerticalAlignment="Top" Foreground="DodgerBlue" Name="progressRing" Height="100"  Visibility="Hidden"/>
+            <Label Name="progressMessage" Content="Uploading..." VerticalAlignment="Bottom" Visibility="Hidden"/>
+        </Grid>
+
         <Grid HorizontalAlignment="Center" Height="50" Margin="50,50,50,50" VerticalAlignment="Top" Width="500">
-            <Label Content="Unique ID" HorizontalAlignment="Left" Height="30" />
-            <TextBox HorizontalAlignment="Right" Name="StatID" Height="30" Width="400" TextAlignment="Center" IsReadOnly="True" ToolTip="Unique ID used for statistics"/>
+            <Label Name="successLabel" Content="Success" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Visibility="Hidden"/>
+            <Label Name="uniqueIdLabel" Content="Unique ID" HorizontalAlignment="Left" Height="30" />
+            <TextBox Name="StatID" HorizontalAlignment="Right"  Height="30" Width="400" TextAlignment="Center" IsReadOnly="True" ToolTip="Unique ID used for statistics"/>
         </Grid>
 
         <Grid HorizontalAlignment="Center" Height="50" Margin="50,100,50,50" VerticalAlignment="Top" Width="500">
-            <Label Content="Email Address" HorizontalAlignment="Left" Height="30"  />
-            <TextBox HorizontalAlignment="Right" Name="Email" Height="30" Width="400" TextAlignment="Center" ToolTip="Optional: Enter your email address if you want a reply" />
+            <Label Name="submissionIdLabel" Content="Submission ID" HorizontalAlignment="Left" Height="30" Visibility="Hidden"/>
+            <Label Name="emailLabel" Content="Email Address" HorizontalAlignment="Left" Height="30"  />
+            <TextBox Name="Email" HorizontalAlignment="Right"  Height="30" Width="400" TextAlignment="Center" ToolTip="Optional: Enter your email address if you want a reply" />
         </Grid>
 
-        <Button Content="Back" HorizontalAlignment="Center" Margin="50,200,250,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="backClick"/>
-        <Button Content="Submit" HorizontalAlignment="Center" Margin="50,200,0,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="submitClick"/>
-        
+        <Button Name="backButton" Content="Back" HorizontalAlignment="Center" Margin="50,200,250,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="backClick"/>
+        <Button Name="submitButton" Content="Submit" HorizontalAlignment="Center" Margin="50,200,0,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="submitClick"/>
+
     </Grid>
 </UserControl>

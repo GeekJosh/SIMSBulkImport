@@ -24,7 +24,7 @@ namespace Matt40k.SIMSBulkImport
 
         private int _appID = 1;
         private string _appVersion = GetExe.Version;
-        private string _appGUID = "2b36ee34-8341-4ff2-ab7b-90f472ff51bc";
+        private string _appGUID = Stats.ReadID;
 
         private HttpWebResponse request(Uri url, string method, string postData)
         {
@@ -61,7 +61,7 @@ namespace Matt40k.SIMSBulkImport
                 string postData = "appid=" + _appID .ToString() + "&guid=" + _appGUID + "&version=" + _appVersion;
                 logger.Log(NLog.LogLevel.Trace, "PostData :: " + postData);
                 HttpWebResponse response = request(url, "POST", postData);
-                logger.Log(NLog.LogLevel.Debug, response.StatusCode + " - " + response.StatusDescription);
+                logger.Log(NLog.LogLevel.Trace, "StatusCode: " + response.StatusCode + " - StatusDescription: " + response.StatusDescription);
 
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
@@ -86,9 +86,9 @@ namespace Matt40k.SIMSBulkImport
             string result = null;
             Uri url = new Uri(_apiUrl + "log");
             string postData = "appid=" + _appID.ToString() + "&guid=" + _appGUID + "&email=" + email + "&log=" + log;
-            logger.Log(NLog.LogLevel.Trace, "PostData :: " + postData);
+            //logger.Log(NLog.LogLevel.Trace, "PostData :: " + postData);
             HttpWebResponse response = request(url, "POST", postData);
-            logger.Log(NLog.LogLevel.Debug, response.StatusCode + " - " + response.StatusDescription);
+            logger.Log(NLog.LogLevel.Trace, "StatusCode: " + response.StatusCode + " - StatusDescription: " + response.StatusDescription);
 
             using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
             {

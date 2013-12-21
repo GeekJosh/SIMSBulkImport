@@ -13,25 +13,29 @@ namespace Matt40k.SIMSBulkImport
     /// To identify the number of unique users, without forcing people to give up their 
     /// anonymity we give them a unique ID (GUID), generated at installation (TODO).
     /// </summary>
-    internal class Stats
+    internal static class Stats
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         // Reads the GUID from the registry
-        public string ReadID
+        internal static string ReadID
         {
             get
             {
+                string id = null;
                 try
                 {
                     RegistryKey regKey1 = Registry.LocalMachine.OpenSubKey("SOFTWARE\\SIMS Bulk Import", false);
-                    return (string)regKey1.GetValue("ID");
+                    id=(string)regKey1.GetValue("ID");
+                    regKey1.Close();
                 }
                 catch (Exception ReadID_exception)
                 {
                     logger.Log(LogLevel.Error, ReadID_exception);
                 }
-                return Guid.NewGuid().ToString();
+                if (string.IsNullOrEmpty(id))
+                    id = Guid.NewGuid().ToString();
+                return id;
             }
         }
         
