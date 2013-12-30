@@ -42,18 +42,20 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.GetImportCount(GET)");
                 return _importTable.Rows.Count;
             }
         }
 
         public DataRow GetListRow(int rowNo)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.GetListRow(rowNo: " + rowNo + ")");
             return _importTable.Rows[rowNo];
         }
 
         public void AddToList(DataRow row)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList()");
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList(row: " + row + ")");
             try
             {
                 string status = (string)row["Status"].ToString();
@@ -96,7 +98,6 @@ namespace Matt40k.SIMSBulkImport
                         break;
                 }
 
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList.status=" + status);
                 if (status.StartsWith("Import"))
                 {
                     if (status.Contains("Email"))
@@ -150,6 +151,7 @@ namespace Matt40k.SIMSBulkImport
             string title, string gender, string staffCode, string dob, string admissionNumber, string year, string registration,
             string house, string postCode, string town)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToImportTable(type: " + type + ", personID: " + personID + ", value: " + value + ", surname: " + surname + ", forename: " + forename + ", title: " + title + ", gender: " + gender + ", staffCode: " + staffCode + ", dob: " + dob + ", admissionNumber: " + admissionNumber + ", year: " + year + ", registration: " + registration + ", house: " + house + ", postCode: " + postCode + ", town: " + town+ ")");
             try
             {
                 DataRow newrow = _importTable.NewRow();

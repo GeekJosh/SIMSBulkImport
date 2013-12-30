@@ -27,7 +27,6 @@ namespace Matt40k.SIMSBulkImport
         private string house;
         private string town;
         private string postcode;
-        private string simsudf;
         private Contact.PreImport _contactPre;
         private Pupil.PreImport _pupilPre;
         private Staff.PreImport _staffPre;
@@ -39,6 +38,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetImportFileRecordCount(GET)");
                 return importFileRecordCount;
             }
         }
@@ -47,7 +47,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(NLog.LogLevel.Debug, "ignoreFirstRow: " + value);
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchIgnoreFirstRow(SET: " + value + ")");
                 ignoreFirstRow = value;
             }
         }
@@ -56,6 +56,8 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetImportDataset(SET: " + value + ")");
+
                 // Remove First row (header) if set
                 if (ignoreFirstRow)
                     value.Rows[0].Delete();
@@ -89,8 +91,10 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-               switch (Switcher.PreImportClass.GetUserType)
-               {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.CreateDataTable(GET)");
+
+                switch (Switcher.PreImportClass.GetUserType)
+                {
                     case Interfaces.UserType.Contact:
                         return _contactPre.CreateDataTable;
                     case Interfaces.UserType.Pupil:
@@ -105,6 +109,7 @@ namespace Matt40k.SIMSBulkImport
 
         public DataTable AddToDataTable(int recordupto)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.AddToDataTable(recordupto: " + recordupto + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -120,78 +125,135 @@ namespace Matt40k.SIMSBulkImport
 
         public string SetMatchFirstname
         {
-            set { firstname = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchFirstname(SET: " + value + ")");
+                firstname = value;
+            }
         }
 
         public string SetMatchSurname
         {
-            set { surname = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchSurname(SET: " + value + ")");
+                surname = value;
+            }
         }
 
         public string SetMatchEmail
         {
-            set { email = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchEmail(SET: " + value + ")");
+                email = value;
+            }
         }
 
         public string SetMatchTelephone
         {
-            set { telephone = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephone(SET: " + value + ")");
+                telephone = value;
+            }
         }
 
         public string SetMatchStaffcode
         {
-            set { staffcode = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchStaffcode(SET: " + value + ")");
+                staffcode = value;
+            }
         }
 
         public string SetMatchGender
         {
-            set { gender = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchGender(SET: " + value + ")");
+                gender = value;
+            }
         }
 
         public string SetMatchTitle
         {
-            set { title = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTitle(SET: " + value + ")");
+                title = value;
+            }
         }
 
         public string SetMatchUDF
         {
-            set { udf = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchUDF(SET: " + value + ")");
+                udf = value;
+            }
         }
 
         public string SetMatchYear
         {
-            set { year = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchYear(SET: " + value + ")");
+                year = value;
+            }
         }
 
         public string SetMatchReg
         {
-            set { reg = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchReg(SET: " + value + ")");
+                reg = value;
+            }
         }
 
         public string SetMatchHouse
         {
-            set { house = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchHouse(SET: " + value + ")");
+                house = value;
+            }
         }
 
         public string SetMatchTown
         {
-            set { town = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTown(SET: " + value + ")");
+                town = value;
+            }
         }
 
         public string SetMatchPostcode
         {
-            set { postcode = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchPostcode(SET: " + value + ")");
+                postcode = value;
+            }
         }
 
         public string SetMatchSIMSUDF
         {
-            set { simsudf = value; }
+            set
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchSIMSUDF(SET: " + value + ")");
+                Switcher.SimsApiClass.SetSIMSUDF = value; 
+            }
         }
 
         public string SetMatchEmailLocation
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchEmailLocation(SET: " + value + ")");
                 Switcher.SimsApiClass.SetEmailLocation = value;
             }
         }
@@ -200,6 +262,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchEmailMainId(SET: " + value + ")");
                 int mainId = 0;
                 string cleanValue = value.Substring(38);
                 switch (cleanValue)
@@ -223,6 +286,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchEmailPrimaryId(SET: " + value + ")");
                 int primaryId = 0;
                 string cleanValue = value.Substring(38);
                 //logger.Log(NLog.LogLevel.Trace, "Trace::" + cleanValue);
@@ -247,6 +311,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephoneLocation(SET: " + value + ")");
                 Switcher.SimsApiClass.SetTelephoneLocation = value;
             }
         }
@@ -255,6 +320,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephoneMainId(SET: " + value + ")");
                 int mainId = 0;
                 string cleanValue = value.Substring(38);
                 switch (cleanValue)
@@ -278,9 +344,9 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephonePrimaryId(SET: " + value + ")");
                 int primaryId = 0;
                 string cleanValue = value.Substring(38);
-                //logger.Log(NLog.LogLevel.Trace, "Trace::" + cleanValue);
                 switch (cleanValue)
                 {
                     case "Yes":
@@ -293,74 +359,125 @@ namespace Matt40k.SIMSBulkImport
                         primaryId = 2;
                         break;
                 }
-                logger.Log(NLog.LogLevel.Trace, "Trace:: SimsApiClass.SetMatchTelephonePrimaryId:: " + primaryId);
                 Switcher.SimsApiClass.SetTelephonePrimaryId = primaryId;
             }
         }
 
         public string GetMatchFirstname
         {
-            get { return firstname; }
+            get
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchFirstname(GET)");
+                return firstname;
+            }
         }
 
         public string GetMatchSurname
         {
-            get { return surname; }
+            get 
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchSurname(GET)");
+                return surname; 
+            }
         }
 
         public string GetMatchEmail
         {
-            get { return email; }
+            get 
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchEmail(GET)");
+                return email;
+            }
         }
 
         public string GetMatchTelephone
         {
-            get { return telephone; }
+            get
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchTelephone(GET)");
+                return telephone;
+            }
         }
 
         public string GetMatchStaffcode
         {
-            get { return staffcode; }
+            get 
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchStaffcode(GET)");
+                return staffcode;
+            }
         }
 
         public string GetMatchGender
         {
-            get { return gender; }
+            get
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchGender(GET)");
+                return gender; 
+            }
         }
 
         public string GetMatchTitle
         {
-            get { return title; }
+            get
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchTitle(GET)");
+                return title;
+            }
         }
 
         public string GetMatchUDF
         {
-            get { return udf; }
+            get
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchUDF(GET)");
+                return udf;
+            }
         }
 
         public string GetMatchYear
         {
-            get { return year; }
+            get 
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchYear(GET)");
+                return year;
+            }
         }
 
         public string GetMatchReg
         {
-            get { return reg; }
+            get 
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchReg(GET)"); 
+                return reg;
+            }
         }
 
         public string GetMatchHouse
         {
-            get { return house; }
+            get
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchHouse(GET)"); 
+                return house;
+            }
         }
 
         public string GetMatchTown
         {
-            get { return town; }
+            get
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchTown(GET)"); 
+                return town; 
+            }
         }
 
         public string GetMatchPostcode
         {
-            get { return postcode; }
+            get
+            {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchPostcode(GET)"); 
+                return postcode;
+            }
         }
 
         public string GetStatus(string personid,
@@ -368,7 +485,7 @@ namespace Matt40k.SIMSBulkImport
                                 string udf, string simsUdf,
                                 string telephone, string simsTelephone)
         {
-
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetStatus(personid: " + personid + ", email: " + email + ", simsEmail: " + simsEmail + ", udf: " + udf + ", simsUdf: " + simsUdf + ", telephone: " + telephone + ", simsTelephone: " + simsTelephone +")"); 
             if (personid == "0") { return "Missing"; }
             if (!IsNotDuplicate(personid)) { return "Duplicate"; }
 
@@ -420,6 +537,7 @@ namespace Matt40k.SIMSBulkImport
 
         private bool IsNotDuplicate(string personid)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.IsNotDuplicate(personid: " + personid + ")");
             string[] pids = personid.Split(',');
             int noPids = pids.Length;
             if (noPids == 1) { return true; }
@@ -428,12 +546,14 @@ namespace Matt40k.SIMSBulkImport
 
         private bool IsImport(string import, string current)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.IsNotDuplicate(import: " + import + ", current: " + current + ")");
             if (!IsNotSame(import, current)) { return false; }
             return true;
         }
 
         private bool IsNotSame(string import, string current)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.IsNotDuplicate(import: " + import + ", current: " + current + ")");
             if (!string.IsNullOrWhiteSpace(current))
             {
                 string[] parts = current.Split(',');
@@ -465,6 +585,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetUserType(SET: " + value + ")");
                 userType = value;
                 Switcher.SimsApiClass.SetUserType = value;
             }
@@ -474,6 +595,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetUserType(GET)");
                 return userType;
             }
         }
@@ -482,6 +604,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetUserFilter(SET: " + value + ")");
                 userFilter = value;
                 Switcher.SimsApiClass.SetUserFilter = value;
             }

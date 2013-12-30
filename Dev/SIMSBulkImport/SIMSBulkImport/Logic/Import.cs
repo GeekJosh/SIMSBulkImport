@@ -33,7 +33,7 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetEmail(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(" + personID + ", " + value + ")");
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -50,7 +50,7 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetTelephone(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(" + personID + ", " + value + ")");
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -70,7 +70,7 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetUDF(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetUDF(" + personID + ", " + value + ")");
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetUDF(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:

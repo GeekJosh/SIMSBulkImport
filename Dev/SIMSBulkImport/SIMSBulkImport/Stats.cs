@@ -22,6 +22,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Stats.ReadID(GET)");
                 string id = null;
                 try
                 {

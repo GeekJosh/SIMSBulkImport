@@ -83,8 +83,8 @@
             <td><xsl:value-of select="Surname"/></td>
             <td><xsl:value-of select="Forename"/></td>
             <td><xsl:value-of select="Gender"/></td>
-            <td><xsl:value-of select="Admission-Number"/></td>
-            <td><xsl:value-of select="Date-of-Birth"/></td>
+            <td><xsl:value-of select="Admission_Number"/></td>
+            <td><xsl:value-of select="DOB"/></td>
             <td><xsl:value-of select="Year"/></td>
             <td><xsl:value-of select="Registration"/></td>
             <td><xsl:value-of select="PersonID"/></td>

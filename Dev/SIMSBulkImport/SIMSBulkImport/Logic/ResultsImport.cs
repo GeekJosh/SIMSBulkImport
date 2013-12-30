@@ -24,6 +24,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void CreateResultsDataTable()
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.CreateResultsDataTable()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -45,6 +46,7 @@ namespace Matt40k.SIMSBulkImport
             string house, string postCode, string town
             )
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.AddToResultsTable(personid: " + personID + ", result: " + result + ", item: " + item + ", value: " + value + ", notes: " + notes + ", surname ," + surname + ",  forename ," + forename + "title ," + title + " gender ," + gender + " staffCode ," + staffCode + " dob ," + dob + " admissionNumber ," + admissionNumber + " year ," + year + " registration ," + registration + " house ," + house + " postCode ," + postCode + " town ," + town + ")");
             string friendlyResult;
             switch (result)
             {
@@ -84,6 +86,7 @@ namespace Matt40k.SIMSBulkImport
 
         public void OpenResultsReport()
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.OpenResultsReport()");
             Results results = new Results(resultsTable, Switcher.PreImportClass.GetUserType);
         }
 
@@ -91,6 +94,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.resultsTable(GET)");
                 switch (Switcher.PreImportClass.GetUserType)
                 {
                     case Interfaces.UserType.Contact:

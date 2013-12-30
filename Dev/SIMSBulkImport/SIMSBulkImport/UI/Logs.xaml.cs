@@ -62,8 +62,20 @@ namespace Matt40k.SIMSBulkImport
                 DataTable filtered = unFiltered.Clone();
 
                 ComboBoxItem filterLevelItem = (ComboBoxItem)filterLevel.SelectedItem;
+                DateTime? startDT1 = startDate.SelectedDate;
+                DateTime? endDT1 = endDate.SelectedDate;
+                DateTime startDT;
+                DateTime endDT;
 
-                string levelFilter = filterLevelItem.Content.ToString();
+                string levelFilter = null;
+                try
+                {
+                    levelFilter = filterLevelItem.Content.ToString();
+                }
+                catch (Exception)
+                {
+                }
+
                 string messageFilter = filterMessage.Text;
                 string cFilter = null;
 
@@ -71,19 +83,43 @@ namespace Matt40k.SIMSBulkImport
                 {
                     cFilter = "(Level='" + levelFilter + "')";
                 }
+
                 if (!string.IsNullOrWhiteSpace(messageFilter))
                 {
-                    if (!string.IsNullOrEmpty(cFilter))
+                    string msgFilter = "(Message LIKE '%" + messageFilter + "%')";
+
+                    if (string.IsNullOrWhiteSpace(cFilter))
                     {
-                        cFilter = "(Message LIKE '%" + messageFilter + "%')";
+                        cFilter = msgFilter;
                     }
                     else
                     {
-                        cFilter = cFilter + " AND (Message LIKE '%" + messageFilter + "%')";
+                        cFilter = cFilter + " AND " + msgFilter;
                     }
                 }
 
-                logger.Log(NLog.LogLevel.Debug, cFilter);
+                if (startDT1.HasValue || endDT1.HasValue)
+                {
+                    string dtFilter = null;
+
+                    DateTime start = new DateTime(2011, 1, 1);
+                    DateTime end = DateTime.Now;
+
+                    startDT = startDT1 ?? start;
+                    endDT = endDT1 ?? end;
+
+                    dtFilter = "(DATE >= '" + startDT.ToString("yyyy-MM-dd hh:mm:ss.FFF") + "')"; // AND DATE <='" +endDT.ToString("yyyy-MM-dd hh:mm:ss.FFF") + "')";
+                    if (string.IsNullOrWhiteSpace(cFilter))
+                    {
+                        cFilter = dtFilter;
+                    }
+                    else
+                    {
+                        cFilter = cFilter + " AND " + dtFilter;
+                    }
+                }
+
+                logger.Log(NLog.LogLevel.Trace, "cFilter :: " + cFilter);
 
                 if (!string.IsNullOrWhiteSpace(cFilter))
                 {
@@ -101,7 +137,13 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private void filterLevel_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void filter_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            logDataGrid.DataContext = filterTable;
+            CollectionViewSource.GetDefaultView(logDataGrid.ItemsSource).Refresh();
+        }
+
+        private void filterMessage_TextChanged(object sender, TextChangedEventArgs e)
         {
             logDataGrid.DataContext = filterTable;
             CollectionViewSource.GetDefaultView(logDataGrid.ItemsSource).Refresh();

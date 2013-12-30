@@ -19,28 +19,23 @@
                 </MenuItem>
                 <MenuItem Header="Help">
                     <MenuItem Header="Manual" Click="MenuItem_Click_Manual" ToolTip="Open Manual (PDF)" />
-                    <MenuItem Header="Logs" Click="MenuItem_Click_Logs" ToolTip="Open Log folder" />
+                    <MenuItem Header="Logs" Click="MenuItem_Click_Logs" ToolTip="Open Log" />
                     <Separator />
                     <MenuItem Header="About" Click="MenuItem_Click_About" ToolTip="Display program information including version" />
                 </MenuItem>
             </Menu>
         </Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Name="LabelSchool" Content="School" Grid.Column="3" Grid.Row="1" VerticalAlignment="Bottom" />
-            <Label Name="LabelUser" Content="Username" Grid.Column="3" Grid.Row="2" VerticalAlignment="Top" FontSize="16"/>
+            <Image Name="ImageSchoolLogo" Grid.Column="2" Grid.Row="1" Width="100" Height="100" HorizontalAlignment="Center" />
+            <Label Name="LabelSchool" Content="School" Grid.Column="2" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+            <Label Name="LabelUser" Content="Username" Grid.Column="2" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16"/>
             <Image Grid.RowSpan="2" HorizontalAlignment="Center" Height="100" VerticalAlignment="Center" Width="100"/>
 
         </Grid>

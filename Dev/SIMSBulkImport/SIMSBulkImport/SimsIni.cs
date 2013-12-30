@@ -17,6 +17,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.GetSimsDir(GET)");
                 string simsPath = null;
 
                 try
@@ -73,6 +74,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.curdir(GET)");
                 return Directory.GetCurrentDirectory();
             }
         }
@@ -81,6 +83,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.windir(GET)");
                 return Environment.GetEnvironmentVariable("windir");
             }
         }
@@ -89,6 +92,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.SetSimsDir(SET: " + value + ")");
                 appsDir = value;
             }
         }

@@ -8,8 +8,10 @@ using System.Reflection;
 
 namespace Matt40k.SIMSBulkImport
 {
-    class GetExe
+    internal class GetExe
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Gets the application version
         /// </summary>

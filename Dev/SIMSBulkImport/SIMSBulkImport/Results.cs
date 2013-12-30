@@ -20,6 +20,7 @@ namespace Matt40k.SIMSBulkImport
 
         public Results(DataTable resultTable, Interfaces.UserType userType)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Results.useProxy(resultTable: " + resultTable + ", userType: " + userType + ")");
             tmpHtml = getTmpHtmlFileName;
 
             try
@@ -49,6 +50,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Results.addPropertiesTable(GET)");
                 DataTable propertiesTable = new DataTable("Properties");
                 propertiesTable.Columns.Add(new DataColumn("Title", typeof(string)));
                 propertiesTable.Columns.Add(new DataColumn("Version", typeof(string)));
@@ -67,11 +69,13 @@ namespace Matt40k.SIMSBulkImport
 
         private string getXslFileName(Interfaces.UserType userType)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Results.getXslFileName(userType : " + userType + ")");
             return "Report_" + importTypeToName(userType) + ".xsl";
         }
 
         private string importTypeToName(Interfaces.UserType userType)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Results.importTypeToName(userType : " + userType + ")");
             switch (userType)
             {
                 case Interfaces.UserType.Staff:
@@ -89,6 +93,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Results.getCleanXmlTitle(GET)");
                 logger.Log(NLog.LogLevel.Debug, GetExe.Title.Replace(" ", "_"));
                 return GetExe.Title.Replace(" ", "_");
             }
@@ -96,6 +101,7 @@ namespace Matt40k.SIMSBulkImport
 
         private string getCleanXmlName(string oldname, Interfaces.UserType userType)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Results.getCleanXmlName(oldname: " + oldname + ", userType : " + userType + ")");
             string newname;
 
             if (oldname != "Table1")
@@ -114,6 +120,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void openReportHtml()
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Results.openReportHtml()");
             try
             {
                 Process process = new Process();
@@ -130,6 +137,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Results.getTmpHtmlFileName(GET)");
                 return Path.ChangeExtension(TempFile.GetNewTempFile, ".html");
             }
         }

@@ -20,6 +20,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.TempFile.GetNewTempFile(GET");
                 string _filename = Prefix.GetPrefix + Path.GetRandomFileName();
                 _filename = Path.ChangeExtension(_filename, ".tmp");
                 _filename = Path.Combine(Path.GetTempPath(), _filename);

@@ -36,11 +36,29 @@ namespace Matt40k.SIMSBulkImport
         {
             InitializeComponent();
 
+            getTitle();
             this.pathBox.Focus();
 
             openFileDialog = new System.Windows.Forms.OpenFileDialog();
             openFileDialog.Filter = "CSV (Comma delimited)(*.csv)|*csv|XLS (Excel Workbook) (*.xls, *.xlsx)|*xls;*xlsx|XML Document (*.xml)|*xml|All Files(*.*)|*";
             openFileDialog.Title = "Import file";
+        }
+
+        private void getTitle()
+        {
+            Interfaces.UserType userType = Switcher.PreImportClass.GetUserType;
+            switch (userType)
+            {
+                case Interfaces.UserType.Staff:
+                    this.title.Content = "Staff";
+                    break;
+                case Interfaces.UserType.Pupil:
+                    this.title.Content = "Pupil";
+                    break;
+                case Interfaces.UserType.Contact:
+                    this.title.Content = "Contact";
+                    break;
+            }
         }
 
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
@@ -87,11 +105,15 @@ namespace Matt40k.SIMSBulkImport
             {
                 this.gridLoad.Visibility = Visibility.Visible;
                 this.gridOpen.Visibility = Visibility.Hidden;
+                this.title.Visibility = Visibility.Hidden;
+                this.backButton.Visibility = Visibility.Hidden;
             }
             else
             {
                 this.gridLoad.Visibility = Visibility.Hidden;
                 this.gridOpen.Visibility = Visibility.Visible;
+                this.title.Visibility = Visibility.Visible;
+                this.backButton.Visibility = Visibility.Visible;
             }
         }
 
@@ -129,6 +151,11 @@ namespace Matt40k.SIMSBulkImport
 
             // Load UDFs from SIMS
             Switcher.SimsApiClass.LoadUdfs();
+        }
+
+        private void backClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            Switcher.Switch(new Menu());
         }
     }
 }

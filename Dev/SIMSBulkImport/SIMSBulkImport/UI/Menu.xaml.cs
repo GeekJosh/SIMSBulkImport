@@ -5,7 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,17 +57,6 @@ namespace Matt40k.SIMSBulkImport
         {
             logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_Logs");
             Switcher.Switch(new Logs());
-            /*
-            try
-            {
-                System.Diagnostics.Process prc = new System.Diagnostics.Process();
-                prc.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\SIMSBulkImport\\Logs";
-                prc.Start();
-            }
-            catch (System.Exception MenuItem_Click_LogsException)
-            {
-                logger.Log(NLog.LogLevel.Error, MenuItem_Click_LogsException);
-            }*/
         }
 
         private void MenuItem_Click_Manual(object sender, RoutedEventArgs e)
@@ -120,10 +111,12 @@ namespace Matt40k.SIMSBulkImport
         {
             string currentSchool = Switcher.SimsApiClass.GetCurrentSchool;
             string currentUser = Switcher.SimsApiClass.GetCurrentUser;
+            BitmapImage currentSchoolLogo = Switcher.SimsApiClass.GetCurrentSchoolLogo;
             if (!string.IsNullOrWhiteSpace(currentSchool))
                 this.LabelSchool.Content = currentSchool;
             if (!string.IsNullOrWhiteSpace(currentUser))
                 this.LabelUser.Content = currentUser;
+            this.ImageSchoolLogo.Source = currentSchoolLogo;
         }
     }
 }

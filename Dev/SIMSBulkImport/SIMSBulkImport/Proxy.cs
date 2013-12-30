@@ -18,6 +18,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.useProxy(GET)");
                 WebProxy proxy = (WebProxy)WebProxy.GetDefaultProxy();
 
                 // See what proxy is used for resource.
@@ -43,6 +44,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetProxyAddress(GET)");
                 if (useProxy)
                 {
                     if (string.IsNullOrWhiteSpace(_proxy))
@@ -61,6 +63,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetProxyPort(GET)");
                 if (string.IsNullOrWhiteSpace(_proxy))
                 {
                     return null;
@@ -77,12 +80,14 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.SetUrl(SET: " + value + ")");
                 _uri = new Uri(value);
             }
         }
 
         public WebProxy GetWebProxy(string address, int? port, string user, string pass, bool? useWin)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " + user + ", pass: " + pass + ", useWin: " + useWin + ")");
             bool _useWin = false;
             int _port = 0;
 
@@ -99,7 +104,7 @@ namespace Matt40k.SIMSBulkImport
 
         private WebProxy getWebProxy(string address, int port, string user, string pass, bool useWin)
         {
-            logger.Log(NLog.LogLevel.Debug, "Address: " + address + " - Port: " + port);
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " + user + ", pass: " + pass + ", useWin: " + useWin + ")");
             WebProxy _proxy = null;
             try
             {

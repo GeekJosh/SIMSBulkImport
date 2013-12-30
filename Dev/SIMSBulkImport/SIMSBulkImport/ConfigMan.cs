@@ -13,7 +13,7 @@ using NLog.Config;
 
 namespace Matt40k.SIMSBulkImport
 {
-    class ConfigMan
+    internal class ConfigMan
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -48,6 +48,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.UpdateUrl(GET)");
                 string result = readConfig("UpdateURL");
                 if (string.IsNullOrEmpty(result))
                 {
@@ -61,6 +62,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CheckForUpdates(GET)");
                 bool result = true;
                 string configUpdate = readConfig("AutoUpdate");
                 try
@@ -80,12 +82,14 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.IsDebugMode(GET)");
                 return logger.IsDebugEnabled;
             }
         }
 
         public static bool SetConfig(string field, string value)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetConfig(field: " + field + ", value: " + value + ")");
             // Reference: Bin-ze Zhao - http://social.msdn.microsoft.com/Forums/da-DK/csharpgeneral/thread/77b87843-ae0b-463d-b50e-b6b8e9175e50
             // Open App.Config of executable
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -114,6 +118,7 @@ namespace Matt40k.SIMSBulkImport
         {
             try
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CopyMaster(fromFile: " + fromFile + ")");
                 string toFile = Path.Combine(GetExe.FilePath, (GetExe.FileName + ".config"));
                 string updateExe = Path.Combine(GetExe.FilePath, "UpdateConfig.exe");
                 logger.Log(NLog.LogLevel.Error, fromFile + " " + toFile);

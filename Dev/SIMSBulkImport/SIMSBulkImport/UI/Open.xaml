@@ -2,8 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" >
-        <Grid Name="gridOpen">
+    <Grid>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Label Name="title" Content="__UserType__" FontSize="24" Margin="50,20,0,50"/>
+        </Grid>
+        <Grid Name="gridOpen" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="350" />
                 <ColumnDefinition Width="80" />
@@ -19,7 +22,7 @@
             <Button Content="Browse" Height="30" HorizontalAlignment="Center" Name="buttonBrowse" VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="1" Click="buttonBrowse_Click" />
             <Button Content="OK" Height="30" HorizontalAlignment="Center" Name="button" VerticalAlignment="Center" Width="75" Grid.Column="2" Grid.Row="1" Click="button_Click" IsEnabled="False" />
         </Grid>
-        <Grid Name="gridLoad" Visibility="Hidden">
+        <Grid Name="gridLoad" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100" />
                 <RowDefinition Height="30" />
@@ -27,5 +30,6 @@
             <Controls:ProgressRing IsActive="True" Foreground="DodgerBlue" Name="progressRing" Height="100" Grid.Row="0"/>
             <Label Name="labelLoad" Content="Loading file" Grid.Row="1" HorizontalAlignment="Center" FontStyle="Italic"/>
         </Grid>
+        <Button Grid.Row="1" Content="Back" HorizontalAlignment="Left" Margin="50,50,50,50" VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Name="backButton" Click="backClick"/>
     </Grid>
 </UserControl>

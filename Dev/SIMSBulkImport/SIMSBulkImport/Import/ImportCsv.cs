@@ -21,6 +21,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.GetDataSet(GET)");
                 DataSet CsvDataSet = new DataSet();
 
                 _dtCsv = new DataTable(_filePath);
@@ -54,12 +55,14 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.SetFilePath(SET: " + value + ")");
                 _filePath = value;
             }
         }
 
         private void createColumns(string[] columns)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.createColumns(columns: " + columns + ")");
             foreach (string column in columns)
             {
                 _dtCsv.Columns.Add(new DataColumn(cleanInput(column), typeof(string)));
@@ -68,6 +71,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void addRow(string[] parts)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.addRow(parts: " + parts + ")");
             DataRow newrow = _dtCsv.NewRow();
             for (int i = 0; i < parts.Length; i++)
             {
@@ -78,6 +82,7 @@ namespace Matt40k.SIMSBulkImport
 
         private string cleanInput(string input)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.cleanInput(input: " + input + ")");
             string output = input;
             if (output.Length > 1)
             {

@@ -5,6 +5,7 @@
 
 using System;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using NLog;
 
@@ -15,10 +16,13 @@ namespace Matt40k.SIMSBulkImport.Support
     /// </summary>
     internal class View
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         private string _logFile
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Support.View._logFile(GET)");
                 NLog.Targets.FileTarget t = (NLog.Targets.FileTarget)LogManager.Configuration.FindTargetByName("system");
                 var logEventInfo = new LogEventInfo { TimeStamp = DateTime.Now };
                 return t.FileName.Render(logEventInfo);
@@ -29,12 +33,14 @@ namespace Matt40k.SIMSBulkImport.Support
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Support.View.ReadLog(GET)");
                 string logFile = _logFile;
                 if (File.Exists(logFile))
                 {
                     DataTable log = logTable;
                     int counter = 0;
                     string line;
+                    string format = "yyyy-MM-dd hh:mm:ss.FFFF";
 
                     // Read the file and display it line by line.
                     StreamReader file = new StreamReader(logFile);
@@ -44,7 +50,7 @@ namespace Matt40k.SIMSBulkImport.Support
                         if (lineParts.Length == 3)
                         {
                             DataRow newrow = log.NewRow();
-                            newrow["Date"] = lineParts[0];
+                            newrow["Date"] = lineParts[1];
                             newrow["Level"] = lineParts[1];
                             newrow["Message"] = lineParts[2];
                             log.Rows.Add(newrow);
@@ -64,6 +70,7 @@ namespace Matt40k.SIMSBulkImport.Support
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Support.View.logTable(GET)");
                 DataTable log = new DataTable("Log");
                 log.Columns.Add(new DataColumn("Date", typeof(DateTime)));
                 log.Columns.Add(new DataColumn("Level", typeof(string)));

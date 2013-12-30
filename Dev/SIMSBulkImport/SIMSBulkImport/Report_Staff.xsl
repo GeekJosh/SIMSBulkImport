@@ -77,8 +77,8 @@
             <td><xsl:value-of select="Surname"/></td>
             <td><xsl:value-of select="Forename"/></td>
             <td><xsl:value-of select="Gender"/></td>
-            <td><xsl:value-of select="Staff-Code"/></td>
-            <td><xsl:value-of select="Date-of-Birth"/></td>
+            <td><xsl:value-of select="Staff_Code"/></td>
+            <td><xsl:value-of select="DOB"/></td>
             <td><xsl:value-of select="PersonID"/></td>
             <td><xsl:value-of select="Result"/></td>
             <td><xsl:value-of select="Item"/></td>

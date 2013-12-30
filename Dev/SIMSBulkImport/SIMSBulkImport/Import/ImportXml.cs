@@ -19,6 +19,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportXml.GetDataSet(GET)");
                 DataSet result = new DataSet();
                 if (!File.Exists(_filePath))
                 {
@@ -34,6 +35,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportXml.SetFilePath(SET: " + value + ")");
                 _filePath = value;
             }
         }

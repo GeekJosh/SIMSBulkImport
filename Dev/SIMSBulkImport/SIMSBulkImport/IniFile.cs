@@ -11,7 +11,9 @@ namespace Matt40k.SIMSBulkImport
 {
     public class IniFile
     {
-        public string path;
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+        private string path;
 
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section,
@@ -24,6 +26,7 @@ namespace Matt40k.SIMSBulkImport
         /// <PARAM name="INIPath"></PARAM>
         public IniFile(string INIPath)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.IniFile.IniFile(INIPath: " + INIPath + ")");
             path = INIPath;
         }
 
@@ -36,6 +39,7 @@ namespace Matt40k.SIMSBulkImport
         /// <returns></returns>
         public string Read(string Section, string Key)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.IniFile.Read(Section: " + Section + ", Key: " + Key + ")");
             StringBuilder temp = new StringBuilder(255);
             int i = GetPrivateProfileString(Section, Key, "", temp,
                                             255, this.path);

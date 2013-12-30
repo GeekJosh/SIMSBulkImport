@@ -19,6 +19,7 @@ namespace Matt40k.SIMSBulkImport
         [STAThread]
         static void Main(string[] args)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Program.Main()");
             bool freeToRun;
             if (args.Length == 0)
             {

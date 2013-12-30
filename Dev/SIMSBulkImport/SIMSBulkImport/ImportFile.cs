@@ -26,7 +26,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Debug, "SetImportFilePath");
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.SetImportFilePath(SET: " + value + ")");
                 if (File.Exists(value))
                 {
                     logger.Log(LogLevel.Debug, value);
@@ -43,13 +43,14 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetDataSet(GET)");
                 return _importDataSet;
             }
         }
 
         internal void GetImportDataSet()
         {
-            logger.Log(LogLevel.Debug, "GetImportDataSet");
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetImportDataSet()");
 
             _importFileType = importFileType;
 
@@ -88,6 +89,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetIsExcel(GET)");
                 return (importFileType == FileType.Xls);
             }
         }
@@ -96,6 +98,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.importFileType(GET)");
                 string ext = Path.GetExtension(_filePath);
                 logger.Log(NLog.LogLevel.Debug, "importFileType: " + ext);
                 switch (ext)
@@ -119,6 +122,7 @@ namespace Matt40k.SIMSBulkImport
         public void Reset()
         {
             // TODO
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.Reset()");
         }
     }
 }

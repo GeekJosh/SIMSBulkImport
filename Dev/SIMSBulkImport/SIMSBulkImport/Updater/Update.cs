@@ -31,8 +31,8 @@ namespace Matt40k.SIMSBulkImport.Updater
             BackgroundWorker bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
-            bw.DoWork += new DoWorkEventHandler(GetServerVersion_DoWork);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(GetServerVersion_RunWorkerCompleted);
+            bw.DoWork += new DoWorkEventHandler(getServerVersion_DoWork);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(getServerVersion_RunWorkerCompleted);
 
             if (bw.IsBusy != true)
             {
@@ -44,31 +44,34 @@ namespace Matt40k.SIMSBulkImport.Updater
             }
         }
 
-        private static void GetServerVersion()
+        private static void getServerVersion()
         {
-                DataTable address = _requestor.GetVersion;
-                DataRow dt = address.Rows[0];
-                serverVersion = dt["latestversion"].ToString();
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion()");
+            DataTable address = _requestor.GetVersion;
+            DataRow dt = address.Rows[0];
+            serverVersion = dt["latestversion"].ToString();
         }
 
-        private static void GetServerVersion_DoWork(object sender, DoWorkEventArgs e)
+        private static void getServerVersion_DoWork(object sender, DoWorkEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_DoWork(sender: " + sender + ", e: " + e + ")");
             try
             {
                 _requestor = new Requestor();
                 _proxy = new Proxy();
                 _proxy.SetUrl = ConfigMan.UpdateUrl;
                 _requestor.SetApiUrl = ConfigMan.UpdateUrl;
-                GetServerVersion();
+                getServerVersion();
             }
-            catch (Exception GetServerVersion_DoWork_Exception)
+            catch (Exception getServerVersion_DoWork_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, GetServerVersion_DoWork_Exception);
+                logger.Log(NLog.LogLevel.Error, getServerVersion_DoWork_Exception);
             }
         }
 
         private static void runUpdate()
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.runUpdate()");
             string outOfDate = ConfigMan.UpdateUrl + "simsbulkimport.html";
             try
             {
@@ -82,8 +85,9 @@ namespace Matt40k.SIMSBulkImport.Updater
             }
         }
 
-        private static void GetServerVersion_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private static void getServerVersion_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_RunWorkerCompleted(sender: " + sender + ", e: " + e + ")");
             string localVersion = GetExe.Version;
 
             if (!string.IsNullOrEmpty(serverVersion))

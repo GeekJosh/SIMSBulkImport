@@ -2,29 +2,24 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSBulkImport", "SIMSBulkImport\SIMSBulkImport.csproj", "{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594} = {8DEFDEFF-D463-4E58-BF52-7C6CC8963594}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateConfig", "UpdateConfig\UpdateConfig.csproj", "{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Installer\Installer.csproj", "{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6} = {C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs17
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = SIMSBulkImport\\SIMSBulkImport.csproj
 		SccProjectName1 = SIMSBulkImport
 		SccLocalPath1 = SIMSBulkImport
-		SccProjectUniqueName2 = UpdateConfig\\UpdateConfig.csproj
-		SccProjectName2 = UpdateConfig
-		SccLocalPath2 = UpdateConfig
-		SccProjectUniqueName3 = Installer\\Installer.csproj
-		SccProjectName3 = Installer
-		SccLocalPath3 = Installer
+		SccProjectUniqueName2 = Installer\\Installer.csproj
+		SccProjectName2 = Installer
+		SccLocalPath2 = Installer
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,16 +40,6 @@ Global
 		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Release|Mixed Platforms.Build.0 = Release|x86
 		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Release|x86.ActiveCfg = Release|x86
 		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Release|x86.Build.0 = Release|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|x86.ActiveCfg = Debug|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|x86.Build.0 = Debug|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|Any CPU.ActiveCfg = Release|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|Mixed Platforms.Build.0 = Release|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|x86.ActiveCfg = Release|x86
-		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|x86.Build.0 = Release|x86
 		{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
