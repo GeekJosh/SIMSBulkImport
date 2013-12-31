@@ -72,7 +72,7 @@ namespace Matt40k.SIMSBulkImport.Updater
         private static void runUpdate()
         {
             logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.runUpdate()");
-            string outOfDate = ConfigMan.UpdateUrl + "simsbulkimport.html";
+            string outOfDate = "http://www.matt40k.co.uk/simsbulkimport.html"; // TODO
             try
             {
                 Process process = new Process();

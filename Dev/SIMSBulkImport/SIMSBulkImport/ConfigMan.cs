@@ -52,7 +52,7 @@ namespace Matt40k.SIMSBulkImport
                 string result = readConfig("UpdateURL");
                 if (string.IsNullOrEmpty(result))
                 {
-                    return "http://www.matt40k.co.uk/";
+                    return "http://api.matt40k.co.uk/";
                 }
                 return result;
             }
@@ -90,57 +90,7 @@ namespace Matt40k.SIMSBulkImport
         public static bool SetConfig(string field, string value)
         {
             logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetConfig(field: " + field + ", value: " + value + ")");
-            // Reference: Bin-ze Zhao - http://social.msdn.microsoft.com/Forums/da-DK/csharpgeneral/thread/77b87843-ae0b-463d-b50e-b6b8e9175e50
-            // Open App.Config of executable
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            // Add an Application Setting.
-            config.AppSettings.Settings.Remove(field);
-            config.AppSettings.Settings.Add(field, value);
-            try
-            {
-                // Save the configuration file.
-                config.Save(ConfigurationSaveMode.Modified);
-            }
-            catch (Exception SetKeyException)
-            {
-                string tmpFile = Path.GetTempFileName();
-                File.Delete(tmpFile);
-                config.SaveAs(tmpFile);
-                bool result = CopyMaster(tmpFile);
-                if (!result) { return false; }
-            }
-            // Force a reload of a changed section.
-            ConfigurationManager.RefreshSection("appSettings");
             return true;
-        }
-
-        private static bool CopyMaster(string fromFile)
-        {
-            try
-            {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CopyMaster(fromFile: " + fromFile + ")");
-                string toFile = Path.Combine(GetExe.FilePath, (GetExe.FileName + ".config"));
-                string updateExe = Path.Combine(GetExe.FilePath, "UpdateConfig.exe");
-                logger.Log(NLog.LogLevel.Error, fromFile + " " + toFile);
-                Process process = new Process();
-                process.StartInfo.UseShellExecute = true;
-                process.StartInfo.FileName = updateExe;
-                process.StartInfo.Arguments = "\"" + fromFile + "\" \"" + toFile + "\"";
-                process.StartInfo.Verb = "runas";
-                process.EnableRaisingEvents = true;
-                process.Start();
-                process.WaitForExit();
-                int result = process.ExitCode;
-                if (result == 0)
-                {
-                    return true;
-                }
-            }
-            catch (Exception CopyMasterException)
-            {
-                logger.Log(NLog.LogLevel.Error, CopyMasterException);
-            }
-            return false;
         }
     }
 }

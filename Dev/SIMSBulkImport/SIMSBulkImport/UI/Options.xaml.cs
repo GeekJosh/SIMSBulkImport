@@ -41,34 +41,8 @@ namespace Matt40k.SIMSBulkImport
             this.checkBoxUpdates.IsChecked = ConfigMan.CheckForUpdates;
         }
 
-        private bool writeConfig_Updates
-        {
-            set
-            {
-                // Reference: Bin-ze Zhao - http://social.msdn.microsoft.com/Forums/da-DK/csharpgeneral/thread/77b87843-ae0b-463d-b50e-b6b8e9175e50
-                // Open App.Config of executable
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                // Add an Application Setting.
-                config.AppSettings.Settings.Remove("AutoUpdate");
-                config.AppSettings.Settings.Add("AutoUpdate", value.ToString());
-                try
-                {
-                    // Save the configuration file.
-                    config.Save(ConfigurationSaveMode.Modified);
-                }
-                catch (Exception writeConfig_UpdatesException)
-                {
-                    logger.Log(NLog.LogLevel.Error, writeConfig_UpdatesException);
-                }
-                // Force a reload of a changed section.
-                ConfigurationManager.RefreshSection("appSettings");
-            }
-        }
-
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-            //writeConfig_Updates = this.checkBoxUpdates.IsChecked.Value;
-            ConfigMan.SetDebugMode = this.checkBoxDebug.IsChecked.Value;
             Switcher.Switch(new Menu());
         }
 
