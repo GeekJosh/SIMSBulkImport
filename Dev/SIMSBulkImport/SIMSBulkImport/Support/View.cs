@@ -50,10 +50,24 @@ namespace Matt40k.SIMSBulkImport.Support
                         if (lineParts.Length == 3)
                         {
                             DataRow newrow = log.NewRow();
-                            newrow["Date"] = lineParts[1];
+                            try
+                            {
+                                newrow["Date"] = Convert.ToDateTime(lineParts[0]);
+                            }
+                            catch (Exception e)
+                            {
+                                    logger.Log(NLog.LogLevel.Trace, lineParts[0] + " :: " + e.ToString());
+                            }
                             newrow["Level"] = lineParts[1];
                             newrow["Message"] = lineParts[2];
-                            log.Rows.Add(newrow);
+                            try
+                            {
+                                log.Rows.Add(newrow);
+                            }
+                            catch (Exception e)
+                            {
+                                logger.Log(NLog.LogLevel.Trace, e.ToString());
+                            }
                         }
                         counter++;
                     }
@@ -62,6 +76,7 @@ namespace Matt40k.SIMSBulkImport.Support
 
                     return log;
                 }
+                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Support.View.ReadLog(GET) FALLEN OVER");
                 return null;
             }
         }
