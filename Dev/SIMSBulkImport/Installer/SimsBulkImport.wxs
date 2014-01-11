@@ -8,36 +8,34 @@
   DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramFilesFolder" Name="PFiles">
-                <Directory Id="ManufacturerFolder" Name="Matt Smith">
                     <Directory Id="INSTALLDIR" Name="SIMS Bulk Import Tool">
                         <Component Id="files" Guid="">
-                            <File Id="GUIDE.PDF" Name="Guide.pdf" Source="D:\Projects\SIMSBulkImport\Guide.pdf" />
-                            <File Id="MAHAPPS.METRO.DLL" Name="MahApps.Metro.dll" Source="D:\Projects\SIMSBulkImport\MahApps.Metro.dll" />
-                            <File Id="NLOG.DLL" Name="NLog.dll" Source="D:\Projects\SIMSBulkImport\NLog.dll" />
-                            <File Id="NLOG.XML" Name="NLog.xml" Source="D:\Projects\SIMSBulkImport\NLog.xml" />
-                            <File Id="REPORT_CONTACT.XSL" Name="Report_Contact.xsl" Source="D:\Projects\SIMSBulkImport\Report_Contact.xsl" />
-                            <File Id="REPORT_PUPIL.XSL" Name="Report_Pupil.xsl" Source="D:\Projects\SIMSBulkImport\Report_Pupil.xsl" />
-                            <File Id="REPORT_STAFF.XSL" Name="Report_Staff.xsl" Source="D:\Projects\SIMSBulkImport\Report_Staff.xsl" />
-                            <File Id="SIMS_BULK_IMPORT.EXE" Name="SIMS Bulk Import.exe" Source="D:\Projects\SIMSBulkImport\SIMS Bulk Import.exe" />
-                            <File Id="SIMS_BULK_IMPORT.EXE.CONFIG" Name="SIMS Bulk Import.exe.config" Source="D:\Projects\SIMSBulkImport\SIMS Bulk Import.exe.config" />
-                            <File Id="SIMS_BULK_IMPORT.EXE.MANIFEST" Name="SIMS Bulk Import.exe.manifest" Source="D:\Projects\SIMSBulkImport\SIMS Bulk Import.exe.manifest" />
-                            <File Id="SIMS_BULK_IMPORT.PDB" Name="SIMS Bulk Import.pdb" Source="D:\Projects\SIMSBulkImport\SIMS Bulk Import.pdb" />
-                            <File Id="SIMSAPI.DLL" Name="SIMSAPI.dll" Source="D:\Projects\SIMSBulkImport\SIMSAPI.dll" />
-                            <File Id="SIMSAPI.DLL.CONFIG" Name="SIMSAPI.dll.config" Source="D:\Projects\SIMSBulkImport\SIMSAPI.dll.config" />
-                            <File Id="SIMSAPI.PDB" Name="SIMSAPI.pdb" Source="D:\Projects\SIMSBulkImport\SIMSAPI.pdb" />
-                            <File Id="SYSTEM.WINDOWS.INTERACTIVITY.DLL" Name="System.Windows.Interactivity.dll" Source="D:\Projects\SIMSBulkImport\System.Windows.Interactivity.dll" />
-                            <File Id="UPDATECONFIG.EXE" Name="UpdateConfig.exe" Source="D:\Projects\SIMSBulkImport\UpdateConfig.exe" />
-                            <File Id="UPDATECONFIG.EXE.CONFIG" Name="UpdateConfig.exe.config" Source="D:\Projects\SIMSBulkImport\UpdateConfig.exe.config" />
-                            <File Id="LICENSE.RTF" Name="License.rtf" Source="D:\Projects\SIMSBulkImport\License.rtf" />
+                            <File Id="GUIDE.PDF" Name="Guide.pdf" Source="Guide.pdf" />
+                            <File Id="MAHAPPS.METRO.DLL" Name="MahApps.Metro.dll" Source="..\BUILD\MahApps.Metro.dll" />
+                            <File Id="NLOG.DLL" Name="NLog.dll" Source="..\BUILD\NLog.dll" />
+                            <File Id="NLOG.XML" Name="NLog.xml" Source="..\BUILD\NLog.xml" />
+                            <File Id="REPORT_CONTACT.XSL" Name="Report_Contact.xsl" Source="..\BUILD\Report_Contact.xsl" />
+                            <File Id="REPORT_PUPIL.XSL" Name="Report_Pupil.xsl" Source="..\BUILD\Report_Pupil.xsl" />
+                            <File Id="REPORT_STAFF.XSL" Name="Report_Staff.xsl" Source="..\BUILD\Report_Staff.xsl" />
+                            <File Id="SIMS_BULK_IMPORT.EXE" Name="SIMS Bulk Import.exe" Source="..\BUILD\SIMS Bulk Import.exe" />
+                            <File Id="SIMS_BULK_IMPORT.EXE.CONFIG" Name="SIMS Bulk Import.exe.config" Source="..\BUILD\SIMS Bulk Import.exe.config" />
+                            <File Id="SIMS_BULK_IMPORT.EXE.MANIFEST" Name="SIMS Bulk Import.exe.manifest" Source="..\BUILD\SIMS Bulk Import.exe.manifest" />
+                            <File Id="SIMS_BULK_IMPORT.PDB" Name="SIMS Bulk Import.pdb" Source="..\BUILD\SIMS Bulk Import.pdb" />
+                            <File Id="SIMSAPI.DLL" Name="SIMSAPI.dll" Source="..\BUILD\SIMSAPI.dll" />
+                            <File Id="SIMSAPI.DLL.CONFIG" Name="SIMSAPI.dll.config" Source="..\BUILD\SIMSAPI.dll.config" />
+                            <File Id="SIMSAPI.PDB" Name="SIMSAPI.pdb" Source="..\BUILD\SIMSAPI.pdb" />
+                            <File Id="SYSTEM.WINDOWS.INTERACTIVITY.DLL" Name="System.Windows.Interactivity.dll" Source="..\BUILD\System.Windows.Interactivity.dll" />
+                            <!--<File Id="UPDATECONFIG.EXE" Name="UpdateConfig.exe" Source="..\BUILD\UpdateConfig.exe" />
+                            <File Id="UPDATECONFIG.EXE.CONFIG" Name="UpdateConfig.exe.config" Source="..\BUILD\UpdateConfig.exe.config" />-->
+                            <File Id="LICENSE.RTF" Name="License.rtf" Source="License.rtf" />
                             <RemoveFolder On="uninstall" Id="folder" />
                         </Component>
-                    </Directory>
                 </Directory>
             </Directory>
             <Component Id="ProgramMenuDir" Guid="2986B6B8-783B-45A2-AB09-BDF61B8C49F7">
                 <Shortcut Id="StartMenuDir" Name="SIMS Bulk Import" Target="SIMS_BULK_IMPORT.EXE" Description="Bulk import Email, telephone and UDFs into SIMS .net" />
                 <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
-                <RegistryValue Root="HKLM" Key="Software\Matt Smith\SIMS Bulk Import" Type="string" Value="" KeyPath="yes" />
+                <RegistryValue Root="HKLM" Key="Software\SIMS Bulk Import" Type="string" Value="" KeyPath="yes" />
             </Component>
         </Directory>
         <Feature Id="MainFeature" Level="1">
