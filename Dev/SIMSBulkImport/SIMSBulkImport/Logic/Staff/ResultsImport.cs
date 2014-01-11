@@ -5,39 +5,46 @@
 
 using System;
 using System.Data;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport.Staff
 {
     public class ResultsImport
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private DataTable staffTable;
 
         public ResultsImport()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Staff.ResultsImport()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Staff.ResultsImport()");
             CreateResultTable();
+        }
+
+        public DataTable GetStaffResultsTable
+        {
+            get { return staffTable; }
         }
 
         private void CreateResultTable()
         {
-            logger.Log(NLog.LogLevel.Debug, "Generating Staff Result table");
+            logger.Log(LogLevel.Debug, "Generating Staff Result table");
 
             staffTable = new DataTable("Staff Import Results");
-            staffTable.Columns.Add(new DataColumn("Surname", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Forename", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Gender", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Result", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Item", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Value", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Notes", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Title", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Staff-Code", typeof(string)));
-            staffTable.Columns.Add(new DataColumn("Date-of-Birth", typeof(string)));
+            staffTable.Columns.Add(new DataColumn("Surname", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Forename", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Gender", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("PersonID", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Result", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Item", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Value", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Notes", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Title", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Staff-Code", typeof (string)));
+            staffTable.Columns.Add(new DataColumn("Date-of-Birth", typeof (string)));
         }
 
-        public bool AddToResultsTable(string surname, string forename, string gender, string staffcode, string dob, string personID, string result, string item, string value, string notes, string title)
+        public bool AddToResultsTable(string surname, string forename, string gender, string staffcode, string dob,
+            string personID, string result, string item, string value, string notes, string title)
         {
             try
             {
@@ -57,18 +64,10 @@ namespace Matt40k.SIMSBulkImport.Staff
             }
             catch (Exception AddToResultsTable_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, AddToResultsTable_Exception);
+                logger.Log(LogLevel.Error, AddToResultsTable_Exception);
                 return false;
             }
             return true;
-        }
-
-        public DataTable GetStaffResultsTable
-        {
-            get
-            {
-                return staffTable;
-            }
         }
     }
 }

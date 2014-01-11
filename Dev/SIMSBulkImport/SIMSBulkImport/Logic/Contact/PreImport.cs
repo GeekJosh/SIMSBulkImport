@@ -5,42 +5,40 @@
 
 using System;
 using System.Data;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport.Contact
 {
     public class PreImport
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        private DataTable importDataTable;
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private DataTable contactTable;
+        private DataTable importDataTable;
 
         public DataTable SetImportDataTable
         {
-            set
-            {
-                importDataTable = value;
-            }
+            set { importDataTable = value; }
         }
 
         public DataTable CreateDataTable
         {
             get
             {
-                logger.Log(NLog.LogLevel.Debug, "Generating Contact Table");
+                logger.Log(LogLevel.Debug, "Generating Contact Table");
 
                 contactTable = new DataTable();
-                contactTable.Columns.Add(new DataColumn("Status", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("Surname", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("Forename", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("Postcode", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("Town", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("Import email", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("Import telephone", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("SIMS telephone", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
-                contactTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
+                contactTable.Columns.Add(new DataColumn("Status", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("Surname", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("Forename", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("Postcode", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("Town", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("Import email", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("Import telephone", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("Import UDF", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("SIMS email addresses", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("SIMS telephone", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("SIMS UDF", typeof (string)));
+                contactTable.Columns.Add(new DataColumn("PersonID", typeof (string)));
                 return contactTable;
             }
         }
@@ -80,7 +78,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchFirstname_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchSurname))
@@ -91,7 +89,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchSurname_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchEmail))
@@ -102,7 +100,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchEmail_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchTelephone))
@@ -113,7 +111,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchUDF))
@@ -124,7 +122,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchUDF_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchPostcode))
@@ -135,7 +133,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchPostcode_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchPostcode_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchPostcode_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchTown))
@@ -146,7 +144,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchTown_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTown_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchTown_ArgumentNullException);
                     }
                 }
 
@@ -165,7 +163,8 @@ namespace Matt40k.SIMSBulkImport.Contact
                 {
                     // Person has been found - so we pull in missing data fields :) 
                     emailsInSims = Switcher.SimsApiClass.GetContactEmail(pid);
-                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims, strTelephone, telephonesInSims);
+                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims,
+                        strTelephone, telephonesInSims);
                     telephonesInSims = Switcher.SimsApiClass.GetContactTelephone(pid);
                 }
 
@@ -189,7 +188,7 @@ namespace Matt40k.SIMSBulkImport.Contact
             }
             catch (Exception AddToDataTable_Exception)
             {
-                logger.Log(NLog.LogLevel.Debug, AddToDataTable_Exception);
+                logger.Log(LogLevel.Debug, AddToDataTable_Exception);
             }
 
             return contactTable;

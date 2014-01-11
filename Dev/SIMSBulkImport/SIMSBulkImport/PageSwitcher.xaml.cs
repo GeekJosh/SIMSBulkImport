@@ -6,16 +6,16 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using MahApps;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
-    /// Interaction logic for PageSwitcher.xaml
+    ///     Interaction logic for PageSwitcher.xaml
     /// </summary>
     public partial class PageSwitcher
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public PageSwitcher()
         {
@@ -28,7 +28,7 @@ namespace Matt40k.SIMSBulkImport
 
         public void Navigate(UserControl nextPage)
         {
-            this.Content = nextPage;
+            Content = nextPage;
         }
 
         public void LoadMetroUI()
@@ -45,34 +45,40 @@ namespace Matt40k.SIMSBulkImport
             });
 
             */
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
-                Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml", UriKind.RelativeOrAbsolute)
-            });
-            
-
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml", UriKind.RelativeOrAbsolute)
+                Source =
+                    new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml",
+                        UriKind.RelativeOrAbsolute)
             });
 
 
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
-                Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml", UriKind.RelativeOrAbsolute)
+                Source =
+                    new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml",
+                        UriKind.RelativeOrAbsolute)
+            });
+
+
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source =
+                    new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml",
+                        UriKind.RelativeOrAbsolute)
             });
         }
 
         public void Navigate(UserControl nextPage, object state)
         {
-            this.Content = nextPage;
-            ISwitchable s = nextPage as ISwitchable;
+            Content = nextPage;
+            var s = nextPage as ISwitchable;
 
             if (s != null)
                 s.UtilizeState(state);
             else
                 throw new ArgumentException("NextPage is not ISwitchable! "
-                  + nextPage.Name.ToString());
+                                            + nextPage.Name);
         }
     }
 }

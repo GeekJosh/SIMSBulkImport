@@ -10,24 +10,24 @@ using NLog;
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
-    /// To identify the number of unique users, without forcing people to give up their 
-    /// anonymity we give them a unique ID (GUID), generated at installation (TODO).
+    ///     To identify the number of unique users, without forcing people to give up their
+    ///     anonymity we give them a unique ID (GUID), generated at installation (TODO).
     /// </summary>
     internal static class Stats
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         // Reads the GUID from the registry
         internal static string ReadID
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Stats.ReadID(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Stats.ReadID(GET)");
                 string id = null;
                 try
                 {
                     RegistryKey regKey1 = Registry.LocalMachine.OpenSubKey("SOFTWARE\\SIMS Bulk Import", false);
-                    id=(string)regKey1.GetValue("ID");
+                    id = (string) regKey1.GetValue("ID");
                     regKey1.Close();
                 }
                 catch (Exception ReadID_exception)
@@ -39,6 +39,5 @@ namespace Matt40k.SIMSBulkImport
                 return id;
             }
         }
-        
     }
 }

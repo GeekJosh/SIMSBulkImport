@@ -4,28 +4,29 @@
  */
 
 using System;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport.Staff
 {
     public class Import
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public bool SetStaffEmail(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Staff.Import.SetStaffEmail");
+            logger.Log(LogLevel.Trace, "Staff.Import.SetStaffEmail");
             return Switcher.SimsApiClass.SetStaffEmail(personID, value);
         }
 
         public bool SetStaffTelephone(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Staff.Import.SetStaffTelephone");
+            logger.Log(LogLevel.Trace, "Staff.Import.SetStaffTelephone");
             return Switcher.SimsApiClass.SetStaffTelephone(personID, value);
         }
 
         public bool SetStaffUDF(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Staff.Import.SetStaffUDF");
+            logger.Log(LogLevel.Trace, "Staff.Import.SetStaffUDF");
             return Switcher.SimsApiClass.SetStaffUDF(personID, value);
         }
     }

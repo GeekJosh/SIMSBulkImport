@@ -4,19 +4,20 @@
  */
 
 using System;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     public class Import
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        private Contact.Import _importContact;
-        private Pupil.Import _importPupil;
-        private Staff.Import _importStaff;
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly Contact.Import _importContact;
+        private readonly Pupil.Import _importPupil;
+        private readonly Staff.Import _importStaff;
 
         public Import()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -33,7 +34,8 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetEmail(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(personID: " + personID + ", value: " + value + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -43,34 +45,36 @@ namespace Matt40k.SIMSBulkImport
                 case Interfaces.UserType.Staff:
                     return _importStaff.SetStaffEmail(personID, value);
                 default:
-                    logger.Log(NLog.LogLevel.Error, "Import.SetEmail - UserType not set");
+                    logger.Log(LogLevel.Error, "Import.SetEmail - UserType not set");
                     return false;
             }
         }
 
         public bool SetTelephone(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(personID: " + personID + ", value: " + value + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
-                    logger.Log(NLog.LogLevel.Trace, "SetTelephone_Contact");
+                    logger.Log(LogLevel.Trace, "SetTelephone_Contact");
                     return _importContact.SetContactTelephone(personID, value);
                 case Interfaces.UserType.Pupil:
-                    logger.Log(NLog.LogLevel.Trace, "SetTelephone_Pupil");
+                    logger.Log(LogLevel.Trace, "SetTelephone_Pupil");
                     return _importPupil.SetPupilTelephone(personID, value);
                 case Interfaces.UserType.Staff:
-                    logger.Log(NLog.LogLevel.Trace, "SetTelephone_Staff");
+                    logger.Log(LogLevel.Trace, "SetTelephone_Staff");
                     return _importStaff.SetStaffTelephone(personID, value);
                 default:
-                    logger.Log(NLog.LogLevel.Error, "Import.SetTelephone - UserType not set");
+                    logger.Log(LogLevel.Error, "Import.SetTelephone - UserType not set");
                     return false;
             }
         }
 
         public bool SetUDF(Int32 personID, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import.SetUDF(personID: " + personID + ", value: " + value + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.Import.SetUDF(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -80,7 +84,7 @@ namespace Matt40k.SIMSBulkImport
                 case Interfaces.UserType.Staff:
                     return _importStaff.SetStaffUDF(personID, value);
                 default:
-                    logger.Log(NLog.LogLevel.Error, "Import.SetUDF - UserType not set");
+                    logger.Log(LogLevel.Error, "Import.SetUDF - UserType not set");
                     return false;
             }
         }

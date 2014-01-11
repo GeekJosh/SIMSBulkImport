@@ -5,30 +5,31 @@
 
 using System.IO;
 using System.Reflection;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     internal class GetExe
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
-        /// Gets the application version
+        ///     Gets the application version
         /// </summary>
         protected internal static string Version
         {
-            get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
         }
 
         /// <summary>
-        /// Gets the applications Title.
+        ///     Gets the applications Title.
         /// </summary>
         protected internal static string Title
         {
             get
             {
                 object[] attributes =
-                    System.Reflection.Assembly.GetExecutingAssembly().GetCustomAttributes(
+                    Assembly.GetExecutingAssembly().GetCustomAttributes(
                         typeof (AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
@@ -38,83 +39,74 @@ namespace Matt40k.SIMSBulkImport
                         return titleAttribute.Title;
                     }
                 }
-                return Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
         /// <summary>
-        /// Gets the applications Description.
+        ///     Gets the applications Description.
         /// </summary>
         protected internal static string Description
         {
             get
             {
                 object[] attributes =
-                    System.Reflection.Assembly.GetExecutingAssembly().GetCustomAttributes(
-                    typeof(AssemblyDescriptionAttribute), false);
+                    Assembly.GetExecutingAssembly().GetCustomAttributes(
+                        typeof (AssemblyDescriptionAttribute), false);
                 if (attributes.Length > 0)
                 {
-                    var descriptionAttribute = (AssemblyDescriptionAttribute)attributes[0];
+                    var descriptionAttribute = (AssemblyDescriptionAttribute) attributes[0];
                     if (descriptionAttribute.Description != "")
                     {
                         return descriptionAttribute.Description;
                     }
                 }
-                return Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
         /// <summary>
-        /// Gets the applications Copyright.
+        ///     Gets the applications Copyright.
         /// </summary>
         protected internal static string Copyright
         {
             get
             {
                 object[] attributes =
-                    System.Reflection.Assembly.GetExecutingAssembly().GetCustomAttributes(
-                        typeof(AssemblyCopyrightAttribute), false);
+                    Assembly.GetExecutingAssembly().GetCustomAttributes(
+                        typeof (AssemblyCopyrightAttribute), false);
                 if (attributes.Length > 0)
                 {
-                    var copyrightAttribute = (AssemblyCopyrightAttribute)attributes[0];
+                    var copyrightAttribute = (AssemblyCopyrightAttribute) attributes[0];
                     if (copyrightAttribute.Copyright != "")
                     {
                         return copyrightAttribute.Copyright;
                     }
                 }
-                return Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
         /// <summary>
-        /// Gets the applications FileName.
+        ///     Gets the applications FileName.
         /// </summary>
         protected internal static string FileName
         {
-            get
-            {
-                return Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            }
+            get { return Path.GetFileName(Assembly.GetExecutingAssembly().CodeBase); }
         }
 
 
         protected internal static string FilePath
         {
-            get
-            {
-                return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Substring(6);
-            }
+            get { return Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Substring(6); }
         }
 
         /// <summary>
-        /// Gets the applications url.
+        ///     Gets the applications url.
         /// </summary>
         protected internal static string AppUrl
         {
-            get
-            {
-                return "http://simsbulkimport.codeplex.com/";
-            }
+            get { return "http://simsbulkimport.codeplex.com/"; }
         }
     }
 }

@@ -3,25 +3,24 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
-using System;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
-    class Prefix
+    internal class Prefix
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string _prefix;
 
         /// <summary>
-        /// Get the default prefix for all temp files created
+        ///     Get the default prefix for all temp files created
         /// </summary>
         public static string GetPrefix
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Prefix.GetPrefix(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Prefix.GetPrefix(GET)");
                 if (string.IsNullOrEmpty(_prefix))
                 {
                     _prefix = "SIMSBulkImport_";

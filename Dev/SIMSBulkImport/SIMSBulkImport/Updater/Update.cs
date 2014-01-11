@@ -5,17 +5,15 @@
 
 using System;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Diagnostics;
-using System.IO;
-using System.Net;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport.Updater
 {
     public static class Update
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private static Requestor _requestor;
         private static Proxy _proxy;
@@ -23,16 +21,16 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         public static void Check()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.Check");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.Check");
 
             string localVersion = GetExe.Version;
-            logger.Log(NLog.LogLevel.Trace, "localVersion :: " + localVersion);
+            logger.Log(LogLevel.Trace, "localVersion :: " + localVersion);
 
-            BackgroundWorker bw = new BackgroundWorker();
+            var bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
-            bw.DoWork += new DoWorkEventHandler(getServerVersion_DoWork);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(getServerVersion_RunWorkerCompleted);
+            bw.DoWork += getServerVersion_DoWork;
+            bw.RunWorkerCompleted += getServerVersion_RunWorkerCompleted;
 
             if (bw.IsBusy != true)
             {
@@ -40,13 +38,13 @@ namespace Matt40k.SIMSBulkImport.Updater
             }
             else
             {
-                logger.Log(NLog.LogLevel.Info, "Not checking for updates");
+                logger.Log(LogLevel.Info, "Not checking for updates");
             }
         }
 
         private static void getServerVersion()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion()");
             DataTable address = _requestor.GetVersion;
             DataRow dt = address.Rows[0];
             serverVersion = dt["latestversion"].ToString();
@@ -54,7 +52,8 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         private static void getServerVersion_DoWork(object sender, DoWorkEventArgs e)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_DoWork(sender: " + sender + ", e: " + e + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_DoWork(sender: " + sender + ", e: " + e + ")");
             try
             {
                 _requestor = new Requestor();
@@ -65,46 +64,48 @@ namespace Matt40k.SIMSBulkImport.Updater
             }
             catch (Exception getServerVersion_DoWork_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, getServerVersion_DoWork_Exception);
+                logger.Log(LogLevel.Error, getServerVersion_DoWork_Exception);
             }
         }
 
         private static void runUpdate()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.runUpdate()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.runUpdate()");
             string outOfDate = "http://www.matt40k.co.uk/simsbulkimport.html"; // TODO
             try
             {
-                Process process = new Process();
+                var process = new Process();
                 process.StartInfo.FileName = outOfDate;
                 process.Start();
             }
             catch (Exception buttonAppUrl_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, buttonAppUrl_Exception);
+                logger.Log(LogLevel.Error, buttonAppUrl_Exception);
             }
         }
 
         private static void getServerVersion_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_RunWorkerCompleted(sender: " + sender + ", e: " + e + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_RunWorkerCompleted(sender: " + sender + ", e: " +
+                e + ")");
             string localVersion = GetExe.Version;
 
             if (!string.IsNullOrEmpty(serverVersion))
             {
                 //Check versions
-                logger.Log(NLog.LogLevel.Debug, "Client: " + localVersion);
-                logger.Log(NLog.LogLevel.Debug, "Server: " + serverVersion);
+                logger.Log(LogLevel.Debug, "Client: " + localVersion);
+                logger.Log(LogLevel.Debug, "Server: " + serverVersion);
                 switch (localVersion.CompareTo(serverVersion))
                 {
                     case 0:
-                        logger.Log(NLog.LogLevel.Info, "Application is up-to-date");
+                        logger.Log(LogLevel.Info, "Application is up-to-date");
                         break;
                     case 1:
-                        logger.Log(NLog.LogLevel.Info, "Application is newer then server - server is out-of date?!?");
+                        logger.Log(LogLevel.Info, "Application is newer then server - server is out-of date?!?");
                         break;
                     case -1:
-                        logger.Log(NLog.LogLevel.Info, "Application is out-of-date, please update");
+                        logger.Log(LogLevel.Info, "Application is out-of-date, please update");
                         runUpdate();
                         break;
                 }

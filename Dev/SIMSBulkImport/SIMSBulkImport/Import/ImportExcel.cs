@@ -8,12 +8,13 @@ using System.Data;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
 using NLog;
+using DataTable = System.Data.DataTable;
 
 namespace Matt40k.SIMSBulkImport
 {
     internal class ImportExcel
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private string _filePath;
 
@@ -21,7 +22,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportExcel.SetFilePath(SET: " + value + ")");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportExcel.SetFilePath(SET: " + value + ")");
                 if (File.Exists(value))
                     _filePath = value;
             }
@@ -32,20 +33,21 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportExcel.GetDataSet(GET)");
-                logger.Log(NLog.LogLevel.Debug, "GetExcel");
-                DataSet _dataSet = new DataSet();
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportExcel.GetDataSet(GET)");
+                logger.Log(LogLevel.Debug, "GetExcel");
+                var _dataSet = new DataSet();
                 try
                 {
                     Workbook workbook;
-                    Application excelApp = new Application();
+                    var excelApp = new Application();
 
-                    workbook = excelApp.Workbooks.Open(_filePath, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-                    logger.Log(NLog.LogLevel.Debug, "Worksheets: " + workbook.Sheets.Count);
+                    workbook = excelApp.Workbooks.Open(_filePath, 0, true, 5, "", "", true, XlPlatform.xlWindows, "\t",
+                        false, false, 0, true, 1, 0);
+                    logger.Log(LogLevel.Debug, "Worksheets: " + workbook.Sheets.Count);
 
                     foreach (Worksheet ws in workbook.Sheets)
                     {
-                        System.Data.DataTable _dataTable = new System.Data.DataTable(ws.Name);
+                        var _dataTable = new DataTable(ws.Name);
                         Range range = ws.UsedRange;
 
                         int column = 0;
@@ -76,7 +78,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 catch (Exception GetDataSet_Exception)
                 {
-                    logger.Log(NLog.LogLevel.Error, GetDataSet_Exception);
+                    logger.Log(LogLevel.Error, GetDataSet_Exception);
                 }
                 return _dataSet;
             }

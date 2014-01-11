@@ -5,19 +5,21 @@
 
 using System;
 using System.IO;
+using System.Windows;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     public static class SimsIni
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static string appsDir;
 
         public static string GetSimsDir
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.GetSimsDir(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.GetSimsDir(GET)");
                 string simsPath = null;
 
                 try
@@ -27,13 +29,19 @@ namespace Matt40k.SIMSBulkImport
                         if (string.IsNullOrEmpty(simsPath))
                         {
                             string curSims = Path.Combine(curdir, "sims.ini");
-                            if (File.Exists(curSims)) { simsPath = curSims; }
+                            if (File.Exists(curSims))
+                            {
+                                simsPath = curSims;
+                            }
                             string winSims = Path.Combine(windir, "sims.ini");
-                            if (File.Exists(winSims)) { simsPath = winSims; }
+                            if (File.Exists(winSims))
+                            {
+                                simsPath = winSims;
+                            }
                         }
                         if (!string.IsNullOrEmpty(simsPath))
                         {
-                            IniFile ini = new IniFile(simsPath);
+                            var ini = new IniFile(simsPath);
                             string Apps = ini.Read("Setup", "SIMSDotNetDirectory");
                             if (!string.IsNullOrEmpty(Apps))
                             {
@@ -56,13 +64,14 @@ namespace Matt40k.SIMSBulkImport
                             throw new Exception("Unable to find SIMS.ini");
                         }
                     }
-                    logger.Log(NLog.LogLevel.Debug, "SIMS Application Directory: " + appsDir);
+                    logger.Log(LogLevel.Debug, "SIMS Application Directory: " + appsDir);
                     return appsDir;
                 }
                 catch (Exception GetSimsDirException)
                 {
-                    logger.Log(NLog.LogLevel.Fatal, GetSimsDirException);
-                    System.Windows.MessageBox.Show(GetSimsDirException.ToString(), "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                    logger.Log(LogLevel.Fatal, GetSimsDirException);
+                    MessageBox.Show(GetSimsDirException.ToString(), "Error", MessageBoxButton.OK,
+                        MessageBoxImage.Exclamation);
                     Environment.Exit(100);
                 }
                 return appsDir;
@@ -74,7 +83,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.curdir(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.curdir(GET)");
                 return Directory.GetCurrentDirectory();
             }
         }
@@ -83,7 +92,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.windir(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.windir(GET)");
                 return Environment.GetEnvironmentVariable("windir");
             }
         }
@@ -92,7 +101,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.SetSimsDir(SET: " + value + ")");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SimsIni.SetSimsDir(SET: " + value + ")");
                 appsDir = value;
             }
         }

@@ -3,20 +3,15 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
-using System;
-using System.ComponentModel;
 using System.Data;
 using System.IO;
-using System.Threading;
 using NLog;
-
-using System.Data.OleDb;
 
 namespace Matt40k.SIMSBulkImport
 {
     public class ImportFile
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private string _filePath;
         private DataSet _importDataSet;
@@ -26,7 +21,8 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.SetImportFilePath(SET: " + value + ")");
+                logger.Log(LogLevel.Trace,
+                    "Trace:: Matt40k.SIMSBulkImport.ImportFile.SetImportFilePath(SET: " + value + ")");
                 if (File.Exists(value))
                 {
                     logger.Log(LogLevel.Debug, value);
@@ -43,53 +39,16 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetDataSet(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetDataSet(GET)");
                 return _importDataSet;
             }
         }
-
-        internal void GetImportDataSet()
-        {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetImportDataSet()");
-
-            _importFileType = importFileType;
-
-            switch (_importFileType)
-            {
-                case FileType.Csv:
-                    ImportCsv _importCsv = new ImportCsv();
-                    _importCsv.SetFilePath = _filePath;
-                    _importDataSet = _importCsv.GetDataSet;
-                    break;
-                case FileType.Xml:
-                    ImportXml _importXml = new ImportXml();
-                    _importXml.SetFilePath = _filePath;
-                    _importDataSet = _importXml.GetDataSet;
-                    break;
-                case FileType.Xls:
-                    ImportExcel _importExcel = new ImportExcel();
-                    _importExcel.SetFilePath = _filePath;
-                    _importDataSet = _importExcel.GetDataSet;
-                    break;
-                case FileType.Unknown:
-                    break;
-            }
-
-        }
-
-        private enum FileType
-        {
-            Xml,
-            Csv,
-            Xls,
-            Unknown
-        };
 
         internal bool GetIsExcel
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetIsExcel(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetIsExcel(GET)");
                 return (importFileType == FileType.Xls);
             }
         }
@@ -98,9 +57,9 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.importFileType(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.importFileType(GET)");
                 string ext = Path.GetExtension(_filePath);
-                logger.Log(NLog.LogLevel.Debug, "importFileType: " + ext);
+                logger.Log(LogLevel.Debug, "importFileType: " + ext);
                 switch (ext)
                 {
                     case ".csv":
@@ -119,10 +78,46 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        internal void GetImportDataSet()
+        {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetImportDataSet()");
+
+            _importFileType = importFileType;
+
+            switch (_importFileType)
+            {
+                case FileType.Csv:
+                    var _importCsv = new ImportCsv();
+                    _importCsv.SetFilePath = _filePath;
+                    _importDataSet = _importCsv.GetDataSet;
+                    break;
+                case FileType.Xml:
+                    var _importXml = new ImportXml();
+                    _importXml.SetFilePath = _filePath;
+                    _importDataSet = _importXml.GetDataSet;
+                    break;
+                case FileType.Xls:
+                    var _importExcel = new ImportExcel();
+                    _importExcel.SetFilePath = _filePath;
+                    _importDataSet = _importExcel.GetDataSet;
+                    break;
+                case FileType.Unknown:
+                    break;
+            }
+        }
+
         public void Reset()
         {
             // TODO
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.Reset()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportFile.Reset()");
         }
+
+        private enum FileType
+        {
+            Xml,
+            Csv,
+            Xls,
+            Unknown
+        };
     }
 }

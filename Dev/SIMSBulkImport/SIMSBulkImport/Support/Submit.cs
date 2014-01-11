@@ -3,18 +3,14 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
-using System;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.IO;
-using System.Net;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport.Support
 {
     public static class Submit
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private static Requestor _requestor;
         private static Proxy _proxy;
@@ -23,7 +19,8 @@ namespace Matt40k.SIMSBulkImport.Support
 
         public static DataTable Logs(string email, string log)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Support.Submit.Logs(email: " + email + ", log: " + log + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.Support.Submit.Logs(email: " + email + ", log: " + log + ")");
             _requestor = new Requestor();
             _proxy = new Proxy();
             _proxy.SetUrl = ConfigMan.UpdateUrl;

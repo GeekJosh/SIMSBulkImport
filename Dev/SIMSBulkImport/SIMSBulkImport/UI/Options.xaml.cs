@@ -3,31 +3,19 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
-    /// Interaction logic for Options.xaml
+    ///     Interaction logic for Options.xaml
     /// </summary>
     public partial class Options
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
-        /// 
         /// </summary>
         public Options()
         {
@@ -37,8 +25,8 @@ namespace Matt40k.SIMSBulkImport
 
         private void readConfig()
         {
-            this.checkBoxDebug.IsChecked = ConfigMan.IsDebugMode;
-            this.checkBoxUpdates.IsChecked = ConfigMan.CheckForUpdates;
+            checkBoxDebug.IsChecked = ConfigMan.IsDebugMode;
+            checkBoxUpdates.IsChecked = ConfigMan.CheckForUpdates;
         }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)

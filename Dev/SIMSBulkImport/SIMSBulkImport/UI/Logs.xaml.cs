@@ -4,54 +4,32 @@
  */
 
 using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Data;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Forms;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using Matt40k.SIMSBulkImport.Support;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
-    /// Interaction logic for Logs.xaml
+    ///     Interaction logic for Logs.xaml
     /// </summary>
     public partial class Logs
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        private readonly View support;
         private ICollectionView cvLog;
-        private Support.View support;
 
         public Logs()
         {
             InitializeComponent();
-            support = new Support.View();
+            support = new View();
             logDataGrid.DataContext = support.ReadLog;
-        }
-
-        private void backClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            Switcher.Switch(new Menu());
-        }
-
-        private void submitClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            Switcher.Switch(new Submit());
-        }
-
-        private void UserControlLoaded(object sender, RoutedEventArgs e)
-        {
-            IEnumerable source = logDataGrid.ItemsSource;
-            cvLog = (CollectionView)CollectionViewSource.GetDefaultView(source);
-            if (cvLog != null)
-            {
-                cvLog.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
-            }
         }
 
         private DataTable filterTable
@@ -61,7 +39,7 @@ namespace Matt40k.SIMSBulkImport
                 DataTable unFiltered = support.ReadLog;
                 DataTable filtered = unFiltered.Clone();
 
-                ComboBoxItem filterLevelItem = (ComboBoxItem)filterLevel.SelectedItem;
+                var filterLevelItem = (ComboBoxItem) filterLevel.SelectedItem;
                 DateTime? startDT1 = startDate.SelectedDate;
                 DateTime? endDT1 = endDate.SelectedDate;
                 DateTime startDT;
@@ -102,13 +80,14 @@ namespace Matt40k.SIMSBulkImport
                 {
                     string dtFilter = null;
 
-                    DateTime start = new DateTime(2011, 1, 1);
+                    var start = new DateTime(2011, 1, 1);
                     DateTime end = DateTime.Now;
 
                     startDT = startDT1 ?? start;
                     endDT = endDT1 ?? end;
 
-                    dtFilter = "(DATE >= '" + startDT.ToString("yyyy-MM-dd hh:mm:ss.FFF") + "')"; // AND DATE <='" +endDT.ToString("yyyy-MM-dd hh:mm:ss.FFF") + "')";
+                    dtFilter = "(DATE >= '" + startDT.ToString("yyyy-MM-dd hh:mm:ss.FFF") + "')";
+                        // AND DATE <='" +endDT.ToString("yyyy-MM-dd hh:mm:ss.FFF") + "')";
                     if (string.IsNullOrWhiteSpace(cFilter))
                     {
                         cFilter = dtFilter;
@@ -119,7 +98,7 @@ namespace Matt40k.SIMSBulkImport
                     }
                 }
 
-                logger.Log(NLog.LogLevel.Trace, "cFilter :: " + cFilter);
+                logger.Log(LogLevel.Trace, "cFilter :: " + cFilter);
 
                 if (!string.IsNullOrWhiteSpace(cFilter))
                 {
@@ -137,7 +116,27 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        private void filter_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void backClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Menu());
+        }
+
+        private void submitClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Submit());
+        }
+
+        private void UserControlLoaded(object sender, RoutedEventArgs e)
+        {
+            IEnumerable source = logDataGrid.ItemsSource;
+            cvLog = CollectionViewSource.GetDefaultView(source);
+            if (cvLog != null)
+            {
+                cvLog.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Ascending));
+            }
+        }
+
+        private void filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             logDataGrid.DataContext = filterTable;
             CollectionViewSource.GetDefaultView(logDataGrid.ItemsSource).Refresh();

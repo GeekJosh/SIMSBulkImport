@@ -4,49 +4,47 @@
  */
 
 using System;
-using System.Data;
 using System.Threading;
 using System.Windows;
-using System.Windows.Media;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     public class Program
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Program.Main()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Program.Main()");
             bool freeToRun;
             if (args.Length == 0)
             {
                 try
                 {
                     string safeName = "Local\\SimsBulkImport";
-                    using (Mutex m = new Mutex(true, safeName, out freeToRun))
+                    using (var m = new Mutex(true, safeName, out freeToRun))
                         if (freeToRun)
                         {
-                            Application application = new Application();
+                            var application = new Application();
                             application.Run(new PageSwitcher());
                         }
                         else
                         {
-                            logger.Log(NLog.LogLevel.Error, "Application is already running!");
+                            logger.Log(LogLevel.Error, "Application is already running!");
                             Environment.Exit(5);
                         }
                 }
                 catch (Exception Main_Exception)
                 {
-                    logger.Log(NLog.LogLevel.Error, Main_Exception);
+                    logger.Log(LogLevel.Error, Main_Exception);
                     Environment.Exit(5);
                 }
             }
             else
             {
-                Args _args = new Args(args);
+                var _args = new Args(args);
             }
         }
     }

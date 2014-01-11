@@ -5,46 +5,44 @@
 
 using System;
 using System.Data;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport.Pupil
 {
     public class PreImport
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private DataTable importDataTable;
         private DataTable pupilTable;
 
         public DataTable SetImportDataTable
         {
-            set
-            {
-                importDataTable = value;
-            }
+            set { importDataTable = value; }
         }
 
         public DataTable CreateDataTable
         {
             get
             {
-                logger.Log(NLog.LogLevel.Info, "Generating Pupil Table");
+                logger.Log(LogLevel.Info, "Generating Pupil Table");
 
                 pupilTable = new DataTable();
-                pupilTable.Columns.Add(new DataColumn("Status", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Surname", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Forename", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Gender", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Admission Number", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Date of Birth", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Year", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Registration", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("House", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Import email", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Import telephone", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("SIMS telephone", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
-                pupilTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
+                pupilTable.Columns.Add(new DataColumn("Status", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Surname", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Forename", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Gender", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Admission Number", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Date of Birth", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Year", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Registration", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("House", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Import email", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Import telephone", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("Import UDF", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("SIMS email addresses", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("SIMS telephone", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("SIMS UDF", typeof (string)));
+                pupilTable.Columns.Add(new DataColumn("PersonID", typeof (string)));
                 return pupilTable;
             }
         }
@@ -92,7 +90,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchFirstname_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchSurname))
@@ -103,7 +101,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchSurname_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchEmail))
@@ -114,7 +112,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchEmail_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchTelephone))
@@ -125,7 +123,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchUDF))
@@ -136,7 +134,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchUDF_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchGender))
@@ -147,7 +145,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchGender_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchGender_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchGender_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchStaffcode))
@@ -158,20 +156,19 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchStaffcode_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchStaffcode_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchStaffcode_ArgumentNullException);
                     }
                 }
 
                 if (!string.IsNullOrEmpty(matchYear))
                 {
-
                     try
                     {
                         strYear = r[matchYear].ToString();
                     }
                     catch (ArgumentNullException AddToDataTable_matchYear_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchYear_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchYear_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchReg))
@@ -182,7 +179,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchReg_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchReg_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchReg_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchHouse))
@@ -193,12 +190,13 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                     catch (ArgumentNullException AddToDataTable_matchHouse_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchHouse_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchHouse_ArgumentNullException);
                     }
                 }
 
-                strPersonid = Switcher.SimsApiClass.GetPupilPersonID(strForename, strSurname, strReg, strYear, strHouse, strAdmis);
-                
+                strPersonid = Switcher.SimsApiClass.GetPupilPersonID(strForename, strSurname, strReg, strYear, strHouse,
+                    strAdmis);
+
                 try
                 {
                     pid = Convert.ToInt32(strPersonid);
@@ -211,21 +209,46 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 if (pid > 0)
                 {
                     // Person has been found - so we pull in missing data fields :)
-                    if (string.IsNullOrWhiteSpace(strForename)) { strForename = Switcher.SimsApiClass.GetPupilForename(pid); }
-                    if (string.IsNullOrWhiteSpace(strSurname)) { strSurname = Switcher.SimsApiClass.GetPupilSurname(pid); }
+                    if (string.IsNullOrWhiteSpace(strForename))
+                    {
+                        strForename = Switcher.SimsApiClass.GetPupilForename(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strSurname))
+                    {
+                        strSurname = Switcher.SimsApiClass.GetPupilSurname(pid);
+                    }
 
                     emailsInSims = Switcher.SimsApiClass.GetPupilEmail(pid);
                     udfInSims = Switcher.SimsApiClass.GetPupilUDF(pid);
                     telephonesInSims = Switcher.SimsApiClass.GetPupilTelephone(pid);
 
-                    if (string.IsNullOrWhiteSpace(strDob)) { strDob = Switcher.SimsApiClass.GetPupilDOB(pid); }
-                    if (string.IsNullOrWhiteSpace(strAdmis)) { strAdmis = Switcher.SimsApiClass.GetPupilAdmissionNumber(pid); }
-                    if (string.IsNullOrWhiteSpace(strGender)) { strGender = Switcher.SimsApiClass.GetPupilGender(pid); }
-                    if (string.IsNullOrWhiteSpace(strYear)) { strYear = Switcher.SimsApiClass.GetPupilYear(pid); }
-                    if (string.IsNullOrWhiteSpace(strReg)) { strReg = Switcher.SimsApiClass.GetPupilRegistration(pid); }
-                    if (string.IsNullOrWhiteSpace(strHouse)) { strHouse = Switcher.SimsApiClass.GetPupilHouse(pid); }
+                    if (string.IsNullOrWhiteSpace(strDob))
+                    {
+                        strDob = Switcher.SimsApiClass.GetPupilDOB(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strAdmis))
+                    {
+                        strAdmis = Switcher.SimsApiClass.GetPupilAdmissionNumber(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strGender))
+                    {
+                        strGender = Switcher.SimsApiClass.GetPupilGender(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strYear))
+                    {
+                        strYear = Switcher.SimsApiClass.GetPupilYear(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strReg))
+                    {
+                        strReg = Switcher.SimsApiClass.GetPupilRegistration(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strHouse))
+                    {
+                        strHouse = Switcher.SimsApiClass.GetPupilHouse(pid);
+                    }
 
-                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims, strTelephone, telephonesInSims);
+                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims,
+                        strTelephone, telephonesInSims);
                 }
 
                 // REMOVED - Add to failures table.
@@ -252,7 +275,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
             }
             catch (Exception AddToDataTable_Exception)
             {
-                logger.Log(NLog.LogLevel.Debug, AddToDataTable_Exception);
+                logger.Log(LogLevel.Debug, AddToDataTable_Exception);
             }
             return pupilTable;
         }

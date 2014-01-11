@@ -1,6 +1,6 @@
 ﻿<UserControl x:Class="Matt40k.SIMSBulkImport.ImportWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid KeyDown="Grid_KeyDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
@@ -8,15 +8,18 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="True" Grid.Row="1" HorizontalAlignment="Center" Name="dataGrid" 
-                  VerticalAlignment="Center" MinWidth="950" MinHeight="500" CanUserReorderColumns="True" CanUserSortColumns="True"
+        <DataGrid AutoGenerateColumns="True" Grid.Row="1" HorizontalAlignment="Center" Name="dataGrid"
+                  VerticalAlignment="Center" MinWidth="950" MinHeight="500" CanUserReorderColumns="True"
+                  CanUserSortColumns="True"
                   ItemsSource="{Binding Path=.}" IsReadOnly="True" KeyDown="Grid_KeyDown" />
 
-        <Button Content="Import" Grid.Row="2" Height="30" HorizontalAlignment="Center" Name="button" VerticalAlignment="Top" Width="75" Click="button_Click" IsEnabled="False"/>
+        <Button Content="Import" Grid.Row="2" Height="30" HorizontalAlignment="Center" Name="button"
+                VerticalAlignment="Top" Width="75" Click="button_Click" IsEnabled="False" />
 
         <StatusBar Grid.Row="4" Height="25" Name="statusBar" VerticalAlignment="Bottom">
             <StatusBarItem Name="Status" />
         </StatusBar>
-        <Button Content="Button" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="button_ClickDelete" Visibility="Hidden" IsEnabled="False"/>
+        <Button Content="Button" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="75"
+                Click="button_ClickDelete" Visibility="Hidden" IsEnabled="False" />
     </Grid>
 </UserControl>

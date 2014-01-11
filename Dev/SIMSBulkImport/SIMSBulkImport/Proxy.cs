@@ -5,12 +5,13 @@
 
 using System;
 using System.Net;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     public class Proxy
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private string _proxy;
         private Uri _uri;
 
@@ -18,8 +19,8 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.useProxy(GET)");
-                WebProxy proxy = (WebProxy)WebProxy.GetDefaultProxy();
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.useProxy(GET)");
+                WebProxy proxy = WebProxy.GetDefaultProxy();
 
                 // See what proxy is used for resource.
                 Uri resourceProxy = proxy.GetProxy(_uri);
@@ -28,15 +29,12 @@ namespace Matt40k.SIMSBulkImport
                 if (resourceProxy == _uri)
                 {
                     _proxy = null;
-                    logger.Log(NLog.LogLevel.Debug, "Proxy: None");
+                    logger.Log(LogLevel.Debug, "Proxy: None");
                     return false;
                 }
-                else
-                {
-                    _proxy = resourceProxy.ToString();
-                    logger.Log(NLog.LogLevel.Debug, "Proxy: " + _proxy);
-                    return true;
-                }
+                _proxy = resourceProxy.ToString();
+                logger.Log(LogLevel.Debug, "Proxy: " + _proxy);
+                return true;
             }
         }
 
@@ -44,7 +42,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetProxyAddress(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetProxyAddress(GET)");
                 if (useProxy)
                 {
                     if (string.IsNullOrWhiteSpace(_proxy))
@@ -63,7 +61,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetProxyPort(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetProxyPort(GET)");
                 if (string.IsNullOrWhiteSpace(_proxy))
                 {
                     return null;
@@ -71,7 +69,7 @@ namespace Matt40k.SIMSBulkImport
                 string[] proxyPart = _proxy.Split(':');
 
                 if (proxyPart.Length >= 3)
-                    return proxyPart[2].Substring(0,proxyPart[2].Length -1);
+                    return proxyPart[2].Substring(0, proxyPart[2].Length - 1);
                 return null;
             }
         }
@@ -80,31 +78,35 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.SetUrl(SET: " + value + ")");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.SetUrl(SET: " + value + ")");
                 _uri = new Uri(value);
             }
         }
 
         public WebProxy GetWebProxy(string address, int? port, string user, string pass, bool? useWin)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " + user + ", pass: " + pass + ", useWin: " + useWin + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " +
+                user + ", pass: " + pass + ", useWin: " + useWin + ")");
             bool _useWin = false;
             int _port = 0;
 
             if (useWin.HasValue)
-                _useWin = (bool)useWin;
+                _useWin = (bool) useWin;
 
             if (port.HasValue)
-                _port = (int)port;
+                _port = (int) port;
 
-            logger.Log(NLog.LogLevel.Debug, port + " - " + _port);
+            logger.Log(LogLevel.Debug, port + " - " + _port);
 
             return getWebProxy(address, _port, user, pass, _useWin);
         }
 
         private WebProxy getWebProxy(string address, int port, string user, string pass, bool useWin)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " + user + ", pass: " + pass + ", useWin: " + useWin + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " +
+                user + ", pass: " + pass + ", useWin: " + useWin + ")");
             WebProxy _proxy = null;
             try
             {
@@ -113,7 +115,7 @@ namespace Matt40k.SIMSBulkImport
 
                 if (!string.IsNullOrWhiteSpace(user))
                 {
-                    NetworkCredential nc = new NetworkCredential();
+                    var nc = new NetworkCredential();
 
                     string[] userParts = user.Split('\\');
                     if (userParts.Length == 2)
@@ -133,7 +135,7 @@ namespace Matt40k.SIMSBulkImport
             }
             catch (Exception getWebProxy_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, getWebProxy_Exception);
+                logger.Log(LogLevel.Error, getWebProxy_Exception);
             }
             return _proxy;
         }

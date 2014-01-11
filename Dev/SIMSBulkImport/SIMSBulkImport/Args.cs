@@ -12,13 +12,13 @@ namespace Matt40k.SIMSBulkImport
 {
     public class Args
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        
-        private string _simsDir;
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        private readonly string _simsDir;
 
         public Args(string[] args)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Args()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Args()");
             for (int i = 0; i < args.Length; i++)
             {
                 string str = args[i].ToLower();
@@ -29,14 +29,14 @@ namespace Matt40k.SIMSBulkImport
                 if (Directory.Exists(_simsDir))
                 {
                     SimsIni.SetSimsDir = _simsDir;
-                    Application application = new Application();
+                    var application = new Application();
                     application.Run(new PageSwitcher());
                 }
             }
         }
 
         /// <summary>
-        /// Gets the setting from the command line.
+        ///     Gets the setting from the command line.
         /// </summary>
         /// <param name="commandParameters"></param>
         /// <param name="parameterName"></param>
@@ -60,10 +60,9 @@ namespace Matt40k.SIMSBulkImport
             }
             catch (Exception GetParameterValue_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, GetParameterValue_Exception);
+                logger.Log(LogLevel.Error, GetParameterValue_Exception);
             }
             return "";
         }
-
     }
 }

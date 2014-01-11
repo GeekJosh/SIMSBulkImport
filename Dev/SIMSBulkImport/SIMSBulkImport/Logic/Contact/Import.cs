@@ -4,12 +4,13 @@
  */
 
 using System;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport.Contact
 {
     public class Import
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public bool SetContactEmail(Int32 personID, string value)
         {

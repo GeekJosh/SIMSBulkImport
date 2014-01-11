@@ -4,49 +4,41 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
-    /// Interaction logic for Match.xaml
+    ///     Interaction logic for Match.xaml
     /// </summary>
     public partial class Match
     {
-        private DataTable dt;
-        private DataSet ds;
         //private int ImportType;
 
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly DataSet ds;
+        private DataTable dt;
 
         //private string personid;
-        private string firstname;
-        private string surname;
         private string email;
-        private string staffcode;
-        private string gender;
-        private string title;
-        private string udf;
-        private string simsUdf;
         private string emailLocation;
-        private string emailPrimary;
         private string emailMain;
+        private string emailPrimary;
+        private string firstname;
+        private string gender;
         private string reg;
+        private string simsUdf;
+        private string staffcode;
+        private string surname;
         private string telephone;
         private string telephoneLocation;
-        private string telephonePrimary;
         private string telephoneMain;
+        private string telephonePrimary;
+        private string title;
+        private string udf;
 
         internal Match()
         {
@@ -57,61 +49,61 @@ namespace Matt40k.SIMSBulkImport
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Staff:
-                    logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Staff");
+                    logger.Log(LogLevel.Debug, "Loading UDFs - Staff");
                     foreach (DataRow udf in Switcher.SimsApiClass.GetStaffUDFs.Rows)
                     {
                         string udfType = udf["Type"].ToString();
                         string udfValue = udf["Name"].ToString();
-                        logger.Log(NLog.LogLevel.Trace, "UDFs:: " + udfType + " - " + udfValue);
+                        logger.Log(LogLevel.Trace, "UDFs:: " + udfType + " - " + udfValue);
                         if (udfType == "STRING1")
-                            this.comboSIMSUDF.Items.Add(udfValue);
+                            comboSIMSUDF.Items.Add(udfValue);
                     }
-                    this.comboSIMSUDF.Items.Add("");
-                    this.comboSIMSUDF.IsEnabled = true;
-                    this.labelGender.IsEnabled = true;
-                    this.comboGender.IsEnabled = true;
+                    comboSIMSUDF.Items.Add("");
+                    comboSIMSUDF.IsEnabled = true;
+                    labelGender.IsEnabled = true;
+                    comboGender.IsEnabled = true;
                     break;
                 case Interfaces.UserType.Pupil:
-                    logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Students");
+                    logger.Log(LogLevel.Debug, "Loading UDFs - Students");
                     DataTable udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
                     foreach (DataRow udf in udfsStudents.Rows)
                     {
                         string udfType = udf["type"].ToString();
                         string udfValue = udf["Name"].ToString();
-                        logger.Log(NLog.LogLevel.Trace, "UDFs:: " + udfValue);
-                        this.comboSIMSUDF.Items.Add(udfValue);
+                        logger.Log(LogLevel.Trace, "UDFs:: " + udfValue);
+                        comboSIMSUDF.Items.Add(udfValue);
                     }
-                    this.comboSIMSUDF.Items.Add("");
-                    this.comboSIMSUDF.IsEnabled = true;
-                    this.labelReg.IsEnabled = true;
-                    this.comboReg.IsEnabled = true;
-                    this.labelCode.Content = "Admission number";
-                    this.labelTitle.Content = "Year Group";
+                    comboSIMSUDF.Items.Add("");
+                    comboSIMSUDF.IsEnabled = true;
+                    labelReg.IsEnabled = true;
+                    comboReg.IsEnabled = true;
+                    labelCode.Content = "Admission number";
+                    labelTitle.Content = "Year Group";
                     break;
                 case Interfaces.UserType.Contact:
-                    logger.Log(NLog.LogLevel.Debug, "Loading UDFs - Contacts");
+                    logger.Log(LogLevel.Debug, "Loading UDFs - Contacts");
                     DataTable udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
                     foreach (DataRow udf in udfsContacts.Rows)
                     {
                         string udfType = udf["type"].ToString();
                         string udfValue = udf["Name"].ToString();
-                        logger.Log(NLog.LogLevel.Trace, "UDFs:: " + udfValue);
+                        logger.Log(LogLevel.Trace, "UDFs:: " + udfValue);
 
-                        this.comboSIMSUDF.Items.Add(udfValue);
+                        comboSIMSUDF.Items.Add(udfValue);
                     }
-                    this.comboSIMSUDF.Items.Add("");
-                    this.comboSIMSUDF.IsEnabled = true;
-                    this.labelCode.Content = "Postcode";
-                    this.labelTitle.Content = "Town";
+                    comboSIMSUDF.Items.Add("");
+                    comboSIMSUDF.IsEnabled = true;
+                    labelCode.Content = "Postcode";
+                    labelTitle.Content = "Town";
 
-                    this.labelGender.Visibility = Visibility.Hidden;
-                    this.comboGender.Visibility = Visibility.Hidden;
+                    labelGender.Visibility = Visibility.Hidden;
+                    comboGender.Visibility = Visibility.Hidden;
 
-                    this.labelReg.Visibility = Visibility.Hidden;
-                    this.comboReg.Visibility = Visibility.Hidden;
+                    labelReg.Visibility = Visibility.Hidden;
+                    comboReg.Visibility = Visibility.Hidden;
                     break;
                 case Interfaces.UserType.Unknown:
-                    logger.Log(NLog.LogLevel.Error, "Match: Unknown selected");
+                    logger.Log(LogLevel.Error, "Match: Unknown selected");
                     break;
             }
 
@@ -121,9 +113,9 @@ namespace Matt40k.SIMSBulkImport
             {
                 foreach (string emailLocation in emailLocations)
                 {
-                    this.comboEmailLocation.Items.Add(emailLocation);
+                    comboEmailLocation.Items.Add(emailLocation);
                 }
-                this.comboEmailLocation.Items.Add("");
+                comboEmailLocation.Items.Add("");
             }
 
             // Get Telephone Locations
@@ -132,9 +124,9 @@ namespace Matt40k.SIMSBulkImport
             {
                 foreach (string telephoneLocation in telephoneLocations)
                 {
-                    this.comboTelephoneLocation.Items.Add(telephoneLocation);
+                    comboTelephoneLocation.Items.Add(telephoneLocation);
                 }
-                this.comboTelephoneLocation.Items.Add("");
+                comboTelephoneLocation.Items.Add("");
             }
 
             ds = Switcher.ImportFileClass.GetDataSet;
@@ -142,12 +134,59 @@ namespace Matt40k.SIMSBulkImport
             {
                 foreach (DataTable workBook in ds.Tables)
                 {
-                    this.comboWorkbook.Items.Add(workBook.TableName);
+                    comboWorkbook.Items.Add(workBook.TableName);
                 }
-                this.comboWorkbook.IsEnabled = true;
+                comboWorkbook.IsEnabled = true;
             }
 
             GetDataTable();
+        }
+
+        private DataTable previewTable
+        {
+            get
+            {
+                var tmpTable = new DataTable();
+                //tmpTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
+                tmpTable.Columns.Add(new DataColumn("Surname", typeof (string)));
+                tmpTable.Columns.Add(new DataColumn("Firstname", typeof (string)));
+                tmpTable.Columns.Add(new DataColumn("Email", typeof (string)));
+                tmpTable.Columns.Add(new DataColumn("Telephone", typeof (string)));
+                tmpTable.Columns.Add(new DataColumn("UDF", typeof (string)));
+                switch (Switcher.PreImportClass.GetUserType)
+                {
+                    case Interfaces.UserType.Staff:
+                        tmpTable.Columns.Add(new DataColumn("Title", typeof (string)));
+                        tmpTable.Columns.Add(new DataColumn("StaffCode", typeof (string)));
+                        tmpTable.Columns.Add(new DataColumn("Gender", typeof (string)));
+                        break;
+                    case Interfaces.UserType.Pupil:
+                        tmpTable.Columns.Add(new DataColumn("Year", typeof (string)));
+                        tmpTable.Columns.Add(new DataColumn("Reg", typeof (string)));
+                        tmpTable.Columns.Add(new DataColumn("Admission", typeof (string)));
+                        break;
+                    case Interfaces.UserType.Contact:
+                        tmpTable.Columns.Add(new DataColumn("Postcode", typeof (string)));
+                        tmpTable.Columns.Add(new DataColumn("Town", typeof (string)));
+                        break;
+                }
+
+                return tmpTable;
+            }
+        }
+
+        private bool matchFillIn
+        {
+            get
+            {
+                if (!comboEmailLocation.IsEnabled && !comboUDF.IsEnabled && !comboTelephoneLocation.IsEnabled)
+                {
+                    MessageBox.Show("Please define the email, telephone or UDF");
+                    return false;
+                }
+
+                return true;
+            }
         }
 
         private void GetUserFilters()
@@ -155,34 +194,34 @@ namespace Matt40k.SIMSBulkImport
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Staff:
-                    this.comboFilter.Items.Add("Staff, all Current");
-                    this.comboFilter.Items.Add("Teaching staff, all Current");
-                    this.comboFilter.Items.Add("Support Staff, all Current");
-                    this.comboFilter.Items.Add("Staff, all Future");
-                    this.comboFilter.Items.Add("Teaching staff, all Leavers");
-                    this.comboFilter.Items.Add("Support Staff, all Leavers");
-                    this.comboFilter.Items.Add("Staff, all Leavers");
-                    this.comboFilter.Items.Add("All");
-                    this.comboFilter.SelectedIndex = 0;
-                    this.comboFilter.IsEnabled = true;
+                    comboFilter.Items.Add("Staff, all Current");
+                    comboFilter.Items.Add("Teaching staff, all Current");
+                    comboFilter.Items.Add("Support Staff, all Current");
+                    comboFilter.Items.Add("Staff, all Future");
+                    comboFilter.Items.Add("Teaching staff, all Leavers");
+                    comboFilter.Items.Add("Support Staff, all Leavers");
+                    comboFilter.Items.Add("Staff, all Leavers");
+                    comboFilter.Items.Add("All");
+                    comboFilter.SelectedIndex = 0;
+                    comboFilter.IsEnabled = true;
                     break;
                 case Interfaces.UserType.Pupil:
-                    
-                    this.comboFilter.Items.Add("Current");
-                    this.comboFilter.Items.Add("Ever On Roll");
-                    this.comboFilter.Items.Add("Guest");
-                    this.comboFilter.Items.Add("Leavers");
-                    this.comboFilter.Items.Add("On Roll");
-                    this.comboFilter.Items.Add("Future");
-                    this.comboFilter.Items.Add("<Any>");
-                    this.comboFilter.SelectedIndex = 0;
-                    this.comboFilter.IsEnabled = true;
+
+                    comboFilter.Items.Add("Current");
+                    comboFilter.Items.Add("Ever On Roll");
+                    comboFilter.Items.Add("Guest");
+                    comboFilter.Items.Add("Leavers");
+                    comboFilter.Items.Add("On Roll");
+                    comboFilter.Items.Add("Future");
+                    comboFilter.Items.Add("<Any>");
+                    comboFilter.SelectedIndex = 0;
+                    comboFilter.IsEnabled = true;
                     break;
                 case Interfaces.UserType.Contact:
                     // Contacts has no filters
                     break;
                 case Interfaces.UserType.Unknown:
-                    logger.Log(NLog.LogLevel.Error, "GetUserFilters: Unknown selected");
+                    logger.Log(LogLevel.Error, "GetUserFilters: Unknown selected");
                     break;
             }
         }
@@ -190,12 +229,12 @@ namespace Matt40k.SIMSBulkImport
         private void GetDataTable()
         {
             bool dtSet = false;
-            if (this.comboWorkbook.SelectedValue != null)
+            if (comboWorkbook.SelectedValue != null)
             {
-                if (!string.IsNullOrWhiteSpace(this.comboWorkbook.SelectedValue.ToString()))
+                if (!string.IsNullOrWhiteSpace(comboWorkbook.SelectedValue.ToString()))
                 {
                     dtSet = true;
-                    dt = ds.Tables[this.comboWorkbook.SelectedValue.ToString()];
+                    dt = ds.Tables[comboWorkbook.SelectedValue.ToString()];
                 }
             }
             if (!dtSet)
@@ -243,10 +282,9 @@ namespace Matt40k.SIMSBulkImport
             }
             catch (NullReferenceException)
             {
-                
             }
 
-            DataColumn blank = new DataColumn("");
+            var blank = new DataColumn("");
             comboEmail.Items.Add(blank);
             comboFirst.Items.Add(blank);
             comboSurname.Items.Add(blank);
@@ -317,7 +355,7 @@ namespace Matt40k.SIMSBulkImport
                 {
                     Switcher.PreImportClass.SetMatchTelephoneMainId = telephoneMain;
                 }
-                Switcher.PreImportClass.SetUserFilter = (string)this.comboFilter.SelectedValue;
+                Switcher.PreImportClass.SetUserFilter = (string) comboFilter.SelectedValue;
                 Switcher.PreImportClass.SetMatchReg = reg;
                 Switcher.Switch(new ImportWindow());
             }
@@ -325,41 +363,8 @@ namespace Matt40k.SIMSBulkImport
 
         private void setPreImport()
         {
-            Switcher.PreImportClass.SetMatchIgnoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
+            Switcher.PreImportClass.SetMatchIgnoreFirstRow = (bool) comboIgnoreFirst.IsChecked;
             Switcher.PreImportClass.SetImportDataset = dt;
-        }
-
-        private DataTable previewTable
-        {
-            get
-            {
-                DataTable tmpTable = new DataTable();
-                //tmpTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
-                tmpTable.Columns.Add(new DataColumn("Surname", typeof(string)));
-                tmpTable.Columns.Add(new DataColumn("Firstname", typeof(string)));
-                tmpTable.Columns.Add(new DataColumn("Email", typeof(string)));
-                tmpTable.Columns.Add(new DataColumn("Telephone", typeof(string)));
-                tmpTable.Columns.Add(new DataColumn("UDF", typeof(string)));
-                switch (Switcher.PreImportClass.GetUserType)
-                {
-                    case Interfaces.UserType.Staff:
-                        tmpTable.Columns.Add(new DataColumn("Title", typeof(string)));
-                        tmpTable.Columns.Add(new DataColumn("StaffCode", typeof(string)));
-                        tmpTable.Columns.Add(new DataColumn("Gender", typeof(string)));
-                        break;
-                    case Interfaces.UserType.Pupil:
-                        tmpTable.Columns.Add(new DataColumn("Year", typeof(string)));
-                        tmpTable.Columns.Add(new DataColumn("Reg", typeof(string)));
-                        tmpTable.Columns.Add(new DataColumn("Admission", typeof(string)));
-                        break;
-                    case Interfaces.UserType.Contact:
-                        tmpTable.Columns.Add(new DataColumn("Postcode", typeof(string)));
-                        tmpTable.Columns.Add(new DataColumn("Town", typeof(string)));
-                        break;
-                }
-
-                return tmpTable;
-            }
         }
 
         private void combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -508,7 +513,7 @@ namespace Matt40k.SIMSBulkImport
             }
 
 
-            bool ignoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
+            var ignoreFirstRow = (bool) comboIgnoreFirst.IsChecked;
 
             int rowCount = 5;
             if (dt.Rows.Count < rowCount)
@@ -526,8 +531,8 @@ namespace Matt40k.SIMSBulkImport
                 }
             }
 
-            this.dataGrid.DataContext = filtered;
-            this.dataGrid.Items.Refresh();
+            dataGrid.DataContext = filtered;
+            dataGrid.Items.Refresh();
         }
 
         private DataRow previewRow(DataRow r, DataTable dt)
@@ -615,32 +620,18 @@ namespace Matt40k.SIMSBulkImport
         private void comboSIMSUDF_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string tempudf = comboSIMSUDF.SelectedValue.ToString();
-            this.labelUDF.Content = tempudf;
+            labelUDF.Content = tempudf;
             if (string.IsNullOrEmpty(tempudf))
             {
-                this.labelUDF.Content = "UDF";
-                this.labelUDF.IsEnabled = false;
-                this.comboUDF.IsEnabled = false;
-                this.comboUDF.SelectedValue = null;
+                labelUDF.Content = "UDF";
+                labelUDF.IsEnabled = false;
+                comboUDF.IsEnabled = false;
+                comboUDF.SelectedValue = null;
             }
             else
             {
-                this.comboUDF.IsEnabled = true;
-                this.labelUDF.IsEnabled = true;
-            }
-        }
-
-        private bool matchFillIn
-        {
-            get
-            {
-                if (!comboEmailLocation.IsEnabled && !comboUDF.IsEnabled && !comboTelephoneLocation.IsEnabled)
-                {
-                    MessageBox.Show("Please define the email, telephone or UDF");
-                    return false;
-                }
-                
-                return true;
+                comboUDF.IsEnabled = true;
+                labelUDF.IsEnabled = true;
             }
         }
 

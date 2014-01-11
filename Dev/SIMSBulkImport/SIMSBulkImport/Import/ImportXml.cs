@@ -3,15 +3,15 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
-using System;
 using System.Data;
 using System.IO;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     internal class ImportXml
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private string _filePath;
 
@@ -19,11 +19,11 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportXml.GetDataSet(GET)");
-                DataSet result = new DataSet();
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportXml.GetDataSet(GET)");
+                var result = new DataSet();
                 if (!File.Exists(_filePath))
                 {
-                    logger.Log(NLog.LogLevel.Error, "ImportXml.GetDataSet - File not found: " + _filePath);
+                    logger.Log(LogLevel.Error, "ImportXml.GetDataSet - File not found: " + _filePath);
                     return null;
                 }
                 result.ReadXml(_filePath, XmlReadMode.Auto);
@@ -35,7 +35,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportXml.SetFilePath(SET: " + value + ")");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportXml.SetFilePath(SET: " + value + ")");
                 _filePath = value;
             }
         }

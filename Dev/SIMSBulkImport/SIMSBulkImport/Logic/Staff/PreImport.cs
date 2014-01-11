@@ -5,44 +5,42 @@
 
 using System;
 using System.Data;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport.Staff
 {
     public class PreImport
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private DataTable importDataTable;
         private DataTable staffTable;
 
         public DataTable SetImportDataTable
         {
-            set
-            {
-                importDataTable = value;
-            }
+            set { importDataTable = value; }
         }
 
         public DataTable CreateDataTable
         {
             get
             {
-                logger.Log(NLog.LogLevel.Info, "Generating Staff Table");
+                logger.Log(LogLevel.Info, "Generating Staff Table");
 
                 staffTable = new DataTable();
-                staffTable.Columns.Add(new DataColumn("Status", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Surname", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Forename", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Title", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Gender", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Staff Code", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Date of Birth", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Import email", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Import telephone", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("Import UDF", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("SIMS email addresses", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("SIMS telephone", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("SIMS UDF", typeof(string)));
-                staffTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
+                staffTable.Columns.Add(new DataColumn("Status", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Surname", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Forename", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Title", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Gender", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Staff Code", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Date of Birth", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Import email", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Import telephone", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("Import UDF", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("SIMS email addresses", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("SIMS telephone", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("SIMS UDF", typeof (string)));
+                staffTable.Columns.Add(new DataColumn("PersonID", typeof (string)));
                 return staffTable;
             }
         }
@@ -85,7 +83,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchFirstname_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchSurname))
@@ -96,18 +94,18 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchSurname_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchEmail))
                 {
                     try
-                    { 
+                    {
                         strEmail = r[matchEmail].ToString();
                     }
                     catch (ArgumentNullException AddToDataTable_matchEmail_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchTelephone))
@@ -116,9 +114,9 @@ namespace Matt40k.SIMSBulkImport.Staff
                     {
                         strTelephone = r[matchTelephone].ToString();
                     }
-                    catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException) 
+                    catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchUDF))
@@ -129,7 +127,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchUDF_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchGender))
@@ -140,33 +138,34 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchGender_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchGender_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchGender_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchStaffcode))
                 {
                     try
-                    { 
+                    {
                         strStaff = r[matchStaffcode].ToString();
                     }
                     catch (ArgumentNullException AddToDataTable_matchStaffcode_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchStaffcode_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchStaffcode_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchTitle))
                 {
                     try
                     {
-                        strTitle = r[matchTitle].ToString(); 
+                        strTitle = r[matchTitle].ToString();
                     }
-                    catch (ArgumentNullException AddToDataTable_matchTitle_ArgumentNullException) 
+                    catch (ArgumentNullException AddToDataTable_matchTitle_ArgumentNullException)
                     {
-                        logger.Log(NLog.LogLevel.Trace, AddToDataTable_matchTitle_ArgumentNullException);
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchTitle_ArgumentNullException);
                     }
                 }
 
-                strPersonid = Switcher.SimsApiClass.GetStaffPersonID(strSurname, strForename, strTitle, strGender, strStaff);
+                strPersonid = Switcher.SimsApiClass.GetStaffPersonID(strSurname, strForename, strTitle, strGender,
+                    strStaff);
 
                 try
                 {
@@ -184,14 +183,33 @@ namespace Matt40k.SIMSBulkImport.Staff
                     udfInSims = Switcher.SimsApiClass.GetStaffUDF(pid);
                     telephonesInSims = Switcher.SimsApiClass.GetStaffTelephone(pid);
 
-                    if (string.IsNullOrWhiteSpace(strSurname)) { strSurname = Switcher.SimsApiClass.GetStaffSurname(pid); }
-                    if (string.IsNullOrWhiteSpace(strForename)) { strForename = Switcher.SimsApiClass.GetStaffForename(pid); }
-                    if (string.IsNullOrWhiteSpace(strTitle)) { strTitle = Switcher.SimsApiClass.GetStaffTitle(pid); }
-                    if (string.IsNullOrWhiteSpace(strGender)) { strGender = Switcher.SimsApiClass.GetStaffGender(pid); }
-                    if (string.IsNullOrWhiteSpace(strStaff)) { strStaff = Switcher.SimsApiClass.GetStaffCode(pid); }
-                    if (string.IsNullOrWhiteSpace(strDob)) { strDob = Switcher.SimsApiClass.GetStaffDOB(pid); }
+                    if (string.IsNullOrWhiteSpace(strSurname))
+                    {
+                        strSurname = Switcher.SimsApiClass.GetStaffSurname(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strForename))
+                    {
+                        strForename = Switcher.SimsApiClass.GetStaffForename(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strTitle))
+                    {
+                        strTitle = Switcher.SimsApiClass.GetStaffTitle(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strGender))
+                    {
+                        strGender = Switcher.SimsApiClass.GetStaffGender(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strStaff))
+                    {
+                        strStaff = Switcher.SimsApiClass.GetStaffCode(pid);
+                    }
+                    if (string.IsNullOrWhiteSpace(strDob))
+                    {
+                        strDob = Switcher.SimsApiClass.GetStaffDOB(pid);
+                    }
 
-                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims, strTelephone, telephonesInSims);
+                    status = Switcher.PreImportClass.GetStatus(strPersonid, strEmail, emailsInSims, strUdf, udfInSims,
+                        strTelephone, telephonesInSims);
                 }
 
                 // REMOVED - Add to failures table.
@@ -216,7 +234,7 @@ namespace Matt40k.SIMSBulkImport.Staff
             }
             catch (Exception AddToDataTable_Exception)
             {
-                logger.Log(NLog.LogLevel.Debug, AddToDataTable_Exception);
+                logger.Log(LogLevel.Debug, AddToDataTable_Exception);
             }
             return staffTable;
         }

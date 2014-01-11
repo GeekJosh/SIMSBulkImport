@@ -3,8 +3,6 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
-using System;
-
 namespace Matt40k.SIMSBulkImport
 {
     internal class Theme

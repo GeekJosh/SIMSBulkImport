@@ -9,16 +9,16 @@ using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
-    class ClearUp
+    internal class ClearUp
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
-        /// Checks for any temporary files the application has created previously and then removes them.
+        ///     Checks for any temporary files the application has created previously and then removes them.
         /// </summary>
         public static void ClearTmp()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ClearTmp()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ClearTmp()");
             string[] files = Directory.GetFiles(Path.GetTempPath(), Prefix.GetPrefix + "*");
 
             foreach (string file in files)
@@ -29,7 +29,7 @@ namespace Matt40k.SIMSBulkImport
 
         private static void removeFile(string file)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.removeFile("+file+")");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.removeFile(" + file + ")");
             if (File.Exists(file))
             {
                 try
@@ -38,16 +38,16 @@ namespace Matt40k.SIMSBulkImport
                 }
                 catch (IOException removeFile_IOException)
                 {
-                    logger.Log(NLog.LogLevel.Debug, removeFile_IOException);
+                    logger.Log(LogLevel.Debug, removeFile_IOException);
                 }
                 catch (Exception removeFile_Exception)
                 {
-                    logger.Log(NLog.LogLevel.Debug, removeFile_Exception);
+                    logger.Log(LogLevel.Debug, removeFile_Exception);
                 }
             }
             else
             {
-                logger.Log(NLog.LogLevel.Debug, "removeFile - File has disappeared!!");
+                logger.Log(LogLevel.Debug, "removeFile - File has disappeared!!");
             }
         }
     }

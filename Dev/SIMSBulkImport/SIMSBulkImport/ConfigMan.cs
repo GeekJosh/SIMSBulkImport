@@ -5,9 +5,6 @@
 
 using System;
 using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-
 using NLog;
 using NLog.Config;
 
@@ -15,12 +12,7 @@ namespace Matt40k.SIMSBulkImport
 {
     internal class ConfigMan
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
-        private static string readConfig(string field)
-        {
-            return ConfigurationManager.AppSettings[field];
-        }
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public static bool SetDebugMode
         {
@@ -28,18 +20,18 @@ namespace Matt40k.SIMSBulkImport
             {
                 try
                 {
-                    LoggingConfiguration config = new LoggingConfiguration();
+                    var config = new LoggingConfiguration();
                     config = LogManager.Configuration;
-                    foreach (NLog.Config.LoggingRule rule in config.LoggingRules)
+                    foreach (LoggingRule rule in config.LoggingRules)
                     {
-                        rule.EnableLoggingForLevel(NLog.LogLevel.Debug);
+                        rule.EnableLoggingForLevel(LogLevel.Debug);
                     }
                     config.Reload();
                     LogManager.Configuration = config;
                 }
                 catch (Exception EnableDebugException)
                 {
-                    logger.Log(NLog.LogLevel.Error, EnableDebugException);    
+                    logger.Log(LogLevel.Error, EnableDebugException);
                 }
             }
         }
@@ -48,7 +40,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.UpdateUrl(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.UpdateUrl(GET)");
                 string result = readConfig("UpdateURL");
                 if (string.IsNullOrEmpty(result))
                 {
@@ -62,7 +54,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CheckForUpdates(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CheckForUpdates(GET)");
                 bool result = true;
                 string configUpdate = readConfig("AutoUpdate");
                 try
@@ -71,8 +63,8 @@ namespace Matt40k.SIMSBulkImport
                 }
                 catch (Exception readConfig_DebugException)
                 {
-                    logger.Log(NLog.LogLevel.Error, "Failed to read AutoUpdate from app.config");
-                    logger.Log(NLog.LogLevel.Error, readConfig_DebugException);
+                    logger.Log(LogLevel.Error, "Failed to read AutoUpdate from app.config");
+                    logger.Log(LogLevel.Error, readConfig_DebugException);
                 }
                 return result;
             }
@@ -82,14 +74,20 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.IsDebugMode(GET)");
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.IsDebugMode(GET)");
                 return logger.IsDebugEnabled;
             }
         }
 
+        private static string readConfig(string field)
+        {
+            return ConfigurationManager.AppSettings[field];
+        }
+
         public static bool SetConfig(string field, string value)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetConfig(field: " + field + ", value: " + value + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetConfig(field: " + field + ", value: " + value + ")");
             return true;
         }
     }

@@ -5,12 +5,13 @@
 
 using System;
 using System.Data;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     public class ResultsImport
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private Contact.ResultsImport _contactResults;
         private Pupil.ResultsImport _pupilResults;
@@ -18,13 +19,33 @@ namespace Matt40k.SIMSBulkImport
 
         public ResultsImport()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport()");
             CreateResultsDataTable();
+        }
+
+        private DataTable resultsTable
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.resultsTable(GET)");
+                switch (Switcher.PreImportClass.GetUserType)
+                {
+                    case Interfaces.UserType.Contact:
+                        return _contactResults.GetContactResultsTable;
+                    case Interfaces.UserType.Pupil:
+                        return _pupilResults.GetPupilResultsTable;
+                    case Interfaces.UserType.Staff:
+                        return _staffResults.GetStaffResultsTable;
+                    default:
+                        logger.Log(LogLevel.Error, "ResultsImport.GetResultsTable - UserType not defined");
+                        return null;
+                }
+            }
         }
 
         private void CreateResultsDataTable()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.CreateResultsDataTable()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.CreateResultsDataTable()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -41,12 +62,17 @@ namespace Matt40k.SIMSBulkImport
 
         public bool AddToResultsTable(
             string personID, string result, string item, string value, string notes,
-            string surname, string forename,  string title, string gender, string staffCode, 
+            string surname, string forename, string title, string gender, string staffCode,
             string dob, string admissionNumber, string year, string registration,
             string house, string postCode, string town
             )
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.AddToResultsTable(personid: " + personID + ", result: " + result + ", item: " + item + ", value: " + value + ", notes: " + notes + ", surname ," + surname + ",  forename ," + forename + "title ," + title + " gender ," + gender + " staffCode ," + staffCode + " dob ," + dob + " admissionNumber ," + admissionNumber + " year ," + year + " registration ," + registration + " house ," + house + " postCode ," + postCode + " town ," + town + ")");
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.ResultsImport.AddToResultsTable(personid: " + personID + ", result: " +
+                result + ", item: " + item + ", value: " + value + ", notes: " + notes + ", surname ," + surname +
+                ",  forename ," + forename + "title ," + title + " gender ," + gender + " staffCode ," + staffCode +
+                " dob ," + dob + " admissionNumber ," + admissionNumber + " year ," + year + " registration ," +
+                registration + " house ," + house + " postCode ," + postCode + " town ," + town + ")");
             string friendlyResult;
             switch (result)
             {
@@ -66,19 +92,22 @@ namespace Matt40k.SIMSBulkImport
                 switch (Switcher.PreImportClass.GetUserType)
                 {
                     case Interfaces.UserType.Contact:
-                        _contactResults.AddToResultsTable(surname, forename, postCode, town, personID, friendlyResult, item, value, notes);
+                        _contactResults.AddToResultsTable(surname, forename, postCode, town, personID, friendlyResult,
+                            item, value, notes);
                         break;
                     case Interfaces.UserType.Pupil:
-                        _pupilResults.AddToResultsTable(surname, forename, gender, admissionNumber, dob, year, registration, house, personID, friendlyResult, item, value, notes);
+                        _pupilResults.AddToResultsTable(surname, forename, gender, admissionNumber, dob, year,
+                            registration, house, personID, friendlyResult, item, value, notes);
                         break;
                     case Interfaces.UserType.Staff:
-                        _staffResults.AddToResultsTable(surname, forename, gender, staffCode, dob, personID, friendlyResult, item, value, notes, title);
+                        _staffResults.AddToResultsTable(surname, forename, gender, staffCode, dob, personID,
+                            friendlyResult, item, value, notes, title);
                         break;
                 }
             }
             catch (Exception AddToResultsTable_Exception)
             {
-                logger.Log(NLog.LogLevel.Error, AddToResultsTable_Exception);
+                logger.Log(LogLevel.Error, AddToResultsTable_Exception);
                 return false;
             }
             return true;
@@ -86,28 +115,8 @@ namespace Matt40k.SIMSBulkImport
 
         public void OpenResultsReport()
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.OpenResultsReport()");
-            Results results = new Results(resultsTable, Switcher.PreImportClass.GetUserType);
-        }
-
-        private DataTable resultsTable
-        {
-            get
-            {
-                logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.resultsTable(GET)");
-                switch (Switcher.PreImportClass.GetUserType)
-                {
-                    case Interfaces.UserType.Contact:
-                        return _contactResults.GetContactResultsTable;
-                    case Interfaces.UserType.Pupil:
-                        return _pupilResults.GetPupilResultsTable;
-                    case Interfaces.UserType.Staff:
-                        return _staffResults.GetStaffResultsTable;
-                    default:
-                        logger.Log(NLog.LogLevel.Error, "ResultsImport.GetResultsTable - UserType not defined");
-                        return null;
-                }
-            }
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.OpenResultsReport()");
+            var results = new Results(resultsTable, Switcher.PreImportClass.GetUserType);
         }
     }
 }

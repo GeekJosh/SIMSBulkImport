@@ -3,35 +3,35 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
-using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
     public class IniFile
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private string path;
-
-        [DllImport("kernel32")]
-        private static extern int GetPrivateProfileString(string section,
-                 string key, string def, StringBuilder retVal,
-            int size, string filePath);
+        private readonly string path;
 
         /// <summary>
-        /// INIFile Constructor.
+        ///     INIFile Constructor.
         /// </summary>
         /// <PARAM name="INIPath"></PARAM>
         public IniFile(string INIPath)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.IniFile.IniFile(INIPath: " + INIPath + ")");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.IniFile.IniFile(INIPath: " + INIPath + ")");
             path = INIPath;
         }
 
+        [DllImport("kernel32")]
+        private static extern int GetPrivateProfileString(string section,
+            string key, string def, StringBuilder retVal,
+            int size, string filePath);
+
         /// <summary>
-        /// Read Data Value From the Ini File
+        ///     Read Data Value From the Ini File
         /// </summary>
         /// <PARAM name="Section"></PARAM>
         /// <PARAM name="Key"></PARAM>
@@ -39,10 +39,11 @@ namespace Matt40k.SIMSBulkImport
         /// <returns></returns>
         public string Read(string Section, string Key)
         {
-            logger.Log(NLog.LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.IniFile.Read(Section: " + Section + ", Key: " + Key + ")");
-            StringBuilder temp = new StringBuilder(255);
+            logger.Log(LogLevel.Trace,
+                "Trace:: Matt40k.SIMSBulkImport.IniFile.Read(Section: " + Section + ", Key: " + Key + ")");
+            var temp = new StringBuilder(255);
             int i = GetPrivateProfileString(Section, Key, "", temp,
-                                            255, this.path);
+                255, path);
             return temp.ToString();
         }
     }

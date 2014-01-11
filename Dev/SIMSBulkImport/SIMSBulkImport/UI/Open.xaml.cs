@@ -3,44 +3,35 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using System.Threading;
+using System.Windows.Forms;
+using NLog;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class Open
     {
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly OpenFileDialog openFileDialog;
         private BackgroundWorker bwOpen = new BackgroundWorker();
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         internal Open()
         {
             InitializeComponent();
 
             getTitle();
-            this.pathBox.Focus();
+            pathBox.Focus();
 
-            openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            openFileDialog.Filter = "CSV (Comma delimited)(*.csv)|*csv|XLS (Excel Workbook) (*.xls, *.xlsx)|*xls;*xlsx|XML Document (*.xml)|*xml|All Files(*.*)|*";
+            openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter =
+                "CSV (Comma delimited)(*.csv)|*csv|XLS (Excel Workbook) (*.xls, *.xlsx)|*xls;*xlsx|XML Document (*.xml)|*xml|All Files(*.*)|*";
             openFileDialog.Title = "Import file";
         }
 
@@ -50,20 +41,20 @@ namespace Matt40k.SIMSBulkImport
             switch (userType)
             {
                 case Interfaces.UserType.Staff:
-                    this.title.Content = "Staff";
+                    title.Content = "Staff";
                     break;
                 case Interfaces.UserType.Pupil:
-                    this.title.Content = "Pupil";
+                    title.Content = "Pupil";
                     break;
                 case Interfaces.UserType.Contact:
-                    this.title.Content = "Contact";
+                    title.Content = "Contact";
                     break;
             }
         }
 
         private void buttonBrowse_Click(object sender, RoutedEventArgs e)
         {
-            if (System.Windows.Forms.DialogResult.OK == openFileDialog.ShowDialog())
+            if (DialogResult.OK == openFileDialog.ShowDialog())
             {
                 pathBox.Text = openFileDialog.FileName;
             }
@@ -71,22 +62,28 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.pathBox.Text)) { MessageBox.Show("Please select a file"); }
+            if (string.IsNullOrWhiteSpace(pathBox.Text))
+            {
+                MessageBox.Show("Please select a file");
+            }
             else
             {
-                if (!File.Exists(this.pathBox.Text)) { MessageBox.Show("Please select a valid file"); }
+                if (!File.Exists(pathBox.Text))
+                {
+                    MessageBox.Show("Please select a valid file");
+                }
                 else
                 {
                     showLoad(true);
-                    logger.Log(NLog.LogLevel.Info, "User selected file for import: " + this.pathBox.Text);
-                    Switcher.ImportFileClass.SetImportFilePath = this.pathBox.Text;
+                    logger.Log(LogLevel.Info, "User selected file for import: " + pathBox.Text);
+                    Switcher.ImportFileClass.SetImportFilePath = pathBox.Text;
 
                     bwOpen = new BackgroundWorker();
                     bwOpen.WorkerReportsProgress = true;
                     bwOpen.WorkerSupportsCancellation = true;
-                    bwOpen.DoWork += new DoWorkEventHandler(bwOpen_DoWork);
-                    bwOpen.ProgressChanged += new ProgressChangedEventHandler(bwOpen_ProgressChanged);
-                    bwOpen.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bwOpen_RunWorkerCompleted);
+                    bwOpen.DoWork += bwOpen_DoWork;
+                    bwOpen.ProgressChanged += bwOpen_ProgressChanged;
+                    bwOpen.RunWorkerCompleted += bwOpen_RunWorkerCompleted;
 
                     if (bwOpen.IsBusy != true)
                         bwOpen.RunWorkerAsync();
@@ -96,30 +93,37 @@ namespace Matt40k.SIMSBulkImport
 
         private void pathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (File.Exists(pathBox.Text)) { button.IsEnabled = true; } else { button.IsEnabled = false; }
+            if (File.Exists(pathBox.Text))
+            {
+                button.IsEnabled = true;
+            }
+            else
+            {
+                button.IsEnabled = false;
+            }
         }
 
         private void showLoad(bool value)
         {
             if (value)
             {
-                this.gridLoad.Visibility = Visibility.Visible;
-                this.gridOpen.Visibility = Visibility.Hidden;
-                this.title.Visibility = Visibility.Hidden;
-                this.backButton.Visibility = Visibility.Hidden;
+                gridLoad.Visibility = Visibility.Visible;
+                gridOpen.Visibility = Visibility.Hidden;
+                title.Visibility = Visibility.Hidden;
+                backButton.Visibility = Visibility.Hidden;
             }
             else
             {
-                this.gridLoad.Visibility = Visibility.Hidden;
-                this.gridOpen.Visibility = Visibility.Visible;
-                this.title.Visibility = Visibility.Visible;
-                this.backButton.Visibility = Visibility.Visible;
+                gridLoad.Visibility = Visibility.Hidden;
+                gridOpen.Visibility = Visibility.Visible;
+                title.Visibility = Visibility.Visible;
+                backButton.Visibility = Visibility.Visible;
             }
         }
 
         private void bwOpen_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if ((e.Cancelled == true))
+            if (e.Cancelled)
             {
                 //Switcher.ImportFileClass.ImportCompleted = false;
             }
@@ -130,14 +134,14 @@ namespace Matt40k.SIMSBulkImport
             else
             {
                 Switcher.Switch(new Match());
-            }  
+            }
         }
 
         private void bwOpen_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             string prog = e.ProgressPercentage.ToString();
             if (prog == "50")
-                this.labelLoad.Content = "Loading UDFs...";
+                labelLoad.Content = "Loading UDFs...";
         }
 
         private void bwOpen_DoWork(object sender, DoWorkEventArgs e)
@@ -153,7 +157,7 @@ namespace Matt40k.SIMSBulkImport
             Switcher.SimsApiClass.LoadUdfs();
         }
 
-        private void backClick(object sender, System.Windows.RoutedEventArgs e)
+        private void backClick(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Menu());
         }
