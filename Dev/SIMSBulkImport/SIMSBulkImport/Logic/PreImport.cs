@@ -14,25 +14,30 @@ namespace Matt40k.SIMSBulkImport
         private Contact.PreImport _contactPre;
         private Pupil.PreImport _pupilPre;
         private Staff.PreImport _staffPre;
+        private Interfaces.UserType userType;
+
+        private bool ignoreFirstRow;
+        //private DataTable importDataTable;
+        private int importFileRecordCount;
+
+        private string personId;
         private string email;
+        private string telephone;
+        private string emailNotes;
+        private string telephoneNotes;
         private string firstname;
         private string gender;
         private string house;
-
-        private bool ignoreFirstRow;
-        private DataTable importDataTable;
-        private int importFileRecordCount;
         private string postcode;
         private string reg;
         private string staffcode;
         private string surname;
-        private string telephone;
         private string title;
         private string town;
         private string udf;
         private string userFilter;
-        private Interfaces.UserType userType;
         private string year;
+
 
         public int GetImportFileRecordCount
         {
@@ -105,6 +110,16 @@ namespace Matt40k.SIMSBulkImport
                     default:
                         return null;
                 }
+            }
+        }
+
+        public string SetMatchPersonID
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace,
+                    "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchPersonID(SET: " + value + ")");
+                personId = value;
             }
         }
 
@@ -301,6 +316,16 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        public string SetMatchEmailNotes
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace,
+                    "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchEmailNotes(SET: " + value + ")");
+                telephoneNotes = value;
+            }
+        }
+
         public string SetMatchTelephoneLocation
         {
             set
@@ -357,6 +382,16 @@ namespace Matt40k.SIMSBulkImport
                         break;
                 }
                 Switcher.SimsApiClass.SetTelephonePrimaryId = primaryId;
+            }
+        }
+
+        public string SetMatchTelephoneNotes
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace,
+                    "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephoneNotes(SET: " + value + ")");
+                emailNotes = value;
             }
         }
 

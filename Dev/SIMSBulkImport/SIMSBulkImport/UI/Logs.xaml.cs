@@ -57,7 +57,7 @@ namespace Matt40k.SIMSBulkImport
                 string messageFilter = filterMessage.Text;
                 string cFilter = null;
 
-                if (!string.IsNullOrWhiteSpace(levelFilter))
+                if (levelFilter != "")
                 {
                     cFilter = "(Level='" + levelFilter + "')";
                 }
@@ -100,8 +100,9 @@ namespace Matt40k.SIMSBulkImport
 
                 logger.Log(LogLevel.Trace, "cFilter :: " + cFilter);
 
-                if (!string.IsNullOrWhiteSpace(cFilter))
+                if (cFilter != " ")
                 {
+                    logger.Log(LogLevel.Trace, "cFilter applied");
                     filtered.Clear();
 
                     DataRow[] rows = unFiltered.Select(cFilter);

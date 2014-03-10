@@ -23,11 +23,12 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="20" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-
+        <!-- Name -->
         <Label Content="Surname" HorizontalAlignment="Left" Name="labelSurname" VerticalAlignment="Top" Grid.Column="1"
                Grid.Row="1" />
         <Label Content="Firstname" HorizontalAlignment="Left" Name="labelFirst" VerticalAlignment="Top" Grid.Column="4"
@@ -88,6 +89,13 @@
         <ComboBox Name="comboUDF" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"
                   Grid.Column="2" Grid.Row="6" IsEnabled="False" SelectionChanged="combo_SelectionChanged" />
 
+        
+        <!-- Person ID -->
+        <Label Content="Person ID" HorizontalAlignment="Left" Name="labelPersonID" VerticalAlignment="Top" Grid.Column="1"
+               Grid.Row="7" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Name="comboPersonID" VerticalAlignment="Top" Width="150"
+                  Grid.Column="2" Grid.Row="7" SelectionChanged="combo_SelectionChanged" TabIndex="1" />
+        
         <!-- Email -->
         <Label Content="Email" Height="28" HorizontalAlignment="Left" Name="labelEmail" VerticalAlignment="Top"
                Grid.Column="4" Grid.Row="4" />
@@ -110,6 +118,9 @@
             <ComboBoxItem Content="Yes" />
             <ComboBoxItem Content="No" />
         </ComboBox>
+        <Label Name="labelEmailNotes" Content="Email Notes" Grid.Column="4" Grid.Row="8" IsEnabled="False" />
+        <ComboBox Name="comboEmailNotes" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"
+                  Grid.Column="5" Grid.Row="8" IsEnabled="False" SelectionChanged="combo_SelectionChanged" />
 
         <!-- Telephone -->
         <Label Content="Telephone" Height="28" HorizontalAlignment="Left" Name="labelTelephone" VerticalAlignment="Top"
@@ -136,8 +147,12 @@
             <ComboBoxItem Content="Yes" />
             <ComboBoxItem Content="No" />
         </ComboBox>
-
-        <Grid Height="440" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="9">
+        <Label Name="labelTelephoneNotes" Content="Telephone Notes" Grid.Column="7" Grid.Row="8" IsEnabled="False" />
+        <ComboBox Name="comboTelephoneNotes" Height="23" Width="150" HorizontalAlignment="Left"
+                  VerticalAlignment="Top" Grid.Column="8" Grid.Row="8" IsEnabled="False"
+                  SelectionChanged="combo_SelectionChanged" />
+        
+        <Grid Height="440" Grid.ColumnSpan="10" Grid.Column="0" Grid.Row="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="250" />
                 <RowDefinition Height="50" />
