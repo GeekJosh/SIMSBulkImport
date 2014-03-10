@@ -19,24 +19,44 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public Options()
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options()");
             InitializeComponent();
             readConfig();
         }
 
         private void readConfig()
         {
-            //checkBoxDebug.IsChecked = ConfigMan.IsDebugMode;
-            //checkBoxUpdates.IsChecked = ConfigMan.CheckForUpdates;
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.readConfig()");
+            checkBoxDebug.IsChecked = Switcher.ConfigManClass.IsDebugMode;
+            checkBoxUpdates.IsChecked = Switcher.ConfigManClass.CheckForUpdates;
         }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-            //ConfigMan.SetDebugMode =true;
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.buttonSave_Click()");
+            bool? debugCheckBox = checkBoxDebug.IsChecked;
+            if (!debugCheckBox.HasValue)
+            {
+                debugCheckBox = true;
+            }
+
+            bool? updateCheckBox = checkBoxUpdates.IsChecked;
+            if (!updateCheckBox.HasValue)
+            {
+                updateCheckBox = true;
+            }
+
+            Switcher.ConfigManClass.SetDebug = (bool)debugCheckBox;
+            Switcher.ConfigManClass.SetCheckUpdates = (bool)updateCheckBox;
+
+            Switcher.ConfigManClass.SaveConfig();
+
             Switcher.Switch(new Menu());
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.buttonCancel_Click()");
             Switcher.Switch(new Menu());
         }
     }
