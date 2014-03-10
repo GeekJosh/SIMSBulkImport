@@ -25,12 +25,13 @@ namespace Matt40k.SIMSBulkImport
 
         private void readConfig()
         {
-            checkBoxDebug.IsChecked = ConfigMan.IsDebugMode;
-            checkBoxUpdates.IsChecked = ConfigMan.CheckForUpdates;
+            //checkBoxDebug.IsChecked = ConfigMan.IsDebugMode;
+            //checkBoxUpdates.IsChecked = ConfigMan.CheckForUpdates;
         }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
+            //ConfigMan.SetDebugMode =true;
             Switcher.Switch(new Menu());
         }
 

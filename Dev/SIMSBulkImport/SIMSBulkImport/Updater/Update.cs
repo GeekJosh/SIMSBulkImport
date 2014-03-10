@@ -58,8 +58,8 @@ namespace Matt40k.SIMSBulkImport.Updater
             {
                 _requestor = new Requestor();
                 _proxy = new Proxy();
-                _proxy.SetUrl = ConfigMan.UpdateUrl;
-                _requestor.SetApiUrl = ConfigMan.UpdateUrl;
+                //_proxy.SetUrl = ConfigMan.UpdateUrl;
+                //_requestor.SetApiUrl = ConfigMan.UpdateUrl;
                 getServerVersion();
             }
             catch (Exception getServerVersion_DoWork_Exception)

@@ -49,7 +49,8 @@ namespace Matt40k.SIMSBulkImport
             ClearUp.ClearTmp();
 
             // Check for updates
-            if (ConfigMan.CheckForUpdates)
+            Switcher.ConfigManClass = new ConfigMan();
+            if (Switcher.ConfigManClass.CheckForUpdates)
             {
                 updateLoadMess("Checking for updates");
                 Update.Check();

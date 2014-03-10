@@ -157,7 +157,6 @@
       <DependentUpon>PageSwitcher.xaml</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Stats.cs" />
     <Compile Include="Support\Submit.cs" />
     <Compile Include="Support\View.cs" />
     <Compile Include="Switcher.cs" />

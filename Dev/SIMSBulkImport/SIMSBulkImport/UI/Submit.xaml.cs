@@ -150,8 +150,8 @@ namespace Matt40k.SIMSBulkImport
             successLabel.Visibility = Visibility.Hidden;
             uniqueIdLabel.Visibility = Visibility.Visible;
             StatID.Visibility = Visibility.Visible;
-            logger.Log(LogLevel.Trace, "StatID: " + Stats.ReadID);
-            StatID.Text = Stats.ReadID;
+            logger.Log(LogLevel.Trace, "StatID: " + Switcher.ConfigManClass.GetAppGUID);
+            StatID.Text = Switcher.ConfigManClass.GetAppGUID;
 
             submissionIdLabel.Visibility = Visibility.Hidden;
             emailLabel.Visibility = Visibility.Visible;

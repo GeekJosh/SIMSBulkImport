@@ -119,7 +119,7 @@ namespace Matt40k.SIMSBulkImport
             }
 
             // Get Telephone Locations
-            string[] telephoneLocations = Switcher.SimsApiClass.GetEmailLocations;
+            string[] telephoneLocations = Switcher.SimsApiClass.GetTelephoneLocations;
             if (telephoneLocations.Length != 0)
             {
                 foreach (string telephoneLocation in telephoneLocations)

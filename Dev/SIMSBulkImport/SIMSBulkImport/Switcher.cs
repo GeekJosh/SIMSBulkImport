@@ -21,6 +21,7 @@ namespace Matt40k.SIMSBulkImport
         public static ResultsImport ResultsImportClass;
         public static ImportList ImportListClass;
         public static Import ImportClass;
+        public static ConfigMan ConfigManClass;
 
         public static void Switch(UserControl newPage)
         {

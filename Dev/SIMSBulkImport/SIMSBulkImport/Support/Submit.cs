@@ -23,8 +23,8 @@ namespace Matt40k.SIMSBulkImport.Support
                 "Trace:: Matt40k.SIMSBulkImport.Support.Submit.Logs(email: " + email + ", log: " + log + ")");
             _requestor = new Requestor();
             _proxy = new Proxy();
-            _proxy.SetUrl = ConfigMan.UpdateUrl;
-            _requestor.SetApiUrl = ConfigMan.UpdateUrl;
+            //_proxy.SetUrl = ConfigMan.UpdateUrl;
+            //_requestor.SetApiUrl = ConfigMan.UpdateUrl;
 
             return logSubResults = _requestor.SubmitLog(email, log);
         }

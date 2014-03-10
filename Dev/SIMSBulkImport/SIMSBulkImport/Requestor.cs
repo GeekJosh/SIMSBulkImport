@@ -17,7 +17,7 @@ namespace Matt40k.SIMSBulkImport
     public class Requestor
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private readonly string _appGUID = Stats.ReadID;
+        private readonly string _appGUID = Switcher.ConfigManClass.GetAppGUID;
         private readonly string _appVersion = GetExe.Version;
 
         private string _apiUrl = "http://api.matt40k.co.uk/";
