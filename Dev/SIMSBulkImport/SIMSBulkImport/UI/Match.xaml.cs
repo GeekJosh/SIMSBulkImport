@@ -149,7 +149,7 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 var tmpTable = new DataTable();
-                tmpTable.Columns.Add(new DataColumn("PersonID", typeof(int)));
+                tmpTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("Surname", typeof (string)));
                 tmpTable.Columns.Add(new DataColumn("Firstname", typeof (string)));
                 tmpTable.Columns.Add(new DataColumn("Email", typeof (string)));
@@ -257,8 +257,8 @@ namespace Matt40k.SIMSBulkImport
             //simsUdf = null;
             telephone = null;
 
+            // Clear ComboBoxes
             comboUDF.Items.Clear();
-            comboEmail.Items.Clear();
             comboFirst.Items.Clear();
             comboSurname.Items.Clear();
             comboCode.Items.Clear();
@@ -266,16 +266,26 @@ namespace Matt40k.SIMSBulkImport
             comboTitle.Items.Clear();
             //comboSIMSUDF.Items.Clear();
             comboReg.Items.Clear();
-            comboTelephone.Items.Clear();
+            comboEmail.Items.Clear();
+            comboEmailMain.Items.Clear();
+            comboEmailPrimary.Items.Clear();
             comboEmailNotes.Items.Clear();
+            comboTelephone.Items.Clear();
+            comboTelephoneMain.Items.Clear();
+            comboTelephonePrimary.Items.Clear();
             comboTelephoneNotes.Items.Clear();
+
+            // Add default 
+            comboEmailMain.Items.Add("<Default>");
+            comboEmailPrimary.Items.Add("<Default>");
+            comboTelephoneMain.Items.Add("<Default>");
+            comboTelephonePrimary.Items.Add("<Default>");
 
             try
             {
                 foreach (DataColumn column in dt.Columns)
                 {
                     comboPersonID.Items.Add(column.ColumnName);
-                    comboEmail.Items.Add(column.ColumnName);
                     comboFirst.Items.Add(column.ColumnName);
                     comboSurname.Items.Add(column.ColumnName);
                     comboCode.Items.Add(column.ColumnName);
@@ -283,8 +293,15 @@ namespace Matt40k.SIMSBulkImport
                     comboTitle.Items.Add(column.ColumnName);
                     comboUDF.Items.Add(column.ColumnName);
                     comboReg.Items.Add(column.ColumnName);
-                    comboTelephone.Items.Add(column.ColumnName);
+
+                    comboEmail.Items.Add(column.ColumnName);
+                    comboEmailMain.Items.Add(column.ColumnName);
+                    comboEmailPrimary.Items.Add(column.ColumnName);
                     comboEmailNotes.Items.Add(column.ColumnName);
+
+                    comboTelephone.Items.Add(column.ColumnName);
+                    comboTelephoneMain.Items.Add(column.ColumnName);
+                    comboTelephonePrimary.Items.Add(column.ColumnName);
                     comboTelephoneNotes.Items.Add(column.ColumnName);
                 }
             }
@@ -294,7 +311,6 @@ namespace Matt40k.SIMSBulkImport
 
             var blank = new DataColumn("");
             comboPersonID.Items.Add(blank);
-            comboEmail.Items.Add(blank);
             comboFirst.Items.Add(blank);
             comboSurname.Items.Add(blank);
             comboCode.Items.Add(blank);
@@ -302,9 +318,14 @@ namespace Matt40k.SIMSBulkImport
             comboGender.Items.Add(blank);
             comboUDF.Items.Add(blank);
             comboReg.Items.Add(blank);
-            comboTelephone.Items.Add(blank);
             //comboSIMSUDF.Items.Add(blank);
+            comboEmail.Items.Add(blank);
+            comboEmailMain.Items.Add(blank);
+            comboEmailPrimary.Items.Add(blank);
             comboEmailNotes.Items.Add(blank);
+            comboTelephone.Items.Add(blank);
+            comboTelephoneMain.Items.Add(blank);
+            comboTelephonePrimary.Items.Add(blank);
             comboTelephoneNotes.Items.Add(blank);
         }
 
@@ -334,6 +355,10 @@ namespace Matt40k.SIMSBulkImport
                         break;
                 }
 
+                if (!string.IsNullOrEmpty(personid))
+                {
+                    Switcher.PreImportClass.SetMatchPersonID = personid;
+                }
                 if (!string.IsNullOrEmpty(udf))
                 {
                     Switcher.PreImportClass.SetMatchUDF = udf;
@@ -394,10 +419,10 @@ namespace Matt40k.SIMSBulkImport
         private void UpdatePreview()
         {
             DataTable filtered = previewTable;
-            //if (comboPerson.SelectedItem != null)
-            //{
-            //    personid = comboPerson.SelectedItem.ToString();
-            //}
+            if (comboPersonID.SelectedItem != null)
+            {
+                personid = comboPersonID.SelectedItem.ToString();
+            }
             if (comboCode.SelectedItem != null)
             {
                 staffcode = comboCode.SelectedItem.ToString();
@@ -442,12 +467,12 @@ namespace Matt40k.SIMSBulkImport
                     labelEmailMain.IsEnabled = true;
                     comboEmailMain.IsEnabled = true;
                     if (comboEmailMain.SelectedIndex == -1)
-                        comboEmailMain.SelectedIndex = 1;
+                        comboEmailMain.SelectedIndex = 0;
 
                     labelEmailPrimary.IsEnabled = true;
                     comboEmailPrimary.IsEnabled = true;
                     if (comboEmailPrimary.SelectedIndex == -1)
-                        comboEmailPrimary.SelectedIndex = 1;
+                        comboEmailPrimary.SelectedIndex = 0;
 
                     labelEmailNotes.IsEnabled = true;
                     comboEmailNotes.IsEnabled = true;
@@ -485,12 +510,12 @@ namespace Matt40k.SIMSBulkImport
                     labelTelephoneMain.IsEnabled = true;
                     comboTelephoneMain.IsEnabled = true;
                     if (comboTelephoneMain.SelectedIndex == -1)
-                        comboTelephoneMain.SelectedIndex = 1;
+                        comboTelephoneMain.SelectedIndex = 0;
 
                     labelTelephonePrimary.IsEnabled = true;
                     comboTelephonePrimary.IsEnabled = true;
                     if (comboTelephonePrimary.SelectedIndex == -1)
-                        comboTelephonePrimary.SelectedIndex = 1;
+                        comboTelephonePrimary.SelectedIndex = 0;
 
                     labelTelephoneNotes.IsEnabled = true;
                     comboTelephoneNotes.IsEnabled = true;
@@ -578,10 +603,10 @@ namespace Matt40k.SIMSBulkImport
         private DataRow previewRow(DataRow r, DataTable dt)
         {
             DataRow newrow = dt.NewRow();
-            //if (!string.IsNullOrWhiteSpace(personid))
-            //{
-            //    newrow["PersonID"] = r[personid];
-            //}
+            if (!string.IsNullOrWhiteSpace(personid))
+            {
+                newrow["PersonID"] = r[personid];
+            }
             if (!string.IsNullOrWhiteSpace(firstname))
             {
                 newrow["Firstname"] = r[firstname];

@@ -69,6 +69,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
 
             try
             {
+                string matchPersonID = Switcher.PreImportClass.GetMatchPersonID;
                 string matchFirstname = Switcher.PreImportClass.GetMatchFirstname;
                 string matchSurname = Switcher.PreImportClass.GetMatchSurname;
                 string matchEmail = Switcher.PreImportClass.GetMatchEmail;
@@ -81,7 +82,17 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 string matchHouse = Switcher.PreImportClass.GetMatchHouse;
 
                 DataRow r = importDataTable.Rows[recordid];
-
+                if (!string.IsNullOrEmpty(matchPersonID))
+                {
+                    try
+                    {
+                        strPersonid = r[matchPersonID].ToString();
+                    }
+                    catch (ArgumentNullException AddToDataTable_matchPersonID_ArgumentNullException)
+                    {
+                        logger.Log(LogLevel.Trace, AddToDataTable_matchPersonID_ArgumentNullException);
+                    }
+                }
                 if (!string.IsNullOrEmpty(matchFirstname))
                 {
                     try
@@ -194,8 +205,9 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
                 }
 
-                strPersonid = Switcher.SimsApiClass.GetPupilPersonID(strForename, strSurname, strReg, strYear, strHouse,
-                    strAdmis);
+                if (string.IsNullOrWhiteSpace(strPersonid))
+                    strPersonid = Switcher.SimsApiClass.GetPupilPersonID(strForename, strSurname, strReg, strYear, strHouse,
+                        strAdmis);
 
                 try
                 {

@@ -113,6 +113,7 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        #region SetMatch
         public string SetMatchPersonID
         {
             set
@@ -394,6 +395,17 @@ namespace Matt40k.SIMSBulkImport
                 emailNotes = value;
             }
         }
+        #endregion
+
+        #region GetMatch
+        public string GetMatchPersonID
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchPersonID(GET)");
+                return personId;
+            }
+        }
 
         public string GetMatchFirstname
         {
@@ -530,6 +542,7 @@ namespace Matt40k.SIMSBulkImport
                 return userType;
             }
         }
+        #endregion
 
         public string SetUserFilter
         {

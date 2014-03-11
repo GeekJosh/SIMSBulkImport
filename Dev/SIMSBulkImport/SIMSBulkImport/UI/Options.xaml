@@ -11,7 +11,9 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="150" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="30" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
@@ -19,9 +21,45 @@
                   Name="checkBoxDebug" VerticalAlignment="Center" />
         <CheckBox Content="Automatically check for updates" Grid.Column="1" Grid.Row="2" Height="16"
                   HorizontalAlignment="Left" Name="checkBoxUpdates" VerticalAlignment="Center" />
-        <Button Content="Cancel" Grid.Column="1" Grid.Row="4" Height="26" HorizontalAlignment="Left"
+
+        <Grid Grid.Column="1" Grid.Row="3" Height="150" Width="400">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Label Name="labelSubTitle" Content="Default" Grid.Row="0"/>
+            <!-- Email -->
+            <Label Name="labelEmailMain" Content="Email Main" Grid.Row="1" HorizontalAlignment="Left" />
+            <ComboBox Name="comboEmailMain" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1">
+                <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="No" />
+            </ComboBox>
+            <Label Name="labelEmailPrimary" Content="Email Primary" Grid.Row="2" />
+            <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="2">
+                <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="No" />
+            </ComboBox>
+
+            <!-- Telephone -->
+            <Label Name="labelTelephoneMain" Content="Telephone Main" Grid.Row="3" />
+            <ComboBox Name="comboTelephoneMain" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="3" >
+                <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="No" />
+            </ComboBox>
+            <Label Name="labelTelephonePrimary" Content="Telephone Primary" Grid.Row="4" />
+            <ComboBox Name="comboTelephonePrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="4">
+                <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="No" />
+            </ComboBox>
+        </Grid>
+
+        <!-- Footer -->
+        <Button Content="Cancel" Grid.Column="1" Grid.Row="9" Height="26" HorizontalAlignment="Left"
                 Name="buttonCancel" VerticalAlignment="Center" Width="100" Click="buttonCancel_Click" />
-        <Button Content="Save" Grid.Column="1" Grid.Row="4" Height="26" HorizontalAlignment="Right" Name="buttonSave"
+        <Button Content="Save" Grid.Column="1" Grid.Row="9" Height="26" HorizontalAlignment="Right" Name="buttonSave"
                 VerticalAlignment="Center" Width="100" Click="buttonSave_Click" />
     </Grid>
 </UserControl>

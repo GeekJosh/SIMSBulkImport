@@ -106,18 +106,10 @@
                   Grid.Column="5" Grid.Row="5" IsEnabled="False" SelectionChanged="combo_SelectionChanged" />
         <Label Name="labelEmailMain" Content="Email Main" Grid.Column="4" Grid.Row="6" IsEnabled="False" />
         <ComboBox Name="comboEmailMain" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"
-                  Grid.Column="5" Grid.Row="6" IsEnabled="False" SelectionChanged="combo_SelectionChanged">
-            <ComboBoxItem Content="Yes (overwrite)" />
-            <ComboBoxItem Content="Yes" />
-            <ComboBoxItem Content="No" />
-        </ComboBox>
+                  Grid.Column="5" Grid.Row="6" IsEnabled="False" SelectionChanged="combo_SelectionChanged"/>
         <Label Name="labelEmailPrimary" Content="Email Primary" Grid.Column="4" Grid.Row="7" IsEnabled="False" />
         <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"
-                  Grid.Column="5" Grid.Row="7" IsEnabled="False" SelectionChanged="combo_SelectionChanged">
-            <ComboBoxItem Content="Yes (overwrite)" />
-            <ComboBoxItem Content="Yes" />
-            <ComboBoxItem Content="No" />
-        </ComboBox>
+                  Grid.Column="5" Grid.Row="7" IsEnabled="False" SelectionChanged="combo_SelectionChanged"/>
         <Label Name="labelEmailNotes" Content="Email Notes" Grid.Column="4" Grid.Row="8" IsEnabled="False" />
         <ComboBox Name="comboEmailNotes" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"
                   Grid.Column="5" Grid.Row="8" IsEnabled="False" SelectionChanged="combo_SelectionChanged" />
@@ -134,19 +126,11 @@
                   SelectionChanged="combo_SelectionChanged" />
         <Label Name="labelTelephoneMain" Content="Telephone Main" Grid.Column="7" Grid.Row="6" IsEnabled="False" />
         <ComboBox Name="comboTelephoneMain" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"
-                  Grid.Column="8" Grid.Row="6" IsEnabled="False" SelectionChanged="combo_SelectionChanged">
-            <ComboBoxItem Content="Yes (overwrite)" />
-            <ComboBoxItem Content="Yes" />
-            <ComboBoxItem Content="No" />
-        </ComboBox>
+                  Grid.Column="8" Grid.Row="6" IsEnabled="False" SelectionChanged="combo_SelectionChanged"/>
         <Label Name="labelTelephonePrimary" Content="Telephone Primary" Grid.Column="7" Grid.Row="7" IsEnabled="False" />
         <ComboBox Name="comboTelephonePrimary" Height="23" Width="150" HorizontalAlignment="Left"
                   VerticalAlignment="Top" Grid.Column="8" Grid.Row="7" IsEnabled="False"
-                  SelectionChanged="combo_SelectionChanged">
-            <ComboBoxItem Content="Yes (overwrite)" />
-            <ComboBoxItem Content="Yes" />
-            <ComboBoxItem Content="No" />
-        </ComboBox>
+                  SelectionChanged="combo_SelectionChanged"/>
         <Label Name="labelTelephoneNotes" Content="Telephone Notes" Grid.Column="7" Grid.Row="8" IsEnabled="False" />
         <ComboBox Name="comboTelephoneNotes" Height="23" Width="150" HorizontalAlignment="Left"
                   VerticalAlignment="Top" Grid.Column="8" Grid.Row="8" IsEnabled="False"
