@@ -35,6 +35,7 @@ namespace Matt40k.SIMSBulkImport
         private string title;
         private string town;
         private string udf;
+        private string udfType;
         private string userFilter;
         private string year;
 
@@ -477,7 +478,7 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchUDF(GET)");
                 return udf;
             }
-        }
+        }      
 
         public string GetMatchYear
         {
@@ -551,6 +552,24 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetUserFilter(SET: " + value + ")");
                 userFilter = value;
                 Switcher.SimsApiClass.SetUserFilter = value;
+            }
+        }
+
+        public string SetUDFType
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetUDFType(SET: " + value + ")");
+                udfType = value;
+            }
+        }
+
+        public string GetUDFType
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetUDFType(GET)");
+                return udfType;
             }
         }
 

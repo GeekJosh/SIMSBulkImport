@@ -22,6 +22,13 @@ namespace Matt40k.SIMSBulkImport
         private readonly DataSet ds;
         private DataTable dt;
 
+        private bool emailSelected;
+        private bool telephoneSelected;
+
+        /// <summary>
+        /// Variables of column matches to SIMS fields
+        /// </summary>
+        #region Variables
         private string personid;
         private string email;
         private string emailLocation;
@@ -41,73 +48,20 @@ namespace Matt40k.SIMSBulkImport
         private string telephoneNotes;
         private string title;
         private string udf;
+        #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
         internal Match()
         {
             InitializeComponent();
 
+            // Get User filters
             GetUserFilters();
 
-            switch (Switcher.PreImportClass.GetUserType)
-            {
-                case Interfaces.UserType.Staff:
-                    logger.Log(LogLevel.Debug, "Loading UDFs - Staff");
-                    foreach (DataRow udf in Switcher.SimsApiClass.GetStaffUDFs.Rows)
-                    {
-                        string udfType = udf["Type"].ToString();
-                        string udfValue = udf["Name"].ToString();
-                        logger.Log(LogLevel.Trace, "UDFs:: " + udfType + " - " + udfValue);
-                        if (udfType == "STRING1")
-                            comboSIMSUDF.Items.Add(udfValue);
-                    }
-                    comboSIMSUDF.Items.Add("");
-                    comboSIMSUDF.IsEnabled = true;
-                    labelGender.IsEnabled = true;
-                    comboGender.IsEnabled = true;
-                    break;
-                case Interfaces.UserType.Pupil:
-                    logger.Log(LogLevel.Debug, "Loading UDFs - Students");
-                    DataTable udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
-                    foreach (DataRow udf in udfsStudents.Rows)
-                    {
-                        string udfType = udf["type"].ToString();
-                        string udfValue = udf["Name"].ToString();
-                        logger.Log(LogLevel.Trace, "UDFs:: " + udfValue);
-                        comboSIMSUDF.Items.Add(udfValue);
-                    }
-                    comboSIMSUDF.Items.Add("");
-                    comboSIMSUDF.IsEnabled = true;
-                    labelReg.IsEnabled = true;
-                    comboReg.IsEnabled = true;
-                    labelCode.Content = "Admission number";
-                    labelTitle.Content = "Year Group";
-                    break;
-                case Interfaces.UserType.Contact:
-                    logger.Log(LogLevel.Debug, "Loading UDFs - Contacts");
-                    DataTable udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
-                    foreach (DataRow udf in udfsContacts.Rows)
-                    {
-                        string udfType = udf["type"].ToString();
-                        string udfValue = udf["Name"].ToString();
-                        logger.Log(LogLevel.Trace, "UDFs:: " + udfValue);
-
-                        comboSIMSUDF.Items.Add(udfValue);
-                    }
-                    comboSIMSUDF.Items.Add("");
-                    comboSIMSUDF.IsEnabled = true;
-                    labelCode.Content = "Postcode";
-                    labelTitle.Content = "Town";
-
-                    labelGender.Visibility = Visibility.Hidden;
-                    comboGender.Visibility = Visibility.Hidden;
-
-                    labelReg.Visibility = Visibility.Hidden;
-                    comboReg.Visibility = Visibility.Hidden;
-                    break;
-                case Interfaces.UserType.Unknown:
-                    logger.Log(LogLevel.Error, "Match: Unknown selected");
-                    break;
-            }
+            // Get UDFs
+            //GetUdfs();
 
             // Get Email Locations
             string[] emailLocations = Switcher.SimsApiClass.GetEmailLocations;
@@ -131,6 +85,32 @@ namespace Matt40k.SIMSBulkImport
                 comboTelephoneLocation.Items.Add("");
             }
 
+            // Enable area (staff\student\contact) specific options
+            switch (Switcher.PreImportClass.GetUserType)
+            {
+                case Interfaces.UserType.Staff:
+                    labelGender.IsEnabled = true;
+                    comboGender.IsEnabled = true;
+                    break;
+                case Interfaces.UserType.Pupil:
+                    labelReg.IsEnabled = true;
+                    comboReg.IsEnabled = true;
+                    labelCode.Content = "Admission number";
+                    labelTitle.Content = "Year Group";
+                    break;
+                case Interfaces.UserType.Contact:
+                    labelCode.Content = "Postcode";
+                    labelTitle.Content = "Town";
+                    labelGender.Visibility = Visibility.Hidden;
+                    comboGender.Visibility = Visibility.Hidden;
+                    labelReg.Visibility = Visibility.Hidden;
+                    comboReg.Visibility = Visibility.Hidden;
+                    break;
+                case Interfaces.UserType.Unknown:
+                    break;
+            }
+
+
             ds = Switcher.ImportFileClass.GetDataSet;
             if (ds.Tables.Count > 1)
             {
@@ -144,18 +124,43 @@ namespace Matt40k.SIMSBulkImport
             GetDataTable();
         }
 
+        /// <summary>
+        /// Creates the preview DataTable
+        /// </summary>
         private DataTable previewTable
         {
             get
             {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.previewTable(GET)");
+                logger.Log(LogLevel.Trace, emailSelected);
+                logger.Log(LogLevel.Trace, telephoneSelected);
                 var tmpTable = new DataTable();
                 tmpTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("Surname", typeof (string)));
                 tmpTable.Columns.Add(new DataColumn("Firstname", typeof (string)));
-                tmpTable.Columns.Add(new DataColumn("Email", typeof (string)));
-                tmpTable.Columns.Add(new DataColumn("Email notes", typeof(string)));
-                tmpTable.Columns.Add(new DataColumn("Telephone", typeof (string)));
-                tmpTable.Columns.Add(new DataColumn("Telephone notes", typeof(string)));
+
+                if (emailSelected)
+                {
+                    logger.Log(LogLevel.Trace, "EMAIL COLUMNS ADDED TO PREVIEW");
+
+                    // Email preview columns
+                    tmpTable.Columns.Add(new DataColumn("Email", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Email main", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Email primary", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Email notes", typeof(string)));
+                }
+
+                if (telephoneSelected)
+                {
+                    logger.Log(LogLevel.Trace, "TELEPHONE COLUMNS ADDED TO PREVIEW");
+
+                    // Telephone preview columns
+                    tmpTable.Columns.Add(new DataColumn("Telephone", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Telephone main", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Telephone primary", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Telephone notes", typeof(string)));
+                }
+
                 tmpTable.Columns.Add(new DataColumn("UDF", typeof (string)));
                 switch (Switcher.PreImportClass.GetUserType)
                 {
@@ -179,6 +184,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private bool matchFillIn
         {
             get
@@ -193,8 +201,12 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void GetUserFilters()
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.GetUserFilters()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Staff:
@@ -210,7 +222,6 @@ namespace Matt40k.SIMSBulkImport
                     comboFilter.IsEnabled = true;
                     break;
                 case Interfaces.UserType.Pupil:
-
                     comboFilter.Items.Add("Current");
                     comboFilter.Items.Add("Ever On Roll");
                     comboFilter.Items.Add("Guest");
@@ -230,8 +241,12 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void GetDataTable()
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.GetDataTable()");
             bool dtSet = false;
             if (comboWorkbook.SelectedValue != null)
             {
@@ -329,6 +344,11 @@ namespace Matt40k.SIMSBulkImport
             comboTelephoneNotes.Items.Add(blank);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Click(object sender, RoutedEventArgs e)
         {
             if (matchFillIn)
@@ -405,20 +425,63 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void setPreImport()
         {
             Switcher.PreImportClass.SetMatchIgnoreFirstRow = (bool) comboIgnoreFirst.IsChecked;
             Switcher.PreImportClass.SetImportDataset = dt;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdatePreview();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void UpdatePreview()
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.UpdatePreview()");
             DataTable filtered = previewTable;
+
+            // Read the ComboBoxs and set local variables
+            SetMatchBinding();
+
+            var ignoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
+
+            int rowCount = 5;
+            if (dt.Rows.Count < rowCount)
+                rowCount = dt.Rows.Count;
+
+            for (int i = 1; i <= rowCount; i++)
+            {
+                if (ignoreFirstRow && i == 1)
+                {
+                    // Ignore it
+                }
+                else
+                {
+                    filtered.Rows.Add((previewRow(dt.Rows[i - 1], filtered)));
+                }
+            }
+
+            dataGrid.DataContext = filtered;
+            dataGrid.Items.Refresh();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SetMatchBinding()
+        {
             if (comboPersonID.SelectedItem != null)
             {
                 personid = comboPersonID.SelectedItem.ToString();
@@ -439,86 +502,112 @@ namespace Matt40k.SIMSBulkImport
             {
                 email = comboEmail.SelectedItem.ToString();
                 string tempemail = comboEmail.SelectedValue.ToString();
-                if (string.IsNullOrEmpty(tempemail))
+                emailSelected = !string.IsNullOrEmpty(tempemail);
+                if (emailSelected)
                 {
-                    labelEmailLocation.IsEnabled = false;
-                    comboEmailLocation.IsEnabled = false;
-                    comboEmailLocation.SelectedValue = null;
+                    // Email column is set, enable other options
 
-                    labelEmailMain.IsEnabled = false;
-                    comboEmailMain.IsEnabled = false;
-                    comboEmailMain.SelectedValue = null;
-
-                    labelEmailPrimary.IsEnabled = false;
-                    comboEmailPrimary.IsEnabled = false;
-                    comboEmailPrimary.SelectedValue = null;
-
-                    labelEmailNotes.IsEnabled = false;
-                    comboEmailNotes.IsEnabled = false;
-                    comboEmailNotes.SelectedValue = null;
-                }
-                else
-                {
+                    // Enable Email location combobox and set the default value
                     labelEmailLocation.IsEnabled = true;
                     comboEmailLocation.IsEnabled = true;
                     if (comboEmailLocation.SelectedIndex == -1)
                         comboEmailLocation.SelectedIndex = 1;
 
+                    // Enable Email main combobox and set the default value
                     labelEmailMain.IsEnabled = true;
                     comboEmailMain.IsEnabled = true;
                     if (comboEmailMain.SelectedIndex == -1)
                         comboEmailMain.SelectedIndex = 0;
 
+                    // Enable Email primary combobox and set the default value
                     labelEmailPrimary.IsEnabled = true;
                     comboEmailPrimary.IsEnabled = true;
                     if (comboEmailPrimary.SelectedIndex == -1)
                         comboEmailPrimary.SelectedIndex = 0;
 
+                    // Enable Email notes combobox and set the default value
                     labelEmailNotes.IsEnabled = true;
                     comboEmailNotes.IsEnabled = true;
+                }
+                else
+                {
+                    // Email column NOT set, disable other options
+
+                    // Disable Email location combobox and reset value
+                    labelEmailLocation.IsEnabled = false;
+                    comboEmailLocation.IsEnabled = false;
+                    comboEmailLocation.SelectedValue = null;
+
+                    // Disable Email Main combobox and reset value
+                    labelEmailMain.IsEnabled = false;
+                    comboEmailMain.IsEnabled = false;
+                    comboEmailMain.SelectedValue = null;
+
+                    // Disable Email Primary combobox and reset value
+                    labelEmailPrimary.IsEnabled = false;
+                    comboEmailPrimary.IsEnabled = false;
+                    comboEmailPrimary.SelectedValue = null;
+
+                    // Disable Email Notes combobox and reset value
+                    labelEmailNotes.IsEnabled = false;
+                    comboEmailNotes.IsEnabled = false;
+                    comboEmailNotes.SelectedValue = null;
                 }
             }
             if (comboTelephone.SelectedItem != null)
             {
                 telephone = comboTelephone.SelectedItem.ToString();
                 string temptelephone = comboTelephone.SelectedValue.ToString();
-                if (string.IsNullOrEmpty(temptelephone))
+                telephoneSelected = !string.IsNullOrEmpty(temptelephone);
+                if (telephoneSelected)
                 {
-                    labelTelephoneLocation.IsEnabled = false;
-                    comboTelephoneLocation.IsEnabled = false;
-                    comboTelephoneLocation.SelectedValue = null;
+                    // Telephone column is set, enable other options
 
-                    labelTelephoneMain.IsEnabled = false;
-                    comboTelephoneMain.IsEnabled = false;
-                    comboTelephoneMain.SelectedValue = null;
-
-                    labelTelephonePrimary.IsEnabled = false;
-                    comboTelephonePrimary.IsEnabled = false;
-                    comboTelephonePrimary.SelectedValue = null;
-
-                    labelTelephoneNotes.IsEnabled = false;
-                    comboTelephoneNotes.IsEnabled = false;
-                    comboTelephoneNotes.SelectedValue = null;
-                }
-                else
-                {
+                    // Enable Telephone location combobox and set the default value
                     labelTelephoneLocation.IsEnabled = true;
                     comboTelephoneLocation.IsEnabled = true;
                     if (comboTelephoneLocation.SelectedIndex == -1)
                         comboTelephoneLocation.SelectedIndex = 1;
 
+                    // Enable Telephone main combobox and set the default value
                     labelTelephoneMain.IsEnabled = true;
                     comboTelephoneMain.IsEnabled = true;
                     if (comboTelephoneMain.SelectedIndex == -1)
                         comboTelephoneMain.SelectedIndex = 0;
 
+                    // Enable Telephone primary combobox and set the default value
                     labelTelephonePrimary.IsEnabled = true;
                     comboTelephonePrimary.IsEnabled = true;
                     if (comboTelephonePrimary.SelectedIndex == -1)
                         comboTelephonePrimary.SelectedIndex = 0;
 
+                    // Enable Telephone notes combobox and set the default value
                     labelTelephoneNotes.IsEnabled = true;
                     comboTelephoneNotes.IsEnabled = true;
+                }
+                else
+                {
+                    // Telephone column NOT set, disable other options
+
+                    // Disable Telephone location combobox and reset value
+                    labelTelephoneLocation.IsEnabled = false;
+                    comboTelephoneLocation.IsEnabled = false;
+                    comboTelephoneLocation.SelectedValue = null;
+
+                    // Disable Telephone main combobox and reset value
+                    labelTelephoneMain.IsEnabled = false;
+                    comboTelephoneMain.IsEnabled = false;
+                    comboTelephoneMain.SelectedValue = null;
+
+                    // Disable Telephone primary combobox and reset value
+                    labelTelephonePrimary.IsEnabled = false;
+                    comboTelephonePrimary.IsEnabled = false;
+                    comboTelephonePrimary.SelectedValue = null;
+
+                    // Disable Telephone notes combobox and reset value
+                    labelTelephoneNotes.IsEnabled = false;
+                    comboTelephoneNotes.IsEnabled = false;
+                    comboTelephoneNotes.SelectedValue = null;
                 }
             }
             if (comboGender.SelectedItem != null)
@@ -577,31 +666,17 @@ namespace Matt40k.SIMSBulkImport
             {
                 telephoneNotes = comboTelephoneNotes.SelectedValue.ToString();
             }
-
-            var ignoreFirstRow = (bool) comboIgnoreFirst.IsChecked;
-
-            int rowCount = 5;
-            if (dt.Rows.Count < rowCount)
-                rowCount = dt.Rows.Count;
-
-            for (int i = 1; i <= rowCount; i++)
-            {
-                if (ignoreFirstRow && i == 1)
-                {
-                    // Ignore it
-                }
-                else
-                {
-                    filtered.Rows.Add(previewRow(dt.Rows[i - 1], filtered));
-                }
-            }
-
-            dataGrid.DataContext = filtered;
-            dataGrid.Items.Refresh();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="dt"></param>
+        /// <returns></returns>
         private DataRow previewRow(DataRow r, DataTable dt)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.previewRow()");
             DataRow newrow = dt.NewRow();
             if (!string.IsNullOrWhiteSpace(personid))
             {
@@ -615,21 +690,57 @@ namespace Matt40k.SIMSBulkImport
             {
                 newrow["Surname"] = r[surname];
             }
-            if (!string.IsNullOrWhiteSpace(email))
+            // If email selected then add them to the preview DataTable
+            if (emailSelected)
             {
-                newrow["Email"] = r[email];
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(email))
+                    {
+                        newrow["Email"] = r[email];
+                    }
+                    if (!string.IsNullOrWhiteSpace(emailMain))
+                    {
+                        if ((emailMain) != "<Default>")
+                            newrow["Email main"] = r[emailMain];
+                    }
+                    if (!string.IsNullOrWhiteSpace(emailPrimary))
+                    {
+                        if ((emailPrimary) != "<Default>")
+                            newrow["Email primary"] = r[emailPrimary];
+                    }
+                    if (!string.IsNullOrWhiteSpace(emailNotes))
+                    {
+                        newrow["Email notes"] = r[emailNotes];
+                    }
+                }
+                catch (Exception previewRow_Exception)
+                {
+                    logger.Log(LogLevel.Error, "ERROR:: Matt40k.SIMSBulkImport.Match.previewRow_Exception()");
+                    logger.Log(LogLevel.Error, previewRow_Exception);
+                }
             }
-            if (!string.IsNullOrWhiteSpace(telephone))
+            // If telephone selected then add them to the preview DataTable
+            if (telephoneSelected)
             {
-                newrow["Telephone"] = r[telephone];
-            }
-            if (!string.IsNullOrWhiteSpace(emailNotes))
-            {
-                newrow["Email notes"] = r[emailNotes];
-            }
-            if (!string.IsNullOrWhiteSpace(telephoneNotes))
-            {
-                newrow["Telephone notes"] = r[telephoneNotes];
+                if (!string.IsNullOrWhiteSpace(telephone))
+                {
+                    newrow["Telephone"] = r[telephone];
+                }
+                if (!string.IsNullOrWhiteSpace(telephoneMain))
+                {
+                    if ((telephoneMain) != "<Default>")
+                        newrow["Telephone main"] = r[telephoneMain];
+                }
+                if (!string.IsNullOrWhiteSpace(telephonePrimary))
+                {
+                    if ((telephonePrimary) != "<Default>")
+                        newrow["Telephone primary"] = r[telephonePrimary];
+                }
+                if (!string.IsNullOrWhiteSpace(telephoneNotes))
+                {
+                    newrow["Telephone notes"] = r[telephoneNotes];
+                }
             }
             if (!string.IsNullOrWhiteSpace(udf))
             {
@@ -679,17 +790,49 @@ namespace Matt40k.SIMSBulkImport
             return newrow;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Switcher.PreImportClass.SetUserFilter = this.comboFilter.SelectedIndex;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboWorkbook_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             dt = null;
             GetDataTable();
         }
 
+        /// <summary>
+        /// Sets the user-defined SIMS UDF Type 
+        /// Default: Single line of text
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void comboUDFType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.comboUDFType_SelectionChanged()");
+            string udfType = comboSIMSUDFType.SelectionBoxItem.ToString();
+            if (!string.IsNullOrWhiteSpace(udfType))
+            {
+                Switcher.PreImportClass.SetUDFType = udfType;
+                GetUdfs();
+            }
+        }
+
+        /// <summary>
+        /// Sets the label for the user-defined UDF to the name of the UDF defined
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboSIMSUDF_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string tempudf = comboSIMSUDF.SelectedValue.ToString();
@@ -708,9 +851,84 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboIgnoreFirst_Checked(object sender, RoutedEventArgs e)
         {
             UpdatePreview();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetUdfs()
+        {
+            switch (Switcher.PreImportClass.GetUserType)
+            {
+                // Load Staff UDFs
+                case Interfaces.UserType.Staff:
+                    logger.Log(LogLevel.Debug, "Loading UDFs - Staff");
+                    
+                    // Clear SIMS UDFs
+                    comboSIMSUDF.Items.Clear();
+                    
+                    foreach (DataRow udf in Switcher.SimsApiClass.GetStaffUDFs.Rows)
+                    {
+                        string udfType = udf["Type"].ToString();
+                        string udfValue = udf["Name"].ToString();
+                        logger.Log(LogLevel.Trace, "UDFs:: " + udfType + " - " + udfValue);
+                        if (udfType == Switcher.PreImportClass.GetUDFType)
+                            comboSIMSUDF.Items.Add(udfValue);
+                    }
+                    
+                    comboSIMSUDF.Items.Add("");
+                    comboSIMSUDF.IsEnabled = true;
+                    break;
+                // Load Students UDFs
+                case Interfaces.UserType.Pupil:
+                    //logger.Log(LogLevel.Debug, "Loading UDFs - Students");
+
+                    // Clear SIMS UDFs
+                    comboSIMSUDF.Items.Clear();
+
+                    DataTable udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
+                    foreach (DataRow udf in udfsStudents.Rows)
+                    {
+                        string udfType = udf["type"].ToString();
+                        string udfValue = udf["Name"].ToString();
+                        logger.Log(LogLevel.Trace, "UDFs:: " + udfValue);
+                        if (udfType == Switcher.PreImportClass.GetUDFType)
+                            comboSIMSUDF.Items.Add(udfValue);
+                    }
+                    comboSIMSUDF.Items.Add("");
+                    comboSIMSUDF.IsEnabled = true;
+                    break;
+                // Load Contact UDFs
+                case Interfaces.UserType.Contact:
+                    logger.Log(LogLevel.Debug, "Loading UDFs - Contacts");
+
+                    // Clear SIMS UDFs
+                    comboSIMSUDF.Items.Clear();
+
+                    DataTable udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
+                    foreach (DataRow udf in udfsContacts.Rows)
+                    {
+                        string udfType = udf["type"].ToString();
+                        string udfValue = udf["Name"].ToString();
+                        logger.Log(LogLevel.Trace, "UDFs:: " + udfValue);
+                        if (udfType == Switcher.PreImportClass.GetUDFType)
+                            comboSIMSUDF.Items.Add(udfValue);
+                    }
+                    comboSIMSUDF.Items.Add("");
+                    comboSIMSUDF.IsEnabled = true;
+                    break;
+                case Interfaces.UserType.Unknown:
+                    logger.Log(LogLevel.Error, "Match: Unknown selected");
+                    break;
+            }
         }
     }
 }
