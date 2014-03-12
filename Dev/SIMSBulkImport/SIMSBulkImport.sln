@@ -17,7 +17,7 @@ Global
 		SccProjectUniqueName1 = SIMSBulkImport\\SIMSBulkImport.csproj
 		SccProjectName1 = SIMSBulkImport
 		SccLocalPath1 = SIMSBulkImport
-		SccProjectUniqueName2 = Installer\\Installer.csproj
+		SccProjectUniqueName2 = Installer\\Installer.wixproj
 		SccProjectName2 = Installer
 		SccLocalPath2 = Installer
 	EndGlobalSection
