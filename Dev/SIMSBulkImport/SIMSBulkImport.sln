@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSBulkImport", "SIMSBulkImport\SIMSBulkImport.csproj", "{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Installer\Installer.csproj", "{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installer", "Installer\Installer.wixproj", "{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6} = {C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}
 	EndProjectSection

@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.8</ProductVersion>
-    <ProjectGuid>fe60e294-a8bd-44eb-aebb-cd75855a0687</ProjectGuid>
+    <ProjectGuid>{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>SIMSBulkImport</OutputName>
     <OutputType>Package</OutputType>
