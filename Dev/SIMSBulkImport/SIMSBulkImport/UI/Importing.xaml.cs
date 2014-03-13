@@ -21,6 +21,9 @@ namespace Matt40k.SIMSBulkImport
         private DateTime endTime;
         private DateTime startTime;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Importing()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Importing()");
@@ -33,6 +36,9 @@ namespace Matt40k.SIMSBulkImport
             process();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void process()
         {
             startTime = DateTime.Now;
@@ -58,31 +64,31 @@ namespace Matt40k.SIMSBulkImport
                 string admissionNumber = row["Admission Number"].ToString();
                 string title = row["Title"].ToString();
 
+                var main = (Int32)row["Main"];
+                var primary = (Int32)row["Primary"];
+
                 switch (type)
                 {
                     case "Email":
-                        result = Switcher.ImportClass.SetEmail(personID, value);
+                        result = Switcher.ImportClass.SetEmail(personID, value, main, primary);
                         logger.Log(LogLevel.Trace, "Set Email: " + result + " - " + personID + " - " + value);
                         Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "Email",
                             value, null, surname, forename, title, gender, staffCode, dob, admissionNumber, year,
-                            registration, house, postCode, town);
-
-
-                        //null, forename, surname, town, postCode, gender, staffCode, dob, year, registration, house, admissionNumber);
+                            registration, house, postCode, town, 0, 0);
                         break;
                     case "Telephone":
-                        result = Switcher.ImportClass.SetTelephone(personID, value);
+                        result = Switcher.ImportClass.SetTelephone(personID, value, main, primary);
                         logger.Log(LogLevel.Trace, "Set Telephone: " + result + " - " + personID + " - " + value);
                         Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(),
                             "Telephone", value, null, surname, forename, title, gender, staffCode, dob, admissionNumber,
-                            year, registration, house, postCode, town);
+                            year, registration, house, postCode, town, 0, 0);
                         break;
                     case "UDF":
                         result = Switcher.ImportClass.SetUDF(personID, value);
                         logger.Log(LogLevel.Trace, "Set UDF: " + result + " - " + personID + " - " + value);
                         Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "UDF",
                             value, null, surname, forename, title, gender, staffCode, dob, admissionNumber, year,
-                            registration, house, postCode, town);
+                            registration, house, postCode, town, 0, 0);
                         break;
                     default:
                         result = false;

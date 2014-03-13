@@ -141,8 +141,6 @@ namespace Matt40k.SIMSBulkImport
 
                 if (emailSelected)
                 {
-                    logger.Log(LogLevel.Trace, "EMAIL COLUMNS ADDED TO PREVIEW");
-
                     // Email preview columns
                     tmpTable.Columns.Add(new DataColumn("Email", typeof(string)));
                     tmpTable.Columns.Add(new DataColumn("Email main", typeof(string)));
@@ -152,8 +150,6 @@ namespace Matt40k.SIMSBulkImport
 
                 if (telephoneSelected)
                 {
-                    logger.Log(LogLevel.Trace, "TELEPHONE COLUMNS ADDED TO PREVIEW");
-
                     // Telephone preview columns
                     tmpTable.Columns.Add(new DataColumn("Telephone", typeof(string)));
                     tmpTable.Columns.Add(new DataColumn("Telephone main", typeof(string)));
@@ -714,15 +710,17 @@ namespace Matt40k.SIMSBulkImport
                         newrow["Email notes"] = r[emailNotes];
                     }
                 }
-                catch (Exception previewRow_Exception)
+                catch (Exception previewRow_Email_Exception)
                 {
-                    logger.Log(LogLevel.Error, "ERROR:: Matt40k.SIMSBulkImport.Match.previewRow_Exception()");
-                    logger.Log(LogLevel.Error, previewRow_Exception);
+                    logger.Log(LogLevel.Error, "ERROR:: Matt40k.SIMSBulkImport.Match.previewRow_Email_Exception()");
+                    logger.Log(LogLevel.Error, previewRow_Email_Exception);
                 }
             }
             // If telephone selected then add them to the preview DataTable
             if (telephoneSelected)
             {
+                try
+                { 
                 if (!string.IsNullOrWhiteSpace(telephone))
                 {
                     newrow["Telephone"] = r[telephone];
@@ -740,6 +738,12 @@ namespace Matt40k.SIMSBulkImport
                 if (!string.IsNullOrWhiteSpace(telephoneNotes))
                 {
                     newrow["Telephone notes"] = r[telephoneNotes];
+                }
+                }
+                catch (Exception previewRow_Telephone_Exception)
+                {
+                    logger.Log(LogLevel.Error, "ERROR:: Matt40k.SIMSBulkImport.Match.previewRow_Telephone_Exception()");
+                    logger.Log(LogLevel.Error, previewRow_Telephone_Exception);
                 }
             }
             if (!string.IsNullOrWhiteSpace(udf))

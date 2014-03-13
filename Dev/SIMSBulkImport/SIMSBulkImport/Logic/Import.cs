@@ -8,6 +8,9 @@ using NLog;
 
 namespace Matt40k.SIMSBulkImport
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Import
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
@@ -15,6 +18,9 @@ namespace Matt40k.SIMSBulkImport
         private readonly Pupil.Import _importPupil;
         private readonly Staff.Import _importStaff;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Import()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import()");
@@ -32,7 +38,15 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        public bool SetEmail(Int32 personID, string value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="personID"></param>
+        /// <param name="value"></param>
+        /// <param name="main"></param>
+        /// <param name="primary"></param>
+        /// <returns></returns>
+        public bool SetEmail(Int32 personID, string value, int main, int primary)
         {
             logger.Log(LogLevel.Trace,
                 "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(personID: " + personID + ", value: " + value + ")");
@@ -50,7 +64,15 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        public bool SetTelephone(Int32 personID, string value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="personID">PersonID</param>
+        /// <param name="value">Telephone number to be set</param>
+        /// <param name="main"></param>
+        /// <param name="primary"></param>
+        /// <returns>true - success</returns>
+        public bool SetTelephone(Int32 personID, string value, int main, int primary)
         {
             logger.Log(LogLevel.Trace,
                 "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(personID: " + personID + ", value: " + value + ")");
@@ -71,6 +93,12 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="personID">PersonID</param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public bool SetUDF(Int32 personID, string value)
         {
             logger.Log(LogLevel.Trace,
