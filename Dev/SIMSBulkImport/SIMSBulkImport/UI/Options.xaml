@@ -39,11 +39,13 @@
             <Label Name="labelEmailMain" Content="Email Main" Grid.Row="0" HorizontalAlignment="Left" />
             <ComboBox Name="comboEmailMain" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="0">
                 <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="Yes (overwrite)" />
                 <ComboBoxItem Content="No" />
             </ComboBox>
             <Label Name="labelEmailPrimary" Content="Email Primary" Grid.Row="1" />
             <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1">
                 <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="Yes (overwrite)" />
                 <ComboBoxItem Content="No" />
             </ComboBox>
 
@@ -51,11 +53,13 @@
             <Label Name="labelTelephoneMain" Content="Telephone Main" Grid.Row="2" />
             <ComboBox Name="comboTelephoneMain" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="2" >
                 <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="Yes (overwrite)" />
                 <ComboBoxItem Content="No" />
             </ComboBox>
             <Label Name="labelTelephonePrimary" Content="Telephone Primary" Grid.Row="3" />
             <ComboBox Name="comboTelephonePrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="3">
                 <ComboBoxItem Content="Yes" />
+                <ComboBoxItem Content="Yes (overwrite)" />
                 <ComboBoxItem Content="No" />
             </ComboBox>
         </Grid>

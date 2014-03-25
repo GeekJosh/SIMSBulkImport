@@ -369,6 +369,11 @@ namespace Matt40k.SIMSBulkImport
             {
                 logger.Log(LogLevel.Trace,
                     "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephonePrimaryId(SET: " + value + ")");
+                if (value == "<Default>")
+                {
+
+                }
+                
                 int primaryId = 0;
                 string cleanValue = value.Substring(38);
                 switch (cleanValue)
