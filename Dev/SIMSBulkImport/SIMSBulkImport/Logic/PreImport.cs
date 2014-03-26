@@ -257,6 +257,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SetMatchEmailLocation
         {
             set
@@ -267,6 +270,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SetMatchEmailMainId
         {
             set
@@ -274,24 +280,34 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace,
                     "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchEmailMainId(SET: " + value + ")");
                 int mainId = 0;
-                string cleanValue = value.Substring(38);
-                switch (cleanValue)
+                if (value == "<Default>")
                 {
-                    case "Yes":
-                        mainId = 0;
-                        break;
-                    case "Yes (overwrite)":
-                        mainId = 1;
-                        break;
-                    case "No":
-                        mainId = 2;
-                        break;
+                    mainId = Switcher.ConfigManClass.GetEmailMain;
+                }
+                else
+                {
+                    string cleanValue = value.Substring(38);
+                    switch (cleanValue)
+                    {
+                        case "Yes":
+                            mainId = 0;
+                            break;
+                        case "Yes (overwrite)":
+                            mainId = 1;
+                            break;
+                        case "No":
+                            mainId = 2;
+                            break;
+                    }
                 }
                 logger.Log(LogLevel.Trace, "Trace:: SimsApiClass.SetEmailMainId:: " + mainId);
                 Switcher.SimsApiClass.SetEmailMainId = mainId;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SetMatchEmailPrimaryId
         {
             set
@@ -299,25 +315,36 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace,
                     "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchEmailPrimaryId(SET: " + value + ")");
                 int primaryId = 0;
-                string cleanValue = value.Substring(38);
-                //logger.Log(NLog.LogLevel.Trace, "Trace::" + cleanValue);
-                switch (cleanValue)
+                if (value == "<Default>")
                 {
-                    case "Yes":
-                        primaryId = 0;
-                        break;
-                    case "Yes (overwrite)":
-                        primaryId = 1;
-                        break;
-                    case "No":
-                        primaryId = 2;
-                        break;
+                    primaryId = Switcher.ConfigManClass.GetEmailPrimary;
+                }
+                else
+                {
+                    string cleanValue = value.Substring(38);
+                    //logger.Log(NLog.LogLevel.Trace, "Trace::" + cleanValue);
+                    switch (cleanValue)
+                    {
+                        case "Yes":
+                            primaryId = 0;
+                            break;
+                        case "Yes (overwrite)":
+                            primaryId = 1;
+                            break;
+                        case "No":
+                            primaryId = 2;
+                            break;
+                    }
                 }
                 logger.Log(LogLevel.Trace, "Trace:: SimsApiClass.SetEmailPrimaryId:: " + primaryId);
                 Switcher.SimsApiClass.SetEmailPrimaryId = primaryId;
             }
         }
 
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public string SetMatchEmailNotes
         {
             set
@@ -328,6 +355,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SetMatchTelephoneLocation
         {
             set
@@ -338,6 +368,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SetMatchTelephoneMainId
         {
             set
@@ -345,53 +378,69 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace,
                     "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephoneMainId(SET: " + value + ")");
                 int mainId = 0;
-                string cleanValue = value.Substring(38);
-                switch (cleanValue)
+                if (value == "<Default>")
                 {
-                    case "Yes":
-                        mainId = 0;
-                        break;
-                    case "Yes (overwrite)":
-                        mainId = 1;
-                        break;
-                    case "No":
-                        mainId = 2;
-                        break;
+                    mainId = Switcher.ConfigManClass.GetTelephoneMain;
+                }
+                else
+                {
+                    string cleanValue = value.Substring(38);
+                    switch (cleanValue)
+                    {
+                        case "Yes":
+                            mainId = 0;
+                            break;
+                        case "Yes (overwrite)":
+                            mainId = 1;
+                            break;
+                        case "No":
+                            mainId = 2;
+                            break;
+                    }
                 }
                 logger.Log(LogLevel.Trace, "Trace:: SimsApiClass.SetMatchTelephoneMainId:: " + mainId);
                 Switcher.SimsApiClass.SetTelephoneMainId = mainId;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SetMatchTelephonePrimaryId
         {
             set
             {
                 logger.Log(LogLevel.Trace,
                     "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephonePrimaryId(SET: " + value + ")");
+                int primaryId = 0;
                 if (value == "<Default>")
                 {
-
+                    primaryId = Switcher.ConfigManClass.GetTelephonePrimary;
                 }
-                
-                int primaryId = 0;
-                string cleanValue = value.Substring(38);
-                switch (cleanValue)
+                else
                 {
-                    case "Yes":
-                        primaryId = 0;
-                        break;
-                    case "Yes (overwrite)":
-                        primaryId = 1;
-                        break;
-                    case "No":
-                        primaryId = 2;
-                        break;
+                    string cleanValue = value.Substring(38);
+                    switch (cleanValue)
+                    {
+                        case "Yes":
+                            primaryId = 0;
+                            break;
+                        case "Yes (overwrite)":
+                            primaryId = 1;
+                            break;
+                        case "No":
+                            primaryId = 2;
+                            break;
+                    }
                 }
+                logger.Log(LogLevel.Trace, "Trace:: SimsApiClass.SetMatchTelephonePrimaryId:: " + primaryId);
                 Switcher.SimsApiClass.SetTelephonePrimaryId = primaryId;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string SetMatchTelephoneNotes
         {
             set

@@ -104,6 +104,9 @@ namespace Matt40k.SIMSBulkImport
                 int primary = 0;
                 int main = 0;
 
+                logger.Log(LogLevel.Trace, "AddToList: primary: " + primary);
+                logger.Log(LogLevel.Trace, "AddToList: main: " + main);
+
                 switch (Switcher.PreImportClass.GetUserType)
                 {
                     case Interfaces.UserType.Contact:
