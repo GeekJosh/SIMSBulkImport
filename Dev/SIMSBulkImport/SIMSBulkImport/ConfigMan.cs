@@ -10,6 +10,7 @@ using System.IO;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
+using NLog.Targets;
 
 namespace Matt40k.SIMSBulkImport
 {
@@ -35,6 +36,7 @@ namespace Matt40k.SIMSBulkImport
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan()");
             ReadConfig();
+            SetDebug = IsDebugMode;
         }
 
         private string GetAppConfig
@@ -99,7 +101,7 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CreateConfigFile()");
             string newGuid = Guid.NewGuid().ToString();
 
-            debugMode = true;
+            debugMode = false;
             updateMode = true;
             appGuid = newGuid;
             updateUrl = "http://api.matt40k.co.uk/";
@@ -182,6 +184,8 @@ namespace Matt40k.SIMSBulkImport
             {
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDebug(" + value  +")");
                 debugMode = value;
+                if (value)
+                    SetLogToDebug();
             }
         }
 
@@ -313,6 +317,19 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetEmailMain(" + value + ")");
                 emailMain = value;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetLogToDebug()
+        {
+            foreach (var rule in LogManager.Configuration.LoggingRules)
+            {
+                rule.EnableLoggingForLevel(LogLevel.Trace);
+            }
+
+            LogManager.ReconfigExistingLoggers();
         }
     }
 }

@@ -63,28 +63,6 @@ namespace Matt40k.SIMSBulkImport
             // Get UDFs
             //GetUdfs();
 
-            // Get Email Locations
-            string[] emailLocations = Switcher.SimsApiClass.GetEmailLocations;
-            if (emailLocations.Length != 0)
-            {
-                foreach (string emailLocation in emailLocations)
-                {
-                    comboEmailLocation.Items.Add(emailLocation);
-                }
-                comboEmailLocation.Items.Add("");
-            }
-
-            // Get Telephone Locations
-            string[] telephoneLocations = Switcher.SimsApiClass.GetTelephoneLocations;
-            if (telephoneLocations.Length != 0)
-            {
-                foreach (string telephoneLocation in telephoneLocations)
-                {
-                    comboTelephoneLocation.Items.Add(telephoneLocation);
-                }
-                comboTelephoneLocation.Items.Add("");
-            }
-
             // Enable area (staff\student\contact) specific options
             switch (Switcher.PreImportClass.GetUserType)
             {
@@ -345,7 +323,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
             if (matchFillIn)
             {
@@ -389,11 +367,11 @@ namespace Matt40k.SIMSBulkImport
                 }
                 if (!string.IsNullOrEmpty(emailPrimary))
                 {
-                    Switcher.PreImportClass.SetMatchEmailPrimaryId = emailPrimary;
+                    Switcher.PreImportClass.SetMatchEmailPrimary = emailPrimary;
                 }
                 if (!string.IsNullOrEmpty(emailMain))
                 {
-                    Switcher.PreImportClass.SetMatchEmailMainId = emailMain;
+                    Switcher.PreImportClass.SetMatchEmailMain = emailMain;
                 }
                 if (!string.IsNullOrEmpty(emailNotes))
                 {
@@ -405,11 +383,11 @@ namespace Matt40k.SIMSBulkImport
                 }
                 if (!string.IsNullOrEmpty(telephonePrimary))
                 {
-                    Switcher.PreImportClass.SetMatchTelephonePrimaryId = telephonePrimary;
+                    Switcher.PreImportClass.SetMatchTelephonePrimary = telephonePrimary;
                 }
                 if (!string.IsNullOrEmpty(telephoneMain))
                 {
-                    Switcher.PreImportClass.SetMatchTelephoneMainId = telephoneMain;
+                    Switcher.PreImportClass.SetMatchTelephoneMain = telephoneMain;
                 }
                 if (!string.IsNullOrEmpty(telephoneNotes))
                 {
@@ -424,8 +402,35 @@ namespace Matt40k.SIMSBulkImport
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonDefault_Click(object sender, RoutedEventArgs e)
+        {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.buttonDefault_Click()");
+            
+            // Switch to Default UI
+            Switcher.Switch(new Default());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonBack_Click(object sender, RoutedEventArgs e)
+        {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.buttonBack_Click()");
+
+            // Switch to Default UI
+            //Switcher.Switch(new Default());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void setPreImport()
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.setPreImport()");
             Switcher.PreImportClass.SetMatchIgnoreFirstRow = (bool) comboIgnoreFirst.IsChecked;
             Switcher.PreImportClass.SetImportDataset = dt;
         }
@@ -437,6 +442,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.combo_SelectionChanged()");
             UpdatePreview();
         }
 
@@ -446,6 +452,7 @@ namespace Matt40k.SIMSBulkImport
         private void UpdatePreview()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.UpdatePreview()");
+
             DataTable filtered = previewTable;
 
             // Read the ComboBoxs and set local variables

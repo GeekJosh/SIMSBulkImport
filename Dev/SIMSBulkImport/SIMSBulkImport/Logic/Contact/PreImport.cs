@@ -20,6 +20,9 @@ namespace Matt40k.SIMSBulkImport.Contact
             set { importDataTable = value; }
         }
 
+        /// <summary>
+        /// Create a new import 'To-Do' DataTable - Contact
+        /// </summary>
         public DataTable CreateDataTable
         {
             get
@@ -45,6 +48,11 @@ namespace Matt40k.SIMSBulkImport.Contact
             }
         }
 
+        /// <summary>
+        /// Adds a item to the 'To-Do' DataTable
+        /// </summary>
+        /// <param name="recordid"></param>
+        /// <returns></returns>
         public DataTable AddToDataTable(int recordid)
         {
             string strPersonid = null;

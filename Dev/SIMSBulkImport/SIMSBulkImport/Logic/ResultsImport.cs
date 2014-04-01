@@ -64,7 +64,8 @@ namespace Matt40k.SIMSBulkImport
             string personID, string result, string item, string value, string notes,
             string surname, string forename, string title, string gender, string staffCode,
             string dob, string admissionNumber, string year, string registration,
-            string house, string postCode, string town, int main, int primary
+            string house, string postCode, string town, int main, int primary,
+            string location, string device
             )
         {
             logger.Log(LogLevel.Trace,
@@ -73,7 +74,7 @@ namespace Matt40k.SIMSBulkImport
                 ",  forename ," + forename + "title ," + title + " gender ," + gender + " staffCode ," + staffCode +
                 " dob ," + dob + " admissionNumber ," + admissionNumber + " year ," + year + " registration ," +
                 registration + " house ," + house + " postCode ," + postCode + " town ," + town + ", main: " + main +
-                ", primary: " + primary + ")");
+                ", primary: " + primary + ", location: " + location + ", device: " + device + ")");
             string friendlyResult;
             switch (result)
             {

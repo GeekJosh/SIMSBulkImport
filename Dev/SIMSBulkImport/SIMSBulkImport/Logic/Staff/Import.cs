@@ -12,16 +12,16 @@ namespace Matt40k.SIMSBulkImport.Staff
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        public bool SetStaffEmail(Int32 personID, string value)
+        public bool SetStaffEmail(Int32 personID, string value, int main, int primary, string notes, string location)
         {
             logger.Log(LogLevel.Trace, "Staff.Import.SetStaffEmail");
-            return Switcher.SimsApiClass.SetStaffEmail(personID, value);
+            return Switcher.SimsApiClass.SetStaffEmail(personID, value, main, primary, notes, location);
         }
 
-        public bool SetStaffTelephone(Int32 personID, string value)
+        public bool SetStaffTelephone(Int32 personID, string value, int main, int primary, string notes, string location, string device)
         {
             logger.Log(LogLevel.Trace, "Staff.Import.SetStaffTelephone");
-            return Switcher.SimsApiClass.SetStaffTelephone(personID, value);
+            return Switcher.SimsApiClass.SetStaffTelephone(personID, value, main, primary, notes, location, device);
         }
 
         public bool SetStaffUDF(Int32 personID, string value)

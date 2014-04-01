@@ -21,7 +21,9 @@ namespace Matt40k.SIMSBulkImport
         public Menu()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu()");
+
             InitializeComponent();
+            
             ConnectedTo();
         }
 

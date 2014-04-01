@@ -50,6 +50,9 @@ namespace Matt40k.SIMSBulkImport
             _importTable.Columns.Add(new DataColumn("Date of Birth", typeof (string)));
             _importTable.Columns.Add(new DataColumn("Main", typeof(int)));
             _importTable.Columns.Add(new DataColumn("Primary", typeof(int)));
+            _importTable.Columns.Add(new DataColumn("Notes", typeof(string)));
+            _importTable.Columns.Add(new DataColumn("Location", typeof(string)));
+            _importTable.Columns.Add(new DataColumn("Device", typeof(string)));
         }
 
         /// <summary>
@@ -103,6 +106,9 @@ namespace Matt40k.SIMSBulkImport
                 string town = null;
                 int primary = 0;
                 int main = 0;
+                string notes = null;
+                string location = null;
+                string device = null;
 
                 logger.Log(LogLevel.Trace, "AddToList: primary: " + primary);
                 logger.Log(LogLevel.Trace, "AddToList: main: " + main);
@@ -138,16 +144,21 @@ namespace Matt40k.SIMSBulkImport
                         email = (string) row["Import email"];
                         primary = GetPrimaryMainInt(row["Primary"].ToString());
                         main = GetPrimaryMainInt(row["Main"].ToString());
+                        notes = (string)row["Notes"];
+                        location = (string)row["Location"];
+                        
                         bool isValidEmail = Validation.IsValidEmail(email);
                         if (isValidEmail)
                             AddToImportTable("Email", personID, email, surname, forename, title, gender, staffCode, dob,
-                                admissionNumber, year, registration, house, postCode, town, main, primary);
+                                admissionNumber, year, registration, house, postCode, town, main, primary, 
+                                notes, location, null);
                         else
                         {
                             logger.Log(LogLevel.Info, "Invalid email: " + email);
                             Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), "Not Imported", "Email",
                                 email, "Invalid email address", surname, forename, title, gender, staffCode, dob,
-                                admissionNumber, year, registration, house, postCode, town, main, primary);
+                                admissionNumber, year, registration, house, postCode, town, main, primary,
+                                location, device);
                         }
                     }
                     if (status.Contains("Telephone"))
@@ -157,16 +168,22 @@ namespace Matt40k.SIMSBulkImport
                         telephone = (string) row["Import telephone"];
                         primary = GetPrimaryMainInt(row["Primary"].ToString());
                         main = GetPrimaryMainInt(row["Main"].ToString());
+                        notes = (string)row["Notes"];
+                        location = (string)row["Location"];
+                        device = (string)row["Device"];
+
                         bool isValidTelephone = Validation.IsValidTelephone(telephone);
                         if (isValidTelephone)
                             AddToImportTable("Telephone", personID, telephone, surname, forename, title, gender,
-                                staffCode, dob, admissionNumber, year, registration, house, postCode, town, main, primary);
+                                staffCode, dob, admissionNumber, year, registration, house, postCode, town, main, 
+                                primary, notes, location, device);
                         else
                         {
                             logger.Log(LogLevel.Info, "Invalid email: " + email);
                             Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), "Not Imported",
                                 "Telephone", telephone, "Invalid telephone number", surname, forename, title, gender,
-                                staffCode, dob, admissionNumber, year, registration, house, postCode, town, main, primary);
+                                staffCode, dob, admissionNumber, year, registration, house, postCode, town, 
+                                main, primary, location, device);
                         }
                     }
                     if (status.Contains("UDF"))
@@ -175,14 +192,14 @@ namespace Matt40k.SIMSBulkImport
 
                         udf = (string) row["Import UDF"];
                         AddToImportTable("UDF", personID, udf, surname, forename, title, gender, staffCode, dob,
-                            admissionNumber, year, registration, house, postCode, town, 0, 0);
+                            admissionNumber, year, registration, house, postCode, town, 0, 0, null, null, null);
                     }
                 }
                 else
                 {
                     Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), "Not Imported", null, null,
                         status, surname, forename, title, gender, staffCode, dob, admissionNumber, year, registration,
-                        house, postCode, town, 0, 0);
+                        house, postCode, town, main, primary, location, device);
                 }
             }
             catch (Exception AddToList_Exception)
@@ -211,17 +228,22 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="town"></param>
         /// <param name="primary"></param>
         /// <param name="main"></param>
+        /// <param name="notes"></param>
+        /// <param name="location"></param>
+        /// <param name="device"></param>
         /// <returns></returns>
         private bool AddToImportTable(string type, Int32 personID, string value, string surname, string forename,
             string title, string gender, string staffCode, string dob, string admissionNumber, string year,
-            string registration, string house, string postCode, string town, int main, int primary)
+            string registration, string house, string postCode, string town, int main, int primary,
+            string notes, string location, string device)
         {
             logger.Log(LogLevel.Trace,
                 "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToImportTable(type: " + type + ", personID: " + personID +
                 ", value: " + value + ", surname: " + surname + ", forename: " + forename + ", title: " + title +
                 ", gender: " + gender + ", staffCode: " + staffCode + ", dob: " + dob + ", admissionNumber: " +
                 admissionNumber + ", year: " + year + ", registration: " + registration + ", house: " + house +
-                ", postCode: " + postCode + ", town: " + town + ", main: " + main + ", primary: " + primary + ")");
+                ", postCode: " + postCode + ", town: " + town + ", main: " + main + ", primary: " + primary + 
+                ", notes: " + notes + ", location: " + location + ", device: " + device +")");
             try
             {
                 DataRow newrow = _importTable.NewRow();
@@ -242,6 +264,9 @@ namespace Matt40k.SIMSBulkImport
                 newrow["Town"] = town;
                 newrow["Main"] = main;
                 newrow["Primary"] = primary;
+                newrow["Notes"] = notes;
+                newrow["Location"] = location;
+                newrow["Device"] = device;
                 _importTable.Rows.Add(newrow);
             }
             catch (Exception AddToImportTable_Exception)

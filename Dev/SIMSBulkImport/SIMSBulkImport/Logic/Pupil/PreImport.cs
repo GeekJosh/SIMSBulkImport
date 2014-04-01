@@ -20,6 +20,9 @@ namespace Matt40k.SIMSBulkImport.Pupil
             set { importDataTable = value; }
         }
 
+        /// <summary>
+        /// Create a new import 'To-Do' DataTable - Pupil
+        /// </summary>
         public DataTable CreateDataTable
         {
             get
@@ -49,6 +52,11 @@ namespace Matt40k.SIMSBulkImport.Pupil
             }
         }
 
+        /// <summary>
+        /// Adds a item to the 'To-Do' DataTable
+        /// </summary>
+        /// <param name="recordid"></param>
+        /// <returns></returns>
         public DataTable AddToDataTable(int recordid)
         {
             string strPersonid = null;

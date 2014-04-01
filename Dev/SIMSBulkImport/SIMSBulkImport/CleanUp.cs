@@ -38,16 +38,16 @@ namespace Matt40k.SIMSBulkImport
                 }
                 catch (IOException removeFile_IOException)
                 {
-                    logger.Log(LogLevel.Debug, removeFile_IOException);
+                    logger.Log(LogLevel.Error, removeFile_IOException);
                 }
                 catch (Exception removeFile_Exception)
                 {
-                    logger.Log(LogLevel.Debug, removeFile_Exception);
+                    logger.Log(LogLevel.Error, removeFile_Exception);
                 }
             }
             else
             {
-                logger.Log(LogLevel.Debug, "removeFile - File has disappeared!!");
+                logger.Log(LogLevel.Error, "removeFile - File has disappeared!!");
             }
         }
     }

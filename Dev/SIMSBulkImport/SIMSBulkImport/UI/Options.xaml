@@ -21,48 +21,14 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
+        <!-- Title -->
         <Label Name="labelTitle" Content="Options" Grid.Row="1" Grid.Column="2" FontSize="24" />
 
+        <!-- Options -->
         <CheckBox Content="Debug mode" Grid.Column="2" Grid.Row="2" Height="16" HorizontalAlignment="Left"
                   Name="checkBoxDebug" VerticalAlignment="Center" />
         <CheckBox Content="Automatically check for updates" Grid.Column="2" Grid.Row="3" Height="16"
                   HorizontalAlignment="Left" Name="checkBoxUpdates" VerticalAlignment="Center" />
-
-        <Grid Grid.Column="2" Grid.Row="4" Height="150" Width="400">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-            </Grid.RowDefinitions>
-            <!-- Email -->
-            <Label Name="labelEmailMain" Content="Email Main" Grid.Row="0" HorizontalAlignment="Left" />
-            <ComboBox Name="comboEmailMain" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="0">
-                <ComboBoxItem Content="Yes" />
-                <ComboBoxItem Content="Yes (overwrite)" />
-                <ComboBoxItem Content="No" />
-            </ComboBox>
-            <Label Name="labelEmailPrimary" Content="Email Primary" Grid.Row="1" />
-            <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1">
-                <ComboBoxItem Content="Yes" />
-                <ComboBoxItem Content="Yes (overwrite)" />
-                <ComboBoxItem Content="No" />
-            </ComboBox>
-
-            <!-- Telephone -->
-            <Label Name="labelTelephoneMain" Content="Telephone Main" Grid.Row="2" />
-            <ComboBox Name="comboTelephoneMain" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="2" >
-                <ComboBoxItem Content="Yes" />
-                <ComboBoxItem Content="Yes (overwrite)" />
-                <ComboBoxItem Content="No" />
-            </ComboBox>
-            <Label Name="labelTelephonePrimary" Content="Telephone Primary" Grid.Row="3" />
-            <ComboBox Name="comboTelephonePrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="3">
-                <ComboBoxItem Content="Yes" />
-                <ComboBoxItem Content="Yes (overwrite)" />
-                <ComboBoxItem Content="No" />
-            </ComboBox>
-        </Grid>
 
         <!-- Footer -->
         <Button Content="Cancel" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Height="26" HorizontalAlignment="Left"
