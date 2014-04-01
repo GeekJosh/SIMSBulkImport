@@ -57,6 +57,9 @@ namespace Matt40k.SIMSBulkImport
         {
             InitializeComponent();
 
+            // Set the subtitle
+            SetSubTitle();
+
             // Get User filters
             GetUserFilters();
 
@@ -421,8 +424,8 @@ namespace Matt40k.SIMSBulkImport
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.buttonBack_Click()");
 
-            // Switch to Default UI
-            //Switcher.Switch(new Default());
+            // Switch to Open UI
+            Switcher.Switch(new Open());
         }
 
         /// <summary>
@@ -938,6 +941,26 @@ namespace Matt40k.SIMSBulkImport
                     break;
                 case Interfaces.UserType.Unknown:
                     logger.Log(LogLevel.Error, "Match: Unknown selected");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Set the UI subtitle
+        /// </summary>
+        private void SetSubTitle()
+        {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.SetTitle()");
+            switch (Switcher.PreImportClass.GetUserType)
+            {
+                case Interfaces.UserType.Staff:
+                    labelSubTitle.Content = "Staff";
+                    break;
+                case Interfaces.UserType.Pupil:
+                    labelSubTitle.Content = "Pupil";
+                    break;
+                case Interfaces.UserType.Contact:
+                    labelSubTitle.Content = "Contact";
                     break;
             }
         }

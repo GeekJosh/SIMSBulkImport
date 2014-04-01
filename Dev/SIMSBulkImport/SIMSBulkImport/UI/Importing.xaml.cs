@@ -111,9 +111,6 @@ namespace Matt40k.SIMSBulkImport
 
             // Open report
             Switcher.ResultsImportClass.OpenResultsReport();
-
-            // TMP - Close application
-            Environment.Exit(0);
         }
     }
 }

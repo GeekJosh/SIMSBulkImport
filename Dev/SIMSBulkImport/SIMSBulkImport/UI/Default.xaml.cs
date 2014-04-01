@@ -30,8 +30,8 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void Load()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Load()");
-            SetTitle();
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.Load()");
+            SetSubTitle();
             GetEmailLocations();
             GetTelephoneLocations();
             GetTelephoneDevices();
@@ -56,7 +56,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetEmailLocations()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.GetEmailLocations()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.GetEmailLocations()");
             // Get Email Locations
             string[] emailLocations = Switcher.SimsApiClass.GetEmailLocations;
             if (emailLocations.Length != 0)
@@ -74,7 +74,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetTelephoneLocations()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.GetTelephoneLocations(GET)");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.GetTelephoneLocations(GET)");
             // Get Telephone Locations
             string[] telephoneLocations = Switcher.SimsApiClass.GetTelephoneLocations;
             if (telephoneLocations.Length != 0)
@@ -92,7 +92,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetTelephoneDevices()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.GetTelephoneDevices(GET)");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.GetTelephoneDevices(GET)");
             // Get Telephone Devices
             string[] telephoneDevices = Switcher.SimsApiClass.GetTelephoneDevices;
             if (telephoneDevices.Length != 0)
@@ -112,6 +112,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.buttonSave_Click()");
             Switcher.ConfigManClass.SetEmailMain = comboEmailMain.SelectedIndex;
             Switcher.ConfigManClass.SetEmailPrimary = comboEmailPrimary.SelectedIndex;
             Switcher.ConfigManClass.SetTelephoneMain = comboTelephoneMain.SelectedIndex;
@@ -131,28 +132,28 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.buttonCancel_Click()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.buttonCancel_Click()");
 
             // Return to Match UI
             Switcher.Switch(new Match());
         }
 
         /// <summary>
-        /// 
+        /// Set the UI subtitle
         /// </summary>
-        private void SetTitle()
+        private void SetSubTitle()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.SetTitle()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.SetTitle()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Staff:
-                    labelTitle.Content = "Default - Staff";
+                    labelSubTitle.Content = "Default - Staff";
                     break;
                 case Interfaces.UserType.Pupil:
-                    labelTitle.Content = "Default - Pupil";
+                    labelSubTitle.Content = "Default - Pupil";
                     break;
                 case Interfaces.UserType.Contact:
-                    labelTitle.Content = "Default - Contact";
+                    labelSubTitle.Content = "Default - Contact";
                     break;
             }
         }

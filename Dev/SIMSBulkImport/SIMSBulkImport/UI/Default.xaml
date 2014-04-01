@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <!-- Title -->
-        <Label Name="labelTitle" Content="Default" Grid.Row="1" Grid.Column="2" FontSize="24" />
+        <Label Name="labelSubTitle" Content="Default" Grid.Row="1" Grid.Column="2" FontSize="24" />
 
         <!-- Email -->
         <Grid Grid.Column="2" Grid.Row="3" Height="150" Width="400" Name="GridEmail">
