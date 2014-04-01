@@ -14,32 +14,32 @@
         <Label Name="loadLabel" Content="Loading..." HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" />
         <Label Name="loadMessage" Content="" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Top"
                FontStyle="Italic" />
-        <Grid Height="74" HorizontalAlignment="Center" x:Name="grid" VerticalAlignment="Center" Width="300"
+        <Grid Height="100" HorizontalAlignment="Center" x:Name="grid" VerticalAlignment="Center" Width="300"
               Grid.Row="2" Visibility="Visible">
             <Label Content="Username:" Height="28" HorizontalAlignment="Left" x:Name="labelUser"
                    VerticalAlignment="Top" />
             <Label Content="Password:" Height="28" HorizontalAlignment="Left" x:Name="labelPass"
                    VerticalAlignment="Center" />
-            <TextBox Height="23" HorizontalAlignment="Right" x:Name="textUser" VerticalAlignment="Top" Width="200"
-                     TabIndex="0" />
-            <PasswordBox Height="23" HorizontalAlignment="Right" x:Name="passwordBox" VerticalAlignment="Center"
-                         Width="200" TabIndex="1" />
+            <TextBox Height="30" HorizontalAlignment="Right" x:Name="textUser" VerticalAlignment="Top" Width="200"
+                     TabIndex="0" Controls:TextboxHelper.ClearTextButton="True" />
+            <PasswordBox Height="30" HorizontalAlignment="Right" x:Name="passwordBox" VerticalAlignment="Center"
+                         Width="200" TabIndex="1" Controls:TextboxHelper.ClearTextButton="True" />
             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
-                    <RowDefinition Height="20" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="10" />
-                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="10" />
                 </Grid.ColumnDefinitions>
 
-                <RadioButton Name="checkSql" Height="23" Content="SQLServer" HorizontalAlignment="Left" Grid.Row="1"
+                <RadioButton Name="checkSql" Height="23" Content="SIMS SQL" HorizontalAlignment="Left" Grid.Row="1"
                              Grid.Column="1" IsChecked="True" Checked="connectType_Checked" Visibility="Visible" />
-                <RadioButton Name="checkWin" Height="23" Content="Trusted" HorizontalAlignment="Left" Grid.Row="1"
+                <RadioButton Name="checkWin" Height="23" Content="Windows Trusted" HorizontalAlignment="Left" Grid.Row="1"
                              Grid.Column="3" IsChecked="False" Checked="connectType_Checked" Visibility="Visible" />
             </Grid>
         </Grid>

@@ -33,7 +33,7 @@ namespace Matt40k.SIMSBulkImport
 
         public void LoadMetroUI()
         {
-            /*
+            
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
                 Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml", UriKind.RelativeOrAbsolute)
@@ -44,7 +44,7 @@ namespace Matt40k.SIMSBulkImport
                 Source = new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml", UriKind.RelativeOrAbsolute)
             });
 
-            */
+            
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
                 Source =
@@ -64,7 +64,7 @@ namespace Matt40k.SIMSBulkImport
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
                 Source =
-                    new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml",
+                    new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml",
                         UriKind.RelativeOrAbsolute)
             });
         }
