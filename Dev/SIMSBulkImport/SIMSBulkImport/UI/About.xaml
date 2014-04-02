@@ -28,7 +28,7 @@
                    HorizontalAlignment="Left" />
             <Label Name="labelVersion" Grid.Row="5" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" />
         </Grid>
-        <Button Content="Back" HorizontalAlignment="Right" Margin="50,50,50,50" VerticalAlignment="Bottom" Width="100"
+        <Button Content="Back" HorizontalAlignment="Left" Margin="50,50,50,50" VerticalAlignment="Bottom" Width="100"
                 Height="30" FontSize="14" Click="buttonClick" />
     </Grid>
 </UserControl>

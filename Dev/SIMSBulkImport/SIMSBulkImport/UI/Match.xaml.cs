@@ -262,16 +262,22 @@ namespace Matt40k.SIMSBulkImport
             comboEmailMain.Items.Clear();
             comboEmailPrimary.Items.Clear();
             comboEmailNotes.Items.Clear();
+            comboEmailLocation.Items.Clear();
             comboTelephone.Items.Clear();
             comboTelephoneMain.Items.Clear();
             comboTelephonePrimary.Items.Clear();
             comboTelephoneNotes.Items.Clear();
+            comboTelephoneLocation.Items.Clear();
+            comboTelephoneDevice.Items.Clear();
 
             // Add default 
             comboEmailMain.Items.Add("<Default>");
             comboEmailPrimary.Items.Add("<Default>");
+            comboEmailLocation.Items.Add("<Default>");
             comboTelephoneMain.Items.Add("<Default>");
             comboTelephonePrimary.Items.Add("<Default>");
+            comboTelephoneLocation.Items.Add("<Default>");
+            comboTelephoneDevice.Items.Add("<Default>");
 
             try
             {
@@ -290,11 +296,14 @@ namespace Matt40k.SIMSBulkImport
                     comboEmailMain.Items.Add(column.ColumnName);
                     comboEmailPrimary.Items.Add(column.ColumnName);
                     comboEmailNotes.Items.Add(column.ColumnName);
+                    comboEmailLocation.Items.Add(column.ColumnName);
 
                     comboTelephone.Items.Add(column.ColumnName);
                     comboTelephoneMain.Items.Add(column.ColumnName);
                     comboTelephonePrimary.Items.Add(column.ColumnName);
                     comboTelephoneNotes.Items.Add(column.ColumnName);
+                    comboTelephoneLocation.Items.Add(column.ColumnName);
+                    comboTelephoneDevice.Items.Add(column.ColumnName);
                 }
             }
             catch (NullReferenceException)
@@ -312,12 +321,8 @@ namespace Matt40k.SIMSBulkImport
             comboReg.Items.Add(blank);
             //comboSIMSUDF.Items.Add(blank);
             comboEmail.Items.Add(blank);
-            comboEmailMain.Items.Add(blank);
-            comboEmailPrimary.Items.Add(blank);
             comboEmailNotes.Items.Add(blank);
             comboTelephone.Items.Add(blank);
-            comboTelephoneMain.Items.Add(blank);
-            comboTelephonePrimary.Items.Add(blank);
             comboTelephoneNotes.Items.Add(blank);
         }
 

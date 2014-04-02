@@ -1,98 +1,106 @@
 ﻿<UserControl x:Class="Matt40k.SIMSBulkImport.Default"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="400" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="50" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="150" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="180" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-
-        <!-- Title -->
-        <Label Name="labelSubTitle" Content="Default" Grid.Row="1" Grid.Column="2" FontSize="24" />
-
-        <!-- Email -->
-        <Grid Grid.Column="2" Grid.Row="3" Height="150" Width="400" Name="GridEmail">
+    <Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="50" />
                 <RowDefinition Height="30" />
+                <RowDefinition Height="150" />
                 <RowDefinition Height="30" />
+                <RowDefinition Height="180" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
                 <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
 
-            <Label Name="labelEmailMain" Content="Email Main" Grid.Row="0" HorizontalAlignment="Left" />
-            <ComboBox Name="comboEmailMain" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="0">
-                <ComboBoxItem Content="Yes" />
-                <ComboBoxItem Content="Yes (Overwrite)" />
-                <ComboBoxItem Content="No" />
-            </ComboBox>
+            <!-- Email -->
+            <Grid Grid.Column="2" Grid.Row="3" Height="150" Width="400" Name="GridEmail">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
 
-            <Label Name="labelEmailPrimary" Content="Email Primary" Grid.Row="1" />
-            <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1">
-                <ComboBoxItem Content="Yes" />
-                <ComboBoxItem Content="Yes (Overwrite)" />
-                <ComboBoxItem Content="No" />
-            </ComboBox>
+                <Label Name="labelEmailMain" Content="Email Main" Grid.Row="0" HorizontalAlignment="Left" />
+                <ComboBox Name="comboEmailMain" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="0">
+                    <ComboBoxItem Content="Yes" />
+                    <ComboBoxItem Content="Yes (Overwrite)" />
+                    <ComboBoxItem Content="No" />
+                </ComboBox>
 
-            <Label Name="labelEmailLocation" Content="Email Location" Grid.Row="2" />
-            <ComboBox Name="comboEmailLocation" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="2" />
+                <Label Name="labelEmailPrimary" Content="Email Primary" Grid.Row="1" />
+                <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1">
+                    <ComboBoxItem Content="Yes" />
+                    <ComboBoxItem Content="Yes (Overwrite)" />
+                    <ComboBoxItem Content="No" />
+                </ComboBox>
 
-            <Label Name="labelEmailNotes" Content="Email Notes" Grid.Row="3" />
-            <TextBox Name="comboEmailNotes" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="3"/>
+                <Label Name="labelEmailLocation" Content="Email Location" Grid.Row="2" />
+                <ComboBox Name="comboEmailLocation" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="2" />
+
+                <Label Name="labelEmailNotes" Content="Email Notes" Grid.Row="3" />
+                <TextBox Name="comboEmailNotes" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="3"/>
+            </Grid>
+
+            <!-- Telephone -->
+            <Grid Grid.Column="2" Grid.Row="5" Height="180" Width="400" Name="GridTelephone">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Label Name="labelTelephoneMain" Content="Telephone Main" Grid.Row="0" />
+                <ComboBox Name="comboTelephoneMain" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="0" >
+                    <ComboBoxItem Content="Yes" />
+                    <ComboBoxItem Content="Yes (Overwrite)" />
+                    <ComboBoxItem Content="No" />
+                </ComboBox>
+
+                <Label Name="labelTelephonePrimary" Content="Telephone Primary" Grid.Row="1" />
+                <ComboBox Name="comboTelephonePrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1">
+                    <ComboBoxItem Content="Yes" />
+                    <ComboBoxItem Content="Yes (Overwrite)" />
+                    <ComboBoxItem Content="No" />
+                </ComboBox>
+
+                <Label Name="labelTelephoneLocation" Content="Telephone Location" Grid.Row="2" />
+                <ComboBox Name="comboTelephoneLocation" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="2" />
+
+                <Label Name="labelTelephoneNotes" Content="Telephone Notes" Grid.Row="3" />
+                <TextBox Name="comboTelephoneNotes" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="3"/>
+
+                <Label Name="labelTelephoneDevice" Content="Telephone Device" Grid.Row="4" />
+                <ComboBox Name="comboTelephoneDevice" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="4"/>
+            </Grid>
+
         </Grid>
-
-        <!-- Telephone -->
-        <Grid Grid.Column="2" Grid.Row="5" Height="180" Width="400" Name="GridTelephone">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-                <RowDefinition Height="30" />
-            </Grid.RowDefinitions>
-            <Label Name="labelTelephoneMain" Content="Telephone Main" Grid.Row="0" />
-            <ComboBox Name="comboTelephoneMain" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="0" >
-                <ComboBoxItem Content="Yes" />
-                <ComboBoxItem Content="Yes (Overwrite)" />
-                <ComboBoxItem Content="No" />
-            </ComboBox>
-
-            <Label Name="labelTelephonePrimary" Content="Telephone Primary" Grid.Row="1" />
-            <ComboBox Name="comboTelephonePrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1">
-                <ComboBoxItem Content="Yes" />
-                <ComboBoxItem Content="Yes (Overwrite)" />
-                <ComboBoxItem Content="No" />
-            </ComboBox>
-
-            <Label Name="labelTelephoneLocation" Content="Telephone Location" Grid.Row="2" />
-            <ComboBox Name="comboTelephoneLocation" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="2" />
+        <Grid>
             
-            <Label Name="labelTelephoneNotes" Content="Telephone Notes" Grid.Row="3" />
-            <TextBox Name="comboTelephoneNotes" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="3"/>
+            <!-- Title -->
+            <Label Name="labelSubTitle" Content="Default" FontSize="24" Margin="50,50,50,50"
+                   HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-            <Label Name="labelTelephoneDevice" Content="Telephone Device" Grid.Row="4" />
-            <ComboBox Name="comboTelephoneDevice" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="4"/>
+            <!-- Navigation -->
+            <Button Content="Cancel" Height="26" HorizontalAlignment="Left"
+            Name="buttonCancel" VerticalAlignment="Bottom" Width="100" Click="buttonCancel_Click"
+                    Margin="50,50,50,50" />
+            <Button Content="Save" Height="26" HorizontalAlignment="Right" Name="buttonSave"
+            VerticalAlignment="Bottom" Width="100" Click="buttonSave_Click"
+                    Margin="50,50,50,50"/>
+            
         </Grid>
-        
-        <!-- Footer -->
-        <Button Content="Cancel" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="8" Height="26" HorizontalAlignment="Left"
-            Name="buttonCancel" VerticalAlignment="Center" Width="100" Click="buttonCancel_Click" />
-        <Button Content="Save" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="8" Height="26" HorizontalAlignment="Right" Name="buttonSave"
-            VerticalAlignment="Center" Width="100" Click="buttonSave_Click" />
-            
     </Grid>
 </UserControl>

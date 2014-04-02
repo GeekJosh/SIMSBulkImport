@@ -20,7 +20,7 @@
             <Label Content="Select File" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"
                    Grid.Row="0" />
             <TextBox Height="23" HorizontalAlignment="Center" Name="pathBox" VerticalAlignment="Center" Width="300"
-                     Grid.Column="0" Grid.Row="1" TextChanged="pathBox_TextChanged" />
+                     Grid.Column="0" Grid.Row="1" TextChanged="pathBox_TextChanged" Controls:TextboxHelper.ClearTextButton="True" />
             <Button Content="Browse" Height="30" HorizontalAlignment="Center" Name="buttonBrowse"
                     VerticalAlignment="Center" Width="75" Grid.Column="1" Grid.Row="1" Click="buttonBrowse_Click" />
             <Button Content="OK" Height="30" HorizontalAlignment="Center" Name="button" VerticalAlignment="Center"
