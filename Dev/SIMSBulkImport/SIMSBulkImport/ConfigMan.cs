@@ -27,10 +27,16 @@ namespace Matt40k.SIMSBulkImport
         private string appGuid;
         private string updateUrl;
 
-        private int telephonePrimary;
-        private int telephoneMain;
-        private int emailPrimary;
-        private int emailMain;
+        private string emailMain;
+        private string emailPrimary;
+        private string emailLocation;
+        private string emailNotes;
+
+        private string telephoneMain;
+        private string telephonePrimary;
+        private string telephoneLocation;
+        private string telephoneNotes;
+        private string telephoneDevice;
 
         public ConfigMan()
         {
@@ -87,10 +93,15 @@ namespace Matt40k.SIMSBulkImport
             public bool CheckUpdate;
             public string AppGUID;
             public string UpdateURL;
-            public int EmailPrimary;
-            public int EmailMain;
-            public int TelephonePrimary;
-            public int TelephoneMain;
+            public string EmailPrimary;
+            public string EmailMain;
+            public string EmailLocation;
+            public string EmailNotes;
+            public string TelephonePrimary;
+            public string TelephoneMain;
+            public string TelephoneLocation;
+            public string TelephoneNotes;
+            public string TelephoneDevice;
         }
 
         /// <summary>
@@ -99,20 +110,31 @@ namespace Matt40k.SIMSBulkImport
         private void CreateConfigFile()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CreateConfigFile()");
+
+            // Generate a new GUID
             string newGuid = Guid.NewGuid().ToString();
 
             debugMode = false;
             updateMode = true;
             appGuid = newGuid;
             updateUrl = "http://api.matt40k.co.uk/";
-            emailMain = 0;
-            emailPrimary = 0;
-            telephoneMain = 0;
-            telephonePrimary = 0;
+            emailMain = null;
+            emailPrimary = null;
+            emailLocation = null;
+            emailNotes = null;
+            telephoneMain = null;
+            telephonePrimary = null;
+            telephoneLocation = null;
+            telephoneNotes = null;
+            telephoneDevice = null;
 
+            // Save the new config to the file system
             SaveConfig();         
         }
 
+        /// <summary>
+        /// Returns TRUE if it is set to check for updates using the online services
+        /// </summary>
         public bool CheckForUpdates
         {
             get
@@ -134,7 +156,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
         
-
+        /// <summary>
+        /// Returns the URL to be used for checking for updates
+        /// </summary>
         public string GetUpdateURL
         {
             get
@@ -144,6 +168,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Returns true if it is set to Debug mode
+        /// </summary>
         public bool IsDebugMode
         {
             get
@@ -170,14 +197,22 @@ namespace Matt40k.SIMSBulkImport
                 ,AppGUID = appGuid
                 ,EmailMain = emailMain
                 ,EmailPrimary = emailPrimary
+                ,EmailLocation = emailLocation
+                ,EmailNotes = emailNotes
                 ,TelephoneMain = telephoneMain
                 ,TelephonePrimary = telephonePrimary
+                ,TelephoneLocation = telephoneLocation
+                ,TelephoneNotes = telephoneNotes
+                ,TelephoneDevice = telephoneDevice
             });
             string json = JsonConvert.SerializeObject(_data.ToArray());
 
             File.WriteAllText(GetAppConfig, json); 
         }
 
+        /// <summary>
+        /// Set if the application should run in debug mode, changes the log level to trace if TRUE
+        /// </summary>
         public bool SetDebug
         {
             set
@@ -203,85 +238,14 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
-        /// <summary>
-        /// Reads the .config.json file for the default settings for Telephone - Primary
-        ///   0-Yes
-        ///   1-Yes (Overwrite)
-        ///   2-No
-        /// </summary>
-        public int GetTelephonePrimary
-        {
-            get
-            {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephonePrimary(GET)");
-                return telephonePrimary;
-            }
-        }
-
-        /// <summary>
-        /// Sets the Telephone - Primary
-        /// 
-        /// Use SaveConfig() to write to .config.json
-        /// </summary>
-        public int SetTelephonePrimary
-        {
-            set
-            {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephonePrimary(" + value + ")");
-                telephonePrimary = value;
-            }
-        }
-
-        /// <summary>
-        /// Reads the .config.json file for the default settings for Telephone - Main
-        ///   0-Yes
-        ///   1-Yes (Overwrite)
-        ///   2-No
-        /// </summary>
-        public int GetTelephoneMain
-        {
-            get
-            {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneMain(GET)");
-                return telephoneMain;
-            }
-        }
-
-        /// <summary>
-        /// Sets the Telephone - Main
-        /// 
-        /// Use SaveConfig() to write to .config.json
-        /// </summary>
-        public int SetTelephoneMain
-        {
-            set
-            {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneMain(" + value + ")");
-                telephoneMain = value;
-            }
-        }
-
-        /// <summary>
-        /// Reads the .config.json file for the default settings for Email - Primary
-        ///   0-Yes
-        ///   1-Yes (Overwrite)
-        ///   2-No
-        /// </summary>
-        public int GetEmailPrimary
-        {
-            get
-            {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetEmailPrimary(GET)");
-                return emailPrimary;
-            }
-        }
-
+#region Email
+        #region Email Primary
         /// <summary>
         /// Sets the Email - Primary
         /// 
         /// Use SaveConfig() to write to .config.json
         /// </summary>
-        public int SetEmailPrimary
+        public string SetDefaultEmailPrimary
         {
             set
             {
@@ -291,26 +255,25 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// Reads the .config.json file for the default settings for Email - Main
-        ///   0-Yes
-        ///   1-Yes (Overwrite)
-        ///   2-No
+        /// Reads the .config.json file for the default settings for Email - Primary
         /// </summary>
-        public int GetEmailMain
+        public string GetDefaultEmailPrimary
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetEmailMain(GET)");
-                return emailMain;
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetEmailPrimary(GET)");
+                return emailPrimary;
             }
         }
+        #endregion
 
+        #region Email Main
         /// <summary>
         /// Sets the Email - Main
         /// 
         /// Use SaveConfig() to write to .config.json
         /// </summary>
-        public int SetEmailMain
+        public string SetDefaultEmailMain
         {
             set
             {
@@ -318,6 +281,219 @@ namespace Matt40k.SIMSBulkImport
                 emailMain = value;
             }
         }
+
+        /// <summary>
+        /// Reads the .config.json file for the default settings for Email - Main
+        /// </summary>
+        public string GetDefaultEmailMain
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetEmailMain(GET)");
+                return emailMain;
+            }
+        }
+        #endregion
+
+        #region Email Location
+        /// <summary>
+        /// Sets the Email - Location
+        /// 
+        /// Use SaveConfig() to write to .config.json
+        /// </summary>
+        public string SetDefaultEmailLocation
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultEmailLocation(" + value + ")");
+                emailLocation = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the .config.json file for the default settings for Email - Location
+        /// </summary>
+        public string GetDefaultEmailLocation
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetDefaultEmailLocation(GET)");
+                return emailLocation;
+            }
+        }
+        #endregion
+
+        #region Email Notes
+        /// <summary>
+        /// Sets the Email - Notes
+        /// 
+        /// Use SaveConfig() to write to .config.json
+        /// </summary>
+        public string SetDefaultEmailNotes
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultEmailNotes(" + value + ")");
+                emailNotes = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the .config.json file for the default settings for Email - Notes
+        /// </summary>
+        public string GetDefaultEmailNotes
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetDefaultEmailNotes(GET)");
+                return emailNotes;
+            }
+        }
+        #endregion
+#endregion Email
+
+#region Telephone
+        #region Telephone Primary
+        /// <summary>
+        /// Sets the Telephone - Primary
+        /// 
+        /// Use SaveConfig() to write to .config.json
+        /// </summary>
+        public string SetDefaultTelephonePrimary
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephonePrimary(" + value + ")");
+                telephonePrimary = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the .config.json file for the default settings for Telephone - Primary
+        /// </summary>
+        public string GetDefaultTelephonePrimary
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephonePrimary(GET)");
+                return telephonePrimary;
+            }
+        }
+        #endregion
+
+        #region Telephone Main
+        /// <summary>
+        /// Sets the default Telephone - Main
+        /// 
+        /// Use SaveConfig() to write to .config.json
+        /// </summary>
+        public string SetDefaultTelephoneMain
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultTelephoneMain(" + value + ")");
+                telephoneMain = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the .config.json file for the default settings for Telephone - Main
+        /// </summary>
+        public string GetDefaultTelephoneMain
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneMain(GET)");
+                return telephoneMain;
+            }
+        }
+        #endregion
+
+        #region Telephone Location
+        /// <summary>
+        /// Sets the Telephone - Location
+        /// 
+        /// Use SaveConfig() to write to .config.json
+        /// </summary>
+        public string SetDefaultTelephoneLocation
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneLocation(" + value + ")");
+                telephoneLocation = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the .config.json file for the default settings for Telephone - Location
+        /// </summary>
+        public string GetDefaultTelephoneLocation
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneLocation(GET)");
+                return telephoneLocation;
+            }
+        }
+        #endregion
+
+        #region Telephone Notes
+        /// <summary>
+        /// Sets the Telephone - Notes
+        /// 
+        /// Use SaveConfig() to write to .config.json
+        /// </summary>
+        public string SetDefaultTelephoneNotes
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneNotes(" + value + ")");
+                telephoneNotes = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the .config.json file for the default settings for Telephone - Notes
+        /// </summary>
+        public string GetDefaultTelephoneNotes
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneNotes(GET)");
+                return telephoneNotes;
+            }
+        }
+        #endregion
+
+        #region Telephone Device
+        /// <summary>
+        /// Sets the Telephone - Notes
+        /// 
+        /// Use SaveConfig() to write to .config.json
+        /// </summary>
+        public string SetDefaultTelephoneDevice
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneDevice(" + value + ")");
+                telephoneDevice = value;
+            }
+        }
+
+        /// <summary>
+        /// Reads the .config.json file for the default settings for Telephone - Device
+        /// </summary>
+        public string GetDefaultTelephoneDevice
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneDevice(GET)");
+                return telephoneDevice;
+            }
+        }
+        #endregion
+#endregion
+
 
         /// <summary>
         /// 

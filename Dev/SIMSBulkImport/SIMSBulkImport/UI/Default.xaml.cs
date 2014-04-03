@@ -4,6 +4,7 @@
  */
 
 using System.Windows;
+using System.Windows.Controls;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport
@@ -39,16 +40,22 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Reads the Default settings and sets them as the selected in the UI
         /// </summary>
         private void ReadConfig()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.ReadConfig()");
 
-            comboEmailMain.SelectedValue = Switcher.ConfigManClass.GetEmailMain;
-            comboEmailPrimary.SelectedValue = Switcher.ConfigManClass.GetEmailPrimary;
-            comboTelephoneMain.SelectedValue = Switcher.ConfigManClass.GetTelephoneMain;
-            comboTelephonePrimary.SelectedValue = Switcher.ConfigManClass.GetTelephonePrimary;
+            comboEmailMain.SelectedValue = Switcher.ConfigManClass.GetDefaultEmailMain;
+            comboEmailPrimary.SelectedValue = Switcher.ConfigManClass.GetDefaultEmailPrimary;
+            comboEmailLocation.SelectedValue = Switcher.ConfigManClass.GetDefaultEmailLocation;
+            comboEmailNotes.Text = Switcher.ConfigManClass.GetDefaultEmailNotes;
+
+            comboTelephoneMain.SelectedValue = Switcher.ConfigManClass.GetDefaultTelephoneMain;
+            comboTelephonePrimary.SelectedValue = Switcher.ConfigManClass.GetDefaultTelephonePrimary;
+            comboTelephoneLocation.SelectedValue = Switcher.ConfigManClass.GetDefaultTelephoneLocation;
+            comboTelephoneNotes.Text = Switcher.ConfigManClass.GetDefaultTelephoneNotes;
+            comboTelephoneDevice.SelectedValue = Switcher.ConfigManClass.GetDefaultTelephoneDevice;
         }
 
         /// <summary>
@@ -65,7 +72,6 @@ namespace Matt40k.SIMSBulkImport
                 {
                     comboEmailLocation.Items.Add(emailLocation);
                 }
-                comboEmailLocation.Items.Add("");
             }
         }
 
@@ -83,7 +89,6 @@ namespace Matt40k.SIMSBulkImport
                 {
                     comboTelephoneLocation.Items.Add(telephoneLocation);
                 }
-                comboTelephoneLocation.Items.Add("");
             }
         }
 
@@ -101,7 +106,6 @@ namespace Matt40k.SIMSBulkImport
                 {
                     comboTelephoneDevice.Items.Add(device);
                 }
-                comboTelephoneDevice.Items.Add("");
             }
         }
 
@@ -113,10 +117,22 @@ namespace Matt40k.SIMSBulkImport
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.buttonSave_Click()");
-            Switcher.ConfigManClass.SetEmailMain = comboEmailMain.SelectedIndex;
-            Switcher.ConfigManClass.SetEmailPrimary = comboEmailPrimary.SelectedIndex;
-            Switcher.ConfigManClass.SetTelephoneMain = comboTelephoneMain.SelectedIndex;
-            Switcher.ConfigManClass.SetTelephonePrimary = comboTelephonePrimary.SelectedIndex;
+
+            ComboBoxItem emailMainItem = (ComboBoxItem)comboEmailMain.SelectedValue;
+            ComboBoxItem emailPrimaryItem = (ComboBoxItem)comboEmailPrimary.SelectedValue;
+            ComboBoxItem telephoneMainItem = (ComboBoxItem)comboTelephoneMain.SelectedValue;
+            ComboBoxItem telephonePrimaryItem = (ComboBoxItem)comboTelephonePrimary.SelectedValue;
+
+            Switcher.ConfigManClass.SetDefaultEmailMain = (string)emailMainItem.Content;
+            Switcher.ConfigManClass.SetDefaultEmailPrimary = (string)emailPrimaryItem.Content;
+            Switcher.ConfigManClass.SetDefaultEmailLocation = comboEmailLocation.SelectedValue.ToString();
+            Switcher.ConfigManClass.SetDefaultEmailNotes = comboEmailNotes.Text;
+
+            Switcher.ConfigManClass.SetDefaultTelephoneMain = (string)telephoneMainItem.Content;
+            Switcher.ConfigManClass.SetDefaultTelephonePrimary = (string)telephonePrimaryItem.Content;
+            Switcher.ConfigManClass.SetDefaultTelephoneLocation = comboTelephoneLocation.SelectedValue.ToString();
+            Switcher.ConfigManClass.SetDefaultTelephoneNotes = comboTelephoneNotes.Text;
+            Switcher.ConfigManClass.SetDefaultTelephoneDevice = comboTelephoneDevice.SelectedValue.ToString();
 
             // Write the config file (.config.json) to the file-system
             Switcher.ConfigManClass.SaveConfig();

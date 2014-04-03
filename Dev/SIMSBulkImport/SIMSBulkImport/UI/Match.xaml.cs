@@ -274,9 +274,11 @@ namespace Matt40k.SIMSBulkImport
             comboEmailMain.Items.Add("<Default>");
             comboEmailPrimary.Items.Add("<Default>");
             comboEmailLocation.Items.Add("<Default>");
+            comboEmailNotes.Items.Add("<Default>");
             comboTelephoneMain.Items.Add("<Default>");
             comboTelephonePrimary.Items.Add("<Default>");
             comboTelephoneLocation.Items.Add("<Default>");
+            comboTelephoneNotes.Items.Add("<Default>");
             comboTelephoneDevice.Items.Add("<Default>");
 
             try
@@ -522,7 +524,7 @@ namespace Matt40k.SIMSBulkImport
                     labelEmailLocation.IsEnabled = true;
                     comboEmailLocation.IsEnabled = true;
                     if (comboEmailLocation.SelectedIndex == -1)
-                        comboEmailLocation.SelectedIndex = 1;
+                        comboEmailLocation.SelectedIndex = 0;
 
                     // Enable Email main combobox and set the default value
                     labelEmailMain.IsEnabled = true;
@@ -595,6 +597,13 @@ namespace Matt40k.SIMSBulkImport
                     // Enable Telephone notes combobox and set the default value
                     labelTelephoneNotes.IsEnabled = true;
                     comboTelephoneNotes.IsEnabled = true;
+
+                    // Enable Telephone device combobox and set the default value
+                    labelTelephoneDevice.IsEnabled = true;
+                    comboTelephoneDevice.IsEnabled = true;
+                    if (comboTelephoneDevice.SelectedIndex == -1)
+                        comboTelephoneDevice.SelectedIndex = 0;
+
                 }
                 else
                 {
@@ -619,6 +628,11 @@ namespace Matt40k.SIMSBulkImport
                     labelTelephoneNotes.IsEnabled = false;
                     comboTelephoneNotes.IsEnabled = false;
                     comboTelephoneNotes.SelectedValue = null;
+
+                    // Disable Telephone device combobox and reset value
+                    labelTelephoneDevice.IsEnabled = false;
+                    comboTelephoneDevice.IsEnabled = false;
+                    comboTelephoneDevice.SelectedValue = null;
                 }
             }
             if (comboGender.SelectedItem != null)
