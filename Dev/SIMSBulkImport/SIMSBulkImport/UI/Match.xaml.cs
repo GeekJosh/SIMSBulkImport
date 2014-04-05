@@ -30,23 +30,24 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         #region Variables
         private string personid;
-        private string email;
-        private string emailLocation;
-        private string emailMain;
-        private string emailPrimary;
-        private string emailNotes;
+        private string surname;
         private string firstname;
         private string gender;
         private string reg;
         private string simsUdf;
         private string staffcode;
-        private string surname;
+        private string title;
+        private string email;
+        private string emailMain;
+        private string emailPrimary;
+        private string emailLocation;
+        private string emailNotes;
         private string telephone;
-        private string telephoneLocation;
         private string telephoneMain;
         private string telephonePrimary;
+        private string telephoneLocation;
         private string telephoneNotes;
-        private string title;
+        private string telephoneDevice;
         private string udf;
         #endregion
 
@@ -126,6 +127,7 @@ namespace Matt40k.SIMSBulkImport
                     tmpTable.Columns.Add(new DataColumn("Email", typeof(string)));
                     tmpTable.Columns.Add(new DataColumn("Email main", typeof(string)));
                     tmpTable.Columns.Add(new DataColumn("Email primary", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Email location", typeof(string)));
                     tmpTable.Columns.Add(new DataColumn("Email notes", typeof(string)));
                 }
 
@@ -135,7 +137,9 @@ namespace Matt40k.SIMSBulkImport
                     tmpTable.Columns.Add(new DataColumn("Telephone", typeof(string)));
                     tmpTable.Columns.Add(new DataColumn("Telephone main", typeof(string)));
                     tmpTable.Columns.Add(new DataColumn("Telephone primary", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Telephone location", typeof(string)));
                     tmpTable.Columns.Add(new DataColumn("Telephone notes", typeof(string)));
+                    tmpTable.Columns.Add(new DataColumn("Telephone device", typeof(string)));
                 }
 
                 tmpTable.Columns.Add(new DataColumn("UDF", typeof (string)));
@@ -218,8 +222,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        #region GetDataTable
         /// <summary>
-        /// 
+        /// Reads the contents of the import file - specifically looking at the column names
         /// </summary>
         private void GetDataTable()
         {
@@ -327,9 +332,12 @@ namespace Matt40k.SIMSBulkImport
             comboTelephone.Items.Add(blank);
             comboTelephoneNotes.Items.Add(blank);
         }
+        #endregion
 
+        #region Buttons
         /// <summary>
-        /// 
+        /// Checks the bare min is entered then sets up matching\binding between the Import file
+        /// and the SIMS .net database fields then moves UI to the next window.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -410,7 +418,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Goes to the Default UI where the user can define the default option for settings like default Location
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -423,7 +431,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Returns user to the file selector UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -434,6 +442,7 @@ namespace Matt40k.SIMSBulkImport
             // Switch to Open UI
             Switcher.Switch(new Open());
         }
+        #endregion
 
         /// <summary>
         /// 
@@ -463,11 +472,13 @@ namespace Matt40k.SIMSBulkImport
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.UpdatePreview()");
 
-            DataTable filtered = previewTable;
-
             // Read the ComboBoxs and set local variables
             SetMatchBinding();
 
+            // Build the preview table structure
+            DataTable filtered = previewTable;
+
+            
             var ignoreFirstRow = (bool)comboIgnoreFirst.IsChecked;
 
             int rowCount = 5;
@@ -490,6 +501,7 @@ namespace Matt40k.SIMSBulkImport
             dataGrid.Items.Refresh();
         }
 
+        #region SetBinding
         /// <summary>
         /// 
         /// </summary>
@@ -541,6 +553,8 @@ namespace Matt40k.SIMSBulkImport
                     // Enable Email notes combobox and set the default value
                     labelEmailNotes.IsEnabled = true;
                     comboEmailNotes.IsEnabled = true;
+                    if (comboEmailNotes.SelectedIndex == -1)
+                        comboEmailNotes.SelectedIndex = 0;
                 }
                 else
                 {
@@ -580,7 +594,7 @@ namespace Matt40k.SIMSBulkImport
                     labelTelephoneLocation.IsEnabled = true;
                     comboTelephoneLocation.IsEnabled = true;
                     if (comboTelephoneLocation.SelectedIndex == -1)
-                        comboTelephoneLocation.SelectedIndex = 1;
+                        comboTelephoneLocation.SelectedIndex = 0;
 
                     // Enable Telephone main combobox and set the default value
                     labelTelephoneMain.IsEnabled = true;
@@ -597,6 +611,8 @@ namespace Matt40k.SIMSBulkImport
                     // Enable Telephone notes combobox and set the default value
                     labelTelephoneNotes.IsEnabled = true;
                     comboTelephoneNotes.IsEnabled = true;
+                    if (comboTelephoneNotes.SelectedIndex == -1)
+                        comboTelephoneNotes.SelectedIndex = 0;
 
                     // Enable Telephone device combobox and set the default value
                     labelTelephoneDevice.IsEnabled = true;
@@ -691,7 +707,12 @@ namespace Matt40k.SIMSBulkImport
             {
                 telephoneNotes = comboTelephoneNotes.SelectedValue.ToString();
             }
+            if (comboTelephoneDevice.SelectedItem != null)
+            {
+                telephoneDevice = comboTelephoneDevice.SelectedValue.ToString();
+            }
         }
+#endregion
 
         /// <summary>
         /// 
@@ -728,15 +749,29 @@ namespace Matt40k.SIMSBulkImport
                     {
                         if ((emailMain) != "<Default>")
                             newrow["Email main"] = r[emailMain];
+                        else
+                            newrow["Email main"] = Switcher.ConfigManClass.GetDefaultEmailMain;
                     }
                     if (!string.IsNullOrWhiteSpace(emailPrimary))
                     {
                         if ((emailPrimary) != "<Default>")
                             newrow["Email primary"] = r[emailPrimary];
+                        else
+                            newrow["Email primary"] = Switcher.ConfigManClass.GetDefaultEmailPrimary;
+                    }
+                    if (!string.IsNullOrWhiteSpace(emailLocation))
+                    {
+                        if ((emailLocation) != "<Default>")
+                            newrow["Email location"] = r[emailLocation];
+                        else
+                            newrow["Email location"] = Switcher.ConfigManClass.GetDefaultEmailLocation;
                     }
                     if (!string.IsNullOrWhiteSpace(emailNotes))
                     {
-                        newrow["Email notes"] = r[emailNotes];
+                        if ((emailPrimary) != "<Default>")
+                            newrow["Email notes"] = r[emailNotes];
+                        else
+                            newrow["Email notes"] = Switcher.ConfigManClass.GetDefaultEmailNotes;
                     }
                 }
                 catch (Exception previewRow_Email_Exception)
@@ -749,25 +784,46 @@ namespace Matt40k.SIMSBulkImport
             if (telephoneSelected)
             {
                 try
-                { 
-                if (!string.IsNullOrWhiteSpace(telephone))
                 {
-                    newrow["Telephone"] = r[telephone];
-                }
-                if (!string.IsNullOrWhiteSpace(telephoneMain))
-                {
-                    if ((telephoneMain) != "<Default>")
-                        newrow["Telephone main"] = r[telephoneMain];
-                }
-                if (!string.IsNullOrWhiteSpace(telephonePrimary))
-                {
-                    if ((telephonePrimary) != "<Default>")
-                        newrow["Telephone primary"] = r[telephonePrimary];
-                }
-                if (!string.IsNullOrWhiteSpace(telephoneNotes))
-                {
-                    newrow["Telephone notes"] = r[telephoneNotes];
-                }
+                    if (!string.IsNullOrWhiteSpace(telephone))
+                    {
+                        newrow["Telephone"] = r[telephone];
+                    }
+                    if (!string.IsNullOrWhiteSpace(telephoneMain))
+                    {
+                        if ((telephoneMain) != "<Default>")
+                            newrow["Telephone main"] = r[telephoneMain];
+                        else
+                            newrow["Telephone main"] = Switcher.ConfigManClass.GetDefaultTelephoneMain;
+                    }
+                    if (!string.IsNullOrWhiteSpace(telephonePrimary))
+                    {
+                        if ((telephonePrimary) != "<Default>")
+                            newrow["Telephone primary"] = r[telephonePrimary];
+                        else
+                            newrow["Telephone primary"] = Switcher.ConfigManClass.GetDefaultTelephonePrimary;
+                    }
+                    if (!string.IsNullOrWhiteSpace(telephoneLocation))
+                    {
+                        if ((telephoneLocation) != "<Default>")
+                            newrow["Telephone location"] = r[telephoneLocation];
+                        else
+                            newrow["Telephone location"] = Switcher.ConfigManClass.GetDefaultTelephoneLocation;
+                    }
+                    if (!string.IsNullOrWhiteSpace(telephoneNotes))
+                    {
+                        if ((telephoneNotes) != "<Default>")
+                            newrow["Telephone notes"] = r[telephoneNotes];
+                        else
+                            newrow["Telephone notes"] = Switcher.ConfigManClass.GetDefaultTelephoneNotes;
+                    }
+                    if (!string.IsNullOrWhiteSpace(telephoneDevice))
+                    {
+                        if ((telephoneDevice) != "<Default>")
+                            newrow["Telephone device"] = r[telephoneDevice];
+                        else
+                            newrow["Telephone device"] = Switcher.ConfigManClass.GetDefaultTelephoneDevice;
+                    }
                 }
                 catch (Exception previewRow_Telephone_Exception)
                 {

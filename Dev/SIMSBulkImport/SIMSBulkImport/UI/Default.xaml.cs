@@ -59,7 +59,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Gets the Email Locations from SIMS .net
         /// </summary>
         private void GetEmailLocations()
         {
@@ -76,7 +76,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Gets the Telephone locations from SIMS .net
         /// </summary>
         private void GetTelephoneLocations()
         {
@@ -93,7 +93,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Get the Telephone Devices from SIMS .net
         /// </summary>
         private void GetTelephoneDevices()
         {

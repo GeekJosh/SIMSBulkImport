@@ -118,15 +118,20 @@ namespace Matt40k.SIMSBulkImport
             updateMode = true;
             appGuid = newGuid;
             updateUrl = "http://api.matt40k.co.uk/";
-            emailMain = null;
-            emailPrimary = null;
+
+            emailMain = "Yes";
+            emailPrimary = "Yes";
+            telephoneMain = "Yes";
+            telephonePrimary = "Yes";
+
+            /*
+            // These shouldn't be hardcoded
             emailLocation = null;
             emailNotes = null;
-            telephoneMain = null;
-            telephonePrimary = null;
             telephoneLocation = null;
             telephoneNotes = null;
             telephoneDevice = null;
+            */
 
             // Save the new config to the file system
             SaveConfig();         
@@ -318,7 +323,21 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetDefaultEmailLocation(GET)");
-                return emailLocation;
+                if (!string.IsNullOrWhiteSpace(emailLocation))
+                    return emailLocation;
+                else
+                {
+                    try
+                    {
+                        return Switcher.SimsApiClass.GetDefaultEmailLocation;
+                    }
+                    catch (Exception GetDefaultEmailLocation_GetDefault_Exception)
+                    {
+                        logger.Log(LogLevel.Error, "Matt40k.SIMSBulkImport.ConfigMan.GetDefaultEmailLocation_GetDefault_Exception");
+                        logger.Log(LogLevel.Error, GetDefaultEmailLocation_GetDefault_Exception);
+                    }
+                    return null;
+                }
             }
         }
         #endregion
@@ -432,7 +451,21 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneLocation(GET)");
+                if (!string.IsNullOrWhiteSpace(telephoneLocation))
                 return telephoneLocation;
+                else
+                {
+                    try
+                    {
+                        return Switcher.SimsApiClass.GetDefaultTelephoneLocation;
+                    }
+                    catch (Exception GetDefaultTelephoneLocation_GetDefault_Exception)
+                    {
+                        logger.Log(LogLevel.Error, "Matt40k.SIMSBulkImport.ConfigMan.GetDefaultTelephoneLocation_GetDefault_Exception");
+                        logger.Log(LogLevel.Error, GetDefaultTelephoneLocation_GetDefault_Exception);
+                    }
+                    return null;
+                }
             }
         }
         #endregion
@@ -488,7 +521,21 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneDevice(GET)");
+                if (!string.IsNullOrWhiteSpace(telephoneDevice))
                 return telephoneDevice;
+                else
+                {
+                    try
+                    {
+                        return Switcher.SimsApiClass.GetDefaultTelephoneDevice;
+                    }
+                    catch (Exception GetDefaultTelephoneDevice_GetDefault_Exception)
+                    {
+                        logger.Log(LogLevel.Error, "Matt40k.SIMSBulkImport.ConfigMan.GetDefaultTelephoneDevice_GetDefault_Exception");
+                        logger.Log(LogLevel.Error, GetDefaultTelephoneDevice_GetDefault_Exception);
+                    }
+                    return null;
+                }
             }
         }
         #endregion
