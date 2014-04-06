@@ -138,7 +138,7 @@ namespace Matt40k.SIMSBulkImport
             Switcher.ConfigManClass.SaveConfig();
 
             // Return to Match UI
-            Switcher.Switch(new Match());
+            Switcher.Switch(new Match(true));
         }
 
         /// <summary>

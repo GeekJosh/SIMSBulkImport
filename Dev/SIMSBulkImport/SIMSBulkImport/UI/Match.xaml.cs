@@ -19,7 +19,7 @@ namespace Matt40k.SIMSBulkImport
         //private int ImportType;
 
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private readonly DataSet ds;
+        private DataSet ds;
         private DataTable dt;
 
         private bool emailSelected;
@@ -52,12 +52,29 @@ namespace Matt40k.SIMSBulkImport
         #endregion
 
         /// <summary>
-        /// 
+        /// Main Load
         /// </summary>
         internal Match()
         {
             InitializeComponent();
+            Load();
+        }
 
+        /// <summary>
+        /// Main Load (recover settings from previous load)
+        /// </summary>
+        /// <param name="value"></param>
+        internal Match(bool value)
+        {
+            InitializeComponent();
+            Load();
+
+            if (value)
+                GetPreImport();
+        }
+
+        private void Load()
+        {
             // Set the subtitle
             SetSubTitle();
 
@@ -345,74 +362,10 @@ namespace Matt40k.SIMSBulkImport
         {
             if (matchFillIn)
             {
-                setPreImport();
+                // Set the options
+                SetPreImport();
 
-                Switcher.PreImportClass.SetMatchFirstname = firstname;
-                Switcher.PreImportClass.SetMatchSurname = surname;
-                Switcher.PreImportClass.SetMatchEmail = email;
-                Switcher.PreImportClass.SetMatchTelephone = telephone;
-                Switcher.PreImportClass.SetMatchStaffcode = staffcode;
-                Switcher.PreImportClass.SetMatchGender = gender;
-                switch (Switcher.PreImportClass.GetUserType)
-                {
-                    case Interfaces.UserType.Staff:
-                        Switcher.PreImportClass.SetMatchTitle = title;
-                        break;
-                    case Interfaces.UserType.Pupil:
-                        Switcher.PreImportClass.SetMatchYear = title;
-                        break;
-                    case Interfaces.UserType.Contact:
-                        Switcher.PreImportClass.SetMatchTown = title;
-                        Switcher.PreImportClass.SetMatchPostcode = staffcode;
-                        break;
-                }
-
-                if (!string.IsNullOrEmpty(personid))
-                {
-                    Switcher.PreImportClass.SetMatchPersonID = personid;
-                }
-                if (!string.IsNullOrEmpty(udf))
-                {
-                    Switcher.PreImportClass.SetMatchUDF = udf;
-                }
-                if (!string.IsNullOrEmpty(simsUdf))
-                {
-                    Switcher.PreImportClass.SetMatchSIMSUDF = simsUdf;
-                }
-                if (!string.IsNullOrEmpty(emailLocation))
-                {
-                    Switcher.PreImportClass.SetMatchEmailLocation = emailLocation;
-                }
-                if (!string.IsNullOrEmpty(emailPrimary))
-                {
-                    Switcher.PreImportClass.SetMatchEmailPrimary = emailPrimary;
-                }
-                if (!string.IsNullOrEmpty(emailMain))
-                {
-                    Switcher.PreImportClass.SetMatchEmailMain = emailMain;
-                }
-                if (!string.IsNullOrEmpty(emailNotes))
-                {
-                    Switcher.PreImportClass.SetMatchEmailNotes = emailNotes;
-                }
-                if (!string.IsNullOrEmpty(telephoneLocation))
-                {
-                    Switcher.PreImportClass.SetMatchTelephoneLocation = telephoneLocation;
-                }
-                if (!string.IsNullOrEmpty(telephonePrimary))
-                {
-                    Switcher.PreImportClass.SetMatchTelephonePrimary = telephonePrimary;
-                }
-                if (!string.IsNullOrEmpty(telephoneMain))
-                {
-                    Switcher.PreImportClass.SetMatchTelephoneMain = telephoneMain;
-                }
-                if (!string.IsNullOrEmpty(telephoneNotes))
-                {
-                    Switcher.PreImportClass.SetMatchTelephoneNotes = telephoneNotes;
-                }
-                Switcher.PreImportClass.SetUserFilter = (string) comboFilter.SelectedValue;
-                Switcher.PreImportClass.SetMatchReg = reg;
+                // Change to the import window
                 Switcher.Switch(new ImportWindow());
             }
         }
@@ -426,6 +379,9 @@ namespace Matt40k.SIMSBulkImport
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.buttonDefault_Click()");
             
+            // Set the options
+            SetPreImport();
+
             // Switch to Default UI
             Switcher.Switch(new Default());
         }
@@ -445,13 +401,292 @@ namespace Matt40k.SIMSBulkImport
         #endregion
 
         /// <summary>
-        /// 
+        /// Loads the saved bindings
         /// </summary>
-        private void setPreImport()
+        private void GetPreImport()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.setPreImport()");
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.GetPreImport()");
+            comboIgnoreFirst.IsChecked = Switcher.PreImportClass.GetMatchIgnoreFirstRow;
+            firstname = Switcher.PreImportClass.GetMatchFirstname;
+            surname = Switcher.PreImportClass.GetMatchSurname;
+            email = Switcher.PreImportClass.GetMatchEmail;
+            telephone = Switcher.PreImportClass.GetMatchTelephone;
+            staffcode =  Switcher.PreImportClass.GetMatchStaffcode;
+            gender = Switcher.PreImportClass.GetMatchGender;
+            switch (Switcher.PreImportClass.GetUserType)
+            {
+                case Interfaces.UserType.Staff:
+                    title = Switcher.PreImportClass.GetMatchTitle;
+                    break;
+                case Interfaces.UserType.Pupil:
+                    title = Switcher.PreImportClass.GetMatchYear;
+                    break;
+                case Interfaces.UserType.Contact:
+                    title = Switcher.PreImportClass.GetMatchTown;
+                    staffcode = Switcher.PreImportClass.GetMatchPostcode;
+                    break;
+            }
+            personid = Switcher.PreImportClass.GetMatchPersonID;
+            udf = Switcher.PreImportClass.GetMatchUDF;
+            simsUdf = Switcher.PreImportClass.GetMatchSIMSUDF;
+
+            emailLocation = Switcher.PreImportClass.GetMatchEmailLocation;
+            emailMain = Switcher.PreImportClass.GetMatchEmailMain;
+            emailPrimary = Switcher.PreImportClass.GetMatchEmailPrimary;
+            emailNotes = Switcher.PreImportClass.GetMatchEmailNotes;
+
+            telephoneLocation = Switcher.PreImportClass.GetMatchTelephoneLocation;
+            telephoneMain = Switcher.PreImportClass.GetMatchTelephoneMain;
+            telephonePrimary = Switcher.PreImportClass.GetMatchTelephonePrimary;
+            telephoneNotes = Switcher.PreImportClass.GetMatchTelephoneNotes;
+            telephoneDevice = Switcher.PreImportClass.GetMatchTelephoneDevice;
+
+            comboFilter.SelectedValue = Switcher.PreImportClass.GetUserFilter;
+            reg = Switcher.PreImportClass.GetMatchReg;
+
+            SetSavedBindingToUI();
+        }
+
+        private void SetSavedBindingToUI()
+        {
+            if (!string.IsNullOrEmpty(personid))
+                comboPersonID.SelectedValue = personid;
+            if (!string.IsNullOrEmpty(staffcode))
+                comboCode.SelectedValue = staffcode;
+            if (!string.IsNullOrEmpty(firstname))
+                comboFirst.SelectedValue = firstname;
+            if (!string.IsNullOrEmpty(surname))
+                comboSurname.SelectedValue = surname;
+            if (!string.IsNullOrEmpty(email))
+            {
+                comboEmail.SelectedValue = email;
+
+                // Enable Email location combobox
+                labelEmailLocation.IsEnabled = true;
+                comboEmailLocation.IsEnabled = true;
+                if (!string.IsNullOrEmpty(emailLocation))
+                    comboEmailLocation.SelectedValue = emailLocation;
+
+                // Enable Email main combobox
+                labelEmailMain.IsEnabled = true;
+                comboEmailMain.IsEnabled = true;
+                if (!string.IsNullOrEmpty(emailMain))
+                    comboEmailMain.SelectedValue = emailMain;
+
+                // Enable Email primary combobox
+                labelEmailPrimary.IsEnabled = true;
+                comboEmailPrimary.IsEnabled = true;
+                if (!string.IsNullOrEmpty(emailPrimary))
+                    comboEmailPrimary.SelectedValue = emailPrimary;
+
+                // Enable Email notes combobox
+                labelEmailNotes.IsEnabled = true;
+                comboEmailNotes.IsEnabled = true;
+                if (!string.IsNullOrEmpty(emailNotes))
+                    comboEmailNotes.SelectedValue = emailNotes;
+            }
+            else
+            {
+                // Email column NOT set, disable other Email options
+
+                // Disable Email location combobox and reset value
+                labelEmailLocation.IsEnabled = false;
+                comboEmailLocation.IsEnabled = false;
+                comboEmailLocation.SelectedValue = null;
+
+                // Disable Email Main combobox and reset value
+                labelEmailMain.IsEnabled = false;
+                comboEmailMain.IsEnabled = false;
+                comboEmailMain.SelectedValue = null;
+
+                // Disable Email Primary combobox and reset value
+                labelEmailPrimary.IsEnabled = false;
+                comboEmailPrimary.IsEnabled = false;
+                comboEmailPrimary.SelectedValue = null;
+
+                // Disable Email Notes combobox and reset value
+                labelEmailNotes.IsEnabled = false;
+                comboEmailNotes.IsEnabled = false;
+                comboEmailNotes.SelectedValue = null;
+            }
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                comboTelephone.SelectedValue = telephone;
+
+                // Enable Telephone location combobox
+                labelTelephoneLocation.IsEnabled = true;
+                comboTelephoneLocation.IsEnabled = true;
+                if (!string.IsNullOrEmpty(telephoneLocation))
+                    comboTelephoneLocation.SelectedValue = telephoneLocation;
+
+                // Enable Telephone main combobox 
+                labelTelephoneMain.IsEnabled = true;
+                comboTelephoneMain.IsEnabled = true;
+                if (!string.IsNullOrEmpty(telephoneMain))
+                    comboTelephoneMain.SelectedValue = telephoneMain;
+
+                // Enable Telephone primary combobox
+                labelTelephonePrimary.IsEnabled = true;
+                comboTelephonePrimary.IsEnabled = true;
+                if (!string.IsNullOrEmpty(telephonePrimary))
+                    comboTelephonePrimary.SelectedValue = telephonePrimary;
+
+                // Enable Telephone notes combobox
+                labelTelephoneNotes.IsEnabled = true;
+                comboTelephoneNotes.IsEnabled = true;
+                if (!string.IsNullOrEmpty(telephoneNotes))
+                    comboTelephoneNotes.SelectedValue = telephoneNotes;
+
+                // Enable Telephone device combobox
+                labelTelephoneDevice.IsEnabled = true;
+                comboTelephoneDevice.IsEnabled = true;
+                if (!string.IsNullOrEmpty(telephoneDevice))
+                    comboTelephoneDevice.SelectedValue = telephoneDevice;
+            }
+            else
+            {
+                // Telephone column NOT set, disable other options
+
+                // Disable Telephone location combobox and reset value
+                labelTelephoneLocation.IsEnabled = false;
+                comboTelephoneLocation.IsEnabled = false;
+                comboTelephoneLocation.SelectedValue = null;
+
+                // Disable Telephone main combobox and reset value
+                labelTelephoneMain.IsEnabled = false;
+                comboTelephoneMain.IsEnabled = false;
+                comboTelephoneMain.SelectedValue = null;
+
+                // Disable Telephone primary combobox and reset value
+                labelTelephonePrimary.IsEnabled = false;
+                comboTelephonePrimary.IsEnabled = false;
+                comboTelephonePrimary.SelectedValue = null;
+
+                // Disable Telephone notes combobox and reset value
+                labelTelephoneNotes.IsEnabled = false;
+                comboTelephoneNotes.IsEnabled = false;
+                comboTelephoneNotes.SelectedValue = null;
+
+                // Disable Telephone device combobox and reset value
+                labelTelephoneDevice.IsEnabled = false;
+                comboTelephoneDevice.IsEnabled = false;
+                comboTelephoneDevice.SelectedValue = null;
+            }
+
+            if (!string.IsNullOrEmpty(gender))
+                comboGender.SelectedValue = gender;
+            if (!string.IsNullOrEmpty(title))
+                comboTitle.SelectedValue = title;
+            if (!string.IsNullOrEmpty(reg))
+                comboReg.SelectedValue = reg;
+            if (!string.IsNullOrEmpty(udf))
+                comboUDF.SelectedValue = udf;
+            if (!string.IsNullOrEmpty(simsUdf))
+                comboSIMSUDF.SelectedValue = simsUdf;
+            /*
+            if (!string.IsNullOrEmpty(emailLocation))
+                comboEmailLocation.SelectedValue = emailLocation;
+            if (!string.IsNullOrEmpty(emailPrimary))
+                comboEmailPrimary.SelectedValue = emailPrimary;
+            if (!string.IsNullOrEmpty(emailMain))
+                comboEmailMain.SelectedValue = emailMain;
+            if (!string.IsNullOrEmpty(emailNotes))
+                comboEmailNotes.SelectedValue = emailNotes;
+            if (!string.IsNullOrEmpty(telephone))
+                comboTelephone.SelectedValue = telephone;
+            if (comboTelephone.SelectedItem != null)
+            if (!string.IsNullOrEmpty(telephoneLocation))
+                comboTelephoneLocation.SelectedValue = telephoneLocation;
+            if (!string.IsNullOrEmpty(telephonePrimary))
+                comboTelephonePrimary.SelectedValue = telephonePrimary;
+            if (!string.IsNullOrEmpty(telephoneMain))
+                comboTelephoneMain.SelectedValue = telephoneMain;
+            if (!string.IsNullOrEmpty(telephoneNotes))
+                comboTelephoneNotes.SelectedValue = telephoneNotes;
+            if (!string.IsNullOrEmpty(telephoneDevice))
+                comboTelephoneDevice.SelectedValue = telephoneDevice;
+             */
+
+        }
+
+        /// <summary>
+        /// Sets the options 
+        /// </summary>
+        private void SetPreImport()
+        {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.SetPreImport()");
             Switcher.PreImportClass.SetMatchIgnoreFirstRow = (bool) comboIgnoreFirst.IsChecked;
             Switcher.PreImportClass.SetImportDataset = dt;
+            Switcher.PreImportClass.SetMatchFirstname = firstname;
+            Switcher.PreImportClass.SetMatchSurname = surname;
+            Switcher.PreImportClass.SetMatchEmail = email;
+            Switcher.PreImportClass.SetMatchTelephone = telephone;
+            Switcher.PreImportClass.SetMatchStaffcode = staffcode;
+            Switcher.PreImportClass.SetMatchGender = gender;
+            switch (Switcher.PreImportClass.GetUserType)
+            {
+                case Interfaces.UserType.Staff:
+                    Switcher.PreImportClass.SetMatchTitle = title;
+                    break;
+                case Interfaces.UserType.Pupil:
+                    Switcher.PreImportClass.SetMatchYear = title;
+                    break;
+                case Interfaces.UserType.Contact:
+                    Switcher.PreImportClass.SetMatchTown = title;
+                    Switcher.PreImportClass.SetMatchPostcode = staffcode;
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(personid))
+            {
+                Switcher.PreImportClass.SetMatchPersonID = personid;
+            }
+            if (!string.IsNullOrEmpty(udf))
+            {
+                Switcher.PreImportClass.SetMatchUDF = udf;
+            }
+            if (!string.IsNullOrEmpty(simsUdf))
+            {
+                Switcher.PreImportClass.SetMatchSIMSUDF = simsUdf;
+            }
+            if (!string.IsNullOrEmpty(emailLocation))
+            {
+                Switcher.PreImportClass.SetMatchEmailLocation = emailLocation;
+            }
+            if (!string.IsNullOrEmpty(emailPrimary))
+            {
+                Switcher.PreImportClass.SetMatchEmailPrimary = emailPrimary;
+            }
+            if (!string.IsNullOrEmpty(emailMain))
+            {
+                Switcher.PreImportClass.SetMatchEmailMain = emailMain;
+            }
+            if (!string.IsNullOrEmpty(emailNotes))
+            {
+                Switcher.PreImportClass.SetMatchEmailNotes = emailNotes;
+            }
+            if (!string.IsNullOrEmpty(telephoneLocation))
+            {
+                Switcher.PreImportClass.SetMatchTelephoneLocation = telephoneLocation;
+            }
+            if (!string.IsNullOrEmpty(telephonePrimary))
+            {
+                Switcher.PreImportClass.SetMatchTelephonePrimary = telephonePrimary;
+            }
+            if (!string.IsNullOrEmpty(telephoneMain))
+            {
+                Switcher.PreImportClass.SetMatchTelephoneMain = telephoneMain;
+            }
+            if (!string.IsNullOrEmpty(telephoneNotes))
+            {
+                Switcher.PreImportClass.SetMatchTelephoneNotes = telephoneNotes;
+            }
+            if (!string.IsNullOrEmpty(telephoneDevice))
+            {
+                Switcher.PreImportClass.SetMatchTelephoneDevice = telephoneDevice;
+            }
+            Switcher.PreImportClass.SetUserFilter = (string)comboFilter.SelectedValue;
+            Switcher.PreImportClass.SetMatchReg = reg;
         }
 
         /// <summary>
@@ -714,6 +949,7 @@ namespace Matt40k.SIMSBulkImport
         }
 #endregion
 
+        #region previewRow
         /// <summary>
         /// 
         /// </summary>
@@ -878,6 +1114,7 @@ namespace Matt40k.SIMSBulkImport
             }
             return newrow;
         }
+        #endregion
 
         /// <summary>
         /// 

@@ -23,8 +23,6 @@ namespace Matt40k.SIMSBulkImport
         private string personId;
         private string email;
         private string telephone;
-        private string emailNotes;
-        private string telephoneNotes;
         private string firstname;
         private string gender;
         private string house;
@@ -38,13 +36,18 @@ namespace Matt40k.SIMSBulkImport
         private string udfType;
         private string userFilter;
         private string year;
+        private string simsUdf;
 
         private string emailMain;
         private string emailPrimary;
         private string emailLocation;
+        private string emailNotes;
+
         private string telephoneMain;
         private string telephonePrimary;
         private string telephoneLocation;
+        private string telephoneNotes;
+        private string telephoneDevice;
 
         public int GetImportFileRecordCount
         {
@@ -65,6 +68,19 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace,
                     "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchIgnoreFirstRow(SET: " + value + ")");
                 ignoreFirstRow = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets if the first row should be ignored (ie it's the column names)
+        /// </summary>
+        public bool GetMatchIgnoreFirstRow
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace,
+                    "Trace:: Matt40k.SIMSBulkImport.PreImport.GETMatchIgnoreFirstRow(GET)");
+                return ignoreFirstRow;
             }
         }
 
@@ -263,14 +279,14 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace,
-                    "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchSIMSUDF(SET: " + value + ")");
-                Switcher.SimsApiClass.SetSIMSUDF = value;
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchSIMSUDF(SET: " + value + ")");
+                simsUdf = value;
+                Switcher.SimsApiClass.SetSIMSUDF = simsUdf;
             }
         }
 
         /// <summary>
-        /// 
+        /// Sets the user-defined column to be used for Email Location
         /// </summary>
         public string SetMatchEmailLocation
         {
@@ -283,7 +299,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Sets the user-defined column to be used for Email Main
         /// </summary>
         public string SetMatchEmailMain
         {
@@ -296,7 +312,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Sets the user-defined column to be used for Email Primary
         /// </summary>
         public string SetMatchEmailPrimary
         {
@@ -310,7 +326,7 @@ namespace Matt40k.SIMSBulkImport
 
         
         /// <summary>
-        /// 
+        /// Sets the user-defined column to be used for Email Notes
         /// </summary>
         public string SetMatchEmailNotes
         {
@@ -323,7 +339,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Sets the user-defined column to be used for Telephone Location
         /// </summary>
         public string SetMatchTelephoneLocation
         {
@@ -336,7 +352,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Sets the user-defined column to be used for Telephone Main
         /// </summary>
         public string SetMatchTelephoneMain
         {
@@ -349,7 +365,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Sets the user-defined column to be used for Telephone Primary
         /// </summary>
         public string SetMatchTelephonePrimary
         {
@@ -362,7 +378,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// 
+        /// Sets the user-defined column to be used for Telephone Notes
         /// </summary>
         public string SetMatchTelephoneNotes
         {
@@ -370,12 +386,28 @@ namespace Matt40k.SIMSBulkImport
             {
                 logger.Log(LogLevel.Trace,
                     "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephoneNotes(SET: " + value + ")");
-                emailNotes = value;
+                telephoneNotes = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the user-defined column to be used for Telephone Devices
+        /// </summary>
+        public string SetMatchTelephoneDevice
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace,
+                    "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchTelephoneDevice(SET: " + value + ")");
+                telephoneDevice = value;
             }
         }
         #endregion
 
         #region GetMatch
+        /// <summary>
+        /// Get the user-defined column to be used for PersonID
+        /// </summary>
         public string GetMatchPersonID
         {
             get
@@ -385,6 +417,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Forename
+        /// </summary>
         public string GetMatchFirstname
         {
             get
@@ -394,6 +429,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Surname
+        /// </summary>
         public string GetMatchSurname
         {
             get
@@ -403,6 +441,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Email address
+        /// </summary>
         public string GetMatchEmail
         {
             get
@@ -412,6 +453,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Telephone number
+        /// </summary>
         public string GetMatchTelephone
         {
             get
@@ -421,6 +465,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Staff code
+        /// </summary>
         public string GetMatchStaffcode
         {
             get
@@ -430,6 +477,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Gender
+        /// </summary>
         public string GetMatchGender
         {
             get
@@ -439,6 +489,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for  
+        /// </summary>
         public string GetMatchTitle
         {
             get
@@ -448,6 +501,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for UDF
+        /// </summary>
         public string GetMatchUDF
         {
             get
@@ -457,6 +513,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }      
 
+        /// <summary>
+        /// Get the user-defined column to be used for Year
+        /// </summary>
         public string GetMatchYear
         {
             get
@@ -466,6 +525,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Registration
+        /// </summary>
         public string GetMatchReg
         {
             get
@@ -475,6 +537,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for House
+        /// </summary>
         public string GetMatchHouse
         {
             get
@@ -484,6 +549,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Town
+        /// </summary>
         public string GetMatchTown
         {
             get
@@ -493,6 +561,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Postcode
+        /// </summary>
         public string GetMatchPostcode
         {
             get
@@ -503,7 +574,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// Gets the user defined Email Main column name
+        /// Get the user-defined column to be used for Email Main
         /// </summary>
         public string GetMatchEmailMain
         {
@@ -515,7 +586,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// Gets the user defined Email Primary column name
+        /// Get the user-defined column to be used for Email Primary
         /// </summary>
         public string GetMatchEmailPrimary
         {
@@ -527,7 +598,31 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// Gets the user defined Telephone Main column name
+        /// Get the user-defined column to be used for Email Location
+        /// </summary>
+        public string GetMatchEmailLocation
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchEmailLocation(GET)");
+                return emailLocation;
+            }
+        }
+
+        /// <summary>
+        /// Get the user-defined column to be used for Email Notes
+        /// </summary>
+        public string GetMatchEmailNotes
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchEmailNotes(GET)");
+                return emailNotes;
+            }
+        }
+
+        /// <summary>
+        ///Get the user-defined column to be used for Telephone Main
         /// </summary>
         public string GetMatchTelephoneMain
         {
@@ -539,7 +634,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// Gets the user defined Telephone Primary column name
+        /// Get the user-defined column to be used for Telephone Primary
         /// </summary>
         public string GetMatchTelephonePrimary
         {
@@ -550,6 +645,59 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// Get the user-defined column to be used for Telephone Notes
+        /// </summary>
+        public string GetMatchTelephoneNotes
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchTelephoneNotes(GET)");
+                return telephoneNotes;
+            }
+        }
+
+        /// <summary>
+        /// Get the user-defined column to be used for Telephone Device
+        /// </summary>
+        public string GetMatchTelephoneDevice
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchTelephoneDevice(GET)");
+                return telephoneDevice;
+            }
+        }
+
+        /// <summary>
+        /// Get the user-defined column to be used for Telephone Location
+        /// </summary>
+        public string GetMatchTelephoneLocation
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchTelephoneLocation(GET)");
+                return telephoneLocation;
+            }
+        }
+
+        /// <summary>
+        /// Get the user-defined column to be used for SIMS UDF
+        /// </summary>
+        public string GetMatchSIMSUDF
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetMatchSIMSUDF(GET)");
+                return simsUdf;
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Interfaces.UserType SetUserType
         {
             set
@@ -560,6 +708,9 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Interfaces.UserType GetUserType
         {
             get
@@ -568,8 +719,7 @@ namespace Matt40k.SIMSBulkImport
                 return userType;
             }
         }
-        #endregion
-
+        
         public string SetUserFilter
         {
             set
@@ -577,6 +727,15 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.SetUserFilter(SET: " + value + ")");
                 userFilter = value;
                 Switcher.SimsApiClass.SetUserFilter = value;
+            }
+        }
+
+        public string GetUserFilter
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.PreImport.GetUserFilter(GET)");
+                return userFilter;
             }
         }
 
