@@ -46,7 +46,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="main"></param>
         /// <param name="primary"></param>
         /// <returns></returns>
-        public bool SetEmail(Int32 personID, string value, int main, int primary, string notes, string location)
+        public bool SetEmail(Int32 personID, string value, string main, string primary, string notes, string location)
         {
             logger.Log(LogLevel.Trace,
                 "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(personID: " + personID + ", value: " + value + ")");
@@ -72,7 +72,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="main"></param>
         /// <param name="primary"></param>
         /// <returns>true - success</returns>
-        public bool SetTelephone(Int32 personID, string value, int main, int primary, string notes, string location, string device)
+        public bool SetTelephone(Int32 personID, string value, string main, string primary, string notes, string location, string device)
         {
             logger.Log(LogLevel.Trace,
                 "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(personID: " + personID + ", value: " + value + ")");

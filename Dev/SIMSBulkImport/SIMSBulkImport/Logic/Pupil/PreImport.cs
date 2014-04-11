@@ -46,8 +46,11 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 pupilTable.Columns.Add(new DataColumn("SIMS telephone", typeof (string)));
                 pupilTable.Columns.Add(new DataColumn("SIMS UDF", typeof (string)));
                 pupilTable.Columns.Add(new DataColumn("PersonID", typeof (string)));
-                pupilTable.Columns.Add(new DataColumn("Main", typeof(int)));
-                pupilTable.Columns.Add(new DataColumn("Primary", typeof(int)));
+                pupilTable.Columns.Add(new DataColumn("Main", typeof(string)));
+                pupilTable.Columns.Add(new DataColumn("Primary", typeof(string)));
+                pupilTable.Columns.Add(new DataColumn("Notes", typeof(string)));
+                pupilTable.Columns.Add(new DataColumn("Location", typeof(string)));
+                pupilTable.Columns.Add(new DataColumn("Device", typeof(string)));
                 return pupilTable;
             }
         }

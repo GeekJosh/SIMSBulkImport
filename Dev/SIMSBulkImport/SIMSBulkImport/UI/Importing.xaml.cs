@@ -63,10 +63,8 @@ namespace Matt40k.SIMSBulkImport
                 string house = row["House"].ToString();
                 string admissionNumber = row["Admission Number"].ToString();
                 string title = row["Title"].ToString();
-
-                var main = (Int32)row["Main"];
-                var primary = (Int32)row["Primary"];
-
+                string main = row["Main"].ToString();
+                string primary = row["Primary"].ToString();
                 string notes =  row["Notes"].ToString();
                 string location =  row["Location"].ToString();
                 string device = row["Device"].ToString();
@@ -92,7 +90,7 @@ namespace Matt40k.SIMSBulkImport
                         logger.Log(LogLevel.Trace, "Set UDF: " + result + " - " + personID + " - " + value);
                         Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "UDF",
                             value, null, surname, forename, title, gender, staffCode, dob, admissionNumber, year,
-                            registration, house, postCode, town, 0, 0, null, null);
+                            registration, house, postCode, town, null, null, null, null);
                         break;
                     default:
                         result = false;
@@ -103,14 +101,20 @@ namespace Matt40k.SIMSBulkImport
 
                 countImported++;
             }
+
+
             endTime = DateTime.Now;
             progressRing.IsActive = false;
 
-            // Import complete return to menu
-            Switcher.Switch(new Menu());
+            logger.Log(LogLevel.Info, "Import complete");
 
             // Open report
+            logger.Log(LogLevel.Trace, "Open result report");
             Switcher.ResultsImportClass.OpenResultsReport();
+
+            // Import complete return to menu
+            logger.Log(LogLevel.Trace, "Return to menu");
+            Switcher.Switch(new Menu());
         }
     }
 }

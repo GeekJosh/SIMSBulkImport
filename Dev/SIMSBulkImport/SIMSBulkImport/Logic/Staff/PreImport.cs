@@ -44,8 +44,11 @@ namespace Matt40k.SIMSBulkImport.Staff
                 staffTable.Columns.Add(new DataColumn("SIMS telephone", typeof (string)));
                 staffTable.Columns.Add(new DataColumn("SIMS UDF", typeof (string)));
                 staffTable.Columns.Add(new DataColumn("PersonID", typeof (string)));
-                staffTable.Columns.Add(new DataColumn("Main", typeof(int)));
-                staffTable.Columns.Add(new DataColumn("Primary", typeof(int)));
+                staffTable.Columns.Add(new DataColumn("Main", typeof(string)));
+                staffTable.Columns.Add(new DataColumn("Primary", typeof(string)));
+                staffTable.Columns.Add(new DataColumn("Notes", typeof(string)));
+                staffTable.Columns.Add(new DataColumn("Location", typeof(string)));
+                staffTable.Columns.Add(new DataColumn("Device", typeof(string)));
                 return staffTable;
             }
         }

@@ -29,6 +29,7 @@ namespace Matt40k.SIMSBulkImport
 
         public ImportWindow()
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow()");
             InitializeComponent();
 
             //TEST:: load import data straight into datagrid
@@ -42,6 +43,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void load()
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.load()");
             queryStart = DateTime.Now;
             dataGridTable = Switcher.PreImportClass.CreateDataTable;
 
@@ -74,6 +76,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_RunWorkerCompleted()");
             if (e.Cancelled)
             {
                 //this.Status.Content = "Disconnected";
@@ -100,6 +103,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_ProgressChanged()");
             Status.Content = "Querying SIMS database - " + e.ProgressPercentage + "%";
             dataGrid.DataContext = dataGridTable;
             dataGrid.Items.Refresh();
@@ -107,6 +111,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_DoWork()");
             var worker = sender as BackgroundWorker;
             recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
@@ -133,6 +138,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.button_Click()");
             Switcher.ImportListClass = new ImportList();
             foreach (DataRow row in dataGridTable.Rows)
             {
@@ -143,25 +149,15 @@ namespace Matt40k.SIMSBulkImport
 
         private void Grid_KeyDown(object sender, KeyEventArgs e)
         {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.Grid_KeyDown()");
             if (e.Key == Key.Delete)
             {
-                deleteRow();
                 e.Handled = true;
             }
             else
             {
                 e.Handled = true;
             }
-        }
-
-        private void button_ClickDelete(object sender, RoutedEventArgs e)
-        {
-            deleteRow();
-        }
-
-        private void deleteRow()
-        {
-            // TODO
         }
     }
 }

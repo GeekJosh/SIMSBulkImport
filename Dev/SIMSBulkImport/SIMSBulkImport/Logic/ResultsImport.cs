@@ -64,7 +64,7 @@ namespace Matt40k.SIMSBulkImport
             string personID, string result, string item, string value, string notes,
             string surname, string forename, string title, string gender, string staffCode,
             string dob, string admissionNumber, string year, string registration,
-            string house, string postCode, string town, int main, int primary,
+            string house, string postCode, string town, string main, string primary,
             string location, string device
             )
         {

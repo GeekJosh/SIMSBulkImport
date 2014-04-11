@@ -48,8 +48,8 @@ namespace Matt40k.SIMSBulkImport
             _importTable.Columns.Add(new DataColumn("Gender", typeof (string)));
             _importTable.Columns.Add(new DataColumn("Staff Code", typeof (string)));
             _importTable.Columns.Add(new DataColumn("Date of Birth", typeof (string)));
-            _importTable.Columns.Add(new DataColumn("Main", typeof(int)));
-            _importTable.Columns.Add(new DataColumn("Primary", typeof(int)));
+            _importTable.Columns.Add(new DataColumn("Main", typeof(string)));
+            _importTable.Columns.Add(new DataColumn("Primary", typeof(string)));
             _importTable.Columns.Add(new DataColumn("Notes", typeof(string)));
             _importTable.Columns.Add(new DataColumn("Location", typeof(string)));
             _importTable.Columns.Add(new DataColumn("Device", typeof(string)));
@@ -104,8 +104,8 @@ namespace Matt40k.SIMSBulkImport
                 string house = null;
                 string postCode = null;
                 string town = null;
-                int primary = 0;
-                int main = 0;
+                string primary = null;
+                string main = null;
                 string notes = null;
                 string location = null;
                 string device = null;
@@ -142,8 +142,8 @@ namespace Matt40k.SIMSBulkImport
                         logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Email");
 
                         email = (string) row["Import email"];
-                        primary = GetPrimaryMainInt(row["Primary"].ToString());
-                        main = GetPrimaryMainInt(row["Main"].ToString());
+                        primary = (string)row["Primary"];
+                        main = (string)row["Main"];
                         notes = (string)row["Notes"];
                         location = (string)row["Location"];
                         
@@ -166,8 +166,8 @@ namespace Matt40k.SIMSBulkImport
                         logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Telephone");
 
                         telephone = (string) row["Import telephone"];
-                        primary = GetPrimaryMainInt(row["Primary"].ToString());
-                        main = GetPrimaryMainInt(row["Main"].ToString());
+                        primary = row["Primary"].ToString();
+                        main = row["Main"].ToString();
                         notes = (string)row["Notes"];
                         location = (string)row["Location"];
                         device = (string)row["Device"];
@@ -192,7 +192,7 @@ namespace Matt40k.SIMSBulkImport
 
                         udf = (string) row["Import UDF"];
                         AddToImportTable("UDF", personID, udf, surname, forename, title, gender, staffCode, dob,
-                            admissionNumber, year, registration, house, postCode, town, 0, 0, null, null, null);
+                            admissionNumber, year, registration, house, postCode, town, null, null, null, null, null);
                     }
                 }
                 else
@@ -234,7 +234,7 @@ namespace Matt40k.SIMSBulkImport
         /// <returns></returns>
         private bool AddToImportTable(string type, Int32 personID, string value, string surname, string forename,
             string title, string gender, string staffCode, string dob, string admissionNumber, string year,
-            string registration, string house, string postCode, string town, int main, int primary,
+            string registration, string house, string postCode, string town, string main, string primary,
             string notes, string location, string device)
         {
             logger.Log(LogLevel.Trace,
@@ -275,17 +275,6 @@ namespace Matt40k.SIMSBulkImport
                 return false;
             }
             return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public int GetPrimaryMainInt(string value)
-        {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.GetPrimaryMainInt(" + value + ")");
-            return 3; 
         }
     }
 }

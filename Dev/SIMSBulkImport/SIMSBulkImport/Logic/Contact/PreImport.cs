@@ -42,8 +42,11 @@ namespace Matt40k.SIMSBulkImport.Contact
                 contactTable.Columns.Add(new DataColumn("SIMS telephone", typeof (string)));
                 contactTable.Columns.Add(new DataColumn("SIMS UDF", typeof (string)));
                 contactTable.Columns.Add(new DataColumn("PersonID", typeof (string)));
-                contactTable.Columns.Add(new DataColumn("Main", typeof(int)));
-                contactTable.Columns.Add(new DataColumn("Primary", typeof(int)));
+                contactTable.Columns.Add(new DataColumn("Main", typeof(string)));
+                contactTable.Columns.Add(new DataColumn("Primary", typeof(string)));
+                contactTable.Columns.Add(new DataColumn("Notes", typeof(string)));
+                contactTable.Columns.Add(new DataColumn("Location", typeof(string)));
+                contactTable.Columns.Add(new DataColumn("Device", typeof(string)));
                 return contactTable;
             }
         }

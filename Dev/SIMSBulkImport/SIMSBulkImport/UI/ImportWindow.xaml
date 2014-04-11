@@ -19,7 +19,5 @@
         <StatusBar Grid.Row="4" Height="25" Name="statusBar" VerticalAlignment="Bottom">
             <StatusBarItem Name="Status" />
         </StatusBar>
-        <Button Content="Button" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="75"
-                Click="button_ClickDelete" Visibility="Hidden" IsEnabled="False" />
     </Grid>
 </UserControl>

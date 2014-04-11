@@ -12,12 +12,12 @@ namespace Matt40k.SIMSBulkImport.Contact
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public bool SetContactEmail(Int32 personID, string value, int main, int primary, string notes, string location)
+        public bool SetContactEmail(Int32 personID, string value, string main, string primary, string notes, string location)
         {
             return Switcher.SimsApiClass.SetContactEmail(personID, value, main, primary, notes, location);
         }
 
-        public bool SetContactTelephone(Int32 personID, string value, int main, int primary, string notes, string location, string device)
+        public bool SetContactTelephone(Int32 personID, string value, string main, string primary, string notes, string location, string device)
         {
             return Switcher.SimsApiClass.SetContactTelephone(personID, value, main, primary, notes, location, device);
         }
