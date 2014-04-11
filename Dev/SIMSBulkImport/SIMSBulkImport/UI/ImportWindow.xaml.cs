@@ -38,11 +38,20 @@ namespace Matt40k.SIMSBulkImport
             dataGrid.Items.Refresh();
         }
 
+
+
         private void load()
         {
             queryStart = DateTime.Now;
             dataGridTable = Switcher.PreImportClass.CreateDataTable;
+
+            foreach (DataColumn column in dataGridTable.Columns)
+            {
+                column.ReadOnly = true;
+            }
+
             dataGrid.DataContext = dataGridTable;
+
             dataGrid.Items.Refresh();
             Status.Content = "Querying SIMS database - 0%";
             bw = new BackgroundWorker();
@@ -137,6 +146,10 @@ namespace Matt40k.SIMSBulkImport
             if (e.Key == Key.Delete)
             {
                 deleteRow();
+                e.Handled = true;
+            }
+            else
+            {
                 e.Handled = true;
             }
         }

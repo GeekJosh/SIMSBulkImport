@@ -32,6 +32,7 @@ namespace Matt40k.SIMSBulkImport
         private void Load()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.Load()");
+            AddComboYesNo();
             SetSubTitle();
             GetEmailLocations();
             GetTelephoneLocations();
@@ -118,18 +119,20 @@ namespace Matt40k.SIMSBulkImport
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.buttonSave_Click()");
 
+            /*
             ComboBoxItem emailMainItem = (ComboBoxItem)comboEmailMain.SelectedValue;
             ComboBoxItem emailPrimaryItem = (ComboBoxItem)comboEmailPrimary.SelectedValue;
             ComboBoxItem telephoneMainItem = (ComboBoxItem)comboTelephoneMain.SelectedValue;
             ComboBoxItem telephonePrimaryItem = (ComboBoxItem)comboTelephonePrimary.SelectedValue;
+            */
 
-            Switcher.ConfigManClass.SetDefaultEmailMain = (string)emailMainItem.Content;
-            Switcher.ConfigManClass.SetDefaultEmailPrimary = (string)emailPrimaryItem.Content;
+            Switcher.ConfigManClass.SetDefaultEmailMain = comboEmailMain.SelectedValue.ToString();
+            Switcher.ConfigManClass.SetDefaultEmailPrimary = comboEmailPrimary.SelectedValue.ToString();
             Switcher.ConfigManClass.SetDefaultEmailLocation = comboEmailLocation.SelectedValue.ToString();
             Switcher.ConfigManClass.SetDefaultEmailNotes = comboEmailNotes.Text;
 
-            Switcher.ConfigManClass.SetDefaultTelephoneMain = (string)telephoneMainItem.Content;
-            Switcher.ConfigManClass.SetDefaultTelephonePrimary = (string)telephonePrimaryItem.Content;
+            Switcher.ConfigManClass.SetDefaultTelephoneMain = comboTelephoneMain.SelectedValue.ToString();
+            Switcher.ConfigManClass.SetDefaultTelephonePrimary = comboTelephonePrimary.SelectedValue.ToString();
             Switcher.ConfigManClass.SetDefaultTelephoneLocation = comboTelephoneLocation.SelectedValue.ToString();
             Switcher.ConfigManClass.SetDefaultTelephoneNotes = comboTelephoneNotes.Text;
             Switcher.ConfigManClass.SetDefaultTelephoneDevice = comboTelephoneDevice.SelectedValue.ToString();
@@ -171,6 +174,27 @@ namespace Matt40k.SIMSBulkImport
                 case Interfaces.UserType.Contact:
                     labelSubTitle.Content = "Default - Contact";
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Adds the items Yes, Yes (Overwrite) and No to the comboboxes Email\Telephone Main\Primary
+        /// </summary>
+        private void AddComboYesNo()
+        {
+            string[] items = new string[] { "Yes", "Yes (Overwrite)", "No" };
+
+            comboEmailMain.Items.Clear();
+            comboEmailPrimary.Items.Clear();
+            comboTelephoneMain.Items.Clear();
+            comboTelephonePrimary.Items.Clear();
+
+            foreach (string item in items)
+            {
+                comboEmailMain.Items.Add(item);
+                comboEmailPrimary.Items.Add(item);
+                comboTelephoneMain.Items.Add(item);
+                comboTelephonePrimary.Items.Add(item);
             }
         }
     }

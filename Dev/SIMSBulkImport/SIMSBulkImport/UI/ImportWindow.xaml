@@ -8,10 +8,10 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="True" Grid.Row="1" HorizontalAlignment="Center" Name="dataGrid"
-                  VerticalAlignment="Center" MinWidth="950" MinHeight="500" CanUserReorderColumns="True"
-                  CanUserSortColumns="True"
-                  ItemsSource="{Binding Path=.}" IsReadOnly="True" KeyDown="Grid_KeyDown" />
+        <DataGrid AutoGenerateColumns="True" Grid.Row="1" HorizontalAlignment="Center" Name="dataGrid" IsReadOnly="False"
+                  VerticalAlignment="Top" MinWidth="950" MinHeight="500" CanUserReorderColumns="True" CanUserAddRows="False" 
+                  CanUserSortColumns="True" Margin="25,25,25,25" CanUserDeleteRows="True"
+                  ItemsSource="{Binding Path=.}" KeyDown="Grid_KeyDown" />
 
         <Button Content="Import" Grid.Row="2" Height="30" HorizontalAlignment="Center" Name="button"
                 VerticalAlignment="Top" Width="75" Click="button_Click" IsEnabled="False" />

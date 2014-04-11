@@ -212,7 +212,7 @@
                     <RowDefinition Height="250" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <Label Content="Preview" Margin="10,10,10,10" VerticalAlignment="Top" HorizontalAlignment="Center"
+                <Label Content="Preview" Margin="10,0,10,10" VerticalAlignment="Top" HorizontalAlignment="Center"
                    IsEnabled="False" />
                 <DataGrid AutoGenerateColumns="True" HorizontalAlignment="Center" Name="dataGrid"
                       VerticalAlignment="Center" Height="200" MinWidth="1000" Grid.Row="0" ItemsSource="{Binding Path=.}"

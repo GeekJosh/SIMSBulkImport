@@ -40,11 +40,7 @@
                 </ComboBox>
 
                 <Label Name="labelEmailPrimary" Content="Email Primary" Grid.Row="1" />
-                <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1">
-                    <ComboBoxItem Content="Yes" />
-                    <ComboBoxItem Content="Yes (Overwrite)" />
-                    <ComboBoxItem Content="No" />
-                </ComboBox>
+                <ComboBox Name="comboEmailPrimary" Height="23" Width="150" HorizontalAlignment="Right" Grid.Row="1"/>
 
                 <Label Name="labelEmailLocation" Content="Email Location" Grid.Row="2" />
                 <ComboBox Name="comboEmailLocation" Height="23" Width="150" HorizontalAlignment="Right"  Grid.Row="2" />

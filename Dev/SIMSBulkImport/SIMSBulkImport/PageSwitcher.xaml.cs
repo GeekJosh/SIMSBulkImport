@@ -55,6 +55,10 @@ namespace Matt40k.SIMSBulkImport
 
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
+                // Dark - Steel
+
+                // Green - Olive
+                // Purple - Mauve
                 Source =
                     new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml",
                         UriKind.RelativeOrAbsolute)
@@ -63,8 +67,9 @@ namespace Matt40k.SIMSBulkImport
 
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
+                // Dark - BaseDark
                 Source =
-                    new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml",
+                    new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml",
                         UriKind.RelativeOrAbsolute)
             });
         }
