@@ -165,12 +165,12 @@ namespace Matt40k.SIMSBulkImport
                     {
                         logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Telephone");
 
-                        telephone = (string) row["Import telephone"];
+                        telephone = row["Import telephone"].ToString();
                         primary = row["Primary"].ToString();
                         main = row["Main"].ToString();
-                        notes = (string)row["Notes"];
-                        location = (string)row["Location"];
-                        device = (string)row["Device"];
+                        notes = row["Notes"].ToString();
+                        location = row["Location"].ToString();
+                        device = row["Device"].ToString();
 
                         bool isValidTelephone = Validation.IsValidTelephone(telephone);
                         if (isValidTelephone)

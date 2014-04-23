@@ -4,5 +4,6 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
     <Grid>
         <Controls:ProgressRing IsActive="True" Foreground="DodgerBlue" Name="progressRing" Height="100" Grid.Row="2" />
+        <Button Name="ButtonAnother" Visibility="Hidden" Click="ButtonAnother_Click" Content="Import another file" Height="40" Width="200"/>
     </Grid>
 </UserControl>

@@ -5,6 +5,7 @@
 
 using System;
 using System.Data;
+using System.Windows;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport
@@ -20,6 +21,7 @@ namespace Matt40k.SIMSBulkImport
 
         private DateTime endTime;
         private DateTime startTime;
+
 
         /// <summary>
         /// 
@@ -108,10 +110,15 @@ namespace Matt40k.SIMSBulkImport
 
             logger.Log(LogLevel.Info, "Import complete");
 
+            ButtonAnother.Visibility = Visibility.Visible;
+
             // Open report
             logger.Log(LogLevel.Trace, "Open result report");
             Switcher.ResultsImportClass.OpenResultsReport();
+        }
 
+        private void ButtonAnother_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
             // Import complete return to menu
             logger.Log(LogLevel.Trace, "Return to menu");
             Switcher.Switch(new Menu());

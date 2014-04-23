@@ -80,6 +80,12 @@ namespace Matt40k.SIMSBulkImport.Pupil
             string status = "NOT FOUND";
             int pid = 0;
 
+            string strMain = null;
+            string strPrimary = null;
+            string strLocation = null;
+            string strNotes = null;
+            string strDevice = null;
+
             try
             {
                 string matchPersonID = Switcher.PreImportClass.GetMatchPersonID;
@@ -130,6 +136,11 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 }
                 if (!string.IsNullOrEmpty(matchEmail))
                 {
+                    string matchMain = Switcher.PreImportClass.GetMatchEmailMain;
+                    string matchPrimary = Switcher.PreImportClass.GetMatchEmailPrimary;
+                    string matchLocation = Switcher.PreImportClass.GetMatchEmailLocation;
+                    string matchNotes = Switcher.PreImportClass.GetMatchEmailNotes;
+
                     try
                     {
                         strEmail = r[matchEmail].ToString();
@@ -138,9 +149,75 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     {
                         logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
                     }
+
+                    // Email - Main
+                    if (IsDefault(matchMain))
+                        strMain = Switcher.ConfigManClass.GetDefaultEmailMain;
+                    else
+                    {
+                        try
+                        {
+                            strMain = r[matchMain].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchEmail_Main_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Main_ArgumentNullException);
+                        }
+                    }
+
+                    // Email - Primary
+                    if (IsDefault(matchPrimary))
+                        strPrimary = Switcher.ConfigManClass.GetDefaultEmailPrimary;
+                    else
+                    {
+                        try
+                        {
+                            strPrimary = r[matchPrimary].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchEmail_Primary_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Primary_ArgumentNullException);
+                        }
+                    }
+
+                    // Email - Location
+                    if (IsDefault(matchLocation))
+                        strLocation = Switcher.ConfigManClass.GetDefaultEmailLocation;
+                    else
+                    {
+                        try
+                        {
+                            strLocation = r[matchLocation].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchEmail_Location_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Location_ArgumentNullException);
+                        }
+                    }
+
+                    // Email - Notes
+                    if (IsDefault(matchNotes))
+                        strNotes = Switcher.ConfigManClass.GetDefaultEmailNotes;
+                    else
+                    {
+                        try
+                        {
+                            strNotes = r[matchNotes].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchEmail_Notes_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Notes_ArgumentNullException);
+                        }
+                    }
                 }
                 if (!string.IsNullOrEmpty(matchTelephone))
                 {
+                    string matchMain = Switcher.PreImportClass.GetMatchTelephoneMain;
+                    string matchPrimary = Switcher.PreImportClass.GetMatchTelephonePrimary;
+                    string matchLocation = Switcher.PreImportClass.GetMatchTelephoneLocation;
+                    string matchNotes = Switcher.PreImportClass.GetMatchTelephoneNotes;
+                    string matchDevice = Switcher.PreImportClass.GetMatchTelephoneDevice;
+
                     try
                     {
                         strTelephone = r[matchTelephone].ToString();
@@ -148,6 +225,81 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException)
                     {
                         logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                    }
+
+                    // Telephone - Main
+                    if (IsDefault(matchMain))
+                        strMain = Switcher.ConfigManClass.GetDefaultTelephoneMain;
+                    else
+                    {
+                        try
+                        {
+                            strMain = r[matchMain].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchTelephone_Main_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Main_ArgumentNullException);
+                        }
+                    }
+
+                    // Telephone - Primary
+                    if (IsDefault(matchPrimary))
+                        strPrimary = Switcher.ConfigManClass.GetDefaultTelephonePrimary;
+                    else
+                    {
+                        try
+                        {
+                            strPrimary = r[matchPrimary].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchTelephone_Primary_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Primary_ArgumentNullException);
+                        }
+                    }
+
+                    // Telephone - Location
+                    if (IsDefault(matchLocation))
+                        strLocation = Switcher.ConfigManClass.GetDefaultTelephoneLocation;
+                    else
+                    {
+                        try
+                        {
+                            strLocation = r[matchLocation].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchTelephone_Location_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Location_ArgumentNullException);
+                        }
+                    }
+
+                    // Telephone - Notes
+                    if (IsDefault(matchNotes))
+                        strNotes = Switcher.ConfigManClass.GetDefaultTelephoneNotes;
+                    else
+                    {
+                        try
+                        {
+                            strNotes = r[matchNotes].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchTelephone_Notes_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
+                        }
+                    }
+
+                    // Telephone - Device
+                    if (IsDefault(matchDevice))
+                        strDevice = Switcher.ConfigManClass.GetDefaultTelephoneDevice;
+                    else
+                    {
+                        try
+                        {
+                            strDevice = r[matchDevice].ToString();
+                        }
+                        catch (ArgumentNullException AddToDataTable_matchTelephone_Notes_ArgumentNullException)
+                        {
+                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
+                        }
                     }
                 }
                 if (!string.IsNullOrEmpty(matchUDF))
@@ -296,6 +448,11 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 newrow["SIMS telephone"] = telephonesInSims;
                 newrow["SIMS UDF"] = udfInSims;
                 newrow["PersonID"] = strPersonid;
+                newrow["Main"] = strMain;
+                newrow["Primary"] = strPrimary;
+                newrow["Notes"] = strNotes;
+                newrow["Location"] = strLocation;
+                newrow["Device"] = strDevice;
                 pupilTable.Rows.Add(newrow);
             }
             catch (Exception AddToDataTable_Exception)
@@ -303,6 +460,20 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 logger.Log(LogLevel.Debug, AddToDataTable_Exception);
             }
             return pupilTable;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        private bool IsDefault(string value)
+        {
+            logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.Pupil.PreImport.IsDefault(value: " + value + ")");
+            if (value == "<Default>")
+                return true;
+            else
+                return false;
         }
     }
 }
