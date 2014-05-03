@@ -11,19 +11,19 @@
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="140" />
+                <ColumnDefinition Width="48" />
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="250" />
             </Grid.ColumnDefinitions>
 
             <Image Name="imageLogo" Source="/SIMS Bulk Import;component/image.png" Grid.Column="0" Grid.Row="0"
-                   Grid.RowSpan="5" VerticalAlignment="Center" />
+                   Grid.RowSpan="2" VerticalAlignment="Top" />
             <Label Name="labelTitle" Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left"
                    FontSize="16" />
             <Label Name="labelDescription" Grid.Row="1" Grid.Column="2" VerticalAlignment="Top"
                    HorizontalAlignment="Left" />
             <Button Name="buttonAppUrl" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center"
-                    HorizontalAlignment="Left" Click="buttonAppUrl_Click" Margin="5,5,5,5" Padding="5,5,5,5" />
+                    HorizontalAlignment="Left" Click="buttonAppUrl_Click" Margin="5,5,5,5" Padding="15,5,15,5" />
             <Label Name="labelCopyright" Grid.Row="3" Grid.Column="2" VerticalAlignment="Top"
                    HorizontalAlignment="Left" />
             <Label Name="labelVersion" Grid.Row="5" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" />
