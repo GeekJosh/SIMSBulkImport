@@ -78,30 +78,29 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(NLog.LogLevel.Debug, serverName);
             logger.Log(NLog.LogLevel.Debug, databaseName);
 
-            if (!IsServerAndDatabaseEmpty)
-            {
+           
                 if (!string.IsNullOrWhiteSpace(this.textUser.Text))
                 {
                     SimsApi.SetSimsUser = this.textUser.Text;
                     SimsApi.SetSimsPass = this.passwordBox.Password;
 
                     SimsApi.SetRestoreConnect = connectDir;
-
+                    /*
                     if (IsChangedConnect)
                     {
                         logger.Log(NLog.LogLevel.Debug, "Using user-defined connect.ini");
                         SimsApi.SetUserConnect(System.IO.Path.GetTempPath(), userServer, userDatabase);
                     }
+                     * */
                     if (SimsApi.Connect)
                     {
                         this.Close();
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Please enter Server Name and Database name");
-            }
+                if (IsServerAndDatabaseEmpty)
+                {
+                    logger.Log(NLog.LogLevel.Error, "IsServerAndDatabaseEmpty: " + IsServerAndDatabaseEmpty);
+                }
         }
 
         private void expander_Expanded(object sender, RoutedEventArgs e)

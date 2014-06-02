@@ -35,8 +35,8 @@
                 </Grid.ColumnDefinitions>
                 <Label Content="Server name:" Grid.Column="1" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
                 <Label Content="Database name: " Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                <TextBox Name="textServer" Grid.Column="2" Grid.Row="0" Width="190" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" IsReadOnly="False" TextChanged="textConnect_TextChanged" />
-                    <TextBox Name="textDatabase" Grid.Column="2" Grid.Row="1" Width="190" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" IsReadOnly="False" TextChanged="textConnect_TextChanged" />
+                <TextBox Name="textServer" Grid.Column="2" Grid.Row="0" Width="190" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" IsReadOnly="True" TextChanged="textConnect_TextChanged" />
+                    <TextBox Name="textDatabase" Grid.Column="2" Grid.Row="1" Width="190" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" IsReadOnly="True" TextChanged="textConnect_TextChanged" />
             </Grid>
             </Grid>
         </Expander>

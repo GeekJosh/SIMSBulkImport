@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
-        <Image Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Source="/SIMSBulkImport;component/Branding/image.png" />
+        <Image Grid.Row="1" Grid.Column="1" Source="/SIMSBulkImport;component/Branding/image.png" Width="48" HorizontalAlignment="Right" />
         <Label Name="labelTitle" Grid.Row="1" Grid.Column="3" VerticalAlignment="Bottom" FontSize="16" />
         <Label Name="labelDescription" Grid.Row="2" Grid.Column="3" VerticalAlignment="Top" />
         <Label Name="labelCopyright" Grid.Row="3" Grid.Column="3" VerticalAlignment="Top" />
