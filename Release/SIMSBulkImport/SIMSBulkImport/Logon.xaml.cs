@@ -52,12 +52,12 @@ namespace Matt40k.SIMSBulkImport
             this.textServer.Text = serverName;
             this.textDatabase.Text = databaseName;
 
+            /*
             if (IsServerAndDatabaseEmpty)
             {
                 this.expander.IsExpanded = true;
             }
-
-            /*
+            
             if (SimsApi.IsDemo)
             {
                 this.textUser.Text = "blacka";

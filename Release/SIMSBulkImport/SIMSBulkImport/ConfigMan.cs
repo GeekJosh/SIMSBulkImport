@@ -62,6 +62,8 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
+                return false;
+                /*
                 bool result = true;
                 string configUpdate = readConfig("AutoUpdate");
                 try
@@ -74,6 +76,7 @@ namespace Matt40k.SIMSBulkImport
                     logger.Log(NLog.LogLevel.Error, readConfig_DebugException);
                 }
                 return result;
+                 */
             }
         }
 
@@ -87,6 +90,7 @@ namespace Matt40k.SIMSBulkImport
 
         public static bool SetConfig(string field, string value)
         {
+            /*
             // Reference: Bin-ze Zhao - http://social.msdn.microsoft.com/Forums/da-DK/csharpgeneral/thread/77b87843-ae0b-463d-b50e-b6b8e9175e50
             // Open App.Config of executable
             Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -107,7 +111,7 @@ namespace Matt40k.SIMSBulkImport
                 if (!result) { return false; }
             }
             // Force a reload of a changed section.
-            ConfigurationManager.RefreshSection("appSettings");
+            ConfigurationManager.RefreshSection("appSettings");*/
             return true;
         }
 
