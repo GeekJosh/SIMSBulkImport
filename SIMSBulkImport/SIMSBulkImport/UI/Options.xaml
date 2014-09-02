@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="Matt40k.SIMSBulkImport.Options"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="120" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <Label Name="labelTitle" Content="Options" Grid.Row="1" Grid.Column="2" FontSize="24" />
+
+        <!-- Options -->
+        <CheckBox Content="Debug mode" Grid.Column="2" Grid.Row="2" Height="16" HorizontalAlignment="Left"
+                  Name="checkBoxDebug" VerticalAlignment="Center" />
+        <CheckBox Content="Automatically check for updates" Grid.Column="2" Grid.Row="3" Height="16"
+                  HorizontalAlignment="Left" Name="checkBoxUpdates" VerticalAlignment="Center" />
+
+        <!-- Footer -->
+        <Button Content="Cancel" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Height="26" HorizontalAlignment="Left"
+                Name="buttonCancel" VerticalAlignment="Center" Width="100" Click="buttonCancel_Click" />
+        <Button Content="Save" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="7" Height="26" HorizontalAlignment="Right" Name="buttonSave"
+                VerticalAlignment="Center" Width="100" Click="buttonSave_Click" />
+    </Grid>
+</UserControl>

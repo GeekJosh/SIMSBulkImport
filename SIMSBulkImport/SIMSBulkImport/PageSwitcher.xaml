@@ -1,0 +1,14 @@
+﻿<controls:MetroWindow x:Class="Matt40k.SIMSBulkImport.PageSwitcher"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      Title="SIMS Bulk Import" Height="655" Width="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized"
+                      ResizeMode="CanResizeWithGrip" MinHeight="655" MinWidth="1000" Icon="icon.ico"
+                      BorderThickness="2">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="165*" />
+            <ColumnDefinition Width="827*" />
+        </Grid.ColumnDefinitions>
+    </Grid>
+</controls:MetroWindow>
