@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSBulkImport", "SIMSBulkImport\SIMSBulkImport.csproj", "{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594} = {8DEFDEFF-D463-4E58-BF52-7C6CC8963594}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateConfig", "UpdateConfig\UpdateConfig.csproj", "{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{E2012012-0412-4F2C-8898-607DDE46ED99}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6} = {C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594} = {8DEFDEFF-D463-4E58-BF52-7C6CC8963594}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs17
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = SIMSBulkImport\\SIMSBulkImport.csproj
+		SccProjectName1 = SIMSBulkImport
+		SccLocalPath1 = SIMSBulkImport
+		SccProjectUniqueName2 = UpdateConfig\\UpdateConfig.csproj
+		SccProjectName2 = UpdateConfig
+		SccLocalPath2 = UpdateConfig
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Debug|x86.ActiveCfg = Debug|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Debug|x86.Build.0 = Debug|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Release|Any CPU.ActiveCfg = Release|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Release|x86.ActiveCfg = Release|x86
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}.Release|x86.Build.0 = Release|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|x86.ActiveCfg = Debug|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Debug|x86.Build.0 = Debug|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|Any CPU.ActiveCfg = Release|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|x86.ActiveCfg = Release|x86
+		{8DEFDEFF-D463-4E58-BF52-7C6CC8963594}.Release|x86.Build.0 = Release|x86
+		{E2012012-0412-4F2C-8898-607DDE46ED99}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E2012012-0412-4F2C-8898-607DDE46ED99}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E2012012-0412-4F2C-8898-607DDE46ED99}.Debug|x86.ActiveCfg = Debug|x86
+		{E2012012-0412-4F2C-8898-607DDE46ED99}.Debug|x86.Build.0 = Debug|x86
+		{E2012012-0412-4F2C-8898-607DDE46ED99}.Release|Any CPU.ActiveCfg = Release|x86
+		{E2012012-0412-4F2C-8898-607DDE46ED99}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E2012012-0412-4F2C-8898-607DDE46ED99}.Release|x86.ActiveCfg = Release|x86
+		{E2012012-0412-4F2C-8898-607DDE46ED99}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
