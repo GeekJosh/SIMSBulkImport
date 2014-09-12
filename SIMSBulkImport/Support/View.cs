@@ -40,7 +40,7 @@ namespace Matt40k.SIMSBulkImport.Support
                     DataTable log = logTable;
                     int counter = 0;
                     string line;
-                    string format = "yyyy-MM-dd hh:mm:ss.FFFF";
+                    //string format = "yyyy-MM-dd hh:mm:ss.FFFF";
 
                     // Read the file and display it line by line.
                     var file = new StreamReader(logFile);

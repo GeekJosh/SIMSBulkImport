@@ -81,7 +81,7 @@
     <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="ReachFramework" />
     <Reference Include="SIMSAPI">
-      <HintPath>..\packages\SIMSAPI.2.1.17\lib\net40\SIMSAPI.dll</HintPath>
+      <HintPath>..\packages\SIMSAPI.2.1.19\lib\net40\SIMSAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
