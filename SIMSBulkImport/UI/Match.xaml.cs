@@ -758,9 +758,9 @@ namespace Matt40k.SIMSBulkImport
             {
                 surname = comboSurname.SelectedItem.ToString();
             }
-            if (comboEmail.SelectedItem != null)
+            if (comboEmail.SelectedItem != null && comboEmail.SelectedValue != null)
             {
-                email = comboEmail.SelectedItem.ToString();
+                email = comboEmail.SelectedItem.ToString();                
                 string tempemail = comboEmail.SelectedValue.ToString();
                 emailSelected = !string.IsNullOrEmpty(tempemail);
                 if (emailSelected)
