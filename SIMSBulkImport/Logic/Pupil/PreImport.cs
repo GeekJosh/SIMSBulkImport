@@ -196,7 +196,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
                     }
 
                     // Email - Notes
-                    if (IsDefault(matchNotes))
+                    if (string.IsNullOrEmpty(matchNotes) || IsDefault(matchNotes))
                         strNotes = Switcher.ConfigManClass.GetDefaultEmailNotes;
                     else
                     {

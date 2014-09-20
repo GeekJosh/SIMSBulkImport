@@ -5,17 +5,18 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="10"/>
             <RowDefinition Height="100" />
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Controls:ProgressRing IsActive="True" Foreground="DodgerBlue" Name="progressRing" Height="100" Grid.Row="2" />
-        <Label Name="loadLabel" Content="Loading..." HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" />
-        <Label Name="loadMessage" Content="" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Top"
-               FontStyle="Italic" />
+        <Controls:ProgressRing IsActive="True" Foreground="DodgerBlue" Name="progressRing" Height="100" Grid.Row="3" Margin="120,0" />
+        <Label Name="loadLabel" Content="Loading..." HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Top" Margin="120,0" />
+        <Label Name="loadMessage" Content="" HorizontalAlignment="Center" Grid.Row="5" VerticalAlignment="Top"
+               FontStyle="Italic" Margin="145,0" />
         <Grid Height="100" HorizontalAlignment="Center" x:Name="grid" VerticalAlignment="Center" Width="300"
-              Grid.Row="2" Visibility="Visible">
+              Grid.Row="3" Visibility="Visible">
             <Label Content="Username:" Height="28" HorizontalAlignment="Left" x:Name="labelUser"
                    VerticalAlignment="Top" />
             <Label Content="Password:" Height="28" HorizontalAlignment="Left" x:Name="labelPass"
@@ -43,13 +44,13 @@
                              Grid.Column="3" IsChecked="False" Checked="connectType_Checked" Visibility="Visible" />
             </Grid>
         </Grid>
-        <Border Name="errorBorder" BorderBrush="Black" BorderThickness="0" Margin="0,15,0,15" Padding="0,15,0,15">
-            <TextBlock Name="errorMessage" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap"
+        <Border Name="errorBorder" BorderBrush="Black" BorderThickness="0" Margin="15,15,15,15" Padding="5,5,5,5" MaxHeight="50" MaxWidth="600">
+            <TextBlock Name="errorMessage" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap"
                        VerticalAlignment="Top" />
         </Border>
         <Label Content="SIMS Logon" Name="labelTitle" FontSize="14" FontWeight="Normal" HorizontalAlignment="Center"
-               Grid.Row="1" Grid.Column="1" Visibility="Hidden" />
+               Grid.Row="1" Visibility="Hidden" Margin="108,0" Grid.RowSpan="2" />
         <Button Content="Logon" Height="30" x:Name="button" Width="75" VerticalAlignment="Center" Click="button_Click"
-                Grid.Row="3" Visibility="Hidden" TabIndex="2" />
+                Grid.Row="4" Visibility="Hidden" TabIndex="2" Margin="112,0" />
     </Grid>
 </UserControl>
