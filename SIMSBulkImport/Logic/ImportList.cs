@@ -144,7 +144,11 @@ namespace Matt40k.SIMSBulkImport
                         email = (string) row["Import email"];
                         primary = (string)row["Primary"];
                         main = (string)row["Main"];
-                        notes = (string)row["Notes"];
+                        notes = null;
+                        if (!row.IsNull("Notes"))
+                        {
+                            notes = (string)row["Notes"];
+                        }
                         location = (string)row["Location"];
                         
                         bool isValidEmail = Validation.IsValidEmail(email);
