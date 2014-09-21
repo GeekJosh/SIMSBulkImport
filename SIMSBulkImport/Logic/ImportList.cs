@@ -172,7 +172,11 @@ namespace Matt40k.SIMSBulkImport
                         telephone = row["Import telephone"].ToString();
                         primary = row["Primary"].ToString();
                         main = row["Main"].ToString();
-                        notes = row["Notes"].ToString();
+                        notes = null;
+                        if (!row.IsNull("Notes"))
+                        {
+                            notes = (string)row["Notes"];
+                        }
                         location = row["Location"].ToString();
                         device = row["Device"].ToString();
 
