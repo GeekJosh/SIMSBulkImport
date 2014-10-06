@@ -115,15 +115,7 @@
                 <!-- UDF Type -->
                 <Label Content="UDF Type" Grid.Row="7" Grid.Column="4" IsEnabled="True" />
                 <ComboBox Name="comboSIMSUDFType" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"
-                  Grid.Column="5" Grid.Row="7" SelectedIndex="0" SelectionChanged="comboUDFType_SelectionChanged">
-                    <ComboBoxItem Content="Text (single-line)" />
-                    <ComboBoxItem Content="Text (multi-line)" />
-                    <ComboBoxItem Content="Date" />
-                    <ComboBoxItem Content="Number" />
-                    <ComboBoxItem Content="Decimal" />
-                    <ComboBoxItem Content="Currency" />
-                    <ComboBoxItem Content="True/False" />
-                </ComboBox>
+                  Grid.Column="5" Grid.Row="7" SelectedIndex="0" SelectionChanged="comboUDFType_SelectionChanged"/>
 
                 <!-- UDF Selection -->
                 <Label Content="UDF Selection" Grid.Row="8" Grid.Column="4" ToolTip="SIMS User Defined Field" IsEnabled="True" />

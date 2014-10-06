@@ -21,6 +21,7 @@ namespace Matt40k.SIMSBulkImport
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private DataSet ds;
         private DataTable dt;
+        private DataTable simsUdfDT;
 
         private bool emailSelected;
         private bool telephoneSelected;
@@ -78,11 +79,14 @@ namespace Matt40k.SIMSBulkImport
             // Set the subtitle
             SetSubTitle();
 
+            // Add SIMS UDF Types
+            addUdfTypes();
+            
             // Get User filters
             GetUserFilters();
 
             // Get UDFs
-            //GetUdfs();
+            GetSIMSUdfs();
 
             // Enable area (staff\student\contact) specific options
             switch (Switcher.PreImportClass.GetUserType)
@@ -1187,74 +1191,56 @@ namespace Matt40k.SIMSBulkImport
             UpdatePreview();
         }
 
+
         /// <summary>
-        /// 
+        /// Gets the UDFs from SIMS .net
         /// </summary>
-        private void GetUdfs()
+        private void GetSIMSUdfs()
         {
             switch (Switcher.PreImportClass.GetUserType)
             {
                 // Load Staff UDFs
                 case Interfaces.UserType.Staff:
                     logger.Log(LogLevel.Debug, "Loading UDFs - Staff");
-                    
-                    // Clear SIMS UDFs
-                    comboSIMSUDF.Items.Clear();
-                    
-                    foreach (DataRow udf in Switcher.SimsApiClass.GetStaffUDFs.Rows)
-                    {
-                        string udfType = udf["Type"].ToString();
-                        string udfValue = udf["Name"].ToString();
-                        logger.Log(LogLevel.Trace, "UDFs:: " + udfType + " - " + udfValue);
-                        if (udfType == Switcher.PreImportClass.GetUDFType)
-                            comboSIMSUDF.Items.Add(udfValue);
-                    }
-                    
-                    comboSIMSUDF.Items.Add("");
-                    comboSIMSUDF.IsEnabled = true;
+                    simsUdfDT = Switcher.SimsApiClass.GetStaffUDFs;
                     break;
                 // Load Students UDFs
                 case Interfaces.UserType.Pupil:
-                    //logger.Log(LogLevel.Debug, "Loading UDFs - Students");
-
-                    // Clear SIMS UDFs
-                    comboSIMSUDF.Items.Clear();
-
-                    DataTable udfsStudents = Switcher.SimsApiClass.GetPupilUDFs;
-                    foreach (DataRow udf in udfsStudents.Rows)
-                    {
-                        string udfType = udf["type"].ToString();
-                        string udfValue = udf["Name"].ToString();
-                        logger.Log(LogLevel.Trace, "UDFs:: " + udfValue);
-                        if (udfType == Switcher.PreImportClass.GetUDFType)
-                            comboSIMSUDF.Items.Add(udfValue);
-                    }
-                    comboSIMSUDF.Items.Add("");
-                    comboSIMSUDF.IsEnabled = true;
+                    logger.Log(LogLevel.Debug, "Loading UDFs - Students");
+                    simsUdfDT = Switcher.SimsApiClass.GetPupilUDFs;
                     break;
                 // Load Contact UDFs
                 case Interfaces.UserType.Contact:
                     logger.Log(LogLevel.Debug, "Loading UDFs - Contacts");
-
-                    // Clear SIMS UDFs
-                    comboSIMSUDF.Items.Clear();
-
-                    DataTable udfsContacts = Switcher.SimsApiClass.GetContactUDFs;
-                    foreach (DataRow udf in udfsContacts.Rows)
-                    {
-                        string udfType = udf["type"].ToString();
-                        string udfValue = udf["Name"].ToString();
-                        logger.Log(LogLevel.Trace, "UDFs:: " + udfValue);
-                        if (udfType == Switcher.PreImportClass.GetUDFType)
-                            comboSIMSUDF.Items.Add(udfValue);
-                    }
-                    comboSIMSUDF.Items.Add("");
-                    comboSIMSUDF.IsEnabled = true;
+                    simsUdfDT = Switcher.SimsApiClass.GetContactUDFs;
                     break;
                 case Interfaces.UserType.Unknown:
                     logger.Log(LogLevel.Error, "Match: Unknown selected");
                     break;
             }
+            // Update the UI udfs
+            GetUdfs();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void GetUdfs()
+        {
+            // Clear SIMS UDFs
+            comboSIMSUDF.Items.Clear();
+
+            // Add UDF type items
+            string selectedType = this.comboSIMSUDFType.SelectedValue.ToString();
+            foreach (DataRow row in simsUdfDT.Rows)
+            {
+                if (row["TYPE"].ToString() == selectedType)
+                    comboSIMSUDF.Items.Add(row["NAME"].ToString());
+            }
+
+            // Add a blank
+            comboSIMSUDF.Items.Add("");
+            comboSIMSUDF.IsEnabled = true;
         }
 
         /// <summary>
@@ -1275,6 +1261,17 @@ namespace Matt40k.SIMSBulkImport
                     labelSubTitle.Content = "Contact";
                     break;
             }
+        }
+
+        private void addUdfTypes()
+        {
+            this.comboSIMSUDFType.Items.Add("Text (single-line)");
+            this.comboSIMSUDFType.Items.Add("Text (multi-line)");
+            this.comboSIMSUDFType.Items.Add("Date");
+            this.comboSIMSUDFType.Items.Add("Number");
+            this.comboSIMSUDFType.Items.Add("Decimal");
+            this.comboSIMSUDFType.Items.Add("Currency");
+            this.comboSIMSUDFType.Items.Add("True/False");
         }
     }
 }
