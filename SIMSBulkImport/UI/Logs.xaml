@@ -22,6 +22,7 @@
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="200" />
             <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="300" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -46,12 +47,15 @@
         <TextBox Name="filterMessage" HorizontalAlignment="Left" VerticalAlignment="Center" Width="250" MinWidth="250"
                  Grid.Row="1" TextChanged="filterMessage_TextChanged" Grid.Column="3" />
 
+        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Width="120"
+                Height="30" FontSize="14" Grid.Row="1" Grid.Column="4" Margin="0,0,50,0" Content="Open Folder" Click="openFolder" />
+
         <DataGrid Name="logDataGrid" Margin="15,15,15,15" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                  IsReadOnly="True" ItemsSource="{Binding Path=.}" AutoGenerateColumns="True" Grid.ColumnSpan="4"
+                  IsReadOnly="True" ItemsSource="{Binding Path=.}" AutoGenerateColumns="True" Grid.ColumnSpan="5"
                   Grid.Row="2" />
         <Button Content="Back" HorizontalAlignment="Right" Margin="50,50,50,50" VerticalAlignment="Bottom" Width="100"
-                Height="30" FontSize="14" Click="backClick" Grid.ColumnSpan="4" Grid.Row="2" />
+                Height="30" FontSize="14" Click="backClick" Grid.ColumnSpan="5" Grid.Row="2" />
         <Button Content="Submit" HorizontalAlignment="Right" Margin="50,50,170,50" VerticalAlignment="Bottom"
-                Width="100" Height="30" FontSize="14" Click="submitClick" Grid.ColumnSpan="4" Grid.Row="2" />
+                Width="100" Height="30" FontSize="14" Click="submitClick" Grid.ColumnSpan="5" Grid.Row="2" />
     </Grid>
 </UserControl>

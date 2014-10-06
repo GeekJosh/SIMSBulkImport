@@ -148,5 +148,19 @@ namespace Matt40k.SIMSBulkImport
             logDataGrid.DataContext = filterTable;
             CollectionViewSource.GetDefaultView(logDataGrid.ItemsSource).Refresh();
         }
+
+        private void openFolder(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process prc = new System.Diagnostics.Process();
+                prc.StartInfo.FileName = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\SIMSBulkImport\\Logs";
+                prc.Start();
+            }
+            catch (System.Exception MenuItem_Click_LogsException)
+            {
+                logger.Log(NLog.LogLevel.Error, MenuItem_Click_LogsException);
+            }
+        }
     }
 }
