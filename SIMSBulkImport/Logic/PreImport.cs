@@ -334,7 +334,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 logger.Log(LogLevel.Trace,
                     "Trace:: Matt40k.SIMSBulkImport.PreImport.SetMatchEmailNotes(SET: " + value + ")");
-                telephoneNotes = value;
+                emailNotes = value;
             }
         }
 
