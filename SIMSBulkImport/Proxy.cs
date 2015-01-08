@@ -20,7 +20,7 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Proxy.useProxy(GET)");
-                WebProxy proxy = WebProxy.GetDefaultProxy();
+                IWebProxy proxy = WebRequest.DefaultWebProxy;
 
                 // See what proxy is used for resource.
                 Uri resourceProxy = proxy.GetProxy(_uri);

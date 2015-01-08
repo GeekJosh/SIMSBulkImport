@@ -21,7 +21,6 @@ namespace Matt40k.SIMSBulkImport
 
         private BackgroundWorker bw = new BackgroundWorker();
         private DataTable dataGridTable;
-        private int ignoreCount;
         private DateTime queryEnd;
         private DateTime queryStart;
         private int recordcount;

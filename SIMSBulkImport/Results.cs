@@ -28,18 +28,15 @@ namespace Matt40k.SIMSBulkImport
 
             try
             {
-                var ds = new DataSet(getCleanXmlTitle);
-                ds.Tables.Add(resultTable);
-                ds.Tables[0].TableName = getCleanXmlName(ds.Tables[0].TableName, userType);
+                XslCompiledTransform transform = LoadTransform(userType);
 
-                ds.Tables.Add(addPropertiesTable);
-
-                var xmlDoc = new XmlDataDocument(ds);
-                var writer = new XmlTextWriter(tmpHtml, Encoding.UTF8);
-                var xslTran = new XslTransform();
-
-                xslTran.Load(getXslFileName(userType));
-                xslTran.Transform(xmlDoc, null, writer);
+                using (XmlReader inputData = LoadInputData(resultTable, userType))
+                {
+                    using (XmlWriter writer = new XmlTextWriter(tmpHtml, Encoding.UTF8))
+                    {
+                        transform.Transform(inputData, null, writer);
+                    }
+                }
             }
             catch (Exception Results_Exception)
             {
@@ -47,6 +44,34 @@ namespace Matt40k.SIMSBulkImport
             }
 
             openReportHtml();
+        }
+
+        private XmlReader LoadInputData(DataTable resultTable, Interfaces.UserType userType)
+        {
+            var ds = new DataSet(getCleanXmlTitle);
+            ds.Tables.Add(resultTable);
+            ds.Tables[0].TableName = getCleanXmlName(ds.Tables[0].TableName, userType);
+            ds.Tables.Add(addPropertiesTable);
+
+
+            StringWriter data = new StringWriter();
+            using (XmlWriter loadWriter = XmlWriter.Create(data))
+            {
+                ds.WriteXml(loadWriter);
+            }
+
+            return XmlReader.Create(new StringReader(data.ToString()));
+        }
+
+        private XslCompiledTransform LoadTransform(Interfaces.UserType userType)
+        {
+            XslCompiledTransform transform = new XslCompiledTransform();
+            using (XmlReader reader = XmlReader.Create(getXslFileName(userType)))
+            {
+                transform.Load(reader);
+            }
+
+            return transform;
         }
 
         private DataTable addPropertiesTable
