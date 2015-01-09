@@ -20,24 +20,27 @@ namespace Matt40k.SIMSBulkImport
         private readonly string _appGUID = Switcher.ConfigManClass.GetAppGUID;
         private readonly string _appVersion = GetExe.Version;
 
-        private string _apiUrl = "http://api.matt40k.co.uk/";
+        private string _apiUrl = "http://simsbulkimport.uk" ;
         private int _appID = 1;
         private WebProxy _proxy;
         private bool useProxy;
 
-        public DataTable GetVersion
+        public bool NeedUpdate
         {
             get
             {
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Requestor.GetVersion(GET)");
                 var ds = new DataSet("simsbulkimport");
                 string result = null;
-                var url = new Uri(_apiUrl + "version");
-                string postData = "appid=" + _appID + "&guid=" + _appGUID + "&version=" + _appVersion;
-                logger.Log(LogLevel.Trace, "PostData :: " + postData);
-                HttpWebResponse response = request(url, "POST", postData);
+                var url = new Uri(_apiUrl + "/versions/" + GetExe.Version);
+                HttpWebResponse response = request(url, "GET", null);
+
+
                 logger.Log(LogLevel.Trace,
                     "StatusCode: " + response.StatusCode + " - StatusDescription: " + response.StatusDescription);
+
+
+
 
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
@@ -45,6 +48,7 @@ namespace Matt40k.SIMSBulkImport
                 }
                 logger.Log(LogLevel.Trace, "ReturnData :: " + result);
 
+                /*
                 XmlDocument doc = JsonConvert.DeserializeXmlNode(result, "simsbulkimport");
                 XmlReader xmlReader = new XmlNodeReader(doc);
                 ds.ReadXml(xmlReader);
@@ -53,6 +57,8 @@ namespace Matt40k.SIMSBulkImport
                     return ds.Tables["simsbulkimport"];
 
                 return null;
+                */
+                return false;
             }
         }
 
@@ -93,7 +99,8 @@ namespace Matt40k.SIMSBulkImport
             request.UserAgent = GetExe.Title + "\\" + GetExe.Version;
             StreamWriter requestWriter;
             request.Method = method;
-            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentType = "application/json";
+            request.Headers["Authorization"] = _appGUID;
             if (useProxy)
             {
                 request.Proxy = _proxy;

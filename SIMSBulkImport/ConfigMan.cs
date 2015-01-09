@@ -117,7 +117,7 @@ namespace Matt40k.SIMSBulkImport
             debugMode = false;
             updateMode = true;
             appGuid = newGuid;
-            updateUrl = "http://api.matt40k.co.uk/";
+            updateUrl = "http://simsbulkimport.uk/";
 
             emailMain = "Yes";
             emailPrimary = "Yes";

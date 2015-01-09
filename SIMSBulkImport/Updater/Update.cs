@@ -17,7 +17,7 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         private static Requestor _requestor;
         private static Proxy _proxy;
-        private static string serverVersion;
+       // private static string serverVersion;
 
         public static void Check()
         {
@@ -45,9 +45,8 @@ namespace Matt40k.SIMSBulkImport.Updater
         private static void getServerVersion()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion()");
-            DataTable address = _requestor.GetVersion;
-            DataRow dt = address.Rows[0];
-            serverVersion = dt["latestversion"].ToString();
+            bool needUpdate = _requestor.NeedUpdate;
+            
         }
 
         private static void getServerVersion_DoWork(object sender, DoWorkEventArgs e)
@@ -71,7 +70,7 @@ namespace Matt40k.SIMSBulkImport.Updater
         private static void runUpdate()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.runUpdate()");
-            string outOfDate = "http://www.matt40k.co.uk/simsbulkimport.html"; // TODO
+            string outOfDate = "http://www.simsbulkimport.uk/download/"; // TODO
             try
             {
                 var process = new Process();
@@ -90,7 +89,7 @@ namespace Matt40k.SIMSBulkImport.Updater
                 "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_RunWorkerCompleted(sender: " + sender + ", e: " +
                 e + ")");
             string localVersion = GetExe.Version;
-
+            /*
             if (!string.IsNullOrEmpty(serverVersion))
             {
                 //Check versions
@@ -109,7 +108,7 @@ namespace Matt40k.SIMSBulkImport.Updater
                         runUpdate();
                         break;
                 }
-            }
+            }*/
         }
     }
 }
