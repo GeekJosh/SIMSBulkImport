@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="Proxy.cs" />
     <Compile Include="Requestor.cs" />
+    <Compile Include="Updater\CheckResp.cs" />
     <Compile Include="Updater\Update.cs" />
     <Compile Include="Validation.cs" />
     <Page Include="PageSwitcher.xaml">

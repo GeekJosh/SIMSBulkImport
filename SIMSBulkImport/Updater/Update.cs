@@ -18,6 +18,7 @@ namespace Matt40k.SIMSBulkImport.Updater
         private static Requestor _requestor;
         private static Proxy _proxy;
        // private static string serverVersion;
+        private static bool needUpdate;
 
         public static void Check()
         {
@@ -45,8 +46,7 @@ namespace Matt40k.SIMSBulkImport.Updater
         private static void getServerVersion()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion()");
-            bool needUpdate = _requestor.NeedUpdate;
-            
+            needUpdate = _requestor.NeedUpdate;
         }
 
         private static void getServerVersion_DoWork(object sender, DoWorkEventArgs e)
@@ -88,27 +88,8 @@ namespace Matt40k.SIMSBulkImport.Updater
             logger.Log(LogLevel.Trace,
                 "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_RunWorkerCompleted(sender: " + sender + ", e: " +
                 e + ")");
-            string localVersion = GetExe.Version;
-            /*
-            if (!string.IsNullOrEmpty(serverVersion))
-            {
-                //Check versions
-                logger.Log(LogLevel.Debug, "Client: " + localVersion);
-                logger.Log(LogLevel.Debug, "Server: " + serverVersion);
-                switch (localVersion.CompareTo(serverVersion))
-                {
-                    case 0:
-                        logger.Log(LogLevel.Info, "Application is up-to-date");
-                        break;
-                    case 1:
-                        logger.Log(LogLevel.Info, "Application is newer then server - server is out-of date?!?");
-                        break;
-                    case -1:
-                        logger.Log(LogLevel.Info, "Application is out-of-date, please update");
-                        runUpdate();
-                        break;
-                }
-            }*/
+            if (needUpdate)
+                runUpdate();
         }
     }
 }

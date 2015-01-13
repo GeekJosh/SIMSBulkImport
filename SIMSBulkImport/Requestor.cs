@@ -11,6 +11,7 @@ using System.Text;
 using System.Xml;
 using Newtonsoft.Json;
 using NLog;
+using Matt40k.SIMSBulkImport.Updater;
 
 namespace Matt40k.SIMSBulkImport
 {
@@ -20,7 +21,7 @@ namespace Matt40k.SIMSBulkImport
         private readonly string _appGUID = Switcher.ConfigManClass.GetAppGUID;
         private readonly string _appVersion = GetExe.Version;
 
-        private string _apiUrl = "http://simsbulkimport.uk" ;
+        private string _apiUrl = "https://simsbulkimport.uk" ;
         private int _appID = 1;
         private WebProxy _proxy;
         private bool useProxy;
@@ -31,7 +32,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Requestor.GetVersion(GET)");
                 var ds = new DataSet("simsbulkimport");
-                string result = null;
+                string jsonResp = null;
                 var url = new Uri(_apiUrl + "/versions/" + GetExe.Version);
                 HttpWebResponse response = request(url, "GET", null);
 
@@ -44,21 +45,24 @@ namespace Matt40k.SIMSBulkImport
 
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
-                    result = reader.ReadToEnd();
+                    jsonResp = reader.ReadToEnd();
+                    // BUGFIX: For some stupid reason it returns with [] which Newtonsoft.Json doesn't like.
+                    if (jsonResp.Length > 2)
+                        jsonResp = jsonResp.Substring(1, (jsonResp.Length - 2));
                 }
-                logger.Log(LogLevel.Trace, "ReturnData :: " + result);
+                logger.Log(LogLevel.Trace, "ReturnData :: " + jsonResp);
 
-                /*
-                XmlDocument doc = JsonConvert.DeserializeXmlNode(result, "simsbulkimport");
-                XmlReader xmlReader = new XmlNodeReader(doc);
-                ds.ReadXml(xmlReader);
-
-                if (ds.Tables.Contains("simsbulkimport"))
-                    return ds.Tables["simsbulkimport"];
-
-                return null;
-                */
-                return false;
+                var results = JsonConvert.DeserializeObject<CheckResp>(jsonResp);
+                switch (results.current)
+                {
+                    case "0":
+                        return true;
+                    case "1":
+                        return false;
+                    default:
+                        // Default\failed = no updated needed
+                        return false;
+                }
             }
         }
 
