@@ -22,9 +22,9 @@
             <Label Content="Password:" Height="28" HorizontalAlignment="Left" x:Name="labelPass"
                    VerticalAlignment="Center" />
             <TextBox Height="30" HorizontalAlignment="Right" x:Name="textUser" VerticalAlignment="Top" Width="200"
-                     TabIndex="0" Controls:TextboxHelper.ClearTextButton="True" />
+                     TabIndex="0"  />
             <PasswordBox Height="30" HorizontalAlignment="Right" x:Name="passwordBox" VerticalAlignment="Center"
-                         Width="200" TabIndex="1" Controls:TextboxHelper.ClearTextButton="True" />
+                         Width="200" TabIndex="1" />
             <Grid VerticalAlignment="Bottom" HorizontalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
