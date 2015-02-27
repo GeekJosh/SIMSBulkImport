@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright © Matt Smith 2011 - 2014")]
+[assembly: AssemblyCopyright("Copyright © Matt Smith 2011 - 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyTitle("SIMS Bulk Import")]
