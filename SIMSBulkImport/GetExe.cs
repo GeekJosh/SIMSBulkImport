@@ -106,7 +106,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         protected internal static string AppUrl
         {
-            get { return "http://simsbulkimport.codeplex.com/"; }
+            get { return "http://simsbulkimport.uk/"; }
         }
     }
 }
