@@ -79,7 +79,7 @@ namespace Matt40k.SIMSBulkImport
                     workbook.Close(true, null, null);
                     excelApp.Quit();
                 }
-                catch (COMException GetDataSet_COMException)
+                catch (COMException)
                 {
                     MessageBox.Show("It appears you don't have Microsoft Excel installed, I'm afraid we won't be able to import from Excel :'("
                         ,"Oops...", MessageBoxButton.OK, MessageBoxImage.Exclamation);
