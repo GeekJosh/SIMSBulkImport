@@ -6,8 +6,11 @@
 using System;
 using System.Data;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows;
 using Microsoft.Office.Interop.Excel;
 using NLog;
+using Application = Microsoft.Office.Interop.Excel.Application;
 using DataTable = System.Data.DataTable;
 
 namespace Matt40k.SIMSBulkImport
@@ -75,6 +78,11 @@ namespace Matt40k.SIMSBulkImport
                     }
                     workbook.Close(true, null, null);
                     excelApp.Quit();
+                }
+                catch (COMException GetDataSet_COMException)
+                {
+                    MessageBox.Show("It appears you don't have Microsoft Excel installed, I'm afraid we won't be able to import from Excel :'("
+                        ,"Oops...", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
                 catch (Exception GetDataSet_Exception)
                 {
