@@ -33,6 +33,9 @@ namespace Matt40k.SIMSBulkImport.Pupil
                 case "True/False":
                     bool val = Convert.ToBoolean(value);
                     return Switcher.SimsApiClass.SetPupilUDF(personID, val);
+                default:
+                    return false;
+
             }
             
         }
