@@ -4,13 +4,13 @@
     <Grid>
         <Grid Height="50" VerticalAlignment="Top">
             <Menu Name="menu" Grid.Row="0" Padding="3">
-                <MenuItem Header="File" AllowDrop="True">
-                    <MenuItem Header="New" AllowDrop="True">
-                        <MenuItem Header="Staff" Click="MenuItem_Click_New_Staff"
+                <MenuItem Header="_File" AllowDrop="True">
+                    <MenuItem Header="_New" AllowDrop="True">
+                        <MenuItem Header="_Staff" Click="MenuItem_Click_New_Staff"
                                   ToolTip="Bulk import staff information" />
-                        <MenuItem Header="Pupils" Click="MenuItem_Click_New_Pupil"
+                        <MenuItem Header="_Pupils" Click="MenuItem_Click_New_Pupil"
                                   ToolTip="Bulk import student information" />
-                        <MenuItem Header="Contacts" Click="MenuItem_Click_New_Contact"
+                        <MenuItem Header="_Contacts" Click="MenuItem_Click_New_Contact"
                                   ToolTip="Bulk import parents and other contacts information" />
                     </MenuItem>
                     <!--            <MenuItem Name="MenuPrint" Header="Print" Click="MenuItem_Click_Print" IsEnabled="False"/>-->

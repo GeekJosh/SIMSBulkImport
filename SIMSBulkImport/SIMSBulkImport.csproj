@@ -338,6 +338,7 @@
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).exe" DestinationFolder="\\sims\transfer\SimsBulkImport" SkipUnchangedFiles="true"/>
   </Target>
   -->
 </Project>

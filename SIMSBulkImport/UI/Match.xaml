@@ -114,8 +114,8 @@
 
                 <!-- UDF Type -->
                 <Label Content="UDF Type" Grid.Row="7" Grid.Column="4" IsEnabled="True" />
-                <ComboBox Name="comboSIMSUDFType" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top"
-                  Grid.Column="5" Grid.Row="7" SelectedIndex="0" SelectionChanged="comboUDFType_SelectionChanged"/>
+                <ComboBox Name="comboSIMSUDFType" Height="23" Width="150" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                  Grid.Column="5" Grid.Row="7" SelectedIndex="0" SelectionChanged="comboUDFType_SelectionChanged" Margin="0,0,0,7"/>
 
                 <!-- UDF Selection -->
                 <Label Content="UDF Selection" Grid.Row="8" Grid.Column="4" ToolTip="SIMS User Defined Field" IsEnabled="True" />

@@ -20,7 +20,7 @@ namespace Matt40k.SIMSBulkImport
         private readonly string _appGUID = Switcher.ConfigManClass.GetAppGUID;
         private readonly string _appVersion = GetExe.Version;
 
-        private string _apiUrl = "http://api.matt40k.co.uk/";
+        private string _apiUrl = "http://usr.me.uk/";
         private int _appID = 1;
         private WebProxy _proxy;
         private bool useProxy;
@@ -32,7 +32,7 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Requestor.GetVersion(GET)");
                 var ds = new DataSet("simsbulkimport");
                 string result = null;
-                var url = new Uri(_apiUrl + "version");
+                var url = new Uri(_apiUrl + "versions");
                 string postData = "appid=" + _appID + "&guid=" + _appGUID + "&version=" + _appVersion;
                 logger.Log(LogLevel.Trace, "PostData :: " + postData);
                 HttpWebResponse response = request(url, "POST", postData);
@@ -91,22 +91,20 @@ namespace Matt40k.SIMSBulkImport
                 postData + ")");
             var request = (HttpWebRequest) WebRequest.Create(url);
             request.UserAgent = GetExe.Title + "\\" + GetExe.Version;
-            StreamWriter requestWriter;
             request.Method = method;
             request.ContentType = "application/x-www-form-urlencoded";
             if (useProxy)
             {
                 request.Proxy = _proxy;
             }
-            else
-            {
-                request.Proxy = null;
-            }
+
             if (!string.IsNullOrEmpty(postData))
             {
-                using (requestWriter = new StreamWriter(request.GetRequestStream()))
+                byte[] byteArray = Encoding.UTF8.GetBytes (postData);
+                request.ContentLength = byteArray.Length;
+                using (Stream requestStream = request.GetRequestStream())
                 {
-                    requestWriter.Write(postData);
+                    requestStream.Write(byteArray, 0, byteArray.Length);
                 }
             }
             return (HttpWebResponse) request.GetResponse();

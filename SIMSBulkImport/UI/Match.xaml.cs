@@ -1267,11 +1267,12 @@ namespace Matt40k.SIMSBulkImport
         {
             this.comboSIMSUDFType.Items.Add("Text (single-line)");
             this.comboSIMSUDFType.Items.Add("Text (multi-line)");
-            this.comboSIMSUDFType.Items.Add("Date");
-            this.comboSIMSUDFType.Items.Add("Number");
-            this.comboSIMSUDFType.Items.Add("Decimal");
-            this.comboSIMSUDFType.Items.Add("Currency");
+            //this.comboSIMSUDFType.Items.Add("Date");
+            //this.comboSIMSUDFType.Items.Add("Number");
+            //this.comboSIMSUDFType.Items.Add("Decimal");
+            //this.comboSIMSUDFType.Items.Add("Currency");
             this.comboSIMSUDFType.Items.Add("True/False");
+            this.comboSIMSUDFType.Items.Add("Lookup");
         }
     }
 }
