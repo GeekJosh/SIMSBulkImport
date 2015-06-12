@@ -104,8 +104,15 @@ namespace Matt40k.SIMSBulkImport
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_ProgressChanged()");
             Status.Content = "Querying SIMS database - " + e.ProgressPercentage + "%";
-            dataGrid.DataContext = dataGridTable;
-            dataGrid.Items.Refresh();
+            // Refreshing the dataGrid causes a crash in .net 4.5, so don't refresh. Version number for 4.5 
+            // is actually 4.0.30319.17626 for some reason
+            // http://stackoverflow.com/questions/12971881/how-to-reliably-detect-the-actual-net-4-5-version-installed
+            Version dotNetVersion = System.Environment.Version;
+            if (dotNetVersion.Major <= 4 && dotNetVersion.Minor <= 0 && dotNetVersion.Build <= 30319 && dotNetVersion.Revision < 17626)
+            {
+                dataGrid.DataContext = dataGridTable;
+                dataGrid.Items.Refresh();
+            }   
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
