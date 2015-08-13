@@ -24,20 +24,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
 
         public bool SetPupilUDF(Int32 personID, string value)
         {
-            switch (Switcher.PreImportClass.GetUDFType)
-            {
-                case "Text (single-line)":
-                    return Switcher.SimsApiClass.SetPupilUDF(personID, value);
-                case "Text (multi-line)":
-                    return Switcher.SimsApiClass.SetPupilUDF(personID, value);
-                case "True/False":
-                    bool val = Convert.ToBoolean(value);
-                    return Switcher.SimsApiClass.SetPupilUDF(personID, val);
-                default:
-                    return false;
-
-            }
-            
+            return Switcher.SimsApiClass.SetPupilUDF(personID, value);
         }
     }
 }
