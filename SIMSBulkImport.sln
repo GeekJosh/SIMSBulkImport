@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSBulkImport", "SIMSBulkI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSAPI", "API\SIMSAPI\SIMSAPI.csproj", "{E96F7830-32CC-4C63-A40A-0E0C0FE3A0A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserGen", "UserGen\UserGen.csproj", "{3208438F-1AE6-4EC8-81F1-E8037853C779}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserGen_UnitTest", "UserGen_UnitTest\UserGen_UnitTest.csproj", "{468BB41A-6C79-4E69-AF4E-494F7623852F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +33,18 @@ Global
 		{E96F7830-32CC-4C63-A40A-0E0C0FE3A0A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E96F7830-32CC-4C63-A40A-0E0C0FE3A0A0}.Release|x86.ActiveCfg = Release|x86
 		{E96F7830-32CC-4C63-A40A-0E0C0FE3A0A0}.Release|x86.Build.0 = Release|x86
+		{3208438F-1AE6-4EC8-81F1-E8037853C779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3208438F-1AE6-4EC8-81F1-E8037853C779}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3208438F-1AE6-4EC8-81F1-E8037853C779}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3208438F-1AE6-4EC8-81F1-E8037853C779}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3208438F-1AE6-4EC8-81F1-E8037853C779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3208438F-1AE6-4EC8-81F1-E8037853C779}.Release|x86.ActiveCfg = Release|Any CPU
+		{468BB41A-6C79-4E69-AF4E-494F7623852F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{468BB41A-6C79-4E69-AF4E-494F7623852F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{468BB41A-6C79-4E69-AF4E-494F7623852F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{468BB41A-6C79-4E69-AF4E-494F7623852F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{468BB41A-6C79-4E69-AF4E-494F7623852F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{468BB41A-6C79-4E69-AF4E-494F7623852F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
