@@ -137,6 +137,9 @@
     <Compile Include="Support\View.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Theme.cs" />
+    <Compile Include="UI\UserGen.xaml.cs">
+      <DependentUpon>UserGen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,10 @@
     <Page Include="PageSwitcher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserGen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\About.xaml">
       <SubType>Designer</SubType>
@@ -333,6 +340,10 @@
     <ProjectReference Include="..\API\SIMSAPI\SIMSAPI.csproj">
       <Project>{e96f7830-32cc-4c63-a40a-0e0c0fe3a0a0}</Project>
       <Name>SIMSAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserGen\UserGen.csproj">
+      <Project>{3208438f-1ae6-4ec8-81f1-e8037853c779}</Project>
+      <Name>UserGen</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
