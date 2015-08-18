@@ -14,7 +14,7 @@ using MessageBox = System.Windows.MessageBox;
 namespace Matt40k.SIMSBulkImport
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    ///     Interaction logic for Open.xaml
     /// </summary>
     public partial class Open
     {
