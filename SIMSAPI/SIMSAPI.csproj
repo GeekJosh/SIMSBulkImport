@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E96F7830-32CC-4C63-A40A-0E0C0FE3A0A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Matt40k.SIMSBulkImport.SIMSAPI</RootNamespace>
+    <AssemblyName>SIMSAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateFullPaths>true</GenerateFullPaths>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>$(SIMSDOTNETDIRECTORY)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Core.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Classes\Contacts.cs" />
+    <Compile Include="Interfaces.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Classes\Pupil.cs" />
+    <Compile Include="Classes\Staff.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="AbstractProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <HintPath>AbstractProcesses.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AgencyEntities, Version=7.142.28.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>AgencyEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BaseInterfaces, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <HintPath>BaseInterfaces.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cache, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <HintPath>Cache.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CacheProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <HintPath>CacheProcesses.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DocManagementEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DocManagementEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DocManagementProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DocManagementProcesses.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EmployeeEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <HintPath>EmployeeEntities.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EmployeeProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>EmployeeProcesses.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GroupEntities, Version=7.142.22.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>GroupEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LoginEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>LoginEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LoginProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <HintPath>LoginProcesses.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LookupEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>LookupEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LookupProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>LookupProcesses.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.0.1\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+	  <SpecificVersion>True</SpecificVersion>
+    </Reference>
+    <Reference Include="PersonEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>PersonEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PersonProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>PersonProcesses.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="SchoolEntities">
+      <HintPath>SchoolEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SchoolProcesses">
+      <HintPath>SchoolProcesses.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Student Entities, Version=7.142.22.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Student Entities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Student Processes">
+      <HintPath>Student Processes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.XML" />
+    <Reference Include="UDFEntities, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UDFEntities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UDFProcesses, Version=7.140.26.0, Culture=neutral, PublicKeyToken=21f532fe36bf9cd6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UDFProcesses.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,6 +1,0 @@
-[submodule "API"]
-	path = API
-	url = https://github.com/SIMSBulkImport/API.git
-[submodule "Installer"]
-	path = Installer
-	url = https://github.com/SIMSBulkImport/Installer
