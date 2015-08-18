@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Matt40k.SIMSBulkImport.UserUdf"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="400">
+        <TextBox
+            Name="udfNew" IsReadOnly="True"
+            BorderThickness="0"
+            HorizontalAlignment="Left" VerticalAlignment="Top"
+            Height="30" Width="40"/>
+        <ComboBox 
+            Name="udfSelection"
+            HorizontalAlignment="Center" VerticalAlignment="Top"
+            Width="250" Height="30" IsEditable="True"
+            SelectionChanged="udfSelection_SelectionChanged"
+            />
+        <Button Grid.Row="1" Content="Back" HorizontalAlignment="Left" Margin="50,50,50,50" VerticalAlignment="Bottom"
+                Width="100" Height="30" FontSize="14" Name="backButton" Click="backClick" />
+        
+
+    </Grid>
+</UserControl>
