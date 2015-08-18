@@ -45,9 +45,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void GetUdfs()
         {
-            udfs.Add("Test1");
-            udfs.Add("Test2");
-            udfs.Add("Test3");
+            udfs = Switcher.SimsApiClass.SetPupilUsernameUDF;
         }
 
         private void udfSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
