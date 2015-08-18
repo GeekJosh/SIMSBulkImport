@@ -84,6 +84,12 @@ namespace Matt40k.SIMSBulkImport
             MenuClick(Interfaces.UserType.Staff);
         }
 
+        private void MenuItem_Click_User_Pupil(object sender, RoutedEventArgs e)
+        {
+            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_User_Pupil");
+            Switcher.Switch(new UserGen());
+        }
+
         private void MenuClick(Interfaces.UserType userType)
         {
             logger.Log(LogLevel.Debug, "Menu: " + userType);

@@ -5,13 +5,18 @@
         <Grid Height="50" VerticalAlignment="Top">
             <Menu Name="menu" Grid.Row="0" Padding="3">
                 <MenuItem Header="_File" AllowDrop="True">
-                    <MenuItem Header="_New" AllowDrop="True">
+                    <MenuItem Header="_Import" AllowDrop="True">
                         <MenuItem Header="_Staff" Click="MenuItem_Click_New_Staff"
                                   ToolTip="Bulk import staff information" />
                         <MenuItem Header="_Pupils" Click="MenuItem_Click_New_Pupil"
                                   ToolTip="Bulk import student information" />
                         <MenuItem Header="_Contacts" Click="MenuItem_Click_New_Contact"
                                   ToolTip="Bulk import parents and other contacts information" />
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="_Username" AllowDrop="True">
+                        <MenuItem Header="_Pupils" Click="MenuItem_Click_User_Pupil"
+                                  ToolTip="Generate Pupil Usernames" />
                     </MenuItem>
                     <!--            <MenuItem Name="MenuPrint" Header="Print" Click="MenuItem_Click_Print" IsEnabled="False"/>-->
                     <Separator />
