@@ -344,7 +344,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\API\SIMSAPI\SIMSAPI.csproj">
+    <ProjectReference Include="..\SIMSAPI\SIMSAPI.csproj">
       <Project>{e96f7830-32cc-4c63-a40a-0e0c0fe3a0a0}</Project>
       <Name>SIMSAPI</Name>
     </ProjectReference>
