@@ -39,7 +39,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void okClick(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new UserGen());
+            Switcher.Switch(new UserGen(defaultUserData));
         }
 
         private void AddExistsUdfs()

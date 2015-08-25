@@ -3,6 +3,7 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -20,9 +21,11 @@ namespace Matt40k.SIMSBulkImport
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private Builder _builder;
         public string UsrExp { get; set; }
+        private DataTable _defaultUserData;
 
-        public UserGen()
+        public UserGen(DataTable defaultUserData)
         {
+            _defaultUserData = defaultUserData;
             InitializeComponent();
             _builder = new Builder();
         }
