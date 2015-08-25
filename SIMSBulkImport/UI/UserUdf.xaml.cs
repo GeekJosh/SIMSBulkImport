@@ -20,6 +20,8 @@ namespace Matt40k.SIMSBulkImport
     public partial class UserUdf
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        bool isSelected = false;
+
 
         internal UserUdf()
         {
@@ -31,6 +33,11 @@ namespace Matt40k.SIMSBulkImport
         private void backClick(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Menu());
+        }
+
+        private void okClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new UserGen());
         }
 
         private void AddExistsUdfs()
@@ -64,12 +71,25 @@ namespace Matt40k.SIMSBulkImport
                 try
                 {
                     value = this.udfSelection.SelectedValue.ToString();
+                    SetOKButtonEnable = true;
                 }
                 catch
                 {
-
+                    SetOKButtonEnable = false;
                 }
                 return !udfs.Contains(value);
+            }
+        }
+
+        private bool SetOKButtonEnable
+        {
+            set
+            {
+                this.okButton.IsEnabled = value;
+                if (value)
+                    this.okButton.Visibility = Visibility.Visible;
+                else
+                    this.okButton.Visibility = Visibility.Hidden;
             }
         }
     }

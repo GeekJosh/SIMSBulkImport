@@ -16,7 +16,9 @@
             />
         <Button Grid.Row="1" Content="Back" HorizontalAlignment="Left" Margin="50,50,50,50" VerticalAlignment="Bottom"
                 Width="100" Height="30" FontSize="14" Name="backButton" Click="backClick" />
-        
+        <Button Grid.Row="1" Content="OK" HorizontalAlignment="Right" Margin="50,50,50,50" VerticalAlignment="Bottom"
+                Width="100" Height="30" FontSize="14" Name="okButton" Click="okClick" Visibility="Hidden" IsEnabled="False" />
+
 
     </Grid>
 </UserControl>
