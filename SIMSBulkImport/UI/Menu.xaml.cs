@@ -87,6 +87,7 @@ namespace Matt40k.SIMSBulkImport
         private void MenuItem_Click_User_Pupil(object sender, RoutedEventArgs e)
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Menu - MenuItem_Click_User_Pupil");
+            Switcher.SimsApiClass.SetUserType = Interfaces.UserType.Pupil;
             Switcher.Switch(new UserUdf());
         }
 
