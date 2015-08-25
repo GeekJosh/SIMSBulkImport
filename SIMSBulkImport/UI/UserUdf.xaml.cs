@@ -8,7 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Media;
 using NLog;
 using MessageBox = System.Windows.MessageBox;
 
@@ -53,12 +54,13 @@ namespace Matt40k.SIMSBulkImport
         private void GetUdfs()
         {
             udfs = Switcher.SimsApiClass.GetPupilUsernameUDFs;
+            udfs.Add("[ Create New UDF ]");
         }
 
         private void udfSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetEnableNewUdf = IsCreateNew;
-            SetOKButtonEnable = true;
+            SetOKButtonEnable = IsValidSelection;
         }
 
         private string tmpUdfValue = "";
@@ -74,6 +76,7 @@ namespace Matt40k.SIMSBulkImport
                         if (!string.IsNullOrEmpty(tmpUdfValue))
                             this.udfNew.Text = tmpUdfValue;
                     this.udfNew.IsEnabled = true;
+                    this.BorderThickness = new Thickness(1);
                 }
                 else
                 {
@@ -82,7 +85,55 @@ namespace Matt40k.SIMSBulkImport
                         tmpUdfValue = curUdfValue;
                     this.udfNew.Text = "";
                     this.udfNew.IsEnabled = false;
+                    this.BorderThickness = new Thickness(0);
                 }
+            }
+        }
+
+        private void udfNew_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (IsCreateNew)
+            {
+                if (IsValidNewName)
+                {
+                    SetOKButtonEnable = true;
+                    this.udfNew.BorderBrush = Brushes.Green;
+                }
+                else
+                {
+                    SetOKButtonEnable = false;
+                    this.udfNew.BorderBrush = Brushes.Red;
+                }
+            }
+            else
+                this.udfNew.ClearValue(TextBox.BorderBrushProperty);
+        }
+
+        private bool IsValidNewName
+        {
+            get
+            {
+                string value = this.udfNew.Text;
+                if (string.IsNullOrWhiteSpace(value))
+                    return false;
+                foreach (string udf in udfs)
+                {
+                    if (udf.ToUpper() == value.ToUpper())
+                        return false;
+                }
+                return true;
+            }
+        }
+
+        private bool IsValidSelection
+        {
+            get
+            {
+                if (IsCreateNew)
+                {
+                    return IsValidNewName;
+                }
+                return true;
             }
         }
 
