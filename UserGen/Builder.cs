@@ -98,5 +98,23 @@ namespace UserGen
                 return "Username";
             }
         }
+
+        public string GenerateUsername(string Forename, string Surname,
+            string AdmissionNo, string AdmissionYear,
+            string Year, string YearOfEntry,
+            string RegGroup, string SystemId,
+            string Increment
+            )
+        {
+            string exp = _expression;
+            exp.Replace(ExpFieldBuilder(UserFields.AdmissionNo), AdmissionNo);
+            exp.Replace(ExpFieldBuilder(UserFields.AdmissionYear), AdmissionYear);
+            exp.Replace(ExpFieldBuilder(UserFields.Year), Year);
+            exp.Replace(ExpFieldBuilder(UserFields.YearOfEntry), YearOfEntry);
+            exp.Replace(ExpFieldBuilder(UserFields.RegGroup), RegGroup);
+            exp.Replace(ExpFieldBuilder(UserFields.SystemId), SystemId);
+            exp.Replace(ExpFieldBuilder(UserFields.Increment), Increment);
+            return exp;
+        }
     }
 }
