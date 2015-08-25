@@ -5,6 +5,7 @@
 using System;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,12 +23,13 @@ namespace Matt40k.SIMSBulkImport
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private List<string> udfs;
+        private BackgroundWorker bwLoadUdfs = new BackgroundWorker();
+        DataTable defaultUserData;
 
         internal UserUdf()
         {
             InitializeComponent();
             GetUdfs();
-            AddExistsUdfs();
         }
 
         private void backClick(object sender, RoutedEventArgs e)
@@ -53,8 +55,14 @@ namespace Matt40k.SIMSBulkImport
 
         private void GetUdfs()
         {
-            udfs = Switcher.SimsApiClass.GetPupilUsernameUDFs;
-            udfs.Add("[ Create New UDF ]");
+            bwLoadUdfs = new BackgroundWorker();
+            bwLoadUdfs.WorkerReportsProgress = true;
+            bwLoadUdfs.WorkerSupportsCancellation = true;
+            bwLoadUdfs.DoWork += bwLoadUdfs_DoWork;
+            bwLoadUdfs.RunWorkerCompleted += bwLoadUdfs_RunWorkerCompleted;
+
+            if (bwLoadUdfs.IsBusy != true)
+                bwLoadUdfs.RunWorkerAsync();         
         }
 
         private void udfSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -157,6 +165,32 @@ namespace Matt40k.SIMSBulkImport
                     this.okButton.Visibility = Visibility.Visible;
                 else
                     this.okButton.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void bwLoadUdfs_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bwLoadUdfs = sender as BackgroundWorker;
+            udfs = Switcher.SimsApiClass.GetPupilUsernameUDFs;
+            defaultUserData = Switcher.SimsApiClass.GetPupilDefaultUsernameData;
+        }
+
+        private void bwLoadUdfs_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                //Switcher.ImportFileClass.ImportCompleted = false;
+            }
+            else if (!(e.Error == null))
+            {
+                //Switcher.ImportFileClass.ImportCompleted = false;
+            }
+            else
+            {
+                udfs.Add("[ Create New UDF ]");
+                this.gridLoad.Visibility = Visibility.Hidden;
+                this.gridMain.Visibility = Visibility.Visible;
+                AddExistsUdfs();
             }
         }
     }

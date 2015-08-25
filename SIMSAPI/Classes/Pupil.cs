@@ -531,6 +531,40 @@ namespace Matt40k.SIMSBulkImport.Classes
                 return usernameUDFs;
             }
         }
+
+        private DataTable GetUsernameData
+        {
+            get
+            {
+                DataTable dt = new DataTable();
+                dt.Columns.Add(new DataColumn("Forename", typeof (string)));
+                dt.Columns.Add(new DataColumn("Surname", typeof (string)));
+                dt.Columns.Add(new DataColumn("AdmissionNo", typeof (string)));
+                dt.Columns.Add(new DataColumn("AdmissionYear", typeof (string)));
+                dt.Columns.Add(new DataColumn("Year", typeof (string)));
+                dt.Columns.Add(new DataColumn("YearOfEntry", typeof (string)));
+                dt.Columns.Add(new DataColumn("RegGroup", typeof (string)));
+                return dt;
+            }
+        }
+
+        public DataTable GetPupilDefaultUsernameData
+        {
+            get
+            {
+                DataTable _dt = GetUsernameData;
+                DataRow _dr = _dt.NewRow();
+                _dr["Forename"] = GetPupilForename(GetDefaultStudentPersonId);
+                _dr["Surname"] = GetPupilSurname(GetDefaultStudentPersonId);
+                _dr["AdmissionNo"] = GetPupilAdmissionNumber(GetDefaultStudentPersonId);
+                _dr["AdmissionYear"] = "";
+                _dr["Year"] = GetPupilYear(GetDefaultStudentPersonId);
+                _dr["YearOfEntry"] = ""; 
+                _dr["RegGroup"] = GetPupilRegistration(GetDefaultStudentPersonId);
+                _dt.Rows.Add(_dr);
+                return _dt;
+            }
+        }
         #endregion
 
         #region SET

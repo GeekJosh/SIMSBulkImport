@@ -641,6 +641,13 @@ namespace Matt40k.SIMSBulkImport
             return _pupils.SetPupilUsernameUDF(udfName);
         }
 
+        public DataTable GetPupilDefaultUsernameData
+        {
+            get
+            {
+                return _pupils.GetPupilDefaultUsernameData;
+            }
+        }
         #endregion
 
         #region Staff
