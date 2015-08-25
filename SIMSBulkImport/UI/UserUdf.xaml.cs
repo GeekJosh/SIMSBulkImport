@@ -20,8 +20,6 @@ namespace Matt40k.SIMSBulkImport
     public partial class UserUdf
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        bool isSelected = false;
-
 
         internal UserUdf()
         {
