@@ -30,7 +30,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         private string simsudf;
 
         #region GET
-        private int GetDefaultStudentPersonId
+        public int GetDefaultStudentPersonId
         {
             get
             {
@@ -511,6 +511,7 @@ namespace Matt40k.SIMSBulkImport.Classes
             get
             {
                 logger.Log(LogLevel.Debug, "GetPupilUsernameUDFs");
+
                 List<string> usernameUDFs = new List<string>();
                 try
                 {
