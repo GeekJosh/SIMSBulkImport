@@ -26,7 +26,8 @@ namespace Matt40k.SIMSBulkImport
             InitializeComponent();
             _builder = new Builder();
         }
-private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             string expression = "";
             Label lbl = (Label)sender;
