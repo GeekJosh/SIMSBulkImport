@@ -2,7 +2,7 @@
  * Developer : Matt Smith (matt@matt40k.co.uk)
  * All code (c) Matthew Smith all rights reserved
  */
-
+using System;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +20,7 @@ namespace Matt40k.SIMSBulkImport
     public partial class UserUdf
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private List<string> udfs;
 
         internal UserUdf()
         {
@@ -40,13 +41,14 @@ namespace Matt40k.SIMSBulkImport
 
         private void AddExistsUdfs()
         {
-            foreach (string udf in udfs)
+            if (udfs != null)
             {
-                this.udfSelection.Items.Add(udf);
+                foreach (string udf in udfs)
+                {
+                    this.udfSelection.Items.Add(udf);
+                }
             }
         }
-
-        private List<string> udfs = new List<string>();
 
         private void GetUdfs()
         {
@@ -55,27 +57,43 @@ namespace Matt40k.SIMSBulkImport
 
         private void udfSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (IsNewUdf)
-                this.udfNew.Text = "New";
-            else
-                this.udfNew.Text = "";
+            SetEnableNewUdf = IsCreateNew;
+            SetOKButtonEnable = true;
         }
 
-        private bool IsNewUdf
+        private string tmpUdfValue = "";
+
+        private bool SetEnableNewUdf
+        {
+            set
+            {
+                if (value)
+                {
+                    string curUdfValue = this.udfNew.Text;
+                    if (string.IsNullOrEmpty(curUdfValue))
+                        if (!string.IsNullOrEmpty(tmpUdfValue))
+                            this.udfNew.Text = tmpUdfValue;
+                    this.udfNew.IsEnabled = true;
+                }
+                else
+                {
+                    string curUdfValue = this.udfNew.Text;
+                    if (!string.IsNullOrEmpty(curUdfValue))
+                        tmpUdfValue = curUdfValue;
+                    this.udfNew.Text = "";
+                    this.udfNew.IsEnabled = false;
+                }
+            }
+        }
+
+        private bool IsCreateNew
         {
             get
             {
-                string value = null;
-                try
-                {
-                    value = this.udfSelection.SelectedValue.ToString();
-                    SetOKButtonEnable = true;
-                }
-                catch
-                {
-                    SetOKButtonEnable = false;
-                }
-                return !udfs.Contains(value);
+                string dropdown = this.udfSelection.SelectedValue.ToString();
+                if (dropdown == "[ Create New UDF ]")
+                    return true;
+                return false;
             }
         }
 
