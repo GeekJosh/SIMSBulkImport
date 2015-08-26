@@ -10,8 +10,8 @@ namespace UserGen
             Surname,
             AdmissionNo,
             AdmissionYear,
-            Year,
-            YearOfEntry,
+            YearGroup,
+            EntryYear,
             RegGroup,
             SystemId,
             Increment
@@ -101,16 +101,21 @@ namespace UserGen
 
         public string GenerateUsername(string Forename, string Surname,
             string AdmissionNo, string AdmissionYear,
-            string Year, string YearOfEntry,
+            string YearGroup, string EntryYear,
             string RegGroup, string SystemId,
             string Increment
             )
         {
             string exp = _expression;
+
+            System.Windows.Forms.MessageBox.Show(ExpFieldBuilder(UserFields.Increment));
+
+            exp.Replace(ExpFieldBuilder(UserFields.Forename), Forename);
+            exp.Replace(ExpFieldBuilder(UserFields.Surname), Surname);
             exp.Replace(ExpFieldBuilder(UserFields.AdmissionNo), AdmissionNo);
             exp.Replace(ExpFieldBuilder(UserFields.AdmissionYear), AdmissionYear);
-            exp.Replace(ExpFieldBuilder(UserFields.Year), Year);
-            exp.Replace(ExpFieldBuilder(UserFields.YearOfEntry), YearOfEntry);
+            exp.Replace(ExpFieldBuilder(UserFields.YearGroup), YearGroup);
+            exp.Replace(ExpFieldBuilder(UserFields.EntryYear), EntryYear);
             exp.Replace(ExpFieldBuilder(UserFields.RegGroup), RegGroup);
             exp.Replace(ExpFieldBuilder(UserFields.SystemId), SystemId);
             exp.Replace(ExpFieldBuilder(UserFields.Increment), Increment);

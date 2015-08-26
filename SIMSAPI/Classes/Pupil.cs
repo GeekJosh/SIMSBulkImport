@@ -541,9 +541,10 @@ namespace Matt40k.SIMSBulkImport.Classes
                 dt.Columns.Add(new DataColumn("Surname", typeof (string)));
                 dt.Columns.Add(new DataColumn("AdmissionNo", typeof (string)));
                 dt.Columns.Add(new DataColumn("AdmissionYear", typeof (string)));
-                dt.Columns.Add(new DataColumn("Year", typeof (string)));
-                dt.Columns.Add(new DataColumn("YearOfEntry", typeof (string)));
+                dt.Columns.Add(new DataColumn("YearGroup", typeof (string)));
+                dt.Columns.Add(new DataColumn("EntryYear", typeof(string)));
                 dt.Columns.Add(new DataColumn("RegGroup", typeof (string)));
+                dt.Columns.Add(new DataColumn("SystemId", typeof(string)));
                 return dt;
             }
         }
@@ -558,9 +559,10 @@ namespace Matt40k.SIMSBulkImport.Classes
                 _dr["Surname"] = GetPupilSurname(GetDefaultStudentPersonId);
                 _dr["AdmissionNo"] = GetPupilAdmissionNumber(GetDefaultStudentPersonId);
                 _dr["AdmissionYear"] = "";
-                _dr["Year"] = GetPupilYear(GetDefaultStudentPersonId);
-                _dr["YearOfEntry"] = ""; 
+                _dr["YearGroup"] = GetPupilYear(GetDefaultStudentPersonId);
+                _dr["EntryYear"] = ""; 
                 _dr["RegGroup"] = GetPupilRegistration(GetDefaultStudentPersonId);
+                _dr["SystemId"] = "";
                 _dt.Rows.Add(_dr);
                 return _dt;
             }

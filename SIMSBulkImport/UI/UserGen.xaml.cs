@@ -29,7 +29,7 @@ namespace Matt40k.SIMSBulkImport
             InitializeComponent();
             _builder = new Builder();
         }
-        
+
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             string expression = "";
@@ -46,10 +46,7 @@ namespace Matt40k.SIMSBulkImport
         private void expression_TextChanged(object sender, TextChangedEventArgs e)
         {
             _builder.SetExpression = this.expression.Text;
-            if (_builder.IsValidExpression)
-                this.expression.BorderBrush = Brushes.Green;
-            else
-                this.expression.BorderBrush = Brushes.Red;
+            SetIsValidExpression = _builder.IsValidExpression;
             EnableDisable();
         }
 
@@ -59,22 +56,63 @@ namespace Matt40k.SIMSBulkImport
             this.Surname.IsEnabled = !this.expression.Text.Contains("Surname");
             this.RegGroup.IsEnabled = !this.expression.Text.Contains("RegGroup");
 
-            this.Year.IsEnabled = !this.expression.Text.Contains("Year");
+            this.YearGroup.IsEnabled = !this.expression.Text.Contains("YearGroup");
             this.AdmissionYear.IsEnabled = !this.expression.Text.Contains("AdmissionYear");
-            this.YearOfEntry.IsEnabled = !this.expression.Text.Contains("YearaOfEntry");
+            this.EntryYear.IsEnabled = !this.expression.Text.Contains("EntryYear");
 
-            this.SystemID.IsEnabled = !this.expression.Text.Contains("SystemID");
+            this.SystemId.IsEnabled = !this.expression.Text.Contains("SystemId");
             this.AdmissionNo.IsEnabled = !this.expression.Text.Contains("AdmissionNo");
             this.Increment.IsEnabled = !this.expression.Text.Contains("Increment");
-            
+
         }
 
-/*
-        private void buttonClick(object sender, RoutedEventArgs e)
+        /*
+                private void buttonClick(object sender, RoutedEventArgs e)
+                {
+                    Switcher.Switch(new Menu());
+                }
+         */
+        public string GenerateExampleUsername
         {
-            Switcher.Switch(new Menu());
+            get
+            {
+                string exp = this.expression.Text;
+                _builder.SetExpression = exp;
+                MessageBox.Show(exp);
+
+                DataRow _dr             = _defaultUserData.Rows[0];
+                string Forename = "Bruce";
+                string Surname = "Wayne";
+                string AdmissionNo = (string)_dr["AdmissionNo"];
+                string AdmissionYear = (string)_dr["AdmissionYear"];
+                string YearGroup = (string)_dr["YearGroup"];
+                string EntryYear = (string)_dr["EntryYear"];
+                string RegGroup = (string)_dr["RegGroup"];
+                string SystemId = (string)_dr["SystemId"];
+                string Increment        = "0";
+                
+                string result = _builder.GenerateUsername(Forename, Surname, AdmissionNo, AdmissionYear, YearGroup, EntryYear, RegGroup, SystemId, Increment);
+                MessageBox.Show(result);
+                return result;
+            }
         }
- */
+
+        public bool SetIsValidExpression
+        {
+            set
+            {
+                if (value)
+                {
+                    this.expression.BorderBrush = Brushes.Green;
+                    this.exampleText.Text = GenerateExampleUsername;
+                }
+                else
+                {
+                    this.expression.BorderBrush = Brushes.Red;
+                    this.exampleText.Text = "";
+                }
+            }
+        }
     }
 
 
