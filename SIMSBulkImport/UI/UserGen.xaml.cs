@@ -78,11 +78,9 @@ namespace Matt40k.SIMSBulkImport
             {
                 string exp = this.expression.Text;
                 _builder.SetExpression = exp;
-                MessageBox.Show(exp);
-
                 DataRow _dr             = _defaultUserData.Rows[0];
-                string Forename = "Bruce";
-                string Surname = "Wayne";
+                string Forename = (string)_dr["Forename"];
+                string Surname = (string)_dr["Surname"];
                 string AdmissionNo = (string)_dr["AdmissionNo"];
                 string AdmissionYear = (string)_dr["AdmissionYear"];
                 string YearGroup = (string)_dr["YearGroup"];
@@ -90,9 +88,7 @@ namespace Matt40k.SIMSBulkImport
                 string RegGroup = (string)_dr["RegGroup"];
                 string SystemId = (string)_dr["SystemId"];
                 string Increment        = "0";
-                
                 string result = _builder.GenerateUsername(Forename, Surname, AdmissionNo, AdmissionYear, YearGroup, EntryYear, RegGroup, SystemId, Increment);
-                MessageBox.Show(result);
                 return result;
             }
         }
