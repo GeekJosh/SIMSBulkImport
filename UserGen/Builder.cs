@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace UserGen
 {
@@ -83,7 +84,7 @@ namespace UserGen
         {
             string value1;
             value1 = value.Replace(" ", "");
-            if (value1 == "PersonID") 
+            if (value1 == "PersonID")
                 value1 = "SystemId";
             UserFields field;
             if (Enum.TryParse(value1, out field))
@@ -108,11 +109,11 @@ namespace UserGen
             int noStart = defaultItem.Length - 3;
             int fieldStart = _expression.IndexOf(fieldStartName, 0);
 
-            string lenStr = _expression.Substring((fieldStart + noStart), 1);
+            if (fieldStart < 0)
+                return len;
 
-            // Should really think about wrapping this in some error handling incase the
-            // clever end user decides to enter a non-number 
-            Int32.TryParse(lenStr, out len);  
+            string lenStr = _expression.Substring((fieldStart + noStart), 1);
+            Int32.TryParse(lenStr, out len);
 
             return len;
         }
@@ -165,17 +166,82 @@ namespace UserGen
             _yearGroup = _yearGroup.Replace(" ", "");
             _yearGroup = _yearGroup.Replace("year", "");
 
+            // Work out the Year Group school entry and the student admission entry year
+            string _yearEntry = GetEntryYear(YearGroup);
+            string _yearAdmission = GetAdmissionYear(AdmissionYear);
 
             exp = exp.Replace(_forenameExp, _forename);
             exp = exp.Replace(_surnameExp, _surname);
             exp = exp.Replace(ExpFieldBuilder(UserFields.AdmissionNo), AdmissionNo.ToLower());
-            exp = exp.Replace(ExpFieldBuilder(UserFields.AdmissionYear), AdmissionYear.ToLower());
+            exp = exp.Replace(ExpFieldBuilder(UserFields.AdmissionYear), _yearAdmission);
             exp = exp.Replace(ExpFieldBuilder(UserFields.YearGroup), _yearGroup);
-            exp = exp.Replace(ExpFieldBuilder(UserFields.EntryYear), EntryYear.ToLower());
+            exp = exp.Replace(ExpFieldBuilder(UserFields.EntryYear), _yearEntry);
             exp = exp.Replace(ExpFieldBuilder(UserFields.RegGroup), RegGroup.ToLower());
             exp = exp.Replace(ExpFieldBuilder(UserFields.SystemId), SystemId.ToLower());
             exp = exp.Replace(ExpFieldBuilder(UserFields.Increment), incrementalNo.ToLower());
             return exp;
+        }
+
+        private int maxYrs;
+        private Dictionary<string, int> yrs;
+        private DateTime yearStart;
+
+        public string[] SetSchoolYearGroups
+        {
+            set
+            {
+                yrs = new Dictionary<string, int>();
+                int yrCnt = 0;
+                foreach (string yr in value)
+                {
+                    yrs.Add(yr, yrCnt);
+                    yrCnt = yrCnt + 1;
+                }
+                maxYrs = yrCnt;
+            }
+        }
+
+        public string SetYearStart
+        {
+            set
+            {
+                yearStart = Convert.ToDateTime(value);
+            }
+        }
+
+        public string GetEntryYear(string YearGroup)
+        {
+            DateTime dtNow = DateTime.Today;
+            int curMonth = dtNow.Month;
+            int yrStartMonth = yearStart.Month;
+            int curDay = dtNow.Day;
+            int yrStartDay = yearStart.Day;
+
+            int adj = 0;
+            if (curMonth > yrStartMonth || (curMonth == yrStartMonth && curDay >= yrStartDay))
+                adj = 1;
+
+            string value = (dtNow.Year - yrs[YearGroup] - adj).ToString().Substring(2, 2);
+            return value;
+
+        }
+
+        public string GetAdmissionYear(string AdmissionYear)
+        {
+            DateTime admissionDate = Convert.ToDateTime(AdmissionYear);
+            int admDay = admissionDate.Day;
+            int admMonth = admissionDate.Month;
+            int admYr = admissionDate.Year;
+
+            int yrStartMonth = yearStart.Month;
+            int yrStartDay = yearStart.Day;
+
+            int adj = 0;
+            if (admMonth > yrStartMonth || (admMonth == yrStartMonth && admDay >= yrStartDay))
+                adj = 1;
+            admYr = admYr - adj;
+
+            return admYr.ToString().Substring(2, 2);
         }
     }
 }

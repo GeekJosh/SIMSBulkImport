@@ -3,6 +3,7 @@
  * All code (c) Matthew Smith all rights reserved
  */
 
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,11 +24,15 @@ namespace Matt40k.SIMSBulkImport
         public string UsrExp { get; set; }
         private DataTable _defaultUserData;
 
-        public UserGen(DataTable defaultUserData)
+
+
+        public UserGen(DataTable defaultUserData, string[] Years)
         {
             _defaultUserData = defaultUserData;
             InitializeComponent();
             _builder = new Builder();
+            _builder.SetSchoolYearGroups = Years;
+            _builder.SetYearStart = "2015-09-01";
         }
 
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

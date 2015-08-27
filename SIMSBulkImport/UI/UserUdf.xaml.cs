@@ -39,7 +39,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void okClick(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new UserGen(defaultUserData));
+            Switcher.Switch(new UserGen(defaultUserData, yearGroups));
         }
 
         private void AddExistsUdfs()
@@ -168,11 +168,14 @@ namespace Matt40k.SIMSBulkImport
             }
         }
 
+        private string[] yearGroups;
         private void bwLoadUdfs_DoWork(object sender, DoWorkEventArgs e)
         {
             bwLoadUdfs = sender as BackgroundWorker;
             udfs = Switcher.SimsApiClass.GetPupilUsernameUDFs;
             defaultUserData = Switcher.SimsApiClass.GetPupilDefaultUsernameData;
+            yearGroups = Switcher.SimsApiClass.GetPupilYearGroups;
+
         }
 
         private void bwLoadUdfs_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

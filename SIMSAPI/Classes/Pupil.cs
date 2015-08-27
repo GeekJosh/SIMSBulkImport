@@ -438,6 +438,21 @@ namespace Matt40k.SIMSBulkImport.Classes
             return null;
         }
 
+        public string GetPupilAdmissionDate(Int32 personid)
+        {
+            try
+            {
+                var studentsedt = new EditStudentInformationReadOnly();
+                StudentEditResult status = studentsedt.Load(new Person(personid), DateTime.Now);
+                return studentsedt.Student.DateOfAdmission.ToString();
+            }
+            catch (Exception GetPupilAdmis_Exception)
+            {
+                logger.Log(LogLevel.Error, GetPupilAdmis_Exception);
+            }
+            return null;
+        }
+
         public string GetPupilPersonID(string forename, string surname,
             string reg, string year, string house, string admisno)
         {
@@ -555,14 +570,15 @@ namespace Matt40k.SIMSBulkImport.Classes
             {
                 DataTable _dt = GetUsernameData;
                 DataRow _dr = _dt.NewRow();
-                _dr["Forename"] = GetPupilForename(GetDefaultStudentPersonId);
-                _dr["Surname"] = GetPupilSurname(GetDefaultStudentPersonId);
-                _dr["AdmissionNo"] = GetPupilAdmissionNumber(GetDefaultStudentPersonId);
-                _dr["AdmissionYear"] = "";
-                _dr["YearGroup"] = GetPupilYear(GetDefaultStudentPersonId);
-                _dr["EntryYear"] = ""; 
-                _dr["RegGroup"] = GetPupilRegistration(GetDefaultStudentPersonId);
-                _dr["SystemId"] = "";
+                int defaultStudentPersonId = GetDefaultStudentPersonId;
+                _dr["Forename"] = GetPupilForename(defaultStudentPersonId);
+                _dr["Surname"] = GetPupilSurname(defaultStudentPersonId);
+                _dr["AdmissionNo"] = GetPupilAdmissionNumber(defaultStudentPersonId);
+                _dr["AdmissionYear"] = GetPupilAdmissionDate(defaultStudentPersonId);
+                _dr["YearGroup"] = GetPupilYear(defaultStudentPersonId);
+                _dr["EntryYear"] = "";
+                _dr["RegGroup"] = GetPupilRegistration(defaultStudentPersonId);
+                _dr["SystemId"] = defaultStudentPersonId.ToString();
                 _dt.Rows.Add(_dr);
                 return _dt;
             }
