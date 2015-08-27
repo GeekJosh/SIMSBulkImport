@@ -14,7 +14,7 @@
                                   ToolTip="Bulk import parents and other contacts information" />
                     </MenuItem>
                     <Separator />
-                    <MenuItem Header="_Username" AllowDrop="True">
+                    <MenuItem Header="_Generate" AllowDrop="True">
                         <MenuItem Header="_Pupils" Click="MenuItem_Click_User_Pupil"
                                   ToolTip="Generate Pupil Usernames" />
                     </MenuItem>
