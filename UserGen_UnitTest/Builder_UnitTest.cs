@@ -42,5 +42,16 @@ namespace UserGen_UnitTest
             bool result = _b.IsValidExpression;
             Assert.AreNotEqual(true, result);
         }
+
+        /*
+        [TestMethod]
+        public void GetForenameLength_Default()
+        {
+            Builder _b = new Builder();
+
+
+            Assert.AreEqual();
+
+        }*/
     }
 }

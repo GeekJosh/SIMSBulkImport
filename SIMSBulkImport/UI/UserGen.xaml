@@ -61,7 +61,7 @@
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
              />
             <Label
-                Content="Year of Entry" Name="EntryYear"
+                Content="Entry Year" Name="EntryYear"
                 Grid.Column="1" Grid.Row="1"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
