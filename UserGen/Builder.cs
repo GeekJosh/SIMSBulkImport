@@ -99,6 +99,24 @@ namespace UserGen
             }
         }
 
+        public int GetLength(UserFields field)
+        {
+            int len = 0;
+            string defaultItem = ExpFieldBuilder(field);
+            string fieldStartName = defaultItem.Substring(0, defaultItem.Length - 3);
+
+            int noStart = defaultItem.Length - 3;
+            int fieldStart = _expression.IndexOf(fieldStartName, 0);
+
+            string lenStr = _expression.Substring((fieldStart + noStart), 1);
+
+            // Should really think about wrapping this in some error handling incase the
+            // clever end user decides to enter a non-number 
+            Int32.TryParse(lenStr, out len);  
+
+            return len;
+        }
+
         public string GenerateUsername(string Forename, string Surname,
             string AdmissionNo, string AdmissionYear,
             string YearGroup, string EntryYear,
@@ -108,17 +126,55 @@ namespace UserGen
         {
             string exp = _expression;
 
-            System.Windows.Forms.MessageBox.Show(ExpFieldBuilder(UserFields.Increment));
+            // We don't want to explictly set the incremental number unless
+            // its greater then 0 - ie we dont want all our usernames with a zero
+            string incrementalNo = "";
+            int no = 0;
+            Int32.TryParse(Increment, out no);
+            if (no > 0)
+                incrementalNo = no.ToString();
 
-            exp.Replace(ExpFieldBuilder(UserFields.Forename), Forename);
-            exp.Replace(ExpFieldBuilder(UserFields.Surname), Surname);
-            exp.Replace(ExpFieldBuilder(UserFields.AdmissionNo), AdmissionNo);
-            exp.Replace(ExpFieldBuilder(UserFields.AdmissionYear), AdmissionYear);
-            exp.Replace(ExpFieldBuilder(UserFields.YearGroup), YearGroup);
-            exp.Replace(ExpFieldBuilder(UserFields.EntryYear), EntryYear);
-            exp.Replace(ExpFieldBuilder(UserFields.RegGroup), RegGroup);
-            exp.Replace(ExpFieldBuilder(UserFields.SystemId), SystemId);
-            exp.Replace(ExpFieldBuilder(UserFields.Increment), Increment);
+            string _forenameExp;
+            string _surnameExp;
+
+            // Set everything as lowercase
+            string _forename = Forename.ToLower();
+            string _surname = Surname.ToLower();
+            string _yearGroup = YearGroup.ToLower();
+
+            int _forenameLen = GetLength(UserFields.Forename);
+            int _surnameLen = GetLength(UserFields.Surname);
+
+            if (_forenameLen > 0)
+            {
+                _forename = _forename.Substring(0, _forenameLen);
+                _forenameExp = ExpFieldBuilder(UserFields.Forename).Substring(0, (ExpFieldBuilder(UserFields.Forename).Length - 3)) + _forenameLen + ")]";
+            }
+            else
+                _forenameExp = ExpFieldBuilder(UserFields.Forename);
+
+            if (_surnameLen > 0)
+            {
+                _surname = _surname.Substring(0, _surnameLen);
+                _surnameExp = ExpFieldBuilder(UserFields.Surname).Substring(0, (ExpFieldBuilder(UserFields.Surname).Length - 3)) + _surnameLen + ")]";
+            }
+            else
+                _surnameExp = ExpFieldBuilder(UserFields.Surname);
+
+            // Clean up the YearGroup
+            _yearGroup = _yearGroup.Replace(" ", "");
+            _yearGroup = _yearGroup.Replace("year", "");
+
+
+            exp = exp.Replace(_forenameExp, _forename);
+            exp = exp.Replace(_surnameExp, _surname);
+            exp = exp.Replace(ExpFieldBuilder(UserFields.AdmissionNo), AdmissionNo.ToLower());
+            exp = exp.Replace(ExpFieldBuilder(UserFields.AdmissionYear), AdmissionYear.ToLower());
+            exp = exp.Replace(ExpFieldBuilder(UserFields.YearGroup), _yearGroup);
+            exp = exp.Replace(ExpFieldBuilder(UserFields.EntryYear), EntryYear.ToLower());
+            exp = exp.Replace(ExpFieldBuilder(UserFields.RegGroup), RegGroup.ToLower());
+            exp = exp.Replace(ExpFieldBuilder(UserFields.SystemId), SystemId.ToLower());
+            exp = exp.Replace(ExpFieldBuilder(UserFields.Increment), incrementalNo.ToLower());
             return exp;
         }
     }
