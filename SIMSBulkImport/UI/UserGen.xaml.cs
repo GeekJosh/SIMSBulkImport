@@ -106,13 +106,27 @@ namespace Matt40k.SIMSBulkImport
                 {
                     this.expression.BorderBrush = Brushes.Green;
                     this.exampleText.Text = GenerateExampleUsername;
+                    this.nextButton.IsEnabled = true;
+                    this.nextButton.Visibility = Visibility.Visible;
                 }
                 else
                 {
                     this.expression.BorderBrush = Brushes.Red;
                     this.exampleText.Text = "";
+                    this.nextButton.IsEnabled = false;
+                    this.nextButton.Visibility = Visibility.Hidden;
                 }
             }
+        }
+
+        private void backClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new UserUdf());
+        }
+
+        private void nextClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new UserFilter());
         }
     }
 

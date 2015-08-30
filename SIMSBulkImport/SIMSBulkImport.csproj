@@ -137,6 +137,9 @@
     <Compile Include="Support\View.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Theme.cs" />
+    <Compile Include="UI\UserFilter.xaml.cs">
+      <DependentUpon>UserFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserUdf.xaml.cs">
       <DependentUpon>UserUdf.xaml</DependentUpon>
     </Compile>
@@ -194,6 +197,10 @@
     <Page Include="PageSwitcher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UserFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UserUdf.xaml">
       <Generator>MSBuild:Compile</Generator>

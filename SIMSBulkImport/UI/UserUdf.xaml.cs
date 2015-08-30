@@ -91,6 +91,7 @@ namespace Matt40k.SIMSBulkImport
         }
 
         private string[] yearGroups;
+
         private void bwLoadUdfs_DoWork(object sender, DoWorkEventArgs e)
         {
             bwLoadUdfs = sender as BackgroundWorker;
@@ -104,11 +105,11 @@ namespace Matt40k.SIMSBulkImport
         {
             if (e.Cancelled)
             {
-                //Switcher.ImportFileClass.ImportCompleted = false;
+
             }
             else if (!(e.Error == null))
             {
-                //Switcher.ImportFileClass.ImportCompleted = false;
+
             }
             else
             {
