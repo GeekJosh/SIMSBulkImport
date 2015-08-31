@@ -25,10 +25,6 @@ namespace Matt40k.SIMSBulkImport
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow()");
             InitializeComponent();
-
-            //TEST:: load import data straight into datagrid
-            //this.dataGrid.DataContext = Switcher.PreImportClass.GetImportDataTable;
-
             load();
             dataGrid.Items.Refresh();
         }
