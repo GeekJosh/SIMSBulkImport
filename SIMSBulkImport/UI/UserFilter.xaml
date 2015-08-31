@@ -13,10 +13,10 @@
         </Grid>
         <Grid Name="mainGrid" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*" MinHeight="50"/>
             </Grid.RowDefinitions>
-            <TreeView Name="pupilHierarchy" Width="250" Height="450" ScrollViewer.CanContentScroll="False">
+            <TreeView Name="pupilHierarchy" Width="250" Height="200" BorderThickness="2">
                 <TreeViewItem Header="All" Name="All">
                     <TreeViewItem Header="Years" Name="yearTree"></TreeViewItem>
                     <TreeViewItem Header="Houses" Name="houseTree"></TreeViewItem>
