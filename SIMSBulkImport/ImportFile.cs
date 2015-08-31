@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.IO;
 using NLog;
 
@@ -21,6 +22,7 @@ namespace Matt40k.SIMSBulkImport
                 if (File.Exists(value))
                 {
                     logger.Log(LogLevel.Debug, value);
+                    logger.Log(LogLevel.Debug, "Import File is UNC path: " + IsUnc(value));
                     _filePath = value;
                 }
                 else
@@ -114,5 +116,10 @@ namespace Matt40k.SIMSBulkImport
             Xls,
             Unknown
         };
+
+        public bool IsUnc(string path)
+        {
+            return new Uri(path).IsUnc;
+        }
     }
 }
