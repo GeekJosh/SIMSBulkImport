@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace UserGen
 {
@@ -242,6 +243,18 @@ namespace UserGen
             admYr = admYr - adj;
 
             return admYr.ToString().Substring(2, 2);
+        }
+
+        private DataTable defaultUserData;
+
+        public DataTable SetDefaultUserData
+        {
+            set { defaultUserData = value; }
+        }
+
+        public DataTable GetDefaultUserData
+        {
+            get { return defaultUserData; }
         }
     }
 }

@@ -1,14 +1,10 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
 using NLog;
-using MessageBox = System.Windows.MessageBox;
+using UserGen;
 
 namespace Matt40k.SIMSBulkImport
 {
@@ -20,7 +16,9 @@ namespace Matt40k.SIMSBulkImport
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private List<string> udfs;
         private BackgroundWorker bwLoadUdfs = new BackgroundWorker();
-        DataTable defaultUserData;
+        private DataTable defaultUserData;
+        private string[] yearGroups;
+
 
         internal UserUdf()
         {
@@ -35,7 +33,11 @@ namespace Matt40k.SIMSBulkImport
 
         private void okClick(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new UserGen(defaultUserData, yearGroups));
+            Switcher.UserGenClass.SetSchoolYearGroups = yearGroups;
+            Switcher.UserGenClass.SetYearStart = "2015-09-01";
+            Switcher.UserGenClass.SetSchoolYearGroups = yearGroups;
+            Switcher.UserGenClass.SetDefaultUserData = defaultUserData;
+            Switcher.Switch(new UserGen());
         }
 
         private void AddExistsUdfs()
@@ -85,8 +87,6 @@ namespace Matt40k.SIMSBulkImport
                     this.okButton.Visibility = Visibility.Hidden;
             }
         }
-
-        private string[] yearGroups;
 
         private void bwLoadUdfs_DoWork(object sender, DoWorkEventArgs e)
         {

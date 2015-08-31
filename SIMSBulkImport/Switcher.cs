@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using NLog;
+using UserGen;
 
 namespace Matt40k.SIMSBulkImport
 {
@@ -17,6 +18,7 @@ namespace Matt40k.SIMSBulkImport
         public static ImportList ImportListClass;
         public static Import ImportClass;
         public static ConfigMan ConfigManClass;
+        public static Builder UserGenClass;
 
         public static void Switch(UserControl newPage)
         {

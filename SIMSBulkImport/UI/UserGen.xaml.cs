@@ -15,31 +15,26 @@ namespace Matt40k.SIMSBulkImport
     public partial class UserGen
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        private Builder _builder;
         public string UsrExp { get; set; }
-        private DataTable _defaultUserData;
 
-        public UserGen(DataTable defaultUserData, string[] Years)
+        public UserGen()
         {
-            _defaultUserData = defaultUserData;
             InitializeComponent();
-            _builder = new Builder();
-            _builder.SetSchoolYearGroups = Years;
-            _builder.SetYearStart = "2015-09-01";
+            
         }
 
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             string expression = "";
             Label lbl = (Label)sender;
-            expression = _builder.GetExpressionFromLabel((string)lbl.Content);
+            expression = Switcher.UserGenClass.GetExpressionFromLabel((string)lbl.Content);
             DragDrop.DoDragDrop(lbl, expression, DragDropEffects.Copy);
         }
 
         private void expression_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _builder.SetExpression = this.expression.Text;
-            SetIsValidExpression = _builder.IsValidExpression;
+            Switcher.UserGenClass.SetExpression = this.expression.Text;
+            SetIsValidExpression = Switcher.UserGenClass.IsValidExpression;
             EnableDisable();
         }
 
@@ -64,8 +59,8 @@ namespace Matt40k.SIMSBulkImport
             get
             {
                 string exp = this.expression.Text;
-                _builder.SetExpression = exp;
-                DataRow _dr             = _defaultUserData.Rows[0];
+                Switcher.UserGenClass.SetExpression = exp;
+                DataRow _dr             = Switcher.UserGenClass.GetDefaultUserData.Rows[0];
                 string Forename = (string)_dr["Forename"];
                 string Surname = (string)_dr["Surname"];
                 string AdmissionNo = (string)_dr["AdmissionNo"];
@@ -75,7 +70,7 @@ namespace Matt40k.SIMSBulkImport
                 string RegGroup = (string)_dr["RegGroup"];
                 string SystemId = (string)_dr["SystemId"];
                 string Increment        = "0";
-                string result = _builder.GenerateUsername(Forename, Surname, AdmissionNo, AdmissionYear, YearGroup, EntryYear, RegGroup, SystemId, Increment);
+                string result = Switcher.UserGenClass.GenerateUsername(Forename, Surname, AdmissionNo, AdmissionYear, YearGroup, EntryYear, RegGroup, SystemId, Increment);
                 return result;
             }
         }

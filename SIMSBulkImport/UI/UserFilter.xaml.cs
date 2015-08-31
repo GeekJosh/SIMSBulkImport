@@ -82,7 +82,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void backClick(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new UserGen(null, null));
+            Switcher.Switch(new UserGen());
         }
 
         private void nextClick(object sender, RoutedEventArgs e)
