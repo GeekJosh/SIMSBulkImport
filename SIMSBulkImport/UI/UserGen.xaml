@@ -21,7 +21,7 @@
                 Grid.Column="0" Grid.Row="0"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
             />
@@ -30,7 +30,7 @@
                 Grid.Column="1" Grid.Row="0"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
             />
@@ -39,7 +39,7 @@
                 Grid.Column="0" Grid.Row="2"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
             />
@@ -48,7 +48,7 @@
                 Grid.Column="0" Grid.Row="1"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                />
@@ -57,7 +57,7 @@
                 Grid.Column="2" Grid.Row="0"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
              />
@@ -66,7 +66,7 @@
                 Grid.Column="1" Grid.Row="1"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                />
@@ -75,7 +75,7 @@
                 Grid.Column="2" Grid.Row="2"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                />
@@ -84,7 +84,7 @@
                 Grid.Column="2" Grid.Row="1"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                />
@@ -93,7 +93,7 @@
                 Grid.Column="1" Grid.Row="2"
                 HorizontalAlignment="Center" VerticalAlignment="Center" 
                 MouseLeftButtonDown="Label_MouseLeftButtonDown"
-                BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+                BorderBrush="Black" BorderThickness="2"
                 Height="40" Width="125" FontFamily="Arial" FontSize="16" 
                 HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                />
@@ -102,7 +102,7 @@
             HorizontalAlignment="Center"
             Height="50" Width="450" Grid.ColumnSpan="3" Grid.Row="3"
             TextWrapping="Wrap"
-            BorderBrush="Black" BorderThickness="2" Background="AliceBlue"
+            BorderThickness="2"
             FontFamily="Arial" FontSize="16" 
             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
             AllowDrop="True" TextChanged="expression_TextChanged"
@@ -111,7 +111,7 @@
             HorizontalAlignment="Center"
             Height="50" Width="450" Grid.ColumnSpan="3" Grid.Row="4"
             TextWrapping="Wrap"
-            BorderBrush="Black" BorderThickness="1" Background="AliceBlue"
+            BorderThickness="1"
             FontFamily="Arial" FontSize="16" 
             HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
             IsReadOnly="True"
