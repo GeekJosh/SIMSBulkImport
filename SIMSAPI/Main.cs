@@ -643,6 +643,21 @@ namespace Matt40k.SIMSBulkImport
                 return _pupils.GetPupilDefaultUsernameData;
             }
         }
+
+        public void GetPupilHierarchy()
+        {
+            DataTable _dt = _pupils.GetPupilHierarchyData;
+        }
+
+        public int GetPupilHierarchyAllCount
+        {
+            get { return _pupils.GetPupilHierarchyAllCount; }
+        }
+
+        public int GetPupilHierarchyItemCount(string type, string item)
+        {
+            return _pupils.GetPupilHierarchyItemCount(type, item);
+        }
         #endregion
 
         #region Staff

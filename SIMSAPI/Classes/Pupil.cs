@@ -546,6 +546,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             get
             {
+                logger.Log(LogLevel.Trace, "GetUsernameData");
                 DataTable dt = new DataTable();
                 dt.Columns.Add(new DataColumn("Forename", typeof (string)));
                 dt.Columns.Add(new DataColumn("Surname", typeof (string)));
@@ -559,10 +560,24 @@ namespace Matt40k.SIMSBulkImport.Classes
             }
         }
 
+        public DataTable GetPupilHierarchyStructure
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "GetPupilHierarchyStructure");
+                DataTable dt = new DataTable();
+                dt.Columns.Add(new DataColumn("PersonID", typeof(string)));
+                dt.Columns.Add(new DataColumn("Year", typeof(string)));
+                dt.Columns.Add(new DataColumn("House", typeof(string)));
+                return dt;
+            }
+        }
+
         public DataTable GetPupilDefaultUsernameData
         {
             get
             {
+                logger.Log(LogLevel.Trace, "GetPupilDefaultUsernameData");
                 DataTable _dt = GetUsernameData;
                 DataRow _dr = _dt.NewRow();
                 int defaultStudentPersonId = GetDefaultStudentPersonId;
@@ -577,6 +592,59 @@ namespace Matt40k.SIMSBulkImport.Classes
                 _dt.Rows.Add(_dr);
                 return _dt;
             }
+        }
+
+        private DataTable _pupilHierarchyData;
+
+        public DataTable GetPupilHierarchyData
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "GetPupilHierarchyData");
+                if (_pupilHierarchyData == null)
+                {
+                    logger.Log(LogLevel.Trace, "GetPupilHierarchyData - build");
+                    _pupilHierarchyData = GetPupilHierarchyStructure;
+
+                    var studentBrowse = new StudentBrowseProcess();
+                    StudentSummarys resultStudents = studentBrowse.GetStudents("Current", "%", "%", "%",
+                        "%", "%", "%", DateTime.Now, false, "%");
+                    foreach (StudentSummary student in resultStudents)
+                    {
+                        DataRow _dr = _pupilHierarchyData.NewRow();
+                        _dr["PersonID"] = student.PersonID.ToString();
+                        _dr["Year"] = student.YearGroup;
+                        _dr["House"] = student.House;
+                        _pupilHierarchyData.Rows.Add(_dr);
+                    }
+                }
+                return _pupilHierarchyData;
+            }
+        }
+
+        public int GetPupilHierarchyAllCount
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "GetPupilHierarchyAllCount");
+                return GetPupilHierarchyData.Rows.Count;
+            }
+        }
+
+        public int GetPupilHierarchyItemCount(string type, string item)
+        {
+            logger.Log(LogLevel.Trace, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
+            if (type == "Year")
+                return GetPupilHierarchyData.Select(type + " = '" + GetPupilYearNo(item) + "'").Length;
+            return GetPupilHierarchyData.Select(type + " = '" + item + "'").Length;
+        }
+
+        public string GetPupilYearNo(string name)
+        {
+            name = name.ToLower();
+            name = name.Replace(" ", "");
+            name = name.Replace("year", "");
+            return name;
         }
         #endregion
 

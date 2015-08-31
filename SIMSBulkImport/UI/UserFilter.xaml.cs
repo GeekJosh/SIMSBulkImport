@@ -43,6 +43,7 @@ namespace Matt40k.SIMSBulkImport
             bwLoadHierarchy = sender as BackgroundWorker;
             yearGroups = Switcher.SimsApiClass.GetPupilYearGroups;
             houses = Switcher.SimsApiClass.GetPupilHouses;
+            Switcher.SimsApiClass.GetPupilHierarchy();
         }
 
         private void bwLoadHierarchy_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -65,17 +66,22 @@ namespace Matt40k.SIMSBulkImport
 
         private void AddToHierarchy()
         {
+            int allCnt = Switcher.SimsApiClass.GetPupilHierarchyAllCount;
+            this.All.Header = "All (" + allCnt + ")";
+
             foreach (string house in houses)
             {
                 TreeViewItem newHouseChild = new TreeViewItem();
-                newHouseChild.Header = house;
+                int houseCnt = Switcher.SimsApiClass.GetPupilHierarchyItemCount("House", house);
+                newHouseChild.Header = house + " (" + houseCnt.ToString() + ")";
                 this.houseTree.Items.Add(newHouseChild);
             }
 
             foreach (string year in yearGroups)
             {
                 TreeViewItem newYearChild = new TreeViewItem();
-                newYearChild.Header = year;
+                int yearCnt = Switcher.SimsApiClass.GetPupilHierarchyItemCount("Year", year);
+                newYearChild.Header = year + " (" + yearCnt.ToString() + ")";
                 this.yearTree.Items.Add(newYearChild);
             }
         }
