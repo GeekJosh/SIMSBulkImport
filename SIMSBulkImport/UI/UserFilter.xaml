@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
     <Grid>
-        <Grid Name="loadGrid">
+        <Grid Name="loadGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -11,11 +11,28 @@
             <Controls:ProgressRing IsActive="True" Foreground="DodgerBlue" Name="progressRing" Height="100" Grid.Row="0" Margin="120,0"  VerticalAlignment="Bottom" />
             <Label Name="loadLabel" Content="Loading Pupil Hierarchy..." HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Margin="120,0" />
         </Grid>
-        <TreeView Name="pupilHierarchy" Width="250" Height="450" Visibility="Visible">
-            <TreeViewItem Header="All">
-                <TreeViewItem Header="Years" Name="yearTree"></TreeViewItem>
-                <TreeViewItem Header="Houses" Name="houseTree"></TreeViewItem>
-            </TreeViewItem>
-        </TreeView>
+        <Grid Name="mainGrid" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="*" MinHeight="50"/>
+            </Grid.RowDefinitions>
+            <TreeView Name="pupilHierarchy" Width="250" Height="450" ScrollViewer.CanContentScroll="False">
+                <TreeViewItem Header="All" Name="All">
+                    <TreeViewItem Header="Years" Name="yearTree"></TreeViewItem>
+                    <TreeViewItem Header="Houses" Name="houseTree"></TreeViewItem>
+                </TreeViewItem>
+            </TreeView>
+            <Button Content="Next" Name="nextButton" Click="nextClick"
+                    Grid.Row="1"
+                Visibility="Hidden" IsEnabled="False"
+                    VerticalAlignment="Center" HorizontalAlignment="Right"
+                    Width="100" Height="30" FontSize="14"
+            />
+            <Button Content="Back" Name="backButton" Click="backClick"
+                    Grid.Row="1"
+                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Width="100" Height="30" FontSize="14"
+            />
+        </Grid>
     </Grid>
 </UserControl>

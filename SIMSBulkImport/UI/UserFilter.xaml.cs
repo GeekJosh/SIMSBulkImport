@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using MahApps.Metro;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport
@@ -20,6 +22,8 @@ namespace Matt40k.SIMSBulkImport
         {
             InitializeComponent();
             GetHierarchy();
+            this.nextButton.Visibility = Visibility.Visible;
+            this.nextButton.IsEnabled = true;
         }
 
         private void GetHierarchy()
@@ -54,7 +58,7 @@ namespace Matt40k.SIMSBulkImport
             else
             {
                 this.loadGrid.Visibility = Visibility.Hidden;
-                this.pupilHierarchy.Visibility = Visibility.Visible;
+                this.mainGrid.Visibility = Visibility.Visible;
                 AddToHierarchy();
             }
         }
@@ -74,6 +78,16 @@ namespace Matt40k.SIMSBulkImport
                 newYearChild.Header = year;
                 this.yearTree.Items.Add(newYearChild);
             }
+        }
+
+        private void backClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new UserGen(null, null));
+        }
+
+        private void nextClick(object sender, RoutedEventArgs e)
+        {
+            //Switcher.Switch(new UserFilter());
         }
     }
 }

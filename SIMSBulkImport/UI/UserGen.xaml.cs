@@ -19,8 +19,6 @@ namespace Matt40k.SIMSBulkImport
         public string UsrExp { get; set; }
         private DataTable _defaultUserData;
 
-
-
         public UserGen(DataTable defaultUserData, string[] Years)
         {
             _defaultUserData = defaultUserData;
@@ -36,11 +34,6 @@ namespace Matt40k.SIMSBulkImport
             Label lbl = (Label)sender;
             expression = _builder.GetExpressionFromLabel((string)lbl.Content);
             DragDrop.DoDragDrop(lbl, expression, DragDropEffects.Copy);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(UsrExp);
         }
 
         private void expression_TextChanged(object sender, TextChangedEventArgs e)
@@ -66,12 +59,6 @@ namespace Matt40k.SIMSBulkImport
 
         }
 
-        /*
-                private void buttonClick(object sender, RoutedEventArgs e)
-                {
-                    Switcher.Switch(new Menu());
-                }
-         */
         public string GenerateExampleUsername
         {
             get
