@@ -516,6 +516,31 @@ namespace Matt40k.SIMSBulkImport.Classes
             return result;
         }
 
+        public bool HasPupilUsername(int personid, string udf)
+        {
+            bool result = false;
+            try
+            {
+                var studentsedt = new EditStudentInformationReadOnly();
+                StudentEditResult status = studentsedt.Load(new Person(personid), DateTime.Now);
+
+                foreach (UDFValue udfVal in studentsedt.Student.UDFValues)
+                {
+                    if (udfVal.FieldTypeCode == UDFFieldType.STRING1_CODE)
+                    {
+                        if (udfVal.TypedValueAttribute.Description == udf)
+                            return !string.IsNullOrEmpty(((StringAttribute)udfVal.TypedValueAttribute).Value);
+                    }
+                }
+                studentsedt.Dispose();
+            }
+            catch (Exception GetStudentUdfException)
+            {
+                logger.Log(LogLevel.Error, GetStudentUdfException);
+            }
+            return result;
+        }
+
         public List<string> GetPupilUsernameUDFs
         {
             get
@@ -569,6 +594,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                 dt.Columns.Add(new DataColumn("PersonID", typeof(string)));
                 dt.Columns.Add(new DataColumn("Year", typeof(string)));
                 dt.Columns.Add(new DataColumn("House", typeof(string)));
+                dt.Columns.Add(new DataColumn("IsSet", typeof(bool)));
                 return dt;
             }
         }
@@ -611,10 +637,12 @@ namespace Matt40k.SIMSBulkImport.Classes
                         "%", "%", "%", DateTime.Now, false, "%");
                     foreach (StudentSummary student in resultStudents)
                     {
+                        int personId = student.PersonID;
                         DataRow _dr = _pupilHierarchyData.NewRow();
-                        _dr["PersonID"] = student.PersonID.ToString();
+                        _dr["PersonID"] = personId.ToString();
                         _dr["Year"] = student.YearGroup;
                         _dr["House"] = student.House;
+                        _dr["IsSet"] = HasPupilUsername(personId, "Test");
                         _pupilHierarchyData.Rows.Add(_dr);
                     }
                 }
@@ -631,12 +659,46 @@ namespace Matt40k.SIMSBulkImport.Classes
             }
         }
 
+        public int GetPupilHierarchyAllCompletedCount
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "GetPupilHierarchyAllCount");
+                return GetPupilHierarchyData.Select("IsSet = true").Length;
+            }
+        }
+
+        public int GetPupilHierarchyAllNotCompletedCount
+        {
+            get
+            {
+                logger.Log(LogLevel.Trace, "GetPupilHierarchyAllCount");
+                return GetPupilHierarchyData.Select("IsSet = false").Length;
+            }
+        }
+
         public int GetPupilHierarchyItemCount(string type, string item)
         {
             logger.Log(LogLevel.Trace, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
             if (type == "Year")
                 return GetPupilHierarchyData.Select(type + " = '" + GetPupilYearNo(item) + "'").Length;
             return GetPupilHierarchyData.Select(type + " = '" + item + "'").Length;
+        }
+
+        public int GetPupilHierarchyItemCompletedCount(string type, string item)
+        {
+            logger.Log(LogLevel.Trace, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
+            if (type == "Year")
+                return GetPupilHierarchyData.Select(type + " = '" + GetPupilYearNo(item) + "' AND IsSet = true").Length;
+            return GetPupilHierarchyData.Select(type + " = '" + item + "' AND IsSet = true").Length;
+        }
+
+        public int GetPupilHierarchyItemNotCompletedCount(string type, string item)
+        {
+            logger.Log(LogLevel.Trace, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
+            if (type == "Year")
+                return GetPupilHierarchyData.Select(type + " = '" + GetPupilYearNo(item) + "' AND IsSet = false").Length;
+            return GetPupilHierarchyData.Select(type + " = '" + item + "' AND IsSet = false").Length;
         }
 
         public string GetPupilYearNo(string name)
@@ -697,7 +759,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         /// <returns></returns>
         public bool SetPupilUDF(int personid, string udfvalue)
         {
-            logger.Log(LogLevel.Debug, "SIMSAPI-SetPupilUDF-string - personid: " + personid + " - udfvalue: " + udfvalue);
+            logger.Log(LogLevel.Trace, "SIMSAPI-SetPupilUDF - personid: " + personid + " - udfvalue: " + udfvalue);
             bool result = false;
             try
             {

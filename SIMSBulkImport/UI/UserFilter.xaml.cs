@@ -22,8 +22,6 @@ namespace Matt40k.SIMSBulkImport
         {
             InitializeComponent();
             GetHierarchy();
-            this.nextButton.Visibility = Visibility.Visible;
-            this.nextButton.IsEnabled = true;
         }
 
         private void GetHierarchy()
@@ -54,7 +52,7 @@ namespace Matt40k.SIMSBulkImport
             }
             else if (!(e.Error == null))
             {
-                
+
             }
             else
             {
@@ -67,13 +65,16 @@ namespace Matt40k.SIMSBulkImport
         private void AddToHierarchy()
         {
             int allCnt = Switcher.SimsApiClass.GetPupilHierarchyAllCount;
-            this.All.Header = "All (" + allCnt + ")";
+            int allFilledCnt = Switcher.SimsApiClass.GetPupilHierarchyAllNotCompletedCount;
+            this.All.Header = "All (" + allFilledCnt + " / " + allCnt + ")";
+            this.All.IsSelected = true;
 
             foreach (string house in houses)
             {
                 TreeViewItem newHouseChild = new TreeViewItem();
                 int houseCnt = Switcher.SimsApiClass.GetPupilHierarchyItemCount("House", house);
-                newHouseChild.Header = house + " (" + houseCnt.ToString() + ")";
+                int houseFilledCnt = Switcher.SimsApiClass.GetPupilHierarchyItemNotCompletedCount("House", house);
+                newHouseChild.Header = house + " (" + houseFilledCnt + " / " + houseCnt.ToString() + ")";
                 this.houseTree.Items.Add(newHouseChild);
             }
 
@@ -81,7 +82,8 @@ namespace Matt40k.SIMSBulkImport
             {
                 TreeViewItem newYearChild = new TreeViewItem();
                 int yearCnt = Switcher.SimsApiClass.GetPupilHierarchyItemCount("Year", year);
-                newYearChild.Header = year + " (" + yearCnt.ToString() + ")";
+                int yearFilledCnt = Switcher.SimsApiClass.GetPupilHierarchyItemNotCompletedCount("Year", year);
+                newYearChild.Header = year + " (" + yearFilledCnt + " / " + yearCnt.ToString() + ")";
                 this.yearTree.Items.Add(newYearChild);
             }
         }
@@ -94,6 +96,25 @@ namespace Matt40k.SIMSBulkImport
         private void nextClick(object sender, RoutedEventArgs e)
         {
             //Switcher.Switch(new UserFilter());
+        }
+
+        private void PupilHierarchySelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            TreeViewItem item = pupilHierarchy.SelectedItem as TreeViewItem;
+            string selectedItem = item.Header.ToString();
+            DisableNextButton = (selectedItem == "Years" || selectedItem == "Houses");
+        }
+
+        private bool DisableNextButton
+        {
+            set
+            {
+                Visibility vis = Visibility.Visible;
+                if (value)
+                    vis = Visibility.Hidden;
+                this.nextButton.IsEnabled = !value;
+                this.nextButton.Visibility = vis;
+            }
         }
     }
 }

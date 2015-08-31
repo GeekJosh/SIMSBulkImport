@@ -375,7 +375,8 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetDefaultTelephoneLocation(GET)");
+                logger.Log(LogLevel.Trace,
+                    "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetDefaultTelephoneLocation(GET)");
                 // Load Telephone Location
                 TelephoneLocations locations = PersonCache.TelephoneLocations;
                 foreach (TelephoneLocation location in locations)
@@ -495,12 +496,14 @@ namespace Matt40k.SIMSBulkImport
             return _contacts.GetContactTelephone(personid);
         }
 
-        public bool SetContactEmail(Int32 personid, string email, string main, string primary, string notes, string location)
+        public bool SetContactEmail(Int32 personid, string email, string main, string primary, string notes,
+            string location)
         {
             return _contacts.SetContactEmail(personid, email, main, primary, notes, location);
         }
 
-        public bool SetContactTelephone(Int32 personid, string telephone, string main, string primary, string notes, string location, string device)
+        public bool SetContactTelephone(Int32 personid, string telephone, string main, string primary, string notes,
+            string location, string device)
         {
             return _contacts.SetContactTelephone(personid, telephone, main, primary, notes, location, device);
         }
@@ -602,18 +605,17 @@ namespace Matt40k.SIMSBulkImport
 
         public List<string> GetPupilUsernameUDFs
         {
-            get
-            {
-                return _pupils.GetPupilUsernameUDFs;
-            }
+            get { return _pupils.GetPupilUsernameUDFs; }
         }
 
-        public bool SetPupilEmail(Int32 personid, string email, string main, string primary, string notes, string location)
+        public bool SetPupilEmail(Int32 personid, string email, string main, string primary, string notes,
+            string location)
         {
             return _pupils.SetPupilEmail(personid, email, main, primary, notes, location);
         }
 
-        public bool SetPupilTelephone(Int32 personid, string telephone, string main, string primary, string notes, string location, string device)
+        public bool SetPupilTelephone(Int32 personid, string telephone, string main, string primary, string notes,
+            string location, string device)
         {
             return _pupils.SetPupilTelephone(personid, telephone, main, primary, notes, location, device);
         }
@@ -638,10 +640,7 @@ namespace Matt40k.SIMSBulkImport
 
         public DataTable GetPupilDefaultUsernameData
         {
-            get
-            {
-                return _pupils.GetPupilDefaultUsernameData;
-            }
+            get { return _pupils.GetPupilDefaultUsernameData; }
         }
 
         public void GetPupilHierarchy()
@@ -657,6 +656,26 @@ namespace Matt40k.SIMSBulkImport
         public int GetPupilHierarchyItemCount(string type, string item)
         {
             return _pupils.GetPupilHierarchyItemCount(type, item);
+        }
+
+        public int GetPupilHierarchyAllCompletedCount
+        {
+            get { return _pupils.GetPupilHierarchyAllCompletedCount; }
+        }
+
+        public int GetPupilHierarchyAllNotCompletedCount
+        {
+            get { return _pupils.GetPupilHierarchyAllNotCompletedCount; }
+        }
+
+        public int GetPupilHierarchyItemCompletedCount(string type, string item)
+        {
+            return _pupils.GetPupilHierarchyItemCompletedCount(type, item);
+        }
+
+        public int GetPupilHierarchyItemNotCompletedCount(string type, string item)
+        {
+            return _pupils.GetPupilHierarchyItemNotCompletedCount(type, item);
         }
         #endregion
 

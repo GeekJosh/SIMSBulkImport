@@ -3,20 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
     <Grid>
-        <Grid Name="loadGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid Name="loadGrid" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible">
             <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Controls:ProgressRing IsActive="True" Foreground="DodgerBlue" Name="progressRing" Height="100" Grid.Row="0" Margin="120,0"  VerticalAlignment="Bottom" />
-            <Label Name="loadLabel" Content="Loading Pupil Hierarchy..." HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Margin="120,0" />
+            <Label Name="loadLabel" Content="Loading..." HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Margin="120,0" />
+            <Label Name="loadMessage" Content=" Pupil Hierarchy..." HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top"
+               FontStyle="Italic" Margin="145,0" />
         </Grid>
-        <Grid Name="mainGrid" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid Name="mainGrid" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="330"/>
                 <RowDefinition Height="*" MinHeight="50"/>
             </Grid.RowDefinitions>
-            <TreeView Name="pupilHierarchy" Width="250" Height="200" BorderThickness="2">
+            <TreeView Name="pupilHierarchy"
+                      Width="250" Height="300"
+                      BorderThickness="2" 
+                      Grid.Row="0"
+                      SelectedItemChanged="PupilHierarchySelectedChanged">
                 <TreeViewItem Header="All" Name="All">
                     <TreeViewItem Header="Years" Name="yearTree"></TreeViewItem>
                     <TreeViewItem Header="Houses" Name="houseTree"></TreeViewItem>
@@ -24,7 +31,6 @@
             </TreeView>
             <Button Content="Next" Name="nextButton" Click="nextClick"
                     Grid.Row="1"
-                Visibility="Hidden" IsEnabled="False"
                     VerticalAlignment="Center" HorizontalAlignment="Right"
                     Width="100" Height="30" FontSize="14"
             />
