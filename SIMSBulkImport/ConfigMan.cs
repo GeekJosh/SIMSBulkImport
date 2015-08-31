@@ -2,6 +2,8 @@
 using System.Configuration;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq.Expressions;
+using System.Windows;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
@@ -33,6 +35,9 @@ namespace Matt40k.SIMSBulkImport
         private string telephoneNotes;
         private string telephoneDevice;
 
+        private string theme;
+        private string accent;
+
         public ConfigMan()
         {
             logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan()");
@@ -59,7 +64,7 @@ namespace Matt40k.SIMSBulkImport
             {
                 using (StreamReader r = new StreamReader(GetAppConfig))
                 {
-                    dynamic result = Newtonsoft.Json.JsonConvert.DeserializeObject(r.ReadToEnd());
+                    dynamic result = JsonConvert.DeserializeObject(r.ReadToEnd());
                     foreach (var item in result)
                     {
                         debugMode = item.Debug;
@@ -70,6 +75,14 @@ namespace Matt40k.SIMSBulkImport
                         emailPrimary = item.EmailPrimary;
                         telephoneMain = item.TelephoneMain;
                         telephonePrimary = item.TelephonePrimary;
+                        try
+                        {
+                            theme = item.Theme;
+                            accent = item.Accent;
+                        }
+                        catch (Exception)
+                        {
+                        }
                     }
                 }
             }
@@ -97,6 +110,8 @@ namespace Matt40k.SIMSBulkImport
             public string TelephoneLocation;
             public string TelephoneNotes;
             public string TelephoneDevice;
+            public string Theme;
+            public string Accent;
         }
 
         /// <summary>
@@ -204,6 +219,8 @@ namespace Matt40k.SIMSBulkImport
                 ,TelephoneLocation = telephoneLocation
                 ,TelephoneNotes = telephoneNotes
                 ,TelephoneDevice = telephoneDevice
+                ,Theme = theme
+                ,Accent = accent
             });
             string json = JsonConvert.SerializeObject(_data.ToArray());
 
@@ -235,6 +252,44 @@ namespace Matt40k.SIMSBulkImport
             {
                 logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetCheckUpdates(" + value + ")");
                 updateMode = value;
+            }
+        }
+
+        public string SetTheme
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTheme(" + value + ")");
+                theme = value;
+            }
+        }
+
+        public string SetAccent
+        {
+            set
+            {
+                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetAccent(" + value + ")");
+                accent = value;
+            }
+        }
+
+        public string GetTheme
+        {
+            get
+            {
+                if (string.IsNullOrEmpty((theme)))
+                    return "BaseLight";
+                return theme;
+            }
+        }
+
+        public string GetAccent
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(accent))
+                    return "Blue";
+                return accent;
             }
         }
 

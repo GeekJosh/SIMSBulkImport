@@ -12,9 +12,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="120" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
             <RowDefinition Height="30" />
@@ -29,11 +31,21 @@
                   Name="checkBoxDebug" VerticalAlignment="Center" />
         <CheckBox Content="Automatically check for updates" Grid.Column="2" Grid.Row="3" Height="16"
                   HorizontalAlignment="Left" Name="checkBoxUpdates" VerticalAlignment="Center" />
-
+        
+        <!-- Theme -->
+        <ComboBox Grid.Column="2" Grid.Row="4" Height="26" HorizontalAlignment="Left"
+                  Name="comboBoxThemes" VerticalAlignment="Center" Width="200" 
+                  SelectionChanged="themeChanged"
+                  />
+        <ComboBox Grid.Column="2" Grid.Row="5" Height="26" Width="200"
+                  HorizontalAlignment="Left" Name="comboBoxAccents" VerticalAlignment="Center"
+                  SelectionChanged="themeChanged"
+                  />
+        
         <!-- Footer -->
-        <Button Content="Cancel" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7" Height="26" HorizontalAlignment="Left"
+        <Button Content="Cancel" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9" Height="26" HorizontalAlignment="Left"
                 Name="buttonCancel" VerticalAlignment="Center" Width="100" Click="buttonCancel_Click" />
-        <Button Content="Save" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="7" Height="26" HorizontalAlignment="Right" Name="buttonSave"
+        <Button Content="Save" Grid.Column="1" Grid.ColumnSpan="2"  Grid.Row="9" Height="26" HorizontalAlignment="Right" Name="buttonSave"
                 VerticalAlignment="Center" Width="100" Click="buttonSave_Click" />
     </Grid>
 </UserControl>

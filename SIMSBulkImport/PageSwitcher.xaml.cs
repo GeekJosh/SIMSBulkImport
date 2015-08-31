@@ -50,10 +50,6 @@ namespace Matt40k.SIMSBulkImport
 
             Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
             {
-                // Dark - Steel
-
-                // Green - Olive
-                // Purple - Mauve
                 Source =
                     new Uri("pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml",
                         UriKind.RelativeOrAbsolute)

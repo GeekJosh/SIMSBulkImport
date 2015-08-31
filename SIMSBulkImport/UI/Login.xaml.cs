@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using MahApps.Metro;
 using Matt40k.SIMSBulkImport.Updater;
 using NLog;
 
@@ -50,6 +51,9 @@ namespace Matt40k.SIMSBulkImport
                 updateLoadMess("Checking for updates");
                 Update.Check();
             }
+
+            // Set the theme
+            SetTheme();
 
             // Read SIMS.ini
             updateLoadMess("Reading SIMS.ini");
@@ -113,7 +117,6 @@ namespace Matt40k.SIMSBulkImport
                 bw.WorkerReportsProgress = true;
                 bw.WorkerSupportsCancellation = true;
                 bw.DoWork += bw_DoWork;
-                //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
                 bw.RunWorkerCompleted += bw_RunWorkerCompleted;
 
                 if (bw.IsBusy != true)
@@ -147,10 +150,6 @@ namespace Matt40k.SIMSBulkImport
                     Switcher.Switch(new Menu());
                 }
             }
-        }
-
-        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
@@ -191,6 +190,19 @@ namespace Matt40k.SIMSBulkImport
                 textUser.IsEnabled = false;
                 passwordBox.IsEnabled = false;
             }
+        }
+
+        public void SetTheme()
+        {
+            string configTheme = Switcher.ConfigManClass.GetTheme;
+            string configAccent = Switcher.ConfigManClass.GetAccent;
+
+            //var theme = ThemeManager.DetectAppStyle(Application.Current);
+
+            // now set the Green accent and dark theme
+            ThemeManager.ChangeAppStyle(Application.Current,
+                                        ThemeManager.GetAccent(configAccent),
+                                        ThemeManager.GetAppTheme(configTheme));
         }
     }
 }
