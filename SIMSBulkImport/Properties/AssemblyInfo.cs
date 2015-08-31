@@ -1,9 +1,4 @@
-﻿/*
- * Developer : Matt Smith (matt@matt40k.co.uk)
- * All code (c) Matthew Smith all rights reserved
- */
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
@@ -12,12 +7,12 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCopyright("Copyright © Matt Smith 2011 - 2015")]
+[assembly: AssemblyCopyright("Copyright © SIMSBulkImport.uk 2011 - 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyTitle("SIMS Bulk Import")]
 [assembly: AssemblyDescription("Bulk imports into SIMS .net using\nthe Capita Business Objects")]
-[assembly: AssemblyCompany("Matt Smith")]
+[assembly: AssemblyCompany("SIMSBulkImport.uk")]
 [assembly: AssemblyProduct("SIMS Bulk Import")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

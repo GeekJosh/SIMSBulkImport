@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("UserGen")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Library used by SIMS Bulk Import to generate usernames")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Matt Smith")]
+[assembly: AssemblyCompany("SIMSBulkImport.uk")]
 [assembly: AssemblyProduct("UserGen")]
-[assembly: AssemblyCopyright("Copyright © Matt Smith 2015")]
+[assembly: AssemblyCopyright("Copyright © SIMSBulkImport.uk 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
