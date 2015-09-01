@@ -63,5 +63,25 @@ namespace Matt40k.SIMSBulkImport.Classes
             return true;
         }
 
+        private static string _userFilterType;
+        private static string _userFilterItem;
+
+        public static void SetUsernameFilter(string type, string item)
+        {
+            if (!string.IsNullOrEmpty(type))
+                _userFilterType = type;
+            if (!string.IsNullOrEmpty(item))
+                _userFilterItem = item;
+        }
+
+        public static string GetUsernameFilterType
+        {
+            get { return _userFilterType; }
+        }
+
+        public static string GetUsernameFilterItem
+        {
+            get { return _userFilterItem; }
+        }
     }
 }

@@ -37,6 +37,7 @@ namespace Matt40k.SIMSBulkImport
             Switcher.UserGenClass.SetYearStart = "2015-09-01";
             Switcher.UserGenClass.SetSchoolYearGroups = yearGroups;
             Switcher.UserGenClass.SetDefaultUserData = defaultUserData;
+            Switcher.SimsApiClass.SetPupilSIMSUDF = (string) this.udfSelection.SelectedValue;
             Switcher.Switch(new UserGen());
         }
 

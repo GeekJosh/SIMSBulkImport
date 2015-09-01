@@ -66,11 +66,10 @@ namespace Matt40k.SIMSBulkImport
                 string AdmissionNo = (string)_dr["AdmissionNo"];
                 string AdmissionYear = (string)_dr["AdmissionYear"];
                 string YearGroup = (string)_dr["YearGroup"];
-                string EntryYear = (string)_dr["EntryYear"];
                 string RegGroup = (string)_dr["RegGroup"];
                 string SystemId = (string)_dr["SystemId"];
                 string Increment        = "0";
-                string result = Switcher.UserGenClass.GenerateUsername(Forename, Surname, AdmissionNo, AdmissionYear, YearGroup, EntryYear, RegGroup, SystemId, Increment);
+                string result = Switcher.UserGenClass.GenerateUsername(Forename, Surname, AdmissionNo, AdmissionYear, YearGroup, RegGroup, SystemId, Increment);
                 return result;
             }
         }
@@ -104,24 +103,6 @@ namespace Matt40k.SIMSBulkImport
         private void nextClick(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new UserFilter());
-        }
-    }
-
-
-    public class NameValidator : ValidationRule
-    {
-        public override ValidationResult Validate
-          (object value, System.Globalization.CultureInfo cultureInfo)
-        {
-            if (value == null)
-                return new ValidationResult(false, "value cannot be empty.");
-            else
-            {
-                if (value.ToString().Length > 3)
-                    return new ValidationResult
-                    (false, "Name cannot be more than 3 characters long.");
-            }
-            return ValidationResult.ValidResult;
         }
     }
 }

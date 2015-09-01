@@ -100,9 +100,15 @@ namespace Matt40k.SIMSBulkImport
 
         private void PupilHierarchySelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            string parentName = "All";
             TreeViewItem item = pupilHierarchy.SelectedItem as TreeViewItem;
+            TreeViewItem parentItem = item.Parent as TreeViewItem;
+            if (parentItem != null)
+                parentName = parentItem.Header.ToString();
+
             string selectedItem = item.Header.ToString();
             DisableNextButton = (selectedItem == "Years" || selectedItem == "Houses");
+            Classes.Core.SetUsernameFilter(parentName, selectedItem);
         }
 
         private bool DisableNextButton

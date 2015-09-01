@@ -121,9 +121,8 @@ namespace UserGen
 
         public string GenerateUsername(string Forename, string Surname,
             string AdmissionNo, string AdmissionYear,
-            string YearGroup, string EntryYear,
-            string RegGroup, string SystemId,
-            string Increment
+            string YearGroup, string RegGroup,
+            string SystemId, string Increment
             )
         {
             string exp = _expression;

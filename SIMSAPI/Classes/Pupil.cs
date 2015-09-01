@@ -516,9 +516,8 @@ namespace Matt40k.SIMSBulkImport.Classes
             return result;
         }
 
-        public bool HasPupilUsername(int personid, string udf)
+        public string GetPupilUsername(int personid, string udf)
         {
-            bool result = false;
             try
             {
                 var studentsedt = new EditStudentInformationReadOnly();
@@ -529,7 +528,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                     if (udfVal.FieldTypeCode == UDFFieldType.STRING1_CODE)
                     {
                         if (udfVal.TypedValueAttribute.Description == udf)
-                            return !string.IsNullOrEmpty(((StringAttribute)udfVal.TypedValueAttribute).Value);
+                            return ((StringAttribute)udfVal.TypedValueAttribute).Value;
                     }
                 }
                 studentsedt.Dispose();
@@ -538,7 +537,7 @@ namespace Matt40k.SIMSBulkImport.Classes
             {
                 logger.Log(LogLevel.Error, GetStudentUdfException);
             }
-            return result;
+            return null;
         }
 
         public List<string> GetPupilUsernameUDFs
@@ -578,7 +577,6 @@ namespace Matt40k.SIMSBulkImport.Classes
                 dt.Columns.Add(new DataColumn("AdmissionNo", typeof (string)));
                 dt.Columns.Add(new DataColumn("AdmissionYear", typeof (string)));
                 dt.Columns.Add(new DataColumn("YearGroup", typeof (string)));
-                dt.Columns.Add(new DataColumn("EntryYear", typeof(string)));
                 dt.Columns.Add(new DataColumn("RegGroup", typeof (string)));
                 dt.Columns.Add(new DataColumn("SystemId", typeof(string)));
                 return dt;
@@ -592,9 +590,16 @@ namespace Matt40k.SIMSBulkImport.Classes
                 logger.Log(LogLevel.Trace, "GetPupilHierarchyStructure");
                 DataTable dt = new DataTable();
                 dt.Columns.Add(new DataColumn("PersonID", typeof(string)));
+                dt.Columns.Add(new DataColumn("Forename", typeof(string)));
+                dt.Columns.Add(new DataColumn("Surname", typeof(string)));
+                dt.Columns.Add(new DataColumn("AdmissionNo", typeof(string)));
+                dt.Columns.Add(new DataColumn("AdmissionYear", typeof(string)));
+                dt.Columns.Add(new DataColumn("YearGroup", typeof(string)));
+                dt.Columns.Add(new DataColumn("RegGroup", typeof(string)));
                 dt.Columns.Add(new DataColumn("Year", typeof(string)));
                 dt.Columns.Add(new DataColumn("House", typeof(string)));
                 dt.Columns.Add(new DataColumn("IsSet", typeof(bool)));
+                dt.Columns.Add(new DataColumn("Username", typeof(string)));
                 return dt;
             }
         }
@@ -612,7 +617,6 @@ namespace Matt40k.SIMSBulkImport.Classes
                 _dr["AdmissionNo"] = GetPupilAdmissionNumber(defaultStudentPersonId);
                 _dr["AdmissionYear"] = GetPupilAdmissionDate(defaultStudentPersonId);
                 _dr["YearGroup"] = GetPupilYear(defaultStudentPersonId);
-                _dr["EntryYear"] = "";
                 _dr["RegGroup"] = GetPupilRegistration(defaultStudentPersonId);
                 _dr["SystemId"] = defaultStudentPersonId.ToString();
                 _dt.Rows.Add(_dr);
@@ -638,11 +642,19 @@ namespace Matt40k.SIMSBulkImport.Classes
                     foreach (StudentSummary student in resultStudents)
                     {
                         int personId = student.PersonID;
+                        string simsUser = GetPupilUsername(personId, simsudf);
                         DataRow _dr = _pupilHierarchyData.NewRow();
                         _dr["PersonID"] = personId.ToString();
                         _dr["Year"] = student.YearGroup;
                         _dr["House"] = student.House;
-                        _dr["IsSet"] = HasPupilUsername(personId, "Test");
+                        _dr["Forename"] = student.Forename;
+                        _dr["Surname"] = student.Surname;
+                        _dr["AdmissionNo"] = student.AdmissionNumber;
+                        _dr["AdmissionYear"] = student.DateOfAdmission.ToString();
+                        _dr["YearGroup"] = student.YearGroup;
+                        _dr["RegGroup"] = student.RegGroup;
+                        _dr["IsSet"] = !string.IsNullOrEmpty(simsUser);
+                        _dr["Username"] = simsUser;
                         _pupilHierarchyData.Rows.Add(_dr);
                     }
                 }
