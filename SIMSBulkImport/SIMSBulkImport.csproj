@@ -140,6 +140,9 @@
     <Compile Include="UI\UserFilter.xaml.cs">
       <DependentUpon>UserFilter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UserSet.xaml.cs">
+      <DependentUpon>UserSet.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UserUdf.xaml.cs">
       <DependentUpon>UserUdf.xaml</DependentUpon>
     </Compile>
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UserFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UserSet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
