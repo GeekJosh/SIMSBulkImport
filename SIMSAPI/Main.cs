@@ -645,7 +645,16 @@ namespace Matt40k.SIMSBulkImport
 
         public void GetPupilHierarchy()
         {
-            DataTable _dt = _pupils.GetPupilHierarchyData;
+            var tmp = _pupils.GetPupilHierarchyData;
+            tmp = null;
+        }
+
+        public DataTable GetPupilHierarchyData
+        {
+            get
+            {
+                return _pupils.GetPupilHierarchyData;
+            }
         }
 
         public int GetPupilHierarchyAllCount

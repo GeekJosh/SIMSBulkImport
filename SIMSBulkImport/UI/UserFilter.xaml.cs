@@ -95,7 +95,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void nextClick(object sender, RoutedEventArgs e)
         {
-            //Switcher.Switch(new UserFilter());
+            Switcher.Switch(new UserSet());
         }
 
         private void PupilHierarchySelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
