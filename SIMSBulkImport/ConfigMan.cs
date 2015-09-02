@@ -127,7 +127,7 @@ namespace Matt40k.SIMSBulkImport
             debugMode = false;
             updateMode = true;
             appGuid = newGuid;
-            updateUrl = "http://simsbulkimport.uk/";
+            updateUrl = "https://simsbulkimport.uk/";
 
             emailMain = "Yes";
             emailPrimary = "Yes";
@@ -142,6 +142,9 @@ namespace Matt40k.SIMSBulkImport
             telephoneNotes = null;
             telephoneDevice = null;
             */
+
+            theme = "BaseLight";
+            accent = "Blue";
 
             // Save the new config to the file system
             SaveConfig();         
@@ -210,6 +213,7 @@ namespace Matt40k.SIMSBulkImport
                 Debug = debugMode
                 ,CheckUpdate = updateMode
                 ,AppGUID = appGuid
+                ,UpdateURL = updateUrl
                 ,EmailMain = emailMain
                 ,EmailPrimary = emailPrimary
                 ,EmailLocation = emailLocation
