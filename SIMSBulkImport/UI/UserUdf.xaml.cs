@@ -45,9 +45,19 @@ namespace Matt40k.SIMSBulkImport
         {
             if (udfs != null)
             {
-                foreach (string udf in udfs)
+                if (udfs.Count > 0)
                 {
-                    this.udfSelection.Items.Add(udf);
+                    foreach (string udf in udfs)
+                    {
+                        this.udfSelection.Items.Add(udf);
+                    }
+                }
+                else
+                {
+                    this.udfSelection.Visibility = Visibility.Hidden;
+                    this.noneLabel1.Visibility = Visibility.Visible;
+                    this.noneLabel2.Visibility = Visibility.Visible;
+                    // TODO - Enable OK button, but change text to launch SIMS .net  - Pulsar.exe /START:"Tools|Setups|User Defined Fields"
                 }
             }
         }

@@ -2,10 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="400">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="350" Width="400">
         <Grid Name="gridMain" Visibility="Hidden">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="100"/>
             </Grid.RowDefinitions>
             <ComboBox 
@@ -14,13 +14,25 @@
             Width="250" Height="30" IsEditable="False" IsReadOnly="True" 
             SelectionChanged="udfSelection_SelectionChanged"
             />
+            <Label Name="noneLabel1" Content="Uh-oh!!" Grid.Row="0" VerticalAlignment="Top" FontSize="24" Visibility="Hidden"/>
+            <TextBlock TextWrapping="Wrap" Name="noneLabel2" Grid.Row="0" VerticalAlignment="Bottom" FontSize="12" Visibility="Hidden">
+                Looks like we haven't got any UDFs we can use. You can create a UDF in SIMS .net by going:<LineBreak/>
+                  <Bold>Tools</Bold> > <Bold>Setups</Bold> > <Bold>User Defined Fields</Bold><LineBreak/>
+                <LineBreak/>
+                Must set:<LineBreak/>
+                Field Type: <Bold>Text (single-line)</Bold><LineBreak/>
+                Data Domain: <Bold>Person</Bold><LineBreak/>
+                Data Area: <Bold>Student Details</Bold><LineBreak/>
+                <LineBreak/>
+                <Bold>Remember:</Bold> You can select any panel to display the username
+            </TextBlock>
             <Button Grid.Row="1" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                 Width="100" Height="30" FontSize="14" Name="backButton" Click="backClick" />
             <Button Grid.Row="1" Content="OK" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Width="100" Height="30" FontSize="14" Name="okButton" Click="okClick" Visibility="Hidden" IsEnabled="False" />
 
         </Grid>
-        <Grid Name="gridLoad">
+        <Grid Name="gridLoad" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="30"/>
