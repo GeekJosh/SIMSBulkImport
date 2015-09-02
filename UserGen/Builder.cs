@@ -221,7 +221,12 @@ namespace UserGen
             if (curMonth > yrStartMonth || (curMonth == yrStartMonth && curDay >= yrStartDay))
                 adj = 1;
 
-            string value = (dtNow.Year - yrs[YearGroup] - adj).ToString().Substring(2, 2);
+            int yrGroup;
+            bool result = yrs.TryGetValue(YearGroup, out yrGroup);
+            if (!result)
+                yrGroup = 0;
+
+            string value = (dtNow.Year - yrGroup - adj).ToString().Substring(2, 2);
             return value;
 
         }
