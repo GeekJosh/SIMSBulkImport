@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SIMSBulkImport.uk")]
 [assembly: AssemblyProduct("UserGen")]
-[assembly: AssemblyCopyright("Copyright © SIMSBulkImport.uk 2015")]
+[assembly: AssemblyCopyright("Copyright © SIMSBulkImport.uk 2015 - 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SIMSBulkImport.uk")]
 [assembly: AssemblyProduct("SIMS API")]
-[assembly: AssemblyCopyright("Copyright © SIMSBulkImport.uk 2011 - 2015")]
+[assembly: AssemblyCopyright("Copyright © SIMSBulkImport.uk 2011 - 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
