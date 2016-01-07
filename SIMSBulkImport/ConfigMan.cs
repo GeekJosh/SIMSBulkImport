@@ -19,7 +19,6 @@ namespace Matt40k.SIMSBulkImport
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private string appConfigDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "SIMSBulkImport");
 
-        private bool debugMode;
         private bool updateMode;
         private string appGuid;
         private string updateUrl;
@@ -40,16 +39,15 @@ namespace Matt40k.SIMSBulkImport
 
         public ConfigMan()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan()");
             ReadConfig();
-            SetDebug = IsDebugMode;
         }
 
         private string GetAppConfig
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetAppConfig(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetAppConfig(GET)");
                 return Path.Combine(appConfigDir, "SIMSBulkImport.Config.json");
             }
         }
@@ -59,7 +57,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void ReadConfig()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.ReadConfig()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.ReadConfig()");
             if (File.Exists(GetAppConfig))
             {
                 using (StreamReader r = new StreamReader(GetAppConfig))
@@ -67,7 +65,6 @@ namespace Matt40k.SIMSBulkImport
                     dynamic result = JsonConvert.DeserializeObject(r.ReadToEnd());
                     foreach (var item in result)
                     {
-                        debugMode = item.Debug;
                         updateMode = item.CheckUpdate;
                         appGuid = item.AppGUID;
                         updateUrl = item.UpdateURL;
@@ -97,7 +94,6 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public class ConfigItem
         {
-            public bool Debug;
             public bool CheckUpdate;
             public string AppGUID;
             public string UpdateURL;
@@ -119,15 +115,14 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void CreateConfigFile()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CreateConfigFile()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CreateConfigFile()");
 
             // Generate a new GUID
             string newGuid = Guid.NewGuid().ToString();
 
-            debugMode = false;
             updateMode = true;
             appGuid = newGuid;
-            updateUrl = "https://simsbulkimport.uk/";
+            updateUrl = GetExe.AppUrl;
 
             emailMain = "Yes";
             emailPrimary = "Yes";
@@ -157,7 +152,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CheckForUpdates(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.CheckForUpdates(GET)");
                 return updateMode;
             }
         }
@@ -169,7 +164,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetAppGUID(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetAppGUID(GET)");
                 return appGuid;
             }
         }
@@ -181,20 +176,8 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetUpdateURL(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetUpdateURL(GET)");
                 return updateUrl;
-            }
-        }
-
-        /// <summary>
-        /// Returns true if it is set to Debug mode
-        /// </summary>
-        public bool IsDebugMode
-        {
-            get
-            {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.IsDebugMode(GET)");
-                return debugMode;
             }
         }
 
@@ -203,15 +186,14 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public void SaveConfig()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SaveConfig()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SaveConfig()");
             if (File.Exists(GetAppConfig))
                 File.Delete(GetAppConfig);
 
             List<ConfigItem> _data = new List<ConfigItem>();
             _data.Add(new ConfigItem()
             {
-                Debug = debugMode
-                ,CheckUpdate = updateMode
+                CheckUpdate = updateMode
                 ,AppGUID = appGuid
                 ,UpdateURL = updateUrl
                 ,EmailMain = emailMain
@@ -232,20 +214,6 @@ namespace Matt40k.SIMSBulkImport
         }
 
         /// <summary>
-        /// Set if the application should run in debug mode, changes the log level to trace if TRUE
-        /// </summary>
-        public bool SetDebug
-        {
-            set
-            {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDebug(" + value  +")");
-                debugMode = value;
-                if (value)
-                    SetLogToDebug();
-            }
-        }
-
-        /// <summary>
         /// Sets the Check for Updates
         /// 
         /// Use SaveConfig() to write to .config.json
@@ -254,7 +222,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetCheckUpdates(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetCheckUpdates(" + value + ")");
                 updateMode = value;
             }
         }
@@ -263,7 +231,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTheme(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTheme(" + value + ")");
                 theme = value;
             }
         }
@@ -272,7 +240,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetAccent(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetAccent(" + value + ")");
                 accent = value;
             }
         }
@@ -308,7 +276,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetEmailPrimary(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetEmailPrimary(" + value + ")");
                 emailPrimary = value;
             }
         }
@@ -320,7 +288,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetEmailPrimary(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetEmailPrimary(GET)");
                 return emailPrimary;
             }
         }
@@ -336,7 +304,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetEmailMain(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetEmailMain(" + value + ")");
                 emailMain = value;
             }
         }
@@ -348,7 +316,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetEmailMain(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetEmailMain(GET)");
                 return emailMain;
             }
         }
@@ -364,7 +332,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultEmailLocation(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultEmailLocation(" + value + ")");
                 emailLocation = value;
             }
         }
@@ -376,7 +344,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetDefaultEmailLocation(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetDefaultEmailLocation(GET)");
                 if (!string.IsNullOrWhiteSpace(emailLocation))
                     return emailLocation;
                 else
@@ -406,7 +374,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultEmailNotes(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultEmailNotes(" + value + ")");
                 emailNotes = value;
             }
         }
@@ -418,7 +386,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetDefaultEmailNotes(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetDefaultEmailNotes(GET)");
                 return emailNotes;
             }
         }
@@ -436,7 +404,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephonePrimary(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephonePrimary(" + value + ")");
                 telephonePrimary = value;
             }
         }
@@ -448,7 +416,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephonePrimary(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephonePrimary(GET)");
                 return telephonePrimary;
             }
         }
@@ -464,7 +432,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultTelephoneMain(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetDefaultTelephoneMain(" + value + ")");
                 telephoneMain = value;
             }
         }
@@ -476,7 +444,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneMain(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneMain(GET)");
                 return telephoneMain;
             }
         }
@@ -492,7 +460,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneLocation(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneLocation(" + value + ")");
                 telephoneLocation = value;
             }
         }
@@ -504,7 +472,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneLocation(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneLocation(GET)");
                 if (!string.IsNullOrWhiteSpace(telephoneLocation))
                 return telephoneLocation;
                 else
@@ -534,7 +502,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneNotes(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneNotes(" + value + ")");
                 telephoneNotes = value;
             }
         }
@@ -546,7 +514,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneNotes(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneNotes(GET)");
                 return telephoneNotes;
             }
         }
@@ -562,7 +530,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneDevice(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.SetTelephoneDevice(" + value + ")");
                 telephoneDevice = value;
             }
         }
@@ -574,7 +542,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneDevice(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ConfigMan.GetTelephoneDevice(GET)");
                 if (!string.IsNullOrWhiteSpace(telephoneDevice))
                 return telephoneDevice;
                 else
@@ -595,18 +563,5 @@ namespace Matt40k.SIMSBulkImport
         #endregion
 #endregion
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void SetLogToDebug()
-        {
-            foreach (var rule in LogManager.Configuration.LoggingRules)
-            {
-                rule.EnableLoggingForLevel(LogLevel.Trace);
-            }
-
-            LogManager.ReconfigExistingLoggers();
-        }
     }
 }

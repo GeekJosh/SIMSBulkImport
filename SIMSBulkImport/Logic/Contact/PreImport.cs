@@ -93,7 +93,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchPersonID_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchPersonID_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchPersonID_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchFirstname))
@@ -104,7 +104,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchFirstname_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchFirstname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchSurname))
@@ -115,7 +115,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchSurname_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchSurname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchEmail))
@@ -131,7 +131,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchEmail_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_ArgumentNullException);
                     }
 
                     // Email - Main
@@ -145,7 +145,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchEmail_Main_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Main_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_Main_ArgumentNullException);
                         }
                     }
 
@@ -160,7 +160,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchEmail_Primary_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Primary_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_Primary_ArgumentNullException);
                         }
                     }
 
@@ -175,7 +175,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchEmail_Location_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Location_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_Location_ArgumentNullException);
                         }
                     }
 
@@ -190,7 +190,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchEmail_Notes_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Notes_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_Notes_ArgumentNullException);
                         }
                     }
                 }
@@ -208,7 +208,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_ArgumentNullException);
                     }
 
                     // Telephone - Main
@@ -222,7 +222,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Main_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Main_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Main_ArgumentNullException);
                         }
                     }
 
@@ -237,7 +237,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Primary_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Primary_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Primary_ArgumentNullException);
                         }
                     }
 
@@ -252,7 +252,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Location_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Location_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Location_ArgumentNullException);
                         }
                     }
 
@@ -267,7 +267,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Notes_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
                         }
                     }
 
@@ -282,7 +282,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Notes_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
                         }
                     }
                 }
@@ -294,7 +294,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchUDF_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchUDF_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchPostcode))
@@ -305,7 +305,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchPostcode_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchPostcode_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchPostcode_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchTown))
@@ -316,7 +316,7 @@ namespace Matt40k.SIMSBulkImport.Contact
                     }
                     catch (ArgumentNullException AddToDataTable_matchTown_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchTown_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchTown_ArgumentNullException);
                     }
                 }
 

@@ -132,9 +132,9 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.previewTable(GET)");
-                logger.Log(LogLevel.Trace, emailSelected);
-                logger.Log(LogLevel.Trace, telephoneSelected);
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.previewTable(GET)");
+                logger.Log(LogLevel.Debug, emailSelected);
+                logger.Log(LogLevel.Debug, telephoneSelected);
                 var tmpTable = new DataTable();
                 tmpTable.Columns.Add(new DataColumn("PersonID", typeof(string)));
                 tmpTable.Columns.Add(new DataColumn("Surname", typeof (string)));
@@ -206,7 +206,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetUserFilters()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.GetUserFilters()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.GetUserFilters()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Staff:
@@ -247,7 +247,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetDataTable()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.GetDataTable()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.GetDataTable()");
             bool dtSet = false;
             if (comboWorkbook.SelectedValue != null)
             {
@@ -379,7 +379,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void buttonDefault_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.buttonDefault_Click()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.buttonDefault_Click()");
             
             // Set the options
             SetPreImport();
@@ -395,7 +395,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void buttonBack_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.buttonBack_Click()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.buttonBack_Click()");
 
             // Switch to Open UI
             Switcher.Switch(new Open());
@@ -407,7 +407,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetPreImport()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.GetPreImport()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.GetPreImport()");
             comboIgnoreFirst.IsChecked = Switcher.PreImportClass.GetMatchIgnoreFirstRow;
             firstname = Switcher.PreImportClass.GetMatchFirstname;
             surname = Switcher.PreImportClass.GetMatchSurname;
@@ -616,7 +616,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void SetPreImport()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.SetPreImport()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.SetPreImport()");
             Switcher.PreImportClass.SetMatchIgnoreFirstRow = (bool) comboIgnoreFirst.IsChecked;
             Switcher.PreImportClass.SetImportDataset = dt;
             Switcher.PreImportClass.SetMatchFirstname = firstname;
@@ -698,7 +698,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.combo_SelectionChanged()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.combo_SelectionChanged()");
             UpdatePreview();
         }
 
@@ -707,7 +707,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void UpdatePreview()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.UpdatePreview()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.UpdatePreview()");
 
             // Read the ComboBoxs and set local variables
             SetMatchBinding();
@@ -960,7 +960,7 @@ namespace Matt40k.SIMSBulkImport
         /// <returns></returns>
         private DataRow previewRow(DataRow r, DataTable dt)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.previewRow()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.previewRow()");
             DataRow newrow = dt.NewRow();
             if (!string.IsNullOrWhiteSpace(personid))
             {
@@ -1147,7 +1147,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void comboUDFType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Match.comboUDFType_SelectionChanged()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Match.comboUDFType_SelectionChanged()");
             string udfType = comboSIMSUDFType.SelectionBoxItem.ToString();
             if (!string.IsNullOrWhiteSpace(udfType))
             {
@@ -1246,7 +1246,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void SetSubTitle()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.SetTitle()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.SetTitle()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Staff:

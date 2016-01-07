@@ -11,7 +11,7 @@ namespace Matt40k.SIMSBulkImport.Contact
 
         public ResultsImport()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Contact.ResultsImport()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Contact.ResultsImport()");
             CreateResultTable();
         }
 

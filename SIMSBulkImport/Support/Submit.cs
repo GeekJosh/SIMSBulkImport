@@ -14,7 +14,7 @@ namespace Matt40k.SIMSBulkImport.Support
 
         public static DataTable Logs(string email, string log)
         {
-            logger.Log(LogLevel.Trace,
+            logger.Log(LogLevel.Debug,
                 "Trace:: Matt40k.SIMSBulkImport.Support.Submit.Logs(email: " + email + ", log: " + log + ")");
             _requestor = new Requestor();
             _proxy = new Proxy();

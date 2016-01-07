@@ -13,7 +13,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public static void ClearTmp()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ClearTmp()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ClearTmp()");
             string[] files = Directory.GetFiles(Path.GetTempPath(), Prefix.GetPrefix + "*");
 
             foreach (string file in files)
@@ -24,7 +24,7 @@ namespace Matt40k.SIMSBulkImport
 
         private static void removeFile(string file)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.removeFile(" + file + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.removeFile(" + file + ")");
             if (File.Exists(file))
             {
                 try

@@ -14,7 +14,7 @@ namespace Matt40k.SIMSBulkImport
 
         public bool IsValidEmail(string strIn)
         {
-            logger.Log(LogLevel.Trace, "Trace:: RegexUtilities.IsValidEmail(strIn: " + strIn + ")");
+            logger.Log(LogLevel.Debug, "Trace:: RegexUtilities.IsValidEmail(strIn: " + strIn + ")");
             invalid = false;
             if (String.IsNullOrEmpty(strIn))
                 return false;
@@ -33,7 +33,7 @@ namespace Matt40k.SIMSBulkImport
 
         private string DomainMapper(System.Text.RegularExpressions.Match match)
         {
-            logger.Log(LogLevel.Trace, "Trace:: RegexUtilities.DomainMapper(match: " + match + ")");
+            logger.Log(LogLevel.Debug, "Trace:: RegexUtilities.DomainMapper(match: " + match + ")");
             // IdnMapping class with default property values.
             var idn = new IdnMapping();
 
@@ -52,7 +52,7 @@ namespace Matt40k.SIMSBulkImport
         // Reference: http://regexlib.com/REDetails.aspx?regexp_id=1203
         public bool IsValidTelephone(string subjectString)
         {
-            logger.Log(LogLevel.Trace, "Trace:: RegexUtilities.IsValidTelephone(subjectString: " + subjectString + ")");
+            logger.Log(LogLevel.Debug, "Trace:: RegexUtilities.IsValidTelephone(subjectString: " + subjectString + ")");
             var regexObj = new Regex(@"^[0-9\s\(\)\+\-]+$");
             if (regexObj.IsMatch(subjectString))
             {

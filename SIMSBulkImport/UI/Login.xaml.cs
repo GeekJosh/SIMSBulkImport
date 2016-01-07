@@ -18,7 +18,7 @@ namespace Matt40k.SIMSBulkImport
 
         public Login()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Login()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Login()");
             InitializeComponent();
             textUser.Focus();
             BeginLoad();

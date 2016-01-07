@@ -93,11 +93,11 @@ namespace Matt40k.SIMSBulkImport
                     }
                 }
 
-                logger.Log(LogLevel.Trace, "cFilter :: " + cFilter);
+                logger.Log(LogLevel.Debug, "cFilter :: " + cFilter);
 
                 if (cFilter != " ")
                 {
-                    logger.Log(LogLevel.Trace, "cFilter applied");
+                    logger.Log(LogLevel.Debug, "cFilter applied");
                     filtered.Clear();
 
                     DataRow[] rows = unFiltered.Select(cFilter);

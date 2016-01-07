@@ -17,10 +17,10 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         public static void Check()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.Check");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Updater.Check");
 
             string localVersion = GetExe.Version;
-            logger.Log(LogLevel.Trace, "localVersion :: " + localVersion);
+            logger.Log(LogLevel.Debug, "localVersion :: " + localVersion);
 
             var bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
@@ -40,13 +40,13 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         private static void getServerVersion()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion()");
             needUpdate = _requestor.NeedUpdate;
         }
 
         private static void getServerVersion_DoWork(object sender, DoWorkEventArgs e)
         {
-            logger.Log(LogLevel.Trace,
+            logger.Log(LogLevel.Debug,
                 "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_DoWork(sender: " + sender + ", e: " + e + ")");
             try
             {
@@ -64,7 +64,7 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         private static void runUpdate()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Updater.runUpdate()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Updater.runUpdate()");
             string outOfDate = "https://simsbulkimport.uk/download/";
             try
             {
@@ -80,7 +80,7 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         private static void getServerVersion_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            logger.Log(LogLevel.Trace,
+            logger.Log(LogLevel.Debug,
                 "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_RunWorkerCompleted(sender: " + sender + ", e: " +
                 e + ")");
             if (needUpdate)

@@ -101,7 +101,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchPersonID_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchPersonID_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchPersonID_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchFirstname))
@@ -112,7 +112,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchFirstname_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchFirstname_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchFirstname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchSurname))
@@ -123,7 +123,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchSurname_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchSurname_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchSurname_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchEmail))
@@ -139,7 +139,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchEmail_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_ArgumentNullException);
                     }
 
                     // Email - Main
@@ -153,7 +153,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchEmail_Main_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Main_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_Main_ArgumentNullException);
                         }
                     }
 
@@ -168,7 +168,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchEmail_Primary_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Primary_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_Primary_ArgumentNullException);
                         }
                     }
 
@@ -183,7 +183,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchEmail_Location_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Location_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_Location_ArgumentNullException);
                         }
                     }
 
@@ -198,7 +198,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchEmail_Notes_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchEmail_Notes_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchEmail_Notes_ArgumentNullException);
                         }
                     }
                 }
@@ -216,7 +216,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchTelephone_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_ArgumentNullException);
                     }
 
                     // Telephone - Main
@@ -230,7 +230,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Main_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Main_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Main_ArgumentNullException);
                         }
                     }
 
@@ -245,7 +245,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Primary_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Primary_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Primary_ArgumentNullException);
                         }
                     }
 
@@ -260,7 +260,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Location_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Location_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Location_ArgumentNullException);
                         }
                     }
 
@@ -275,7 +275,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Notes_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
                         }
                     }
 
@@ -290,7 +290,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                         }
                         catch (ArgumentNullException AddToDataTable_matchTelephone_Notes_ArgumentNullException)
                         {
-                            logger.Log(LogLevel.Trace, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
+                            logger.Log(LogLevel.Debug, AddToDataTable_matchTelephone_Notes_ArgumentNullException);
                         }
                     }
                 }
@@ -302,7 +302,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchUDF_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchUDF_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchUDF_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchGender))
@@ -313,7 +313,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchGender_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchGender_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchGender_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchStaffcode))
@@ -324,7 +324,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchStaffcode_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchStaffcode_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchStaffcode_ArgumentNullException);
                     }
                 }
                 if (!string.IsNullOrEmpty(matchTitle))
@@ -335,7 +335,7 @@ namespace Matt40k.SIMSBulkImport.Staff
                     }
                     catch (ArgumentNullException AddToDataTable_matchTitle_ArgumentNullException)
                     {
-                        logger.Log(LogLevel.Trace, AddToDataTable_matchTitle_ArgumentNullException);
+                        logger.Log(LogLevel.Debug, AddToDataTable_matchTitle_ArgumentNullException);
                     }
                 }
 

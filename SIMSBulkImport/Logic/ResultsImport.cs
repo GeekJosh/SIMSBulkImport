@@ -14,7 +14,7 @@ namespace Matt40k.SIMSBulkImport
 
         public ResultsImport()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ResultsImport()");
             CreateResultsDataTable();
         }
 
@@ -22,7 +22,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.resultsTable(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.resultsTable(GET)");
                 switch (Switcher.PreImportClass.GetUserType)
                 {
                     case Interfaces.UserType.Contact:
@@ -40,7 +40,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void CreateResultsDataTable()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.CreateResultsDataTable()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.CreateResultsDataTable()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -63,7 +63,7 @@ namespace Matt40k.SIMSBulkImport
             string location, string device
             )
         {
-            logger.Log(LogLevel.Trace,
+            logger.Log(LogLevel.Debug,
                 "Trace:: Matt40k.SIMSBulkImport.ResultsImport.AddToResultsTable(personid: " + personID + ", result: " +
                 result + ", item: " + item + ", value: " + value + ", notes: " + notes + ", surname ," + surname +
                 ",  forename ," + forename + "title ," + title + " gender ," + gender + " staffCode ," + staffCode +
@@ -112,7 +112,7 @@ namespace Matt40k.SIMSBulkImport
 
         public void OpenResultsReport()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.OpenResultsReport()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ResultsImport.OpenResultsReport()");
             var results = new Results(resultsTable, Switcher.PreImportClass.GetUserType);
         }
     }

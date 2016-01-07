@@ -15,7 +15,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Prefix.GetPrefix(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Prefix.GetPrefix(GET)");
                 if (string.IsNullOrEmpty(_prefix))
                 {
                     _prefix = "SIMSBulkImport_";

@@ -18,7 +18,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public Import()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Import()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Import()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -43,7 +43,7 @@ namespace Matt40k.SIMSBulkImport
         /// <returns></returns>
         public bool SetEmail(Int32 personID, string value, string main, string primary, string notes, string location)
         {
-            logger.Log(LogLevel.Trace,
+            logger.Log(LogLevel.Debug,
                 "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
@@ -69,18 +69,18 @@ namespace Matt40k.SIMSBulkImport
         /// <returns>true - success</returns>
         public bool SetTelephone(Int32 personID, string value, string main, string primary, string notes, string location, string device)
         {
-            logger.Log(LogLevel.Trace,
+            logger.Log(LogLevel.Debug,
                 "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
-                    logger.Log(LogLevel.Trace, "SetTelephone_Contact");
+                    logger.Log(LogLevel.Debug, "SetTelephone_Contact");
                     return _importContact.SetContactTelephone(personID, value, main, primary, notes, location, device);
                 case Interfaces.UserType.Pupil:
-                    logger.Log(LogLevel.Trace, "SetTelephone_Pupil");
+                    logger.Log(LogLevel.Debug, "SetTelephone_Pupil");
                     return _importPupil.SetPupilTelephone(personID, value, main, primary, notes, location, device);
                 case Interfaces.UserType.Staff:
-                    logger.Log(LogLevel.Trace, "SetTelephone_Staff");
+                    logger.Log(LogLevel.Debug, "SetTelephone_Staff");
                     return _importStaff.SetStaffTelephone(personID, value, main, primary, notes, location, device);
                 default:
                     logger.Log(LogLevel.Error, "Import.SetTelephone - UserType not set");
@@ -96,7 +96,7 @@ namespace Matt40k.SIMSBulkImport
         /// <returns></returns>
         public bool SetUDF(Int32 personID, string value)
         {
-            logger.Log(LogLevel.Trace,
+            logger.Log(LogLevel.Debug,
                 "Trace:: Matt40k.SIMSBulkImport.Import.SetUDF(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {

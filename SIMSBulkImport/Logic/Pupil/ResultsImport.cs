@@ -11,7 +11,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
 
         public ResultsImport()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Pupil.ResultsImport()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Pupil.ResultsImport()");
             CreateResultTable();
         }
 

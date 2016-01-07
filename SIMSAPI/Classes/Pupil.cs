@@ -182,7 +182,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                                 string name = udfVal.TypedValueAttribute.Description;
                                 int min = udfVal.TypedValueAttribute.MinLength;
                                 int max = udfVal.TypedValueAttribute.MaxLength;
-                                logger.Log(LogLevel.Trace, "GetPupilUDFs:: " + name + " (" + type + ")");
+                                logger.Log(LogLevel.Debug, "GetPupilUDFs:: " + name + " (" + type + ")");
                                 DataRow udfRow = pupilUdfs.NewRow();
                                 udfRow["Type"] = type;
                                 udfRow["Name"] = name;
@@ -232,7 +232,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                 StudentEditResult status = studentsedt.Load(new Person(personid), DateTime.Now);
                 if (studentsedt.Student.Communication.Emails.Value.Count > 0)
                 {
-                    logger.Log(LogLevel.Trace, " - eMail: " + studentsedt.Student.Communication.Emails.Value.Count);
+                    logger.Log(LogLevel.Debug, " - eMail: " + studentsedt.Student.Communication.Emails.Value.Count);
 
                     int workcount = 1;
                     string emailaddresses = null;
@@ -276,7 +276,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                 StudentEditResult status = studentsedt.Load(new Person(personid), DateTime.Now);
                 if (studentsedt.Student.Communication.Phones.Value.Count > 0)
                 {
-                    logger.Log(LogLevel.Trace, " - telephone: " + studentsedt.Student.Communication.Phones.Value.Count);
+                    logger.Log(LogLevel.Debug, " - telephone: " + studentsedt.Student.Communication.Phones.Value.Count);
 
                     int workcount = 1;
                     string telephone = null;
@@ -570,7 +570,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             get
             {
-                logger.Log(LogLevel.Trace, "GetUsernameData");
+                logger.Log(LogLevel.Debug, "GetUsernameData");
                 DataTable dt = new DataTable();
                 dt.Columns.Add(new DataColumn("Forename", typeof (string)));
                 dt.Columns.Add(new DataColumn("Surname", typeof (string)));
@@ -587,7 +587,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             get
             {
-                logger.Log(LogLevel.Trace, "GetPupilHierarchyStructure");
+                logger.Log(LogLevel.Debug, "GetPupilHierarchyStructure");
                 DataTable dt = new DataTable();
                 dt.Columns.Add(new DataColumn("PersonID", typeof(string)));
                 dt.Columns.Add(new DataColumn("Forename", typeof(string)));
@@ -608,7 +608,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             get
             {
-                logger.Log(LogLevel.Trace, "GetPupilDefaultUsernameData");
+                logger.Log(LogLevel.Debug, "GetPupilDefaultUsernameData");
                 DataTable _dt = GetUsernameData;
                 DataRow _dr = _dt.NewRow();
                 int defaultStudentPersonId = GetDefaultStudentPersonId;
@@ -630,10 +630,10 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             get
             {
-                logger.Log(LogLevel.Trace, "GetPupilHierarchyData");
+                logger.Log(LogLevel.Debug, "GetPupilHierarchyData");
                 if (_pupilHierarchyData == null)
                 {
-                    logger.Log(LogLevel.Trace, "GetPupilHierarchyData - build");
+                    logger.Log(LogLevel.Debug, "GetPupilHierarchyData - build");
                     _pupilHierarchyData = GetPupilHierarchyStructure;
 
                     var studentBrowse = new StudentBrowseProcess();
@@ -666,7 +666,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             get
             {
-                logger.Log(LogLevel.Trace, "GetPupilHierarchyAllCount");
+                logger.Log(LogLevel.Debug, "GetPupilHierarchyAllCount");
                 return GetPupilHierarchyData.Rows.Count;
             }
         }
@@ -675,7 +675,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             get
             {
-                logger.Log(LogLevel.Trace, "GetPupilHierarchyAllCount");
+                logger.Log(LogLevel.Debug, "GetPupilHierarchyAllCount");
                 return GetPupilHierarchyData.Select("IsSet = true").Length;
             }
         }
@@ -684,14 +684,14 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             get
             {
-                logger.Log(LogLevel.Trace, "GetPupilHierarchyAllCount");
+                logger.Log(LogLevel.Debug, "GetPupilHierarchyAllCount");
                 return GetPupilHierarchyData.Select("IsSet = false").Length;
             }
         }
 
         public int GetPupilHierarchyItemCount(string type, string item)
         {
-            logger.Log(LogLevel.Trace, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
+            logger.Log(LogLevel.Debug, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
             if (type == "Year")
                 return GetPupilHierarchyData.Select(type + " = '" + GetPupilYearNo(item) + "'").Length;
             return GetPupilHierarchyData.Select(type + " = '" + item + "'").Length;
@@ -699,7 +699,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public int GetPupilHierarchyItemCompletedCount(string type, string item)
         {
-            logger.Log(LogLevel.Trace, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
+            logger.Log(LogLevel.Debug, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
             if (type == "Year")
                 return GetPupilHierarchyData.Select(type + " = '" + GetPupilYearNo(item) + "' AND IsSet = true").Length;
             return GetPupilHierarchyData.Select(type + " = '" + item + "' AND IsSet = true").Length;
@@ -707,7 +707,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public int GetPupilHierarchyItemNotCompletedCount(string type, string item)
         {
-            logger.Log(LogLevel.Trace, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
+            logger.Log(LogLevel.Debug, "GetPupilHierarchyItemCount - type: " + type + " - item: " + item);
             if (type == "Year")
                 return GetPupilHierarchyData.Select(type + " = '" + GetPupilYearNo(item) + "' AND IsSet = false").Length;
             return GetPupilHierarchyData.Select(type + " = '" + item + "' AND IsSet = false").Length;
@@ -771,7 +771,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         /// <returns></returns>
         public bool SetPupilUDF(int personid, string udfvalue)
         {
-            logger.Log(LogLevel.Trace, "SIMSAPI-SetPupilUDF - personid: " + personid + " - udfvalue: " + udfvalue);
+            logger.Log(LogLevel.Debug, "SIMSAPI-SetPupilUDF - personid: " + personid + " - udfvalue: " + udfvalue);
             bool result = false;
             try
             {
@@ -823,7 +823,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Pupils.SetPupilEmail(personid=" + personid + ", emailValue=" + emailValue + 
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Pupils.SetPupilEmail(personid=" + personid + ", emailValue=" + emailValue + 
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location);
                 var studentsedt = new EditStudentInformation();
                
@@ -887,7 +887,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
                 // Run Validation against the new record
                 email.Validate();
-                logger.Log(LogLevel.Trace, "Email Valid: " + email.Valid());
+                logger.Log(LogLevel.Debug, "Email Valid: " + email.Valid());
 
                 // Save the new record to the database
                 studentsedt.Student.Communication.Emails.Add(email);
@@ -921,7 +921,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Pupils.SetPupilTelephone(personid=" + personid + ", telephone=" + telephone +
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Pupils.SetPupilTelephone(personid=" + personid + ", telephone=" + telephone +
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location + ", device=" + device);
                 var studentsedt = new EditStudentInformation();
 
@@ -988,7 +988,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
                 // Run Validation against the new record
                 phone.Validate();
-                logger.Log(LogLevel.Trace, "Telephone Valid: " + phone.Valid());
+                logger.Log(LogLevel.Debug, "Telephone Valid: " + phone.Valid());
 
                 // Writes the new record to the database
                 studentsedt.Student.Communication.Phones.Add(phone);

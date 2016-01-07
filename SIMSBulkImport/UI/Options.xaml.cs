@@ -16,7 +16,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public Options()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options()");
             InitializeComponent();
             LoadTheme();
             ReadConfig();
@@ -27,8 +27,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void ReadConfig()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.ReadConfig()");
-            checkBoxDebug.IsChecked = Switcher.ConfigManClass.IsDebugMode;
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.ReadConfig()");
             checkBoxUpdates.IsChecked = Switcher.ConfigManClass.CheckForUpdates;
         }
 
@@ -39,13 +38,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.buttonSave_Click()");
-            
-            bool? debugCheckBox = checkBoxDebug.IsChecked;
-            if (!debugCheckBox.HasValue)
-            {
-                debugCheckBox = true;
-            }
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.buttonSave_Click()");
 
             bool? updateCheckBox = checkBoxUpdates.IsChecked;
             if (!updateCheckBox.HasValue)
@@ -54,7 +47,6 @@ namespace Matt40k.SIMSBulkImport
             }
 
             // Set the in-memory config
-            Switcher.ConfigManClass.SetDebug = (bool)debugCheckBox;
             Switcher.ConfigManClass.SetCheckUpdates = (bool)updateCheckBox;
 
             Switcher.ConfigManClass.SetTheme = _currentTheme;
@@ -69,13 +61,13 @@ namespace Matt40k.SIMSBulkImport
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.buttonCancel_Click()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.buttonCancel_Click()");
             Switcher.Switch(new Menu());
         }
 
         private void LoadTheme()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.LoadTheme()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.LoadTheme()");
             foreach (string theme in GetThemes)
             {
                 this.comboBoxThemes.Items.Add(GetCleanTheme((theme)));
@@ -96,7 +88,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.GetThemes[]");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.GetThemes[]");
                 return new string[]
                 {
                     "BaseLight", "BaseDark"
@@ -108,7 +100,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.GetAccents[]");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.GetAccents[]");
                 return new string[]
                 {
                     "Red",
@@ -140,13 +132,13 @@ namespace Matt40k.SIMSBulkImport
 
         public string GetCleanTheme(string theme)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.GetCleanTheme(theme: " + theme + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.GetCleanTheme(theme: " + theme + ")");
             return theme.Replace("Base", "");
         }
 
         public string GetThemeName(string theme)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.GetThemeName(theme: " + theme + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.GetThemeName(theme: " + theme + ")");
             if (string.IsNullOrEmpty(theme))
                 return "BaseLight";
             if (theme.StartsWith("Base"))
@@ -156,7 +148,7 @@ namespace Matt40k.SIMSBulkImport
 
         public void SetTheme()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.SetTheme()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.SetTheme()");
             ThemeManager.ChangeAppStyle(Application.Current,
                             ThemeManager.GetAccent(_currentAccent),
                             ThemeManager.GetAppTheme(_currentTheme));
@@ -164,7 +156,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void themeChanged(object sender, SelectionChangedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Options.themeChanged()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.themeChanged()");
 
             string fieldTheme = GetThemeName((string)this.comboBoxThemes.SelectedValue);
             if (!string.IsNullOrEmpty((fieldTheme)))

@@ -27,9 +27,7 @@
         <Label Name="labelTitle" Content="Options" Grid.Row="1" Grid.Column="2" FontSize="24" />
 
         <!-- Options -->
-        <CheckBox Content="Debug mode" Grid.Column="2" Grid.Row="2" Height="16" HorizontalAlignment="Left"
-                  Name="checkBoxDebug" VerticalAlignment="Center" />
-        <CheckBox Content="Automatically check for updates" Grid.Column="2" Grid.Row="3" Height="16"
+        <CheckBox Content="Automatically check for updates" Grid.Column="2" Grid.Row="2" Height="16"
                   HorizontalAlignment="Left" Name="checkBoxUpdates" VerticalAlignment="Center" />
         
         <!-- Theme -->

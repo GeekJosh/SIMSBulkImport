@@ -16,7 +16,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public Default()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default()");
             InitializeComponent();
             Load();
         }
@@ -26,7 +26,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void Load()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.Load()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default.Load()");
             AddComboYesNo();
             SetSubTitle();
             GetEmailLocations();
@@ -40,7 +40,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void ReadConfig()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.ReadConfig()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default.ReadConfig()");
 
             comboEmailMain.SelectedValue = Switcher.ConfigManClass.GetDefaultEmailMain;
             comboEmailPrimary.SelectedValue = Switcher.ConfigManClass.GetDefaultEmailPrimary;
@@ -59,7 +59,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetEmailLocations()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.GetEmailLocations()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default.GetEmailLocations()");
             // Get Email Locations
             string[] emailLocations = Switcher.SimsApiClass.GetEmailLocations;
             if (emailLocations.Length != 0)
@@ -76,7 +76,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetTelephoneLocations()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.GetTelephoneLocations(GET)");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default.GetTelephoneLocations(GET)");
             // Get Telephone Locations
             string[] telephoneLocations = Switcher.SimsApiClass.GetTelephoneLocations;
             if (telephoneLocations.Length != 0)
@@ -93,7 +93,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void GetTelephoneDevices()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.GetTelephoneDevices(GET)");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default.GetTelephoneDevices(GET)");
             // Get Telephone Devices
             string[] telephoneDevices = Switcher.SimsApiClass.GetTelephoneDevices;
             if (telephoneDevices.Length != 0)
@@ -112,7 +112,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.buttonSave_Click()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default.buttonSave_Click()");
 
             /*
             ComboBoxItem emailMainItem = (ComboBoxItem)comboEmailMain.SelectedValue;
@@ -146,7 +146,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.buttonCancel_Click()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default.buttonCancel_Click()");
 
             // Return to Match UI
             Switcher.Switch(new Match());
@@ -157,7 +157,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void SetSubTitle()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Default.SetTitle()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Default.SetTitle()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Staff:

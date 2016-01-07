@@ -84,7 +84,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                                 int min = udfVal.TypedValueAttribute.MinLength;
                                 int max = udfVal.TypedValueAttribute.MaxLength;
 
-                                logger.Log(LogLevel.Trace, "GetStaffUDFs:: " + name + " (" + type + ")");
+                                logger.Log(LogLevel.Debug, "GetStaffUDFs:: " + name + " (" + type + ")");
                                 DataRow udfRow = staffUdfs.NewRow();
                                 udfRow["Type"] = type;
                                 udfRow["Name"] = name;
@@ -114,7 +114,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffEmail(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffEmail(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffEmail(pid=" + pid + ")");
             string result = "";
             try
             {
@@ -152,7 +152,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffTelephone(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffTelephone(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffTelephone(pid=" + pid + ")");
             string result = "";
             try
             {
@@ -193,7 +193,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffUDF(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffUDF(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffUDF(pid=" + pid + ")");
             string result = "";
 
             try
@@ -226,7 +226,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffDOB(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffDOB(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffDOB(pid=" + pid + ")");
             string result = "";
             try
             {
@@ -244,7 +244,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffCode(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffCode(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffCode(pid=" + pid + ")");
             string result = "";
             try
             {
@@ -261,7 +261,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffForename(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffForename(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffForename(pid=" + pid + ")");
             string result = "";
             try
             {
@@ -278,7 +278,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffTitle(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffTitle(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffTitle(pid=" + pid + ")");
             string result = "";
             try
             {
@@ -295,7 +295,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffGender(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffGender(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffGender(pid=" + pid + ")");
             string result = "";
             try
             {
@@ -312,7 +312,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffSurname(int pid)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffSurname(pid=" + pid + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffSurname(pid=" + pid + ")");
             string result = "";
             try
             {
@@ -329,7 +329,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
         public string GetStaffPersonID(string surname, string forename, string title, string gender, string staffcode)
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffPersonID(surname=" + surname + ")");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.GetStaffPersonID(surname=" + surname + ")");
             int count = 0;
             string value = "0";
 
@@ -439,7 +439,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.SetStaffEmail(personid=" + personid + ", emailValue=" + emailValue +
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.SetStaffEmail(personid=" + personid + ", emailValue=" + emailValue +
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location);
                 var empprocess = new EditEmployee();
                 
@@ -503,7 +503,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
                 // Run Validation against the new record
                 email.Validate();
-                logger.Log(LogLevel.Trace, "Email Valid: " + email.Valid());
+                logger.Log(LogLevel.Debug, "Email Valid: " + email.Valid());
 
                 // Save the new record to the database
                 empprocess.Employee.EMails.Add(email);
@@ -531,7 +531,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.SetStaffTelephone(personid=" + personid + ", telephone=" + telephone +
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Staff.SetStaffTelephone(personid=" + personid + ", telephone=" + telephone +
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location + ", device=" + device);
                 var empprocess = new EditEmployee();
 
@@ -548,21 +548,21 @@ namespace Matt40k.SIMSBulkImport.Classes
                 switch (main)
                 {
                     case "Yes":
-                        logger.Log(LogLevel.Trace, "SetStaffTelephone Main: Yes");
+                        logger.Log(LogLevel.Debug, "SetStaffTelephone Main: Yes");
                         phone.MainAttribute.Value = (empprocess.Employee.Telephones.Value.Count > 0)
                             ? TelephoneMainCollection.GetValues().Item(1) as CodeDescriptionEntity
                             : TelephoneMainCollection.GetValues().Item(0) as CodeDescriptionEntity;
                         break;
                     case "Yes (Overwrite)":
-                        logger.Log(LogLevel.Trace, "SetStaffTelephone Main: Yes (Overwrite)");
+                        logger.Log(LogLevel.Debug, "SetStaffTelephone Main: Yes (Overwrite)");
                         phone.MainAttribute.Value = TelephoneMainCollection.GetValues().Item(1);
                         break;
                     case "No":
-                        logger.Log(LogLevel.Trace, "SetStaffTelephone Main: No");
+                        logger.Log(LogLevel.Debug, "SetStaffTelephone Main: No");
                         phone.MainAttribute.Value = TelephoneMainCollection.GetValues().Item(0);
                         break;
                     default:
-                        logger.Log(LogLevel.Trace, "SetStaffTelephone Main: default");
+                        logger.Log(LogLevel.Debug, "SetStaffTelephone Main: default");
                         phone.MainAttribute.Value = (empprocess.Employee.Telephones.Value.Count > 0)
                             ? TelephoneMainCollection.GetValues().Item(1) as CodeDescriptionEntity
                             : TelephoneMainCollection.GetValues().Item(0) as CodeDescriptionEntity;
@@ -573,21 +573,21 @@ namespace Matt40k.SIMSBulkImport.Classes
                 switch (primary)
                 {
                     case "Yes":
-                        logger.Log(LogLevel.Trace, "SetStaffTelephone primary: Yes");
+                        logger.Log(LogLevel.Debug, "SetStaffTelephone primary: Yes");
                         phone.PrimaryAttribute.Value = (empprocess.Employee.Telephones.Value.Count > 0)
                             ? TelephoneMainCollection.GetValues().Item(1) as CodeDescriptionEntity
                             : TelephoneMainCollection.GetValues().Item(0) as CodeDescriptionEntity;
                         break;
                     case "Yes (Overwrite)":
-                        logger.Log(LogLevel.Trace, "SetStaffTelephone primary: Yes (Overwrite)");
+                        logger.Log(LogLevel.Debug, "SetStaffTelephone primary: Yes (Overwrite)");
                         phone.PrimaryAttribute.Value = TelephoneMainCollection.GetValues().Item(1);
                         break;
                     case "No":
-                        logger.Log(LogLevel.Trace, "SetStaffTelephone primary: No");
+                        logger.Log(LogLevel.Debug, "SetStaffTelephone primary: No");
                         phone.PrimaryAttribute.Value = TelephoneMainCollection.GetValues().Item(0);
                         break;
                     default:
-                        logger.Log(LogLevel.Trace, "SetStaffTelephone primary: default");
+                        logger.Log(LogLevel.Debug, "SetStaffTelephone primary: default");
                         phone.PrimaryAttribute.Value = (empprocess.Employee.Telephones.Value.Count > 0)
                             ? TelephoneMainCollection.GetValues().Item(1) as CodeDescriptionEntity
                             : TelephoneMainCollection.GetValues().Item(0) as CodeDescriptionEntity;
@@ -597,7 +597,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                 // Set the notes
                 if (!string.IsNullOrWhiteSpace(notes))
                 {
-                    logger.Log(LogLevel.Trace, "SetStaffTelephone notes: " + notes);
+                    logger.Log(LogLevel.Debug, "SetStaffTelephone notes: " + notes);
                     phone.NotesAttribute.Value = notes;
                 }
 
@@ -609,12 +609,12 @@ namespace Matt40k.SIMSBulkImport.Classes
 
                 // Run Validation against the new record
                 phone.Validate();
-                logger.Log(LogLevel.Trace, "Telephone Valid: " + phone.Valid());
+                logger.Log(LogLevel.Debug, "Telephone Valid: " + phone.Valid());
 
                 // Writes the new record to the database
                 empprocess.Employee.Telephones.Add(phone);
                 bool result = empprocess.Save(DateTime.Now);
-                logger.Log(LogLevel.Trace, "SetStaffTelephone result: " + result);
+                logger.Log(LogLevel.Debug, "SetStaffTelephone result: " + result);
                 return true;
             }
             catch (Exception SetStaffTelephone_Exception)

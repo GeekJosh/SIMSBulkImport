@@ -58,14 +58,14 @@ namespace Matt40k.SIMSBulkImport
                 {
                     DataRow dt = _submittionResults.Rows[0];
                     string _status = dt["success"].ToString();
-                    logger.Log(LogLevel.Trace, "Submission Status: " + _status);
+                    logger.Log(LogLevel.Debug, "Submission Status: " + _status);
                     if (_status == "true")
                         return true;
                     return false;
                 }
                 catch (Exception submittedOk_Exception)
                 {
-                    logger.Log(LogLevel.Trace, submittedOk_Exception);
+                    logger.Log(LogLevel.Debug, submittedOk_Exception);
                     return false;
                 }
             }
@@ -79,12 +79,12 @@ namespace Matt40k.SIMSBulkImport
                 {
                     DataRow dt = _submittionResults.Rows[0];
                     string _submissionId = dt["logid"].ToString();
-                    logger.Log(LogLevel.Trace, "Submission ID: " + _submissionId);
+                    logger.Log(LogLevel.Debug, "Submission ID: " + _submissionId);
                     return _submissionId;
                 }
                 catch (Exception submissionId_Exception)
                 {
-                    logger.Log(LogLevel.Trace, submissionId_Exception);
+                    logger.Log(LogLevel.Debug, submissionId_Exception);
                     return null;
                 }
             }
@@ -145,7 +145,7 @@ namespace Matt40k.SIMSBulkImport
             successLabel.Visibility = Visibility.Hidden;
             uniqueIdLabel.Visibility = Visibility.Visible;
             StatID.Visibility = Visibility.Visible;
-            logger.Log(LogLevel.Trace, "StatID: " + Switcher.ConfigManClass.GetAppGUID);
+            logger.Log(LogLevel.Debug, "StatID: " + Switcher.ConfigManClass.GetAppGUID);
             StatID.Text = Switcher.ConfigManClass.GetAppGUID;
 
             submissionIdLabel.Visibility = Visibility.Hidden;
@@ -162,7 +162,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void completeUI()
         {
-            logger.Log(LogLevel.Trace, "One way or another submission is complete");
+            logger.Log(LogLevel.Debug, "One way or another submission is complete");
 
             progressRing.IsActive = false;
             progressRing.Visibility = Visibility.Hidden;

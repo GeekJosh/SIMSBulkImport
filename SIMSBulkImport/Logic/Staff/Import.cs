@@ -9,19 +9,19 @@ namespace Matt40k.SIMSBulkImport.Staff
 
         public bool SetStaffEmail(Int32 personID, string value, string main, string primary, string notes, string location)
         {
-            logger.Log(LogLevel.Trace, "Staff.Import.SetStaffEmail");
+            logger.Log(LogLevel.Debug, "Staff.Import.SetStaffEmail");
             return Switcher.SimsApiClass.SetStaffEmail(personID, value, main, primary, notes, location);
         }
 
         public bool SetStaffTelephone(Int32 personID, string value, string main, string primary, string notes, string location, string device)
         {
-            logger.Log(LogLevel.Trace, "Staff.Import.SetStaffTelephone");
+            logger.Log(LogLevel.Debug, "Staff.Import.SetStaffTelephone");
             return Switcher.SimsApiClass.SetStaffTelephone(personID, value, main, primary, notes, location, device);
         }
 
         public bool SetStaffUDF(Int32 personID, string value)
         {
-            logger.Log(LogLevel.Trace, "Staff.Import.SetStaffUDF");
+            logger.Log(LogLevel.Debug, "Staff.Import.SetStaffUDF");
             return Switcher.SimsApiClass.SetStaffUDF(personID, value);
         }
     }

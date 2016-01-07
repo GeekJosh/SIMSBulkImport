@@ -23,7 +23,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public Importing()
         {
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Importing()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Importing()");
             InitializeComponent();
 
             countImported = 0;
@@ -39,7 +39,7 @@ namespace Matt40k.SIMSBulkImport
         private void process()
         {
             startTime = DateTime.Now;
-            logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Importing.countImport=" + countImport);
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Importing.countImport=" + countImport);
             while (countImported < countImport)
             {
                 DataRow row = Switcher.ImportListClass.GetListRow(countImported);
@@ -70,21 +70,21 @@ namespace Matt40k.SIMSBulkImport
                 {
                     case "Email":
                         result = Switcher.ImportClass.SetEmail(personID, value, main, primary, notes, location);
-                        logger.Log(LogLevel.Trace, "Set Email: " + result + " - " + personID + " - " + value);
+                        logger.Log(LogLevel.Debug, "Set Email: " + result + " - " + personID + " - " + value);
                         Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "Email",
                             value, null, surname, forename, title, gender, staffCode, dob, admissionNumber, year,
                             registration, house, postCode, town, main, primary, location, null);
                         break;
                     case "Telephone":
                         result = Switcher.ImportClass.SetTelephone(personID, value, main, primary, notes, location, device);
-                        logger.Log(LogLevel.Trace, "Set Telephone: " + result + " - " + personID + " - " + value);
+                        logger.Log(LogLevel.Debug, "Set Telephone: " + result + " - " + personID + " - " + value);
                         Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(),
                             "Telephone", value, null, surname, forename, title, gender, staffCode, dob, admissionNumber,
                             year, registration, house, postCode, town, main, primary, location, device);
                         break;
                     case "UDF":
                         result = Switcher.ImportClass.SetUDF(personID, value);
-                        logger.Log(LogLevel.Trace, "Set UDF: " + result + " - " + personID + " - " + value);
+                        logger.Log(LogLevel.Debug, "Set UDF: " + result + " - " + personID + " - " + value);
                         Switcher.ResultsImportClass.AddToResultsTable(personID.ToString(), result.ToString(), "UDF",
                             value, null, surname, forename, title, gender, staffCode, dob, admissionNumber, year,
                             registration, house, postCode, town, null, null, null, null);
@@ -108,14 +108,14 @@ namespace Matt40k.SIMSBulkImport
             ButtonAnother.Visibility = Visibility.Visible;
 
             // Open report
-            logger.Log(LogLevel.Trace, "Open result report");
+            logger.Log(LogLevel.Debug, "Open result report");
             Switcher.ResultsImportClass.OpenResultsReport();
         }
 
         private void ButtonAnother_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             // Import complete return to menu
-            logger.Log(LogLevel.Trace, "Return to menu");
+            logger.Log(LogLevel.Debug, "Return to menu");
             Switcher.Switch(new Menu());
         }
     }

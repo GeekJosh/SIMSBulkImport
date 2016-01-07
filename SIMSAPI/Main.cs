@@ -225,7 +225,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetEmailLocations(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetEmailLocations(GET)");
 
                 if (emailLocations == null)
                 {
@@ -235,7 +235,7 @@ namespace Matt40k.SIMSBulkImport
                     {
                         // Get the Email Location count
                         int count = PersonCache.EmailLocations.Count;
-                        logger.Log(LogLevel.Trace, "Email Location count: " + count);
+                        logger.Log(LogLevel.Debug, "Email Location count: " + count);
 
                         // Load Email Locations
                         EmailLocations locations = PersonCache.EmailLocations;
@@ -269,7 +269,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetTelephoneLocations(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetTelephoneLocations(GET)");
 
                 if (telephoneLocations == null)
                 {
@@ -279,7 +279,7 @@ namespace Matt40k.SIMSBulkImport
                     {
                         // Get the Telephone Location count 
                         int count = PersonCache.TelephoneLocations.Count;
-                        logger.Log(LogLevel.Trace, "Telephone Location count: " + count);
+                        logger.Log(LogLevel.Debug, "Telephone Location count: " + count);
 
                         // Load Telephone Locations
                         TelephoneLocations locations = PersonCache.TelephoneLocations;
@@ -313,7 +313,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetTelephoneDevices(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetTelephoneDevices(GET)");
 
                 if (telephoneDevices == null)
                 {
@@ -323,7 +323,7 @@ namespace Matt40k.SIMSBulkImport
                     {
                         // Get the Telephone Devices count 
                         int count = PersonCache.TelephoneDevices.Count;
-                        logger.Log(LogLevel.Trace, "Telephone Devices count: " + count);
+                        logger.Log(LogLevel.Debug, "Telephone Devices count: " + count);
 
                         // Load Telephone Devices
                         TelephoneDevices devices = PersonCache.TelephoneDevices;
@@ -357,7 +357,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetDefaultEmailLocation(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetDefaultEmailLocation(GET)");
                 // Load Email locations
                 EmailLocations locations = PersonCache.EmailLocations;
                 foreach (EmailLocation location in locations)
@@ -375,7 +375,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace,
+                logger.Log(LogLevel.Debug,
                     "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(Main).GetDefaultTelephoneLocation(GET)");
                 // Load Telephone Location
                 TelephoneLocations locations = PersonCache.TelephoneLocations;
@@ -413,7 +413,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(MAIN).SetIsTrusted(" + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(MAIN).SetIsTrusted(" + value + ")");
                 loginTrusted = value;
             }
         }
@@ -448,7 +448,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(MAIN).GetCurrentSchoolLogo(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SIMSAPI(MAIN).GetCurrentSchoolLogo(GET)");
                 try
                 {
                     // ImageSource ...
@@ -634,7 +634,7 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetPupilUsernameUDF(string udfName)
         {
-            logger.Log(LogLevel.Debug, "SIMSAPISetPupilUser - udfName: " + udfName);
+            logger.Log(LogLevel.Trace, "SIMSAPISetPupilUser - udfName: " + udfName);
             return _pupils.SetPupilUsernameUDF(udfName);
         }
 

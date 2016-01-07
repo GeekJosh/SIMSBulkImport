@@ -78,7 +78,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                                 string name = udfVal.TypedValueAttribute.Description;
                                 int min = udfVal.TypedValueAttribute.MinLength;
                                 int max = udfVal.TypedValueAttribute.MaxLength;
-                                logger.Log(LogLevel.Trace, "GetContactUDFs:: " + name + " (" + type + ")");
+                                logger.Log(LogLevel.Debug, "GetContactUDFs:: " + name + " (" + type + ")");
                                 DataRow udfRow = contactUdfs.NewRow();
                                 udfRow["Type"] = type;
                                 udfRow["Name"] = name;
@@ -248,7 +248,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Contacts.SetContactEmail(personid=" + personid + ", emailValue=" + emailValue +
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Contacts.SetContactEmail(personid=" + personid + ", emailValue=" + emailValue +
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location);
                 var contactprocess = new EditContact();
 
@@ -314,7 +314,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
                 // Run Validation against the new record
                 email.Validate();
-                logger.Log(LogLevel.Trace, "Email Valid: " + email.Valid());
+                logger.Log(LogLevel.Debug, "Email Valid: " + email.Valid());
 
                 // Save the new record to the database
                 contactprocess.Contact.Emails.Add(email);
@@ -342,7 +342,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.Classes.Contacts.SetContactTelephone(personid=" + personid + ", telephone=" + telephone +
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Contacts.SetContactTelephone(personid=" + personid + ", telephone=" + telephone +
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location + ", device=" + device);
                 var contactprocess = new EditContact();
 
@@ -413,7 +413,7 @@ namespace Matt40k.SIMSBulkImport.Classes
 
                 // Run Validation against the new record
                 phone.Validate();
-                logger.Log(LogLevel.Trace, "Telephone Valid: " + phone.Valid());
+                logger.Log(LogLevel.Debug, "Telephone Valid: " + phone.Valid());
 
                 // Writes the new record to the database
                 contactprocess.Contact.Phones.Add(phone);

@@ -85,7 +85,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_RunWorkerCompleted()");
+            //logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_RunWorkerCompleted()");
             if (e.Cancelled)
             {
                 //this.Status.Content = "Disconnected";

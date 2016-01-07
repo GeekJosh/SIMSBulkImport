@@ -20,7 +20,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportExcel.SetFilePath(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportExcel.SetFilePath(SET: " + value + ")");
                 if (File.Exists(value))
                     _filePath = value;
             }
@@ -31,7 +31,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Trace, "Trace:: Matt40k.SIMSBulkImport.ImportExcel.GetDataSet(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportExcel.GetDataSet(GET)");
                 logger.Log(LogLevel.Debug, "GetExcel");
                 var _dataSet = new DataSet();
                 try
