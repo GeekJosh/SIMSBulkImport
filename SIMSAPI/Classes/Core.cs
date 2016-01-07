@@ -32,9 +32,11 @@ namespace Matt40k.SIMSBulkImport.Classes
                     switch (newValue.ToUpperInvariant())
                     {
                         case "TRUE":
+                        case "1": 
                             boolValue.Value = true;
                             break;
                         case "FALSE":
+                        case "0":
                             boolValue.Value = false;
                             break;
                         default:
