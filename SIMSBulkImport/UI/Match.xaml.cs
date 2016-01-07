@@ -120,6 +120,9 @@ namespace Matt40k.SIMSBulkImport
             }
 
             GetDataTable();
+
+            // Set ignore first row if csv
+            comboIgnoreFirst.IsChecked = Switcher.PreImportClass.GetMatchIgnoreFirstRow;
         }
 
         /// <summary>

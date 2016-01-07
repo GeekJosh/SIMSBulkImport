@@ -87,6 +87,7 @@ namespace Matt40k.SIMSBulkImport
                     var _importCsv = new ImportCsv();
                     _importCsv.SetFilePath = _filePath;
                     _importDataSet = _importCsv.GetDataSet;
+                    Switcher.PreImportClass.SetMatchIgnoreFirstRow = true;
                     break;
                 case FileType.Xml:
                     var _importXml = new ImportXml();
