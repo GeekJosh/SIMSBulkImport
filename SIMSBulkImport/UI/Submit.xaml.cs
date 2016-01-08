@@ -17,9 +17,11 @@ namespace Matt40k.SIMSBulkImport
         private string _email;
         private string _log;
         private DataTable _submittionResults;
+        private string _logType;
 
-        public Submit()
+        public Submit(string logType)
         {
+            _logType = logType;
             InitializeComponent();
             resetUI();
         }
@@ -28,7 +30,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                var t = (FileTarget) LogManager.Configuration.FindTargetByName("system");
+                var t = (FileTarget) LogManager.Configuration.FindTargetByName(_logType);
                 var logEventInfo = new LogEventInfo {TimeStamp = DateTime.Now};
                 return t.FileName.Render(logEventInfo);
             }

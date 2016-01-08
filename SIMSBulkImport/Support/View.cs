@@ -13,12 +13,30 @@ namespace Matt40k.SIMSBulkImport.Support
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
+        private string log;
+
+        public string SetLog
+        {
+            set
+            {
+                switch(value)
+                {
+                    case "support":
+                        log = "support";
+                        break;
+                    default:
+                        log = "system";
+                        break;
+                }
+            }
+        }
+
         private string _logFile
         {
             get
             {
                 logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Support.View._logFile(GET)");
-                var t = (FileTarget) LogManager.Configuration.FindTargetByName("system");
+                var t = (FileTarget) LogManager.Configuration.FindTargetByName(log);
                 var logEventInfo = new LogEventInfo {TimeStamp = DateTime.Now};
                 return t.FileName.Render(logEventInfo);
             }

@@ -30,8 +30,7 @@
         <Button Name="backButton" Content="Back" HorizontalAlignment="Center" Margin="50,200,250,50"
                 VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="backClick" />
         <Button Name="submitButton" Content="Submit" HorizontalAlignment="Center" Margin="50,200,0,50"
-                VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="submitClick"
-                IsEnabled="False" />
+                VerticalAlignment="Bottom" Width="100" Height="30" FontSize="14" Click="submitClick" />
 
     </Grid>
 </UserControl>

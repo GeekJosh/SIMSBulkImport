@@ -19,11 +19,19 @@ namespace Matt40k.SIMSBulkImport
 
         private readonly View support;
         private ICollectionView cvLog;
+        private string logType = "support";
 
         public Logs()
         {
             InitializeComponent();
             support = new View();
+            LoadLog();
+        }
+
+        private void LoadLog()
+        {
+            logDataGrid.DataContext = null;
+            support.SetLog = logType;
             logDataGrid.DataContext = support.ReadLog;
         }
 
@@ -119,7 +127,8 @@ namespace Matt40k.SIMSBulkImport
 
         private void submitClick(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Submit());
+            // Force only sending the support logs
+            Switcher.Switch(new Submit("support"));
         }
 
         private void UserControlLoaded(object sender, RoutedEventArgs e)
@@ -156,6 +165,12 @@ namespace Matt40k.SIMSBulkImport
             {
                 logger.Log(NLog.LogLevel.Error, MenuItem_Click_LogsException);
             }
+        }
+
+        private void type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            logType = this.type.SelectedValue.ToString();
+            LoadLog();
         }
     }
 }
