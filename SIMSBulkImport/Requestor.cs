@@ -31,12 +31,8 @@ namespace Matt40k.SIMSBulkImport
                 var url = new Uri(_apiUrl + "/versions/" + GetExe.Version);
                 HttpWebResponse response = request(url, "GET", null);
 
-
                 logger.Log(LogLevel.Debug,
                     "StatusCode: " + response.StatusCode + " - StatusDescription: " + response.StatusDescription);
-
-
-
 
                 using (var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
