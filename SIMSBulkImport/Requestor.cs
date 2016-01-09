@@ -16,7 +16,7 @@ namespace Matt40k.SIMSBulkImport
         private readonly string _appGUID = Switcher.ConfigManClass.GetAppGUID;
         private readonly string _appVersion = GetExe.Version;
 
-        private string _apiUrl = "https://simsbulkimport.uk" ;
+        private string _apiUrl = "simsbulkimport.uk" ;
         private int _appID = 1;
         private WebProxy _proxy;
         private bool useProxy;
@@ -28,7 +28,7 @@ namespace Matt40k.SIMSBulkImport
                 logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Requestor.GetVersion(GET)");
                 var ds = new DataSet("simsbulkimport");
                 string jsonResp = null;
-                var url = new Uri(_apiUrl + "/versions/" + GetExe.Version);
+                var url = new Uri("https://" + _apiUrl + " / versions/" + GetExe.Version);
                 HttpWebResponse response = request(url, "GET", null);
 
                 logger.Log(LogLevel.Debug,
@@ -120,7 +120,7 @@ namespace Matt40k.SIMSBulkImport
                 "Trace:: Matt40k.SIMSBulkImport.Requestor.SubmitLog(email: " + email + ", log: " + log + ")");
             var ds = new DataSet("simsbulkimport");
             string result = null;
-            var url = new Uri(_apiUrl + "log");
+            var url = new Uri("https://" + _apiUrl + "/logs");
             string postData = "appid=" + _appID + "&guid=" + _appGUID + "&email=" + email + "&log=" + log;
             //logger.Log(NLog.LogLevel.Debug, "PostData :: " + postData);
             HttpWebResponse response = request(url, "POST", postData);
