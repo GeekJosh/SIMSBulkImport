@@ -17,22 +17,27 @@ namespace Matt40k.SIMSBulkImport
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        private readonly View support;
+        private View support;
         private ICollectionView cvLog;
         private string logType = "support";
+        private bool firstLoad = true;
 
         public Logs()
         {
-            InitializeComponent();
             support = new View();
+            InitializeComponent();
+            firstLoad = false;
             LoadLog();
         }
 
         private void LoadLog()
         {
-            logDataGrid.DataContext = null;
-            support.SetLog = logType;
-            logDataGrid.DataContext = support.ReadLog;
+            if (!firstLoad)
+            {
+                logDataGrid.DataContext = null;
+                support.SetLog = logType;
+                logDataGrid.DataContext = support.ReadLog;
+            }
         }
 
         private DataTable filterTable
