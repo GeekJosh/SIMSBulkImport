@@ -53,7 +53,7 @@ namespace Matt40k.SIMSBulkImport
             try
             {
                 var prc = new Process();
-                prc.StartInfo.FileName = "Guide.pdf";
+                prc.StartInfo.FileName = "https://simsbulkimport.uk/Manual/Manual-" +GetExe.Version + ".pdf";
                 prc.Start();
             }
             catch (Exception MenuItem_Click_Manual_Exception)
