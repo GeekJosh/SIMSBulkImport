@@ -20,7 +20,9 @@ namespace Matt40k.SIMSBulkImport
         private BackgroundWorker bw = new BackgroundWorker();
 
         private DataTable _pupilData;
-        private DataTable _completeData;
+        private DataTable _userData;
+
+        // User a list to store all the usernames, used for checking if the username already exists
         private List<string> _users = new List<string>();
 
         private DateTime queryEnd;
@@ -33,9 +35,6 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.UserSet()");
             InitializeComponent();
 
-            dataGrid.DataContext = GetCompleteData;
-            dataGrid.Items.Refresh();
-
             Status.Content = "Querying SIMS database - 0%";
             bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
@@ -47,38 +46,6 @@ namespace Matt40k.SIMSBulkImport
             if (bw.IsBusy != true)
             {
                 bw.RunWorkerAsync();
-            }
-
-        }
-
-        private DataTable GetPupilData
-        {
-            get
-            {
-                logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.GetPupil");
-                if (_pupilData == null)
-                    _pupilData = Switcher.SimsApiClass.GetPupilHierarchyData;
-                return _pupilData;
-            }
-        }
-
-        public DataTable GetCompleteData
-        {
-            get
-            {
-                logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.GetCompleteData");
-                if (_completeData == null)
-                {
-                    _completeData = new DataTable();
-                    _completeData.Columns.Add(new DataColumn("PersonID", typeof(string)));
-                    _completeData.Columns.Add(new DataColumn("Year", typeof(string)));
-                    _completeData.Columns.Add(new DataColumn("RegGroup", typeof(string)));
-                    _completeData.Columns.Add(new DataColumn("Forename", typeof(string)));
-                    _completeData.Columns.Add(new DataColumn("Surname", typeof(string)));
-                    _completeData.Columns.Add(new DataColumn("AdmissionNo", typeof(string)));
-                    _completeData.Columns.Add(new DataColumn("Username", typeof(string)));
-                }
-                return _completeData; 
             }
         }
 
@@ -93,9 +60,10 @@ namespace Matt40k.SIMSBulkImport
             return false;
         }
 
+
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_RunWorkerCompleted()");
+            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.UserSet.bw_RunWorkerCompleted()");
             if (e.Cancelled)
             {
                 logger.Log(LogLevel.Info, "User cancelled");
@@ -116,14 +84,14 @@ namespace Matt40k.SIMSBulkImport
                     "Querying complete: " + queryStart.ToShortTimeString() + " - " +
                     DateTime.Compare(queryEnd, queryStart));
                 dataGrid.Items.Refresh();
-                //this.dataGrid.IsReadOnly = false;
-                //this.dataGrid.CanUserDeleteRows = true;
+                this.dataGrid.IsReadOnly = false;
+                this.dataGrid.CanUserDeleteRows = true;
             }
         }
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.bw_ProgressChanged()");
+            //logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.bw_ProgressChanged()");
             Status.Content = "Querying SIMS database - " + e.ProgressPercentage + "%";
             // Refreshing the dataGrid causes a crash in .net 4.5, so don't refresh. Version number for 4.5 
             // is actually 4.0.30319.17626 for some reason
@@ -131,7 +99,7 @@ namespace Matt40k.SIMSBulkImport
             Version dotNetVersion = System.Environment.Version;
             if (dotNetVersion.Major <= 4 && dotNetVersion.Minor <= 0 && dotNetVersion.Build <= 30319 && dotNetVersion.Revision < 17626)
             {
-                dataGrid.DataContext = _completeData;
+                dataGrid.DataContext = _pupilData;
                 dataGrid.Items.Refresh();
             }
         }
@@ -141,70 +109,97 @@ namespace Matt40k.SIMSBulkImport
             logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.bw_DoWork()");
             queryStart = DateTime.Now;
             var worker = sender as BackgroundWorker;
-            //recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
-            //recordupto = 0;
+
+            // Query SIMS database and get a total count of all the (current) pupils.
+            recordcount = Switcher.SimsApiClass.GetPupilUsernameCount;
+            recordupto = 0;
+            logger.Log(LogLevel.Debug, "Total row count: " + recordcount);
+
+            // Pull the SIMS data in
+            _pupilData = Switcher.SimsApiClass.GetPupilUsernames;
+
             //while (recordupto < recordcount)
             //{
 
-            /*
-            if (worker.CancellationPending)
+            foreach (DataRow _dr in _pupilData.Rows)
             {
-                e.Cancel = true;
-                logger.Log(LogLevel.Debug, "Kill process received");
-                break;
-            }
-            */
-            _completeData = GetPupilData;
-            logger.Log(LogLevel.Debug, "Total row count: " + _completeData.Rows.Count);
+                if (worker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    logger.Log(LogLevel.Debug, "Kill process received");
+                    break;
+                }
 
-            DataRow[] existingUsers = _completeData.Select("IsSet = true");
-            foreach (DataRow _dr in existingUsers)
-            {
-                bool resultAddExisting = SetUsername(_dr["Username"].ToString());
-            }
-
-            DataRow[] newUsers = _completeData.Select("IsSet = true");
-            foreach (DataRow _dr in newUsers)
-            {
                 string newUser;
                 bool addNewOk;
-                // Pull the SIMS data in
-                string personId = _dr["PersonID"].ToString();
+
+                string systemId = _dr["SystemId"].ToString();
                 string forename = _dr["Forename"].ToString();
                 string surname = _dr["Surname"].ToString();
                 string admissionNo = _dr["AdmissionNo"].ToString();
                 string admissionYear = _dr["AdmissionYear"].ToString();
                 string yearGroup = _dr["YearGroup"].ToString();
                 string regGroup = _dr["RegGroup"].ToString();
+                int personId = Convert.ToInt32(systemId);
                 int increment = 0;
-                newUser = Switcher.UserGenClass.GenerateUsername(forename, surname, admissionNo, admissionYear, yearGroup, regGroup, personId, increment.ToString());
-                addNewOk = SetUsername(newUser);
 
-                // Deal with duplicates - but only if we're using the increment field in our username expression
-                while (!addNewOk && Switcher.UserGenClass.ExpressionContainsIncrement)
+                string simsUser = Switcher.SimsApiClass.GetPupilUsername(personId);
+                string status = "New";
+                if (string.IsNullOrWhiteSpace(simsUser))
                 {
-                    increment = increment + 1;
-                    newUser = Switcher.UserGenClass.GenerateUsername(forename, surname, admissionNo, admissionYear, yearGroup, regGroup, personId, increment.ToString());
+                    status = "Exists";
+                    newUser = simsUser;
+                }
+                else
+                {
+                    // Generate username
+                    newUser = Switcher.UserGenClass.GenerateUsername(forename, surname, admissionNo, admissionYear, yearGroup, regGroup, systemId, increment.ToString());
+                    addNewOk = SetUsername(newUser);
+
+                    // Deal with duplicates - but only if we're using the increment field in our username expression
+                    while (!addNewOk && Switcher.UserGenClass.ExpressionContainsIncrement)
+                    {
+                        increment = increment + 1;
+                        newUser = Switcher.UserGenClass.GenerateUsername(forename, surname, admissionNo, admissionYear, yearGroup, regGroup, systemId, increment.ToString());
+                        addNewOk = SetUsername(newUser);
+                    }
                 }
 
-                DataRow _compRow = _completeData.NewRow();
-                _compRow["PersonID"] = personId;
-                _compRow["Year"] = yearGroup;
-                _compRow["RegGroup"] = regGroup;
-                _compRow["Forename"] = forename;
-                _compRow["Surname"] = surname;
-                _compRow["AdmissionNo"] = admissionNo;
-                _compRow["Username"] = newUser;
-                _completeData.Rows.Add(_compRow);
+                DataRow row = GetUserData.NewRow();
+                row["Forename"] = forename;
+                row["Surname"] = surname;
+                row["YearGroup"] = yearGroup;
+                row["RegGroup"] = regGroup;
+                row["Username"] = newUser;
+                row["ExistsOrNew"] = status;
+                GetUserData.Rows.Add(row);
+
+                recordupto = recordupto + 1;
+                // Update report progress
+                int percent = Convert.ToInt32(recordupto * 100 / recordcount);
+                worker.ReportProgress(percent);
+                
+                //}
             }
+        }
 
-
-
-            //long lonCount = recordupto;
-            //long lonTotal = recordcount;
-            //int percent = Convert.ToInt32(lonCount * 100 / lonTotal);
-
-            //worker.ReportProgress(percent);
+        private DataTable GetUserData
+        {
+            get
+            {
+                logger.Log(LogLevel.Debug, "GetUsernameData");
+                if (_userData == null)
+                {
+                    _userData = new DataTable();
+                    _userData.Columns.Add(new DataColumn("Forename", typeof(string)));
+                    _userData.Columns.Add(new DataColumn("Surname", typeof(string)));
+                    _userData.Columns.Add(new DataColumn("YearGroup", typeof(string)));
+                    _userData.Columns.Add(new DataColumn("RegGroup", typeof(string)));
+                    _userData.Columns.Add(new DataColumn("Username", typeof(string)));
+                    _userData.Columns.Add(new DataColumn("ExistsOrNew", typeof(string)));
+                }
+                return _userData;
+            }
         }
     }
 }

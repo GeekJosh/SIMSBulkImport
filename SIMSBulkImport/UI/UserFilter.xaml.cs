@@ -41,7 +41,7 @@ namespace Matt40k.SIMSBulkImport
             bwLoadHierarchy = sender as BackgroundWorker;
             yearGroups = Switcher.SimsApiClass.GetPupilYearGroups;
             houses = Switcher.SimsApiClass.GetPupilHouses;
-            Switcher.SimsApiClass.GetPupilHierarchy();
+            //Switcher.SimsApiClass.GetPupilHierarchy();
         }
 
         private void bwLoadHierarchy_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -58,10 +58,11 @@ namespace Matt40k.SIMSBulkImport
             {
                 this.loadGrid.Visibility = Visibility.Hidden;
                 this.mainGrid.Visibility = Visibility.Visible;
-                AddToHierarchy();
+                //AddToHierarchy();
             }
         }
 
+        /*
         private void AddToHierarchy()
         {
             int allCnt = Switcher.SimsApiClass.GetPupilHierarchyAllCount;
@@ -72,8 +73,8 @@ namespace Matt40k.SIMSBulkImport
             foreach (string house in houses)
             {
                 TreeViewItem newHouseChild = new TreeViewItem();
-                int houseCnt = Switcher.SimsApiClass.GetPupilHierarchyItemCount("House", house);
-                int houseFilledCnt = Switcher.SimsApiClass.GetPupilHierarchyItemNotCompletedCount("House", house);
+              int houseCnt = Switcher.SimsApiClass.GetPupilHierarchyItemCount("House", house);
+              int houseFilledCnt = Switcher.SimsApiClass.GetPupilHierarchyItemNotCompletedCount("House", house);
                 newHouseChild.Header = house + " (" + houseFilledCnt + " / " + houseCnt.ToString() + ")";
                 this.houseTree.Items.Add(newHouseChild);
             }
@@ -81,12 +82,12 @@ namespace Matt40k.SIMSBulkImport
             foreach (string year in yearGroups)
             {
                 TreeViewItem newYearChild = new TreeViewItem();
-                int yearCnt = Switcher.SimsApiClass.GetPupilHierarchyItemCount("Year", year);
-                int yearFilledCnt = Switcher.SimsApiClass.GetPupilHierarchyItemNotCompletedCount("Year", year);
+                //int yearCnt = Switcher.SimsApiClass.GetPupilHierarchyItemCount("Year", year);
+                //int yearFilledCnt = Switcher.SimsApiClass.GetPupilHierarchyItemNotCompletedCount("Year", year);
                 newYearChild.Header = year + " (" + yearFilledCnt + " / " + yearCnt.ToString() + ")";
                 this.yearTree.Items.Add(newYearChild);
             }
-        }
+        }*/
 
         private void backClick(object sender, RoutedEventArgs e)
         {

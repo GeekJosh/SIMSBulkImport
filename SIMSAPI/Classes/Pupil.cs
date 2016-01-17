@@ -23,6 +23,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         private StudentFilter pupilUserFilter = StudentFilter.Current;
         private string[] pupilYearGroups;
         private string simsudf;
+        private DataTable _usernameData;
 
         #region GET
         public int GetDefaultStudentPersonId
@@ -566,23 +567,79 @@ namespace Matt40k.SIMSBulkImport.Classes
             }
         }
 
-        private DataTable GetUsernameData
+        private StudentSummarys _totalStudents;
+
+        private DataTable GetUsernameTable
         {
             get
             {
                 logger.Log(LogLevel.Debug, "GetUsernameData");
-                DataTable dt = new DataTable();
-                dt.Columns.Add(new DataColumn("Forename", typeof (string)));
-                dt.Columns.Add(new DataColumn("Surname", typeof (string)));
-                dt.Columns.Add(new DataColumn("AdmissionNo", typeof (string)));
-                dt.Columns.Add(new DataColumn("AdmissionYear", typeof (string)));
-                dt.Columns.Add(new DataColumn("YearGroup", typeof (string)));
-                dt.Columns.Add(new DataColumn("RegGroup", typeof (string)));
-                dt.Columns.Add(new DataColumn("SystemId", typeof(string)));
+                if (_usernameData == null)
+                {
+                    _usernameData = new DataTable();
+                    _usernameData.Columns.Add(new DataColumn("Forename", typeof(string)));
+                    _usernameData.Columns.Add(new DataColumn("Surname", typeof(string)));
+                    _usernameData.Columns.Add(new DataColumn("AdmissionNo", typeof(string)));
+                    _usernameData.Columns.Add(new DataColumn("AdmissionYear", typeof(string)));
+                    _usernameData.Columns.Add(new DataColumn("YearGroup", typeof(string)));
+                    _usernameData.Columns.Add(new DataColumn("RegGroup", typeof(string)));
+                    _usernameData.Columns.Add(new DataColumn("SystemId", typeof(string)));
+                }
+                return _usernameData;
+            }
+        }
+
+        public DataTable GetPupilUsernames
+        {
+            get
+            {
+                DataTable dt = GetUsernameTable;
+                // Clear down
+                if (dt.Rows.Count > 0)
+                    dt.Clear();
+                // Load students
+                foreach (StudentSummary student in _totalStudents)
+                {
+                    DataRow row = dt.NewRow();
+                    row["Forename"] = student.Forename;
+                    row["Surname"] = student.Surname;
+                    row["AdmissionNo"] = student.AdmissionNumber;
+                    row["AdmissionYear"] = student.DateOfAdmission.ToString();
+                    row["YearGroup"] = student.YearGroup;
+                    row["RegGroup"] = student.RegGroup;
+                    row["SystemId"] = student.PersonID.ToString();
+                    dt.Rows.Add(row);
+                }
+
                 return dt;
             }
         }
 
+        public bool SetUsernameDataUnique
+        {
+            set
+            {
+                _usernameData.Constraints.Clear();
+                if (value)
+                { 
+                    UniqueConstraint userUnique = new UniqueConstraint(new DataColumn[] { _usernameData.Columns["Username"] });
+                    _usernameData.Constraints.Add(userUnique);
+                }
+            }
+        }
+
+        public int GetUsernameCount
+        {
+            get
+            {
+                var studentBrowse = new StudentBrowseProcess();
+               _totalStudents = studentBrowse.GetStudents("Current", "%", "%", "%",
+                    "%", "%", "%", DateTime.Now, false, "%");
+                return _totalStudents.Count;
+            }
+        }
+
+        /*
         public DataTable GetPupilHierarchyStructure
         {
             get
@@ -603,13 +660,14 @@ namespace Matt40k.SIMSBulkImport.Classes
                 return dt;
             }
         }
+        */
 
         public DataTable GetPupilDefaultUsernameData
         {
             get
             {
                 logger.Log(LogLevel.Debug, "GetPupilDefaultUsernameData");
-                DataTable _dt = GetUsernameData;
+                DataTable _dt = GetUsernameTable;
                 DataRow _dr = _dt.NewRow();
                 int defaultStudentPersonId = GetDefaultStudentPersonId;
                 _dr["Forename"] = GetPupilForename(defaultStudentPersonId);
@@ -624,8 +682,9 @@ namespace Matt40k.SIMSBulkImport.Classes
             }
         }
 
-        private DataTable _pupilHierarchyData;
+//        private DataTable _pupilHierarchyData;
 
+            /*
         public DataTable GetPupilHierarchyData
         {
             get
@@ -712,6 +771,7 @@ namespace Matt40k.SIMSBulkImport.Classes
                 return GetPupilHierarchyData.Select(type + " = '" + GetPupilYearNo(item) + "' AND IsSet = false").Length;
             return GetPupilHierarchyData.Select(type + " = '" + item + "' AND IsSet = false").Length;
         }
+        */
 
         public string GetPupilYearNo(string name)
         {

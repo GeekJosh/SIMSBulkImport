@@ -643,6 +643,7 @@ namespace Matt40k.SIMSBulkImport
             get { return _pupils.GetPupilDefaultUsernameData; }
         }
 
+        /*
         public void GetPupilHierarchy()
         {
             var tmp = _pupils.GetPupilHierarchyData;
@@ -685,6 +686,28 @@ namespace Matt40k.SIMSBulkImport
         public int GetPupilHierarchyItemNotCompletedCount(string type, string item)
         {
             return _pupils.GetPupilHierarchyItemNotCompletedCount(type, item);
+        }
+        */
+
+        public int GetPupilUsernameCount
+        {
+            get
+            {
+                return _pupils.GetUsernameCount;
+            }
+        }
+
+        public DataTable GetPupilUsernames
+        {
+            get
+            {
+                return _pupils.GetPupilUsernames;
+            }
+        }
+
+        public string GetPupilUsername(int personid)
+        {
+            return _pupils.GetPupilUsername(personid, "Username");
         }
         #endregion
 
