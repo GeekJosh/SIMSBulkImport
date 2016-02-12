@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	<?define ProductName="SIMS Bulk Import"?>
+	<?define ProductVersion.Major="2"?>
+	<?define ProductVersion.Minor="0"?>
+	<?define ProductVersion.Build="10"?>
+</Include>
