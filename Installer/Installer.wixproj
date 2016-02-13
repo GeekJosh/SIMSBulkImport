@@ -21,14 +21,15 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup>
-        <SuppressValidation>true</SuppressValidation>
-    </PropertyGroup>
+    <SuppressValidation>true</SuppressValidation>
+  </PropertyGroup>
   <ItemGroup>
     <Content Include="Banner.bmp" />
     <Content Include="Dialog.bmp" />
     <Content Include="Guide.pdf" />
     <Content Include="icon.ico" />
     <Content Include="License.rtf" />
+    <Content Include="Version.wxi" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoreMsi.wxs" />
