@@ -10,3 +10,9 @@ SIMS .net is the most popular MIS system used by schools across the UK with a [m
 This project is completely **unofficial** and in no way affiliated with [Capita Children Services](http://www.capita-sims.co.uk).
 
 As featured on [Edugeek](http://www.edugeek.net/forums/sims-bulk-import/99098-sims-bulk-import.html).
+
+## Getting Started
+For help, see first see our [Getting Started](GettingStarted.md).
+
+## Helping out
+See our guide on [developing SIMS Bulk Import](Dev.md) and the [contributing guidance](CONTRIBUTING.md).
