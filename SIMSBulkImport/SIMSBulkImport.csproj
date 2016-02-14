@@ -7,7 +7,7 @@
     <ProjectGuid>{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Matt40k.SIMSBulkImport</RootNamespace>
+    <RootNamespace>SIMSBulkImport</RootNamespace>
     <AssemblyName>SIMS Bulk Import</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
@@ -342,17 +342,17 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SIMSAPI\SIMSAPI.csproj">
+    <ProjectReference Include="..\SIMSBulkImport.SIMSAPI\SIMSBulkImport.SIMSAPI.csproj">
       <Project>{e96f7830-32cc-4c63-a40a-0e0c0fe3a0a0}</Project>
-      <Name>SIMSAPI</Name>
+      <Name>SIMSBulkImport.SIMSAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIMSBulkImport.Core\SIMSBulkImport.Core.csproj">
       <Project>{5d940511-f9cb-4a24-a53e-cb629dd26140}</Project>
       <Name>SIMSBulkImport.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UserGen\UserGen.csproj">
+    <ProjectReference Include="..\SIMSBulkImport.UserGen\SIMSBulkImport.UserGen.csproj">
       <Project>{3208438f-1ae6-4ec8-81f1-e8037853c779}</Project>
-      <Name>UserGen</Name>
+      <Name>SIMSBulkImport.UserGen</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,7 +2,7 @@
 using System.IO;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     internal class ImportCsv
     {
@@ -15,7 +15,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.GetDataSet(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportCsv.GetDataSet(GET)");
                 var CsvDataSet = new DataSet();
 
                 _dtCsv = new DataTable(_filePath);
@@ -48,7 +48,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.SetFilePath(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportCsv.SetFilePath(SET: " + value + ")");
                 _filePath = value;
             }
         }
@@ -56,7 +56,7 @@ namespace Matt40k.SIMSBulkImport
         private void createColumns(string[] columns)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.ImportCsv.createColumns(columns: " + columns + ")");
+                "Trace:: SIMSBulkImport.ImportCsv.createColumns(columns: " + columns + ")");
             foreach (string column in columns)
             {
                 _dtCsv.Columns.Add(new DataColumn(cleanInput(column), typeof (string)));
@@ -65,7 +65,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void addRow(string[] parts)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.addRow(parts: " + parts + ")");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportCsv.addRow(parts: " + parts + ")");
             DataRow newrow = _dtCsv.NewRow();
             for (int i = 0; i < parts.Length; i++)
             {
@@ -76,7 +76,7 @@ namespace Matt40k.SIMSBulkImport
 
         private string cleanInput(string input)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportCsv.cleanInput(input: " + input + ")");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportCsv.cleanInput(input: " + input + ")");
             string output = input;
             if (output.Length > 1)
             {

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for PageSwitcher.xaml

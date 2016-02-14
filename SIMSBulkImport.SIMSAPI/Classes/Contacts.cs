@@ -6,7 +6,7 @@ using SIMS.Processes;
 using Exception = System.Exception;
 using PersonCache = SIMS.Entities.PersonCache;
 
-namespace Matt40k.SIMSBulkImport.Classes
+namespace SIMSBulkImport.Classes
 {
     /// <summary>
     ///     Contacts (parents)
@@ -248,7 +248,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Contacts.SetContactEmail(personid=" + personid + ", emailValue=" + emailValue +
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Classes.Contacts.SetContactEmail(personid=" + personid + ", emailValue=" + emailValue +
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location);
                 var contactprocess = new EditContact();
 
@@ -342,7 +342,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Contacts.SetContactTelephone(personid=" + personid + ", telephone=" + telephone +
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Classes.Contacts.SetContactTelephone(personid=" + personid + ", telephone=" + telephone +
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location + ", device=" + device);
                 var contactprocess = new EditContact();
 

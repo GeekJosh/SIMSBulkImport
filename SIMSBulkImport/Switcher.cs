@@ -2,7 +2,7 @@
 using NLog;
 using UserGen;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     // Reference: http://azerdark.wordpress.com/2010/04/23/multi-page-application-in-wpf/
     public static class Switcher
@@ -22,14 +22,14 @@ namespace Matt40k.SIMSBulkImport
 
         public static void Switch(UserControl newPage)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Switcher.Switch(newPage: " + newPage + ")");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Switcher.Switch(newPage: " + newPage + ")");
             pageSwitcher.Navigate(newPage);
         }
 
         public static void Switch(UserControl newPage, object state)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Switcher.Switch(newPage: " + newPage + ", state: " + state + ")");
+                "Trace:: SIMSBulkImport.Switcher.Switch(newPage: " + newPage + ", state: " + state + ")");
             pageSwitcher.Navigate(newPage, state);
         }
     }

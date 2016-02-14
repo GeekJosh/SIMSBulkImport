@@ -9,7 +9,7 @@ using UserGen;
 using NLog;
 using System.ComponentModel;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for UserSet.xaml
@@ -32,7 +32,7 @@ namespace Matt40k.SIMSBulkImport
 
         public UserSet()
         {
-            logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.UserSet()");
+            logger.Log(LogLevel.Debug, "SIMSBulkImport.UserSet.UserSet()");
             InitializeComponent();
 
             Status.Content = "Querying SIMS database - 0%";
@@ -51,7 +51,7 @@ namespace Matt40k.SIMSBulkImport
 
         public bool SetUsername(string username)
         {
-            logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.SetUsername(username)");
+            logger.Log(LogLevel.Debug, "SIMSBulkImport.UserSet.SetUsername(username)");
             if (!_users.Exists(x => x == username))
             {
                 _users.Add(username);
@@ -63,7 +63,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.UserSet.bw_RunWorkerCompleted()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.UserSet.bw_RunWorkerCompleted()");
             if (e.Cancelled)
             {
                 logger.Log(LogLevel.Info, "User cancelled");
@@ -91,7 +91,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.bw_ProgressChanged()");
+            //logger.Log(LogLevel.Debug, "SIMSBulkImport.UserSet.bw_ProgressChanged()");
             Status.Content = "Querying SIMS database - " + e.ProgressPercentage + "%";
             // Refreshing the dataGrid causes a crash in .net 4.5, so don't refresh. Version number for 4.5 
             // is actually 4.0.30319.17626 for some reason
@@ -106,7 +106,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.UserSet.bw_DoWork()");
+            logger.Log(LogLevel.Debug, "SIMSBulkImport.UserSet.bw_DoWork()");
             queryStart = DateTime.Now;
             var worker = sender as BackgroundWorker;
 

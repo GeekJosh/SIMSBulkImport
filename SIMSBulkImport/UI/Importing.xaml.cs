@@ -3,7 +3,7 @@ using System.Data;
 using System.Windows;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for Importing.xaml
@@ -23,7 +23,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public Importing()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Importing()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Importing()");
             InitializeComponent();
 
             countImported = 0;
@@ -39,7 +39,7 @@ namespace Matt40k.SIMSBulkImport
         private void process()
         {
             startTime = DateTime.Now;
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Importing.countImport=" + countImport);
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Importing.countImport=" + countImport);
             while (countImported < countImport)
             {
                 DataRow row = Switcher.ImportListClass.GetListRow(countImported);

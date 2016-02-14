@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport.Pupil
+namespace SIMSBulkImport.Pupil
 {
     public class Import
     {

@@ -57,9 +57,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SIMSAPI\SIMSAPI.csproj">
+    <ProjectReference Include="..\SIMSBulkImport.SIMSAPI\SIMSBulkImport.SIMSAPI.csproj">
       <Project>{e96f7830-32cc-4c63-a40a-0e0c0fe3a0a0}</Project>
-      <Name>SIMSAPI</Name>
+      <Name>SIMSBulkImport.SIMSAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

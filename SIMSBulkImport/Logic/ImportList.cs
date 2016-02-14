@@ -2,7 +2,7 @@
 using System.Data;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     public class ImportList
     {
@@ -25,7 +25,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public ImportList()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportList()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportList()");
             Switcher.ResultsImportClass = new ResultsImport();
             _importTable = new DataTable();
             _importTable.Columns.Add(new DataColumn("Type", typeof (string)));
@@ -57,7 +57,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportList.GetImportCount(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportList.GetImportCount(GET)");
                 return _importTable.Rows.Count;
             }
         }
@@ -69,7 +69,7 @@ namespace Matt40k.SIMSBulkImport
         /// <returns></returns>
         public DataRow GetListRow(int rowNo)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportList.GetListRow(rowNo: " + rowNo + ")");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportList.GetListRow(rowNo: " + rowNo + ")");
             return _importTable.Rows[rowNo];
         }
 
@@ -79,7 +79,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="row"></param>
         public void AddToList(DataRow row)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList(row: " + row + ")");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportList.AddToList(row: " + row + ")");
             try
             {
                 string status = row["Status"].ToString();
@@ -134,7 +134,7 @@ namespace Matt40k.SIMSBulkImport
                 {
                     if (status.Contains("Email"))
                     {
-                        logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Email");
+                        logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportList.AddToList-Email");
 
                         email = (string) row["Import email"];
                         primary = (string)row["Primary"];
@@ -162,7 +162,7 @@ namespace Matt40k.SIMSBulkImport
                     }
                     if (status.Contains("Telephone"))
                     {
-                        logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-Telephone");
+                        logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportList.AddToList-Telephone");
 
                         telephone = row["Import telephone"].ToString();
                         primary = row["Primary"].ToString();
@@ -191,7 +191,7 @@ namespace Matt40k.SIMSBulkImport
                     }
                     if (status.Contains("UDF"))
                     {
-                        logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToList-UDF");
+                        logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportList.AddToList-UDF");
 
                         udf = (string) row["Import UDF"];
                         AddToImportTable("UDF", personID, udf, surname, forename, title, gender, staffCode, dob,
@@ -241,7 +241,7 @@ namespace Matt40k.SIMSBulkImport
             string notes, string location, string device)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.ImportList.AddToImportTable(type: " + type + ", personID: " + personID +
+                "Trace:: SIMSBulkImport.ImportList.AddToImportTable(type: " + type + ", personID: " + personID +
                 ", value: " + value + ", surname: " + surname + ", forename: " + forename + ", title: " + title +
                 ", gender: " + gender + ", staffCode: " + staffCode + ", dob: " + dob + ", admissionNumber: " +
                 admissionNumber + ", year: " + year + ", registration: " + registration + ", house: " + house +

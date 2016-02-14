@@ -16,7 +16,7 @@ namespace SIMSBulkImport.Core
         /// <PARAM name="INIPath"></PARAM>
         public IniFile(string INIPath)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.IniFile.IniFile(INIPath: " + INIPath + ")");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Core.IniFile.IniFile(INIPath: " + INIPath + ")");
             path = INIPath;
         }
 
@@ -35,7 +35,7 @@ namespace SIMSBulkImport.Core
         public string Read(string Section, string Key)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.PowerShell.IniFile.Read(Section: " + Section + ", Key: " + Key + ")");
+                "Trace:: SIMSBulkImport.Core.IniFile.Read(Section: " + Section + ", Key: " + Key + ")");
             var temp = new StringBuilder(255);
             int i = GetPrivateProfileString(Section, Key, "", temp,
                 255, path);

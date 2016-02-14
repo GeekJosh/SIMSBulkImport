@@ -1,6 +1,6 @@
 ﻿using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     internal class Prefix
     {
@@ -15,7 +15,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Prefix.GetPrefix(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Prefix.GetPrefix(GET)");
                 if (string.IsNullOrEmpty(_prefix))
                 {
                     _prefix = "SIMSBulkImport_";

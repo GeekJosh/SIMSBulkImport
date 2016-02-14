@@ -7,7 +7,7 @@ using SIMS.Processes;
 using Exception = System.Exception;
 using PersonCache = SIMS.Entities.PersonCache;
 
-namespace Matt40k.SIMSBulkImport.Classes
+namespace SIMSBulkImport.Classes
 {
     /// <summary>
     ///     Students\Pupils
@@ -883,7 +883,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Pupils.SetPupilEmail(personid=" + personid + ", emailValue=" + emailValue + 
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Classes.Pupils.SetPupilEmail(personid=" + personid + ", emailValue=" + emailValue + 
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location);
                 var studentsedt = new EditStudentInformation();
                
@@ -981,7 +981,7 @@ namespace Matt40k.SIMSBulkImport.Classes
         {
             try
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Classes.Pupils.SetPupilTelephone(personid=" + personid + ", telephone=" + telephone +
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Classes.Pupils.SetPupilTelephone(personid=" + personid + ", telephone=" + telephone +
                     ", main=" + main + ", primary=" + primary + ", notes=" + notes + ", location=" + location + ", device=" + device);
                 var studentsedt = new EditStudentInformation();
 

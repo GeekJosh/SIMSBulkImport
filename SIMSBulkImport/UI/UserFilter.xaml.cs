@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using MahApps.Metro;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for UserFilter.xaml

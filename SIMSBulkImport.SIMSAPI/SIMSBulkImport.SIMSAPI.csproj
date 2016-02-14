@@ -7,8 +7,8 @@
     <ProjectGuid>{E96F7830-32CC-4C63-A40A-0E0C0FE3A0A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Matt40k.SIMSBulkImport.SIMSAPI</RootNamespace>
-    <AssemblyName>SIMSAPI</AssemblyName>
+    <RootNamespace>SIMSBulkImport.SIMSAPI</RootNamespace>
+    <AssemblyName>SIMSBulkImport.SIMSAPI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

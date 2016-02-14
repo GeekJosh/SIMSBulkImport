@@ -1,4 +1,4 @@
-﻿namespace Matt40k.SIMSBulkImport
+﻿namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for Duplicate.xaml

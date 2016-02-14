@@ -2,7 +2,7 @@
 using System.Data;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport.Staff
+namespace SIMSBulkImport.Staff
 {
     public class ResultsImport
     {
@@ -11,7 +11,7 @@ namespace Matt40k.SIMSBulkImport.Staff
 
         public ResultsImport()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Staff.ResultsImport()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Staff.ResultsImport()");
             CreateResultTable();
         }
 

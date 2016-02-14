@@ -7,7 +7,7 @@ using System.Windows.Media;
 using UserGen;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for UserGen.xaml

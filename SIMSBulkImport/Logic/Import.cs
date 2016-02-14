@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     /// 
@@ -18,7 +18,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public Import()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Import()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Import()");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -44,7 +44,7 @@ namespace Matt40k.SIMSBulkImport
         public bool SetEmail(Int32 personID, string value, string main, string primary, string notes, string location)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Import.SetEmail(personID: " + personID + ", value: " + value + ")");
+                "Trace:: SIMSBulkImport.Import.SetEmail(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -70,7 +70,7 @@ namespace Matt40k.SIMSBulkImport
         public bool SetTelephone(Int32 personID, string value, string main, string primary, string notes, string location, string device)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Import.SetTelephone(personID: " + personID + ", value: " + value + ")");
+                "Trace:: SIMSBulkImport.Import.SetTelephone(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:
@@ -97,7 +97,7 @@ namespace Matt40k.SIMSBulkImport
         public bool SetUDF(Int32 personID, string value)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Import.SetUDF(personID: " + personID + ", value: " + value + ")");
+                "Trace:: SIMSBulkImport.Import.SetUDF(personID: " + personID + ", value: " + value + ")");
             switch (Switcher.PreImportClass.GetUserType)
             {
                 case Interfaces.UserType.Contact:

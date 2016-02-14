@@ -13,7 +13,7 @@ namespace SIMSAPI_UnitTest
         public Pupil()
         {
             string simsDir = "c:\\program files (x86)\\sims\\sims .net";
-            Matt40k.SIMSBulkImport.SIMSAPI simsapi = new Matt40k.SIMSBulkImport.SIMSAPI(simsDir);
+            SIMSBulkImport.SIMSAPI simsapi = new SIMSBulkImport.SIMSAPI(simsDir);
             // Please set the SIMS username and password
             simsapi.SetSimsUser = "<<removed>>";
             simsapi.SetSimsPass = "<<removed>>";
@@ -24,7 +24,7 @@ namespace SIMSAPI_UnitTest
             if (runSimsApiTests)
             {
                 bool result = simsapi.Connect;
-                simsapi.SetUserType = Matt40k.SIMSBulkImport.Interfaces.UserType.Pupil;
+                simsapi.SetUserType = SIMSBulkImport.Interfaces.UserType.Pupil;
             }
      
         }
@@ -34,7 +34,7 @@ namespace SIMSAPI_UnitTest
         {
             if (runSimsApiTests)
             {
-                Matt40k.SIMSBulkImport.Classes.Pupils _pupils = new Matt40k.SIMSBulkImport.Classes.Pupils();
+                SIMSBulkImport.Classes.Pupils _pupils = new SIMSBulkImport.Classes.Pupils();
                 var id = _pupils.GetDefaultStudentPersonId;
                 Assert.IsNotNull(id);
             }
@@ -45,7 +45,7 @@ namespace SIMSAPI_UnitTest
         {
             if (runSimsApiTests)
             {
-                Matt40k.SIMSBulkImport.Classes.Pupils _pupils = new Matt40k.SIMSBulkImport.Classes.Pupils();
+                SIMSBulkImport.Classes.Pupils _pupils = new SIMSBulkImport.Classes.Pupils();
                 var udfs = _pupils.GetPupilUsernameUDFs;
                 int cnt = udfs.Count;
                 Assert.AreEqual(1, cnt);

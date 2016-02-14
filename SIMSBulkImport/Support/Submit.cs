@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport.Support
+namespace SIMSBulkImport.Support
 {
     public static class Submit
     {
@@ -15,7 +15,7 @@ namespace Matt40k.SIMSBulkImport.Support
         public static DataTable Logs(string email, string log)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Support.Submit.Logs(email: " + email + ", log: " + log + ")");
+                "Trace:: SIMSBulkImport.Support.Submit.Logs(email: " + email + ", log: " + log + ")");
             _requestor = new Requestor();
             _proxy = new Proxy();
             //_proxy.SetUrl = ConfigMan.UpdateUrl;

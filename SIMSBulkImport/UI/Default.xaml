@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Matt40k.SIMSBulkImport.Default"
+﻿<UserControl x:Class="SIMSBulkImport.Default"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>

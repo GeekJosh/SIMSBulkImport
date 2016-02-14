@@ -45,9 +45,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SIMSAPI\SIMSAPI.csproj">
+    <ProjectReference Include="..\SIMSBulkImport.SIMSAPI\SIMSBulkImport.SIMSAPI.csproj">
       <Project>{e96f7830-32cc-4c63-a40a-0e0c0fe3a0a0}</Project>
-      <Name>SIMSAPI</Name>
+      <Name>SIMSBulkImport.SIMSAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\SIMSBulkImport.Core\SIMSBulkImport.Core.csproj">
       <Project>{5d940511-f9cb-4a24-a53e-cb629dd26140}</Project>

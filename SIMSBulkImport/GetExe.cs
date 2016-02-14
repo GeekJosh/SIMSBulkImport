@@ -2,7 +2,7 @@
 using System.Reflection;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     internal class GetExe
     {

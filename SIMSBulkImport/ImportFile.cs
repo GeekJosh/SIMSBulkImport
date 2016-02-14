@@ -3,7 +3,7 @@ using System.Data;
 using System.IO;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     public class ImportFile
     {
@@ -18,7 +18,7 @@ namespace Matt40k.SIMSBulkImport
             set
             {
                 logger.Log(LogLevel.Debug,
-                    "Trace:: Matt40k.SIMSBulkImport.ImportFile.SetImportFilePath(SET: " + value + ")");
+                    "Trace:: SIMSBulkImport.ImportFile.SetImportFilePath(SET: " + value + ")");
                 if (File.Exists(value))
                 {
                     logger.Log(LogLevel.Debug, value);
@@ -36,7 +36,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetDataSet(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportFile.GetDataSet(GET)");
                 return _importDataSet;
             }
         }
@@ -45,7 +45,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetIsExcel(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportFile.GetIsExcel(GET)");
                 return (importFileType == FileType.Xls);
             }
         }
@@ -54,7 +54,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportFile.importFileType(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportFile.importFileType(GET)");
                 string ext = Path.GetExtension(_filePath);
                 logger.Log(LogLevel.Debug, "importFileType: " + ext);
                 switch (ext)
@@ -77,7 +77,7 @@ namespace Matt40k.SIMSBulkImport
 
         internal void GetImportDataSet()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportFile.GetImportDataSet()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportFile.GetImportDataSet()");
 
             _importFileType = importFileType;
 
@@ -107,7 +107,7 @@ namespace Matt40k.SIMSBulkImport
         public void Reset()
         {
             // TODO
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportFile.Reset()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportFile.Reset()");
         }
 
         private enum FileType

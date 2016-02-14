@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using NLog;
 using MessageBox = System.Windows.MessageBox;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for Open.xaml

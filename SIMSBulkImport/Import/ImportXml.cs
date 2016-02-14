@@ -2,7 +2,7 @@
 using System.IO;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     internal class ImportXml
     {
@@ -14,7 +14,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportXml.GetDataSet(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportXml.GetDataSet(GET)");
                 var result = new DataSet();
                 if (!File.Exists(_filePath))
                 {
@@ -30,7 +30,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportXml.SetFilePath(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportXml.SetFilePath(SET: " + value + ")");
                 _filePath = value;
             }
         }

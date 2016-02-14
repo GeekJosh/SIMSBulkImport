@@ -7,7 +7,7 @@ using System.Xml;
 using System.Xml.Xsl;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     internal class Results
     {
@@ -17,7 +17,7 @@ namespace Matt40k.SIMSBulkImport
         public Results(DataTable resultTable, Interfaces.UserType userType)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Results.useProxy(resultTable: " + resultTable + ", userType: " +
+                "Trace:: SIMSBulkImport.Results.useProxy(resultTable: " + resultTable + ", userType: " +
                 userType + ")");
             tmpHtml = getTmpHtmlFileName;
 
@@ -73,7 +73,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Results.addPropertiesTable(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Results.addPropertiesTable(GET)");
                 var propertiesTable = new DataTable("Properties");
                 propertiesTable.Columns.Add(new DataColumn("Title", typeof (string)));
                 propertiesTable.Columns.Add(new DataColumn("Version", typeof (string)));
@@ -94,7 +94,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Results.getCleanXmlTitle(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Results.getCleanXmlTitle(GET)");
                 logger.Log(LogLevel.Debug, GetExe.Title.Replace(" ", "_"));
                 return GetExe.Title.Replace(" ", "_");
             }
@@ -104,7 +104,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Results.getTmpHtmlFileName(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Results.getTmpHtmlFileName(GET)");
                 return Path.ChangeExtension(TempFile.GetNewTempFile, ".html");
             }
         }
@@ -112,14 +112,14 @@ namespace Matt40k.SIMSBulkImport
         private string getXslFileName(Interfaces.UserType userType)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Results.getXslFileName(userType : " + userType + ")");
+                "Trace:: SIMSBulkImport.Results.getXslFileName(userType : " + userType + ")");
             return "Report_" + importTypeToName(userType) + ".xsl";
         }
 
         private string importTypeToName(Interfaces.UserType userType)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Results.importTypeToName(userType : " + userType + ")");
+                "Trace:: SIMSBulkImport.Results.importTypeToName(userType : " + userType + ")");
             switch (userType)
             {
                 case Interfaces.UserType.Staff:
@@ -136,7 +136,7 @@ namespace Matt40k.SIMSBulkImport
         private string getCleanXmlName(string oldname, Interfaces.UserType userType)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Results.getCleanXmlName(oldname: " + oldname + ", userType : " +
+                "Trace:: SIMSBulkImport.Results.getCleanXmlName(oldname: " + oldname + ", userType : " +
                 userType + ")");
             string newname;
 
@@ -155,7 +155,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void openReportHtml()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Results.openReportHtml()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Results.openReportHtml()");
             try
             {
                 var process = new Process();

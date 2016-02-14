@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for About.xaml

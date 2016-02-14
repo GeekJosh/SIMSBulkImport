@@ -4,7 +4,7 @@ using System.Windows;
 using NLog;
 using SIMSBulkImport.Core;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     public class Args
     {
@@ -14,7 +14,7 @@ namespace Matt40k.SIMSBulkImport
 
         public Args(string[] args)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Args()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Args()");
             for (int i = 0; i < args.Length; i++)
             {
                 string str = args[i].ToLower();

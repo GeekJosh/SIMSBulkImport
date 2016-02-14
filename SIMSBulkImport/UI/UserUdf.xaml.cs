@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using NLog;
 using UserGen;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for UserUdf.xaml

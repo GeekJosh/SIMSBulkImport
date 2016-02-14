@@ -6,9 +6,9 @@ using System.Text;
 using System.Xml;
 using Newtonsoft.Json;
 using NLog;
-using Matt40k.SIMSBulkImport.Updater;
+using SIMSBulkImport.Updater;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     public class Requestor
     {
@@ -25,7 +25,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Requestor.GetVersion(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Requestor.GetVersion(GET)");
                 var ds = new DataSet("simsbulkimport");
                 string jsonResp = null;
                 var url = new Uri("https://" + _apiUrl + " / versions/" + GetExe.Version);
@@ -61,7 +61,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Requestor.SetApiUrl(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Requestor.SetApiUrl(SET: " + value + ")");
                 if (!string.IsNullOrEmpty(value))
                     _apiUrl = value;
             }
@@ -71,7 +71,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Requestor.SetWebProxy(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Requestor.SetWebProxy(SET: " + value + ")");
                 _proxy = value;
             }
         }
@@ -80,7 +80,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Requestor.UseProxy(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Requestor.UseProxy(SET: " + value + ")");
                 useProxy = value;
             }
         }
@@ -88,7 +88,7 @@ namespace Matt40k.SIMSBulkImport
         private HttpWebResponse request(Uri url, string method, string postData)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Requestor.request(url: " + url + ", method: " + method + ", postData: " +
+                "Trace:: SIMSBulkImport.Requestor.request(url: " + url + ", method: " + method + ", postData: " +
                 postData + ")");
             var request = (HttpWebRequest) WebRequest.Create(url);
             request.UserAgent = GetExe.Title + "\\" + GetExe.Version;
@@ -117,7 +117,7 @@ namespace Matt40k.SIMSBulkImport
         public DataTable SubmitLog(string email, string log)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Requestor.SubmitLog(email: " + email + ", log: " + log + ")");
+                "Trace:: SIMSBulkImport.Requestor.SubmitLog(email: " + email + ", log: " + log + ")");
             var ds = new DataSet("simsbulkimport");
             string result = null;
             var url = new Uri("https://" + _apiUrl + "/logs");

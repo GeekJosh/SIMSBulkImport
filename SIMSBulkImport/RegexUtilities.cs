@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     //  Reference: http://msdn.microsoft.com/en-us/library/01escwtf.aspx
     public class RegexUtilities

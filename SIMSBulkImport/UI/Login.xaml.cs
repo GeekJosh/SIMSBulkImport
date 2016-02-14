@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using MahApps.Metro;
-using Matt40k.SIMSBulkImport.Updater;
+using SIMSBulkImport.Updater;
 using SIMSBulkImport.Core;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for Login.xaml
@@ -19,7 +19,7 @@ namespace Matt40k.SIMSBulkImport
 
         public Login()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Login()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Login()");
             InitializeComponent();
             textUser.Focus();
             BeginLoad();

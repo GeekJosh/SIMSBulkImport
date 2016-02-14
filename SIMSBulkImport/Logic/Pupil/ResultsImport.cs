@@ -2,7 +2,7 @@
 using System.Data;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport.Pupil
+namespace SIMSBulkImport.Pupil
 {
     public class ResultsImport
     {
@@ -11,7 +11,7 @@ namespace Matt40k.SIMSBulkImport.Pupil
 
         public ResultsImport()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Pupil.ResultsImport()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Pupil.ResultsImport()");
             CreateResultTable();
         }
 

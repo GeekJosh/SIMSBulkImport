@@ -2,7 +2,7 @@
 using System.Net;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     public class Proxy
     {
@@ -14,7 +14,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Proxy.useProxy(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Proxy.useProxy(GET)");
                 IWebProxy proxy = WebRequest.DefaultWebProxy;
 
                 // See what proxy is used for resource.
@@ -37,7 +37,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetProxyAddress(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Proxy.GetProxyAddress(GET)");
                 if (useProxy)
                 {
                     if (string.IsNullOrWhiteSpace(_proxy))
@@ -56,7 +56,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Proxy.GetProxyPort(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Proxy.GetProxyPort(GET)");
                 if (string.IsNullOrWhiteSpace(_proxy))
                 {
                     return null;
@@ -73,7 +73,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Proxy.SetUrl(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Proxy.SetUrl(SET: " + value + ")");
                 _uri = new Uri(value);
             }
         }
@@ -81,7 +81,7 @@ namespace Matt40k.SIMSBulkImport
         public WebProxy GetWebProxy(string address, int? port, string user, string pass, bool? useWin)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " +
+                "Trace:: SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " +
                 user + ", pass: " + pass + ", useWin: " + useWin + ")");
             bool _useWin = false;
             int _port = 0;
@@ -100,7 +100,7 @@ namespace Matt40k.SIMSBulkImport
         private WebProxy getWebProxy(string address, int port, string user, string pass, bool useWin)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " +
+                "Trace:: SIMSBulkImport.Proxy.GetWebProxy(address: " + address + ", port: " + port + ", user: " +
                 user + ", pass: " + pass + ", useWin: " + useWin + ")");
             WebProxy _proxy = null;
             try

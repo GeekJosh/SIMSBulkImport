@@ -4,7 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport.Updater
+namespace SIMSBulkImport.Updater
 {
     public static class Update
     {
@@ -17,7 +17,7 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         public static void Check()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Updater.Check");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Updater.Check");
 
             string localVersion = GetExe.Version;
             logger.Log(LogLevel.Debug, "localVersion :: " + localVersion);
@@ -40,14 +40,14 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         private static void getServerVersion()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Updater.getServerVersion()");
             needUpdate = _requestor.NeedUpdate;
         }
 
         private static void getServerVersion_DoWork(object sender, DoWorkEventArgs e)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_DoWork(sender: " + sender + ", e: " + e + ")");
+                "Trace:: SIMSBulkImport.Updater.getServerVersion_DoWork(sender: " + sender + ", e: " + e + ")");
             try
             {
                 _requestor = new Requestor();
@@ -64,7 +64,7 @@ namespace Matt40k.SIMSBulkImport.Updater
 
         private static void runUpdate()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Updater.runUpdate()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Updater.runUpdate()");
             string outOfDate = "https://simsbulkimport.uk/download/";
             try
             {
@@ -81,7 +81,7 @@ namespace Matt40k.SIMSBulkImport.Updater
         private static void getServerVersion_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             logger.Log(LogLevel.Debug,
-                "Trace:: Matt40k.SIMSBulkImport.Updater.getServerVersion_RunWorkerCompleted(sender: " + sender + ", e: " +
+                "Trace:: SIMSBulkImport.Updater.getServerVersion_RunWorkerCompleted(sender: " + sender + ", e: " +
                 e + ")");
             if (needUpdate)
                 runUpdate();

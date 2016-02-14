@@ -5,10 +5,10 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Matt40k.SIMSBulkImport.Support;
+using SIMSBulkImport.Support;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for Logs.xaml

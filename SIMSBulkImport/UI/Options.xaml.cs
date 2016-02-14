@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using MahApps.Metro;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for Options.xaml
@@ -16,7 +16,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         public Options()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options()");
             InitializeComponent();
             LoadTheme();
             ReadConfig();
@@ -27,7 +27,7 @@ namespace Matt40k.SIMSBulkImport
         /// </summary>
         private void ReadConfig()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.ReadConfig()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.ReadConfig()");
             checkBoxUpdates.IsChecked = Switcher.ConfigManClass.CheckForUpdates;
         }
 
@@ -38,7 +38,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.buttonSave_Click()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.buttonSave_Click()");
 
             bool? updateCheckBox = checkBoxUpdates.IsChecked;
             if (!updateCheckBox.HasValue)
@@ -61,13 +61,13 @@ namespace Matt40k.SIMSBulkImport
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.buttonCancel_Click()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.buttonCancel_Click()");
             Switcher.Switch(new Menu());
         }
 
         private void LoadTheme()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.LoadTheme()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.LoadTheme()");
             foreach (string theme in GetThemes)
             {
                 this.comboBoxThemes.Items.Add(GetCleanTheme((theme)));
@@ -88,7 +88,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.GetThemes[]");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.GetThemes[]");
                 return new string[]
                 {
                     "BaseLight", "BaseDark"
@@ -100,7 +100,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.GetAccents[]");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.GetAccents[]");
                 return new string[]
                 {
                     "Red",
@@ -132,13 +132,13 @@ namespace Matt40k.SIMSBulkImport
 
         public string GetCleanTheme(string theme)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.GetCleanTheme(theme: " + theme + ")");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.GetCleanTheme(theme: " + theme + ")");
             return theme.Replace("Base", "");
         }
 
         public string GetThemeName(string theme)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.GetThemeName(theme: " + theme + ")");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.GetThemeName(theme: " + theme + ")");
             if (string.IsNullOrEmpty(theme))
                 return "BaseLight";
             if (theme.StartsWith("Base"))
@@ -148,7 +148,7 @@ namespace Matt40k.SIMSBulkImport
 
         public void SetTheme()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.SetTheme()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.SetTheme()");
             ThemeManager.ChangeAppStyle(Application.Current,
                             ThemeManager.GetAccent(_currentAccent),
                             ThemeManager.GetAppTheme(_currentTheme));
@@ -156,7 +156,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void themeChanged(object sender, SelectionChangedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Options.themeChanged()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Options.themeChanged()");
 
             string fieldTheme = GetThemeName((string)this.comboBoxThemes.SelectedValue);
             if (!string.IsNullOrEmpty((fieldTheme)))

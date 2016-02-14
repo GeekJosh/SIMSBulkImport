@@ -1,4 +1,4 @@
-﻿namespace Matt40k.SIMSBulkImport.Updater
+﻿namespace SIMSBulkImport.Updater
 {
     public class CheckResp
     {

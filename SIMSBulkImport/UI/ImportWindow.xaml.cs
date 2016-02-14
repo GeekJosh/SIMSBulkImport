@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for ImportWindow.xaml
@@ -23,7 +23,7 @@ namespace Matt40k.SIMSBulkImport
 
         public ImportWindow()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportWindow()");
             InitializeComponent();
             load();
             dataGrid.Items.Refresh();
@@ -33,7 +33,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void load()
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.load()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportWindow.load()");
             queryStart = DateTime.Now;
             dataGridTable = Switcher.PreImportClass.CreateDataTable;
 
@@ -66,7 +66,7 @@ namespace Matt40k.SIMSBulkImport
         /// <param name="e"></param>
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_RunWorkerCompleted()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportWindow.bw_RunWorkerCompleted()");
             if (e.Cancelled)
             {
                 //this.Status.Content = "Disconnected";
@@ -93,7 +93,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_ProgressChanged()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportWindow.bw_ProgressChanged()");
             Status.Content = "Querying SIMS database - " + e.ProgressPercentage + "%";
             // Refreshing the dataGrid causes a crash in .net 4.5, so don't refresh. Version number for 4.5 
             // is actually 4.0.30319.17626 for some reason
@@ -108,7 +108,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.bw_DoWork()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportWindow.bw_DoWork()");
             var worker = sender as BackgroundWorker;
             recordcount = Switcher.PreImportClass.GetImportFileRecordCount;
             recordupto = 0;
@@ -135,7 +135,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.button_Click()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportWindow.button_Click()");
             Switcher.ImportListClass = new ImportList();
             foreach (DataRow row in dataGridTable.Rows)
             {
@@ -146,7 +146,7 @@ namespace Matt40k.SIMSBulkImport
 
         private void Grid_KeyDown(object sender, KeyEventArgs e)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.ImportWindow.Grid_KeyDown()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.ImportWindow.Grid_KeyDown()");
             if (e.Key == Key.Delete)
             {
                 e.Handled = true;

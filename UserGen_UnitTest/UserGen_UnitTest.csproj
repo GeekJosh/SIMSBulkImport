@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UserGen\UserGen.csproj">
+    <ProjectReference Include="..\SIMSBulkImport.UserGen\SIMSBulkImport.UserGen.csproj">
       <Project>{3208438f-1ae6-4ec8-81f1-e8037853c779}</Project>
-      <Name>UserGen</Name>
+      <Name>SIMSBulkImport.UserGen</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -6,7 +6,7 @@ using System.Windows;
 using NLog;
 using NLog.Targets;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     /// <summary>
     ///     Interaction logic for Submit.xaml

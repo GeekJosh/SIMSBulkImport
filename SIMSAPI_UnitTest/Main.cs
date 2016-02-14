@@ -8,7 +8,7 @@ namespace SIMSAPI_UnitTest
     [TestClass]
     public class Main
     {
-        private Matt40k.SIMSBulkImport.SIMSAPI simsapi;
+        private SIMSBulkImport.SIMSAPI simsapi;
         private bool runSimsApiTests;
 
         public Main()
@@ -17,7 +17,7 @@ namespace SIMSAPI_UnitTest
             runSimsApiTests = false;
 
             string simsDir = "c:\\program files (x86)\\sims\\sims .net";
-            simsapi = new Matt40k.SIMSBulkImport.SIMSAPI(simsDir);
+            simsapi = new SIMSBulkImport.SIMSAPI(simsDir);
             // Please set the SIMS username and password
             simsapi.SetSimsUser = "<<removed>>";
             simsapi.SetSimsPass = "<<removed>>";
@@ -33,7 +33,7 @@ namespace SIMSAPI_UnitTest
         {
             if (runSimsApiTests)
             {
-                simsapi.SetUserType = Matt40k.SIMSBulkImport.Interfaces.UserType.Pupil;
+                simsapi.SetUserType = SIMSBulkImport.Interfaces.UserType.Pupil;
                 var result = simsapi.GetPupilUsernameUDFs;
                 int cnt = result.Count;
                 Assert.AreEqual(1, cnt);

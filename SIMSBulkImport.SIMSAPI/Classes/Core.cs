@@ -1,7 +1,7 @@
 ﻿using SIMS.Entities;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport.Classes
+namespace SIMSBulkImport.Classes
 {
     /// <summary>
     /// 

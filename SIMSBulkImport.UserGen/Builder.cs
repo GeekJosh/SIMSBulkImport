@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 
-namespace UserGen
+namespace SIMSBulkImport.UserGen
 {
     public class Builder
     {

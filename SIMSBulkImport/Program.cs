@@ -3,7 +3,7 @@ using System.Threading;
 using System.Windows;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     public class Program
     {
@@ -12,7 +12,7 @@ namespace Matt40k.SIMSBulkImport
         [STAThread]
         private static void Main(string[] args)
         {
-            logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Program.Main()");
+            logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Program.Main()");
             bool freeToRun;
             if (args.Length == 0)
             {

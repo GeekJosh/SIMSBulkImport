@@ -7,8 +7,8 @@
     <ProjectGuid>{3208438F-1AE6-4EC8-81F1-E8037853C779}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UserGen</RootNamespace>
-    <AssemblyName>UserGen</AssemblyName>
+    <RootNamespace>SIMSBulkImport.UserGen</RootNamespace>
+    <AssemblyName>SIMSBulkImport.UserGen</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

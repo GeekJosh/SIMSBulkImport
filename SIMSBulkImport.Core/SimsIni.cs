@@ -13,7 +13,7 @@ namespace SIMSBulkImport.Core
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.SimsIni.GetSimsDir(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.PowerShell.SimsIni.GetSimsDir(GET)");
                 string simsPath = null;
 
                 try
@@ -75,7 +75,7 @@ namespace SIMSBulkImport.Core
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.SimsIni.curdir(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.PowerShell.SimsIni.curdir(GET)");
                 return Directory.GetCurrentDirectory();
             }
         }
@@ -84,7 +84,7 @@ namespace SIMSBulkImport.Core
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.SimsIni.windir(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.PowerShell.SimsIni.windir(GET)");
                 return Environment.GetEnvironmentVariable("windir");
             }
         }
@@ -93,7 +93,7 @@ namespace SIMSBulkImport.Core
         {
             set
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.SimsIni.SetSimsDir(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.PowerShell.SimsIni.SetSimsDir(SET: " + value + ")");
                 appsDir = value;
             }
         }

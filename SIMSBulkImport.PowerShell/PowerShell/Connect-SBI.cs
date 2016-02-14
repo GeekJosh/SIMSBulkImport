@@ -6,7 +6,7 @@ namespace SIMSBulkImport.PowerShell
 {
     public class Core
     {
-        private static Matt40k.SIMSBulkImport.SIMSAPI simsapi;
+        private static SIMSBulkImport.SIMSAPI simsapi;
 
         [Cmdlet("Connect", "SBI", SupportsShouldProcess = false)]
         public class ConnectSBI : PSCmdlet
@@ -25,7 +25,7 @@ namespace SIMSBulkImport.PowerShell
                 // Get the SIMS Application directory - this is read from %WinDir%\SIMS.ini, normally C:\Windows\SIMS.ini
                 if (string.IsNullOrEmpty(SIMSAppDir))
                     SIMSAppDir = SimsIni.GetSimsDir;
-                simsapi = new Matt40k.SIMSBulkImport.SIMSAPI(SIMSAppDir);
+                simsapi = new SIMSBulkImport.SIMSAPI(SIMSAppDir);
 
                 // If no Username is passed then assume we're using Trusted logins
                 if (!string.IsNullOrEmpty(Username))

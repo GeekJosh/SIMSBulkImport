@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport.Staff
+namespace SIMSBulkImport.Staff
 {
     public class Import
     {

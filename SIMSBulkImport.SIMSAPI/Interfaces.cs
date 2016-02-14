@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport
 {
     public class Interfaces
     {

@@ -4,7 +4,7 @@ using System.IO;
 using NLog;
 using NLog.Targets;
 
-namespace Matt40k.SIMSBulkImport.Support
+namespace SIMSBulkImport.Support
 {
     /// <summary>
     ///     Allows user to submit the log file to our web server
@@ -35,7 +35,7 @@ namespace Matt40k.SIMSBulkImport.Support
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Support.View._logFile(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Support.View._logFile(GET)");
                 var t = (FileTarget) LogManager.Configuration.FindTargetByName(log);
                 var logEventInfo = new LogEventInfo {TimeStamp = DateTime.Now};
                 return t.FileName.Render(logEventInfo);
@@ -46,7 +46,7 @@ namespace Matt40k.SIMSBulkImport.Support
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Support.View.ReadLog(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Support.View.ReadLog(GET)");
                 string logFile = _logFile;
                 if (File.Exists(logFile))
                 {
@@ -89,7 +89,7 @@ namespace Matt40k.SIMSBulkImport.Support
 
                     return log;
                 }
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Support.View.ReadLog(GET) FALLEN OVER");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Support.View.ReadLog(GET) FALLEN OVER");
                 return null;
             }
         }
@@ -98,7 +98,7 @@ namespace Matt40k.SIMSBulkImport.Support
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.Support.View.logTable(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: SIMSBulkImport.Support.View.logTable(GET)");
                 var log = new DataTable("Log");
                 log.Columns.Add(new DataColumn("Date", typeof (DateTime)));
                 log.Columns.Add(new DataColumn("Level", typeof (string)));

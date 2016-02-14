@@ -2,7 +2,7 @@
 using System.Data;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport.Staff
+namespace SIMSBulkImport.Staff
 {
     public class PreImport
     {
@@ -427,7 +427,7 @@ namespace Matt40k.SIMSBulkImport.Staff
         /// <returns></returns>
         private bool IsDefault(string value)
         {
-            logger.Log(LogLevel.Debug, "Matt40k.SIMSBulkImport.Staff.PreImport.IsDefault(value: " + value + ")");
+            logger.Log(LogLevel.Debug, "SIMSBulkImport.Staff.PreImport.IsDefault(value: " + value + ")");
             if (value == "<Default>")
                 return true;
             else
