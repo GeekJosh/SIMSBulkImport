@@ -5,3 +5,5 @@
 [SIMS Bulk Import](https://simsbulkimport.uk) is designed to be used by the end-user, it is recommended that it is installed on the end-users workstation.
 
 You must have permissions within SIMS .net to write data to the relevant fields to be able to import data using [SIMS Bulk Import](https://simsbulkimport.uk).
+
+You can [download the latest release from here](https://github.com/SIMSBulkImport/SIMSBulkImport/releases/latest).
