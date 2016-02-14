@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSAPI_UnitTest", "SIMSAPI
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSBulkImport.PowerShell", "SIMSBulkImport.PowerShell\SIMSBulkImport.PowerShell.csproj", "{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}.Release|Any CPU.ActiveCfg = Release|x86
 		{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}.Release|x86.ActiveCfg = Release|x86
 		{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}.Release|x86.Build.0 = Release|x86
+		{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}.Debug|x86.Build.0 = Debug|Any CPU
+		{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}.Release|x86.ActiveCfg = Release|Any CPU
+		{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
