@@ -6,8 +6,6 @@ namespace SIMSBulkImport.PowerShell
 {
     public class Core
     {
-        private static SIMSBulkImport.SIMSAPI simsapi;
-
         [Cmdlet("Connect", "SBI", SupportsShouldProcess = false)]
         public class ConnectSBI : PSCmdlet
         {
@@ -22,10 +20,13 @@ namespace SIMSBulkImport.PowerShell
 
             protected override void ProcessRecord()
             {
+                SIMSBulkImport.SIMSAPI simsapi;
+                string _simsAppDir = null;
                 // Get the SIMS Application directory - this is read from %WinDir%\SIMS.ini, normally C:\Windows\SIMS.ini
-                if (string.IsNullOrEmpty(SIMSAppDir))
-                    SIMSAppDir = SimsIni.GetSimsDir;
-                simsapi = new SIMSBulkImport.SIMSAPI(SIMSAppDir);
+                if (string.IsNullOrEmpty(_simsAppDir))
+                    _simsAppDir = SimsIni.GetSimsDir;
+                WriteObject(_simsAppDir);
+                simsapi = new SIMSAPI(_simsAppDir);
 
                 // If no Username is passed then assume we're using Trusted logins
                 if (!string.IsNullOrEmpty(Username))
@@ -55,7 +56,9 @@ namespace SIMSBulkImport.PowerShell
                 if (result)
                     WriteObject("Connection successed to SIMS .net");
                 else
+                {
                     WriteObject("Connection failed to SIMS .net");
+                }
             }
         }
     }
