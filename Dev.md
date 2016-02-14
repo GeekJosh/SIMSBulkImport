@@ -1,7 +1,7 @@
 # Developing SIMS Bulk Import
 
 You must have
-- Visual Studio
+- [Visual Studio](https://go.microsoft.com/fwlink/?LinkId=691978&clcid=0x409)
 - SIMS .net client
 
 You will need to set the SIMSDOTNETDIRECTORY Environment variable to the SIMS .net client installation directory, this is normally c:\program files (x86)\sims\sims .net\.
