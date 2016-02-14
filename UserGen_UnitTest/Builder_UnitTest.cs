@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UserGen;
+using SIMSBulkImport.UserGen;
 
-namespace UserGen_UnitTest
+namespace SIMSBulkImport.UserGen_UnitTest
 {
     [TestClass]
     public class Builder_UnitTest
