@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SIMSBulkImport.PowerShell")]
-[assembly: AssemblyDescription("SIMSBulkImport PowerShell Module")]
+[assembly: AssemblyTitle("SIMSBulkImport.Core")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SIMSBulkImport.uk")]
-[assembly: AssemblyProduct("SIMSBulkImport.PowerShell")]
-[assembly: AssemblyCopyright("Copyright © SIMS Bulk Import 2016")]
+[assembly: AssemblyProduct("SIMSBulkImport.Core")]
+[assembly: AssemblyCopyright("Copyright © SIMSBulkImport 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("10efbf7c-1f86-496c-b1bc-5faff364d584")]
+[assembly: Guid("5d940511-f9cb-4a24-a53e-cb629dd26140")]
 
 // Version information for an assembly consists of the following four values:
 //

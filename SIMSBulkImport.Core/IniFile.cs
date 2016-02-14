@@ -2,7 +2,7 @@
 using System.Text;
 using NLog;
 
-namespace SIMSBulkImport.PowerShell
+namespace SIMSBulkImport.Core
 {
     public class IniFile
     {

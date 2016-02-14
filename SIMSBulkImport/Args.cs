@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using NLog;
+using SIMSBulkImport.Core;
 
 namespace Matt40k.SIMSBulkImport
 {

@@ -2,6 +2,7 @@
 using System.Windows;
 using MahApps.Metro;
 using Matt40k.SIMSBulkImport.Updater;
+using SIMSBulkImport.Core;
 using NLog;
 
 namespace Matt40k.SIMSBulkImport

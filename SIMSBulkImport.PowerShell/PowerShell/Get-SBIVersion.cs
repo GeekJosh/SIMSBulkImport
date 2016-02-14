@@ -7,7 +7,7 @@ namespace SIMSBulkImport.PowerShell
     {
         protected override void ProcessRecord()
         {
-            WriteObject(string.Format("{0}", GetExe.Version));
+            WriteObject(string.Format("{0} - Version: {1}", GetExe.Description, GetExe.Version));
         }
 
     }

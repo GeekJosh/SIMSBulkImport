@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
 using NLog;
 
-namespace Matt40k.SIMSBulkImport
+namespace SIMSBulkImport.Core
 {
     public static class SimsIni
     {
@@ -14,7 +13,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SimsIni.GetSimsDir(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.SimsIni.GetSimsDir(GET)");
                 string simsPath = null;
 
                 try
@@ -65,8 +64,6 @@ namespace Matt40k.SIMSBulkImport
                 catch (Exception GetSimsDirException)
                 {
                     logger.Log(LogLevel.Fatal, GetSimsDirException);
-                    MessageBox.Show(GetSimsDirException.ToString(), "Error", MessageBoxButton.OK,
-                        MessageBoxImage.Exclamation);
                     Environment.Exit(100);
                 }
                 return appsDir;
@@ -78,7 +75,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SimsIni.curdir(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.SimsIni.curdir(GET)");
                 return Directory.GetCurrentDirectory();
             }
         }
@@ -87,7 +84,7 @@ namespace Matt40k.SIMSBulkImport
         {
             get
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SimsIni.windir(GET)");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.SimsIni.windir(GET)");
                 return Environment.GetEnvironmentVariable("windir");
             }
         }
@@ -96,7 +93,7 @@ namespace Matt40k.SIMSBulkImport
         {
             set
             {
-                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.SimsIni.SetSimsDir(SET: " + value + ")");
+                logger.Log(LogLevel.Debug, "Trace:: Matt40k.SIMSBulkImport.PowerShell.SimsIni.SetSimsDir(SET: " + value + ")");
                 appsDir = value;
             }
         }

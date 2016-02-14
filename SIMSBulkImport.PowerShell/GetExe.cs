@@ -1,13 +1,10 @@
 ﻿using System.IO;
 using System.Reflection;
-using NLog;
 
 namespace SIMSBulkImport.PowerShell
 {
     internal class GetExe
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
         /// <summary>
         ///     Gets the application version
         /// </summary>

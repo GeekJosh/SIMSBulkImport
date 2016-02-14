@@ -120,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Args.cs" />
-    <Compile Include="IniFile.cs" />
     <Compile Include="ISwitchable.cs" />
     <Compile Include="Logic\Contact\Import.cs" />
     <Compile Include="Logic\Contact\PreImport.cs" />
@@ -193,7 +192,6 @@
     <Compile Include="Prefix.cs" />
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Results.cs" />
-    <Compile Include="SimsIni.cs" />
     <Compile Include="TempFile.cs" />
     <Compile Include="UI\Submit.xaml.cs">
       <DependentUpon>Submit.xaml</DependentUpon>
@@ -347,6 +345,10 @@
     <ProjectReference Include="..\SIMSAPI\SIMSAPI.csproj">
       <Project>{e96f7830-32cc-4c63-a40a-0e0c0fe3a0a0}</Project>
       <Name>SIMSAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SIMSBulkImport.Core\SIMSBulkImport.Core.csproj">
+      <Project>{5d940511-f9cb-4a24-a53e-cb629dd26140}</Project>
+      <Name>SIMSBulkImport.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\UserGen\UserGen.csproj">
       <Project>{3208438f-1ae6-4ec8-81f1-e8037853c779}</Project>

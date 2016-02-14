@@ -1,4 +1,6 @@
-﻿using System.Management.Automation;
+﻿using System;
+using System.Management.Automation;
+using SIMSBulkImport.Core;
 
 namespace SIMSBulkImport.PowerShell
 {
@@ -37,8 +39,23 @@ namespace SIMSBulkImport.PowerShell
                     simsapi.SetIsTrusted = true;
                 }
 
+                bool result;
+
                 // Actually try and connect
-                bool result = simsapi.Connect;
+                try
+                {
+                    result = simsapi.Connect;
+                }
+                catch (Exception ConnectSBI_ProcessRecord_Exception)
+                {
+                    result = false;
+                    WriteError(new ErrorRecord(ConnectSBI_ProcessRecord_Exception, "ConnectFailed", ErrorCategory.ConnectionError, "Connect"));
+                }
+
+                if (result)
+                    WriteObject("Connection successed to SIMS .net");
+                else
+                    WriteObject("Connection failed to SIMS .net");
             }
         }
     }
