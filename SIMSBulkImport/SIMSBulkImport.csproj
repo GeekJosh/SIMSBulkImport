@@ -46,7 +46,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <StartupObject>Matt40k.SIMSBulkImport.Program</StartupObject>
+    <StartupObject>SIMSBulkImport.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -151,8 +151,8 @@
     <Compile Include="UI\UserUdf.xaml.cs">
       <DependentUpon>UserUdf.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UserGen.xaml.cs">
-      <DependentUpon>UserGen.xaml</DependentUpon>
+    <Compile Include="UI\UserBuilder.xaml.cs">
+      <DependentUpon>UserBuilder.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
@@ -217,7 +217,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\UserGen.xaml">
+    <Page Include="UI\UserBuilder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

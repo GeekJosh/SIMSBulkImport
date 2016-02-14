@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using UserGen;
+using SIMSBulkImport.UserGen;
 using NLog;
 
 namespace SIMSBulkImport

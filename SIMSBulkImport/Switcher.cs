@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using NLog;
-using UserGen;
+using SIMSBulkImport.UserGen;
 
 namespace SIMSBulkImport
 {

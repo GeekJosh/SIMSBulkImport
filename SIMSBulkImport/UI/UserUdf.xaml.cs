@@ -4,7 +4,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using NLog;
-using UserGen;
+using SIMSBulkImport.UserGen;
 
 namespace SIMSBulkImport
 {
@@ -38,7 +38,7 @@ namespace SIMSBulkImport
             Switcher.UserGenClass.SetSchoolYearGroups = yearGroups;
             Switcher.UserGenClass.SetDefaultUserData = defaultUserData;
             Switcher.SimsApiClass.SetPupilSIMSUDF = (string) this.udfSelection.SelectedValue;
-            Switcher.Switch(new UserGen());
+            Switcher.Switch(new UserBuilder());
         }
 
         private void AddExistsUdfs()

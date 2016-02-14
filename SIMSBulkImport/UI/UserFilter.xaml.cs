@@ -91,7 +91,7 @@ namespace SIMSBulkImport
 
         private void backClick(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new UserGen());
+            Switcher.Switch(new UserBuilder());
         }
 
         private void nextClick(object sender, RoutedEventArgs e)

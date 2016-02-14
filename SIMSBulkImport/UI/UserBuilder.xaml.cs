@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using UserGen;
 using NLog;
 
 namespace SIMSBulkImport
@@ -12,12 +11,12 @@ namespace SIMSBulkImport
     /// <summary>
     ///     Interaction logic for UserGen.xaml
     /// </summary>
-    public partial class UserGen
+    public partial class UserBuilder
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         public string UsrExp { get; set; }
 
-        public UserGen()
+        public UserBuilder()
         {
             InitializeComponent();
             
