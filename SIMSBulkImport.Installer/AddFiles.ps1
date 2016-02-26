@@ -2,13 +2,13 @@
 
 $filecontent = ""
 
-$fileEntries = Get-ChildItem "Installer\src"
+$fileEntries = Get-ChildItem "..\build" -Exclude *vshost.exe*, *.xml, *.pdb
 foreach($fileName in $fileEntries) 
 { 
-	$cleanFilename = $fileName -replace " ", ""
-    $filecontent = $filecontent + "`n           <Component>`n               <File Id=""$cleanFilename"" Source=""src\$fileName"" />`n           </Component>"
+	$cleanFilename = $fileName.Name -replace " ", ""
+    $filecontent = $filecontent + "`n           <Component>`n               <File Id=""$cleanFilename"" Source=""...\build\$fileName"" />`n           </Component>"
 }      
 
 $filefoot = "`n`n		</ComponentGroup>`n	</Fragment>`n</Wix>"
 
-$file = $filehead + $filecontent + $filefoot | Out-File Installer\SimsBulkImport.wxs -Encoding "UTF8"
+$file = $filehead + $filecontent + $filefoot | Out-File SimsBulkImport.wxs -Encoding "UTF8"
