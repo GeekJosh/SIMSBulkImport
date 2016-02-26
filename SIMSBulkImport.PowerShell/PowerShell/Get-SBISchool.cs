@@ -10,9 +10,9 @@ namespace SIMSBulkImport.PowerShell
         protected override void ProcessRecord()
         {
             School _school = new School();
-            _school.Name = "Test";
-            _school.LA = 000;
-            _school.DfE = 0000;
+            _school.Name = Core.SimsApi.GetCurrentSchool;
+            _school.LA = Core.SimsApi.GetCurrentLA;
+            _school.DfE = Core.SimsApi.GetCurrentDfE;
 
             WriteObject(_school, true);
         }
@@ -24,10 +24,10 @@ namespace SIMSBulkImport.PowerShell
             public string Name { get; set; }
 
             [DataMember]
-            public int LA { get; set; }
+            public int? LA { get; set; }
 
             [DataMember]
-            public int DfE { get; set; }
+            public int? DfE { get; set; }
         }
     }
 }

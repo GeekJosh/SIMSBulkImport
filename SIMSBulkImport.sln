@@ -9,11 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSBulkImport.SIMSAPI", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSBulkImport.UserGen", "SIMSBulkImport.UserGen\SIMSBulkImport.UserGen.csproj", "{3208438F-1AE6-4EC8-81F1-E8037853C779}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserGen_UnitTest", "UserGen_UnitTest\UserGen_UnitTest.csproj", "{468BB41A-6C79-4E69-AF4E-494F7623852F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_SIMSBulkImport.UserGen", "UnitTest_UserGen\UnitTest_SIMSBulkImport.UserGen.csproj", "{468BB41A-6C79-4E69-AF4E-494F7623852F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSAPI_UnitTest", "SIMSAPI_UnitTest\SIMSAPI_UnitTest.csproj", "{287C93EE-4209-45FE-B1BC-34BE807374CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_SIMSBulkImport.SIMSAPI", "UnitTest_SIMSAPI\UnitTest_SIMSBulkImport.SIMSAPI.csproj", "{287C93EE-4209-45FE-B1BC-34BE807374CE}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SIMSBulkImport.Installer", "SIMSBulkImport.Installer\SIMSBulkImport.Installer.wixproj", "{50FC2CF9-022B-4E5A-B9E7-D19A2E5990C0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C738571D-DEC4-4FC1-BB42-A21B29D6B4F6} = {C738571D-DEC4-4FC1-BB42-A21B29D6B4F6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMSBulkImport.PowerShell", "SIMSBulkImport.PowerShell\SIMSBulkImport.PowerShell.csproj", "{10EFBF7C-1F86-496C-B1BC-5FAFF364D584}"
 EndProject

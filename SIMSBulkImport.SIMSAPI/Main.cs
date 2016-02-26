@@ -56,9 +56,16 @@ namespace SIMSBulkImport
         /// <param name="simsDir">The folder where SIMS .net is installed</param>
         public SIMSAPI(string _simsdir)
         {
-            simsDir = _simsdir;
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.AssemblyResolve += currentDomain_AssemblyResolve;
+            try
+            {
+                simsDir = _simsdir;
+                AppDomain currentDomain = AppDomain.CurrentDomain;
+                currentDomain.AssemblyResolve += currentDomain_AssemblyResolve;
+            }
+            catch (Exception SIMSAPI_Exception)
+            {
+                errorMessage = SIMSAPI_Exception.ToString();
+            }
         }
 
         /// <summary>
@@ -159,6 +166,36 @@ namespace SIMSBulkImport
         {
             get { return schName; }
         }
+
+        /// <summary>
+        /// Returns the LA code
+        /// </summary>
+        public int? GetCurrentLA
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(laCode))
+                    return null;
+                else
+                    return Int16.Parse(laCode);
+            }
+        }
+
+        /// <summary>
+        /// Returns the DfE code
+        /// </summary>
+        public int? GetCurrentDfE
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(schCode))
+                    return null;
+                else
+                    return Int16.Parse(schCode);
+            }
+        }
+
+
 
         /// <summary>
         /// Returns the SIMS current user

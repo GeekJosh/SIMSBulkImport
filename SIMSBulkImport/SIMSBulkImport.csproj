@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\build\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -291,6 +291,9 @@
       <SubType>Designer</SubType>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
   </ItemGroup>
@@ -342,6 +345,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SIMSBulkImport.PowerShell\SIMSBulkImport.PowerShell.csproj">
+      <Project>{10efbf7c-1f86-496c-b1bc-5faff364d584}</Project>
+      <Name>SIMSBulkImport.PowerShell</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SIMSBulkImport.SIMSAPI\SIMSBulkImport.SIMSAPI.csproj">
       <Project>{e96f7830-32cc-4c63-a40a-0e0c0fe3a0a0}</Project>
       <Name>SIMSBulkImport.SIMSAPI</Name>
