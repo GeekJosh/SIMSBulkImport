@@ -35,9 +35,12 @@
   <ItemGroup>
     <Compile Include="GetExe.cs" />
     <Compile Include="PowerShell\Connect-SBI.cs" />
+    <Compile Include="PowerShell\Get-SBIContact.cs" />
+    <Compile Include="PowerShell\Get-SBIStaff.cs" />
+    <Compile Include="PowerShell\Get-SBIPupil.cs" />
     <Compile Include="PowerShell\Get-SBISchool.cs" />
     <Compile Include="PowerShell\Get-SBIVersion.cs" />
-    <Compile Include="PowerShell\Get-SBIUpdates.cs" />
+    <Compile Include="PowerShell\Get-SBIUpdate.cs" />
     <Compile Include="PowerShell\Static.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

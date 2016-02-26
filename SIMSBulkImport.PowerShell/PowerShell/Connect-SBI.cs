@@ -7,12 +7,24 @@ namespace SIMSBulkImport.PowerShell
     [Cmdlet("Connect", "SBI", SupportsShouldProcess = false)]
     public class ConnectSBI : PSCmdlet
     {
+        /// <summary>
+        /// SIMS Username
+        /// Leave undefiend for Windows Authentication
+        /// </summary>
         [Parameter(Mandatory = false, Position = 0, ParameterSetName = ParameterAttribute.AllParameterSets, ValueFromPipeline = true, HelpMessage = "SIMS .net username")]
         public string Username;
 
+        /// <summary>
+        /// SIMS Password
+        /// Not required for Windows Authentication
+        /// </summary>
         [Parameter(Mandatory = false, Position = 1, ParameterSetName = ParameterAttribute.AllParameterSets, ValueFromPipeline = true, HelpMessage = "SIMS .net password")]
         public string Password;
 
+        /// <summary>
+        /// SIMS Application Directory
+        /// If not defined then the path set in the (c:\windows\) SIMS.ini file will be used
+        /// </summary>
         [Parameter(Mandatory = false, Position = 2, ParameterSetName = ParameterAttribute.AllParameterSets, ValueFromPipeline = true, HelpMessage = "SIMS .net application directory")]
         public string SIMSAppDir;
 

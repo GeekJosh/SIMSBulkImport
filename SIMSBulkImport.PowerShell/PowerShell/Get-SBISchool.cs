@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace SIMSBulkImport.PowerShell
 {
-    [Cmdlet("Get", "SBISchool", SupportsShouldProcess = false)]
+    [Cmdlet(VerbsCommon.Get, "SBISchool", SupportsShouldProcess = false)]
     public class Get_SBISchool : PSCmdlet
     {
         protected override void ProcessRecord()

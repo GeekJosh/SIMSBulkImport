@@ -2,7 +2,7 @@
 
 namespace SIMSBulkImport.PowerShell
 {
-    [Cmdlet("Get", "SBIUpdates", SupportsShouldProcess = false)]
+    [Cmdlet(VerbsCommon.Get, "SBIUpdate", SupportsShouldProcess = false)]
     public class Get_SBIUpdates : PSCmdlet
     {
         protected override void ProcessRecord()
