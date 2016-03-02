@@ -48,7 +48,7 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>PowerShell &amp; AddFiles.ps1</PreBuildEvent>
+    <PreBuildEvent>PowerShell -file ""$(ProjectDir)AddFiles.ps1""</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
