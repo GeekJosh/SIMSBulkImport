@@ -6,8 +6,7 @@ $fileEntries = Get-ChildItem "..\build" -Exclude *vshost.exe*, *.xml, *.pdb
 foreach($fileName in $fileEntries) 
 { 
 	$cleanFilename = $fileName.Name -replace " ", ""
-	$fileSource = $fileName.Path + "\" + $fileName.Name
-    $filecontent = $filecontent + "`n           <Component>`n               <File Id=""$cleanFilename"" Source=""$fileName"" />`n           </Component>"
+    $filecontent = $filecontent + "`n           <Component>`n               <File Id=""$cleanFilename"" Source=""..build\$fileName.Name"" />`n           </Component>"
 }      
 
 $filefoot = "`n`n		</ComponentGroup>`n	</Fragment>`n</Wix>"
